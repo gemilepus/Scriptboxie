@@ -1,0 +1,102 @@
+﻿<Controls:MetroWindow x:Class="Metro.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      Title="MoonyTool"
+                      Height="400"
+                      Width="800"                    
+                      WindowStartupLocation="CenterScreen"
+                      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing">
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Name="Btn_About" Click="Btn_About_Click" Content="About" />
+            <ToggleButton Content="Help" IsChecked="{Binding ElementName=MahAppFlyout, Path=IsOpen}" Cursor="Hand"/>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="MahAppFlyout" Width="200">
+                <TextBlock Width = "200" Margin = "5px">  
+                    alt = % , shift = + and ctrl = ^  <LineBreak/>  
+                    EX: ^{v}" <LineBreak/>  
+                    {ENTER} ~ <LineBreak/>  
+                    Post 0x0D <LineBreak/>
+                </TextBlock>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
+    <Grid>
+        <TabControl VerticalAlignment="Top">
+            <TabItem Header="Main">
+
+                <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" 
+                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Height="320" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="#"/>
+                        <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enble}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
+                        <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}"/>
+                        <DataGridTextColumn Header="Note" Binding="{Binding Path=eTable_Note}" MinWidth="200"/>
+                        <DataGridTemplateColumn >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </TabItem>
+            <TabItem Header="Edit">
+                <Grid Background="White">
+                    <DataGrid CanUserSortColumns="False" AlternationCount="500" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
+                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Height="320" VerticalAlignment="Center" HorizontalAlignment="Center"
+                               MouseDoubleClick="mDataGrid_MouseDoubleClick">
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>
+                            <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=mTable_IsEnable}"/>
+                            <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=mTable_Mode}" MinWidth="100"/>
+                            <DataGridTextColumn Header="Action" Binding="{Binding Path=mTable_Action}" MinWidth="250"/>
+                            <DataGridTextColumn Header="Time" Binding="{Binding Path=mTable_Time}"/>
+                            <DataGridTemplateColumn Header=" ">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <Image  Height="16" Width="16" Source="trash.png"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="+">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <Image  Height="16" Width="16" Source="plus.png"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <Button Click="Btn_open_Click" Content="Open" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" />
+                    <Button Click="Btn_Save_Click" Name="Btn_Save" Content="SAVE" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,60,0"/>
+                    <Button Click="Btn_Run_Click" Name="Btn_Run" Content="Run" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,120,0" />
+                    <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" />
+                    <Controls:ProgressRing Name="Ring" IsActive="{Binding IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,240,0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+
+</Controls:MetroWindow>
+
