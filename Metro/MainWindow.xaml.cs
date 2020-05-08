@@ -276,7 +276,7 @@ namespace Metro
                 this.SetValue(UnitIsCProperty, value);
             }
         }
-
+        
 
         KeyboardListener KListener = new KeyboardListener();
 
@@ -376,14 +376,14 @@ namespace Metro
 
             mThread = new Thread(() =>
             {
+                //Console.WriteLine("Thread Run");
 
                 SortedList mDoSortedList = new SortedList();
                 // key || value
                 //mDoSortedList.Add("Point", "0,0");
                 //mDoSortedList.Add("Point Array", "0,0,0,0");
                 //mDoSortedList.Add("Sound", "");
-                //mDoSortedList.Add("Draw", "");
-
+                //mDoSortedList.Add("Draw", "")
                 //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
 
                 //  GameOverlay .Net
@@ -423,17 +423,13 @@ namespace Metro
                 _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()         
                 _graphics.Setup();
 
-               
                 _red = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Red); // those are the only pre defined Colors
                 // creates a simple font with no additional style
                 _font = _graphics.CreateFont("Arial", 25);
                 _black = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Transparent);
 
+                var gfx = _graphics; // little shortcut
 
-               var gfx = _graphics; // little shortcut
-
-
-                //Console.WriteLine("Thread Run");
                 int n = 0;
                 while (n < mDataTable.Count)
                 {
@@ -772,16 +768,17 @@ namespace Metro
 
                             break;
                     }
-
-                    //Ring.IsActive = false;
                     n++;
                 }
+                //Stop_script();
+
+                //SetValue(UnitIsCProperty, false);
             });
             mThread.Start();
         }
 
 
-        private void Stop_script() {
+    private void Stop_script() {
             mThread.Abort(); //main thread aborting newly created thread.  
             IsActive = false;
         }
