@@ -1,28 +1,28 @@
-﻿using MahApps.Metro.Controls;
-using Ownskit.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Media;
-
 using System.Windows.Forms;
 using System.Drawing;
 using System.Collections;
-using MahApps.Metro.Controls.Dialogs;
 using System.Runtime.InteropServices;
 using System.Threading;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
 using System.Diagnostics;
 
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Ownskit.Utils;
 using GameOverlay.Drawing;
 using GameOverlay.Windows;
+using Gma.System.MouseKeyHook;
 
 namespace Metro
 {
@@ -112,6 +112,7 @@ namespace Metro
         // End *********************************************************************************************
 
         // **************************************** OpenCV & Media ******************************************
+        #region OpenCV & Media
         public static Bitmap makeScreenshot()
         {
             Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
@@ -250,7 +251,7 @@ namespace Metro
             //var flannMatcher = new FlannBasedMatcher();
             //DMatch[] bfMatches = bfMatcher.Match(descriptors1, descriptors2);
             //DMatch[] flannMatches = flannMatcher.Match(descriptors1, descriptors2);
-            
+
             //// Draw matches
             //var bfView = new Mat();
             //Cv2.DrawMatches(gray1, keypoints1, gray2, keypoints2, bfMatches, bfView);
@@ -263,21 +264,68 @@ namespace Metro
             //    Cv2.WaitKey();
             //}
         }
-
+        #endregion
         // End ***************************************************************************************
 
-        public DependencyProperty UnitIsCProperty = DependencyProperty.Register(
-        "IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
-        public bool IsActive
-        {
+        public DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+        public new bool IsActive{
             get { return (bool)this.GetValue(UnitIsCProperty); }
-            set
-            {
-                this.SetValue(UnitIsCProperty, value);
+            set { this.SetValue(UnitIsCProperty, value); }
+        }
+
+        private IKeyboardMouseEvents m_GlobalHook;
+        private int now_x, now_y;
+        private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (Btn_Toggle.IsChecked == true){
+                Subscribe();
+            }
+            else{
+                Unsubscribe();
             }
         }
-        
+        public void Subscribe(){
+            // Note: for the application hook, use the Hook.AppEvents() instead
+            m_GlobalHook = Hook.GlobalEvents();
+            m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
+            m_GlobalHook.KeyPress += GlobalHookKeyPress;
+            m_GlobalHook.MouseMove += HookManager_MouseMove;
+        }
 
+
+        private void GlobalHookKeyPress(object sender, KeyPressEventArgs e){
+            Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
+        }
+
+        private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e){
+            if (Btn_Toggle.IsChecked == true){
+                //if (e.Button.Equals("")) { 
+                //}
+                mDataGrid.DataContext = null;
+                mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() +","+ now_y.ToString(), mTable_Time = 0 });
+                mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString(), mTable_Time = 0 });
+                mDataGrid.DataContext = mDataTable;
+            }
+            Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
+
+            // uncommenting the following line will suppress the middle mouse button click
+            // if (e.Buttons == MouseButtons.Middle) { e.Handled = true; }
+        }
+
+        private void HookManager_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e){
+            now_x = e.X;
+            now_y = e.Y;
+            //Console.WriteLine("MouseMove: x={0:0000}; y={1:0000}", e.X, e.Y);
+        }
+
+        public void Unsubscribe(){
+            m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
+            m_GlobalHook.KeyPress -= GlobalHookKeyPress;
+
+            //It is recommened to dispose it
+            m_GlobalHook.Dispose();
+        }
+        
         KeyboardListener KListener = new KeyboardListener();
 
         // DataGrid
@@ -292,11 +340,14 @@ namespace Metro
             this.DataContext = this;
 
             KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
-         
 
+            //Subscribe();
             // Combobox List
-            List<string> mList = new List<string>() { "Move", "Loop", "Click", "Match", "Key", "Delay", "Get Point", "Run exe", "FindWindow",
-                "ScreenClip", "Draw", "Sift Match", "Clear Draw", "PostMessage", "PlaySound", "Shift", "Color Test" };
+            List<string> mList = new List<string>() { 
+                "Move", "Loop", "Click", "Match", "Key", "Delay", "Get Point",
+                "Run exe", "FindWindow","ScreenClip", "Draw", "Sift Match", 
+                "Clean Draw", "PostMessage", "PlaySound", "Shift", "Color Test"
+            };
             mComboBoxColumn.ItemsSource = mList;
 
             mDataGrid.DataContext = mDataTable;
@@ -309,29 +360,25 @@ namespace Metro
 
         private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
-            e.NewItem = new mTable
-            {
+            e.NewItem = new mTable{
               mTable_IsEnable = true,
                         mTable_Mode = "",
                         mTable_Action = "",
                         mTable_Time = 0
             };
         }
-        private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
+        private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e){
             e.Row.Header = (e.Row.GetIndex()).ToString();
         }
 
-        public class mTable
-        {
+        public class mTable{
             public bool   mTable_IsEnable { get; set; }
             //public Mode_List mTable_Mode { get; set; }
             public string mTable_Mode { get; set; }
             public string mTable_Action { get; set; }
             public int mTable_Time { get; set; }
         }
-        public class eTable
-        {
+        public class eTable{
             public bool eTable_Enable { get; set; }
             public string eTable_Name { get; set; }
             public string eTable_Key { get; set; }
@@ -380,11 +427,11 @@ namespace Metro
 
                 SortedList mDoSortedList = new SortedList();
                 // key || value
-                //mDoSortedList.Add("Point", "0,0");
-                //mDoSortedList.Add("Point Array", "0,0,0,0");
-                //mDoSortedList.Add("Sound", "");
-                //mDoSortedList.Add("Draw", "")
-                //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
+                mDoSortedList.Add("Point", "0,0");
+                mDoSortedList.Add("Point Array", "0,0,0,0");
+                mDoSortedList.Add("Sound", "");
+                mDoSortedList.Add("Draw", "");
+                mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
 
                 //  GameOverlay .Net
                 OverlayWindow _window;
@@ -396,8 +443,7 @@ namespace Metro
                 GameOverlay.Drawing.SolidBrush _black;
 
                 // it is important to set the window to visible (and topmost) if you want to see it!
-                _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
-                {
+                _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height){
                     IsTopmost = true,
                     IsVisible = true
                 };
@@ -418,7 +464,7 @@ namespace Metro
                     Width = _window.Width,
                     WindowHandle = IntPtr.Zero
                 };
-
+                
                 _window.CreateWindow();
                 _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()         
                 _graphics.Setup();
@@ -431,11 +477,11 @@ namespace Metro
                 var gfx = _graphics; // little shortcut
 
                 int n = 0;
-                while (n < mDataTable.Count)
-                {
+                while (n < mDataTable.Count){
                     string Command = mDataTable[n].mTable_Mode;
                     string CommandData = mDataTable[n].mTable_Action;
 
+                    #region Switch Command
                     switch (Command)
                     {
                         case "Move":
@@ -482,50 +528,77 @@ namespace Metro
 
                         case "Click":
 
-                            if (CommandData.Equals("L"))
+                            if (CommandData.Equals("Left"))
                             {
                                 mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                             }
-                            else
+                            if (CommandData.Equals("Left_Down"))
+                            {
+                                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                            }
+                            if (CommandData.Equals("Left_Up"))
+                            {
+                                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                            }
+                            if (CommandData.Equals("Right"))
                             {
                                 mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                            }
+                            if (CommandData.Equals("Right_Down"))
+                            {
+                                mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                            }
+                            if (CommandData.Equals("Right_Up"))
+                            {
                                 mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
                             }
 
                             break;
 
                         case "Match":
-
-                            string TempPath = CommandData;
-                            Mat matTarget;
-                            if (TempPath.Equals("")) { 
-                                TempPath = "s.png";
-                            }
-
-                            if (TempPath.IndexOf(',') != -1)
+                            do
                             {
-                                string[] mSize = TempPath.Split(',');
-                                matTarget = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),
-                                    int.Parse(mSize[3]), int.Parse(mSize[4])));
-                                TempPath = mSize[0];
-                            }
-                            else {   
-                                matTarget = BitmapConverter.ToMat(makeScreenshot());
-                            }
+                                string TempPath = CommandData;
+                                Mat matTarget;
+                                if (TempPath.Equals(""))
+                                {
+                                    TempPath = "s.png";
+                                }
 
-                            
-                            Mat matTemplate = new Mat(TempPath , ImreadModes.Color);
-                            int temp_w = matTemplate.Width/2 , temp_h = matTemplate.Height/2; // center x y
+                                if (TempPath.IndexOf(',') != -1)
+                                {
+                                    string[] mSize = TempPath.Split(',');
+                                    matTarget = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),
+                                        int.Parse(mSize[3]), int.Parse(mSize[4])));
+                                    TempPath = mSize[0];
+                                }
+                                else
+                                {
+                                    Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                                    System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
+                                    gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                                    matTarget = BitmapConverter.ToMat(screenshot);
 
-                            //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
-                            string return_xy = RunTemplateMatch(matTarget, matTemplate);
-                            if (!return_xy.Equals("")) {
-                                string[] xy = return_xy.Split(',');
-                                SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
-                            }
+                                    gfxScreenshot.Dispose();
+                                    screenshot.Dispose();
+                                }
 
 
+                                Mat matTemplate = new Mat(TempPath, ImreadModes.Color);
+                                int temp_w = matTemplate.Width / 2, temp_h = matTemplate.Height / 2; // center x y
+
+                                //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
+                                string return_xy = RunTemplateMatch(matTarget, matTemplate);
+                                if (!return_xy.Equals(""))
+                                {
+                                    string[] xy = return_xy.Split(',');
+                                    SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
+                                }
+
+                            } while (false);
+                         
                             break;
  
                         case "Sift Match":
@@ -616,23 +689,18 @@ namespace Metro
                             if (TempPathd.IndexOf(',') != -1)
                             {
                                 string[] mSize = TempPathd.Split(',');
-                                matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),
-                                    int.Parse(mSize[3]), int.Parse(mSize[4])));
+                                matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),int.Parse(mSize[3]), int.Parse(mSize[4])));
                                 TempPathd = mSize[0];
                             }
                             else {
 
                                 Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-
                                 System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
-
                                 gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-
-                                gfxScreenshot.Dispose();
-
                                 matTargetd = BitmapConverter.ToMat(screenshot);
 
-                                screenshot.Dispose();
+                                gfxScreenshot.Dispose();
+                                screenshot.Dispose();                          
                             }
 
                             
@@ -645,12 +713,11 @@ namespace Metro
                             {
                                 string[] xy = return_xyd.Split(',');
                                 // Move
-                                SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
+                                //SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
 
-                                gfx.BeginScene(); // call before you start any drawing
-                                // Draw
+                                gfx.BeginScene();
+
                                 gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
-
                                 gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd*2, temp_hd*2, 6), 2);
                                 gfx.EndScene();
 
@@ -662,7 +729,7 @@ namespace Metro
 
                             break;
 
-                        case "Clear Draw":
+                        case "Clean Draw":
 
                             gfx.BeginScene(); // call before you start any drawing
                             gfx.ClearScene();
@@ -715,9 +782,7 @@ namespace Metro
                             {
                                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
                                 {
-                                    Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName,
-                                        process.Id, process.MainWindowTitle);
-
+                                    Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName,process.Id, process.MainWindowTitle);
                                     titleText += process.MainWindowTitle.ToString();
                                 }
                             }
@@ -768,6 +833,8 @@ namespace Metro
 
                             break;
                     }
+                    #endregion
+
                     n++;
                 }
                 //Stop_script();
@@ -778,12 +845,12 @@ namespace Metro
         }
 
 
-    private void Stop_script() {
+        private void Stop_script(){
             mThread.Abort(); //main thread aborting newly created thread.  
             IsActive = false;
         }
-        private void Btn_open_Click(object sender, RoutedEventArgs e)
-        {
+
+        private void Btn_open_Click(object sender, RoutedEventArgs e){
             string fileContent = string.Empty;
             string filePath = string.Empty;
 
@@ -794,8 +861,7 @@ namespace Metro
             openFileDialog.RestoreDirectory = true;
             openFileDialog.ShowDialog();
 
-            try
-            {
+            try{
                 //Get the path of specified file
                 filePath = openFileDialog.FileName;
                 //Read the contents of the file into a stream
@@ -836,60 +902,54 @@ namespace Metro
             string out_string = "";
             for (int i = 0; i < mDataTable.Count; i++)
             {
-                out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
-                    + mDataTable[i].mTable_Mode + ";"
-                   + mDataTable[i].mTable_Action + ";"
-                   + mDataTable[i].mTable_Time.ToString() + ";"
-                   + "\n";
+                out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"              
+                    + mDataTable[i].mTable_Mode + ";"                 
+                    + mDataTable[i].mTable_Action + ";"                  
+                    + mDataTable[i].mTable_Time.ToString() + ";"                
+                    + "\n";
             }
             System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
         }
 
-        private void Btn_Run_Click(object sender, RoutedEventArgs ee)
-        {
+        private void Btn_Run_Click(object sender, RoutedEventArgs ee){
             Run_script();
         }
 
-        private void Btn_Stop_Click(object sender, RoutedEventArgs ee)
-        {
+        private void Btn_Stop_Click(object sender, RoutedEventArgs ee){
             Stop_script();
         }
 
-        private void Btn_About_Click(object sender, RoutedEventArgs e)
-        {
-            this.ShowMessageAsync("", "@");
+        private void Btn_About_Click(object sender, RoutedEventArgs e){
+            this.ShowMessageAsync("", "About");
         }
 
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
-            if (columnIndex < 0) {
-
+            if (columnIndex < 0)
+            {
                 return;
             }
 
-            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals(" "))
-            {
+            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals(" ")){
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
-                try
-                {
-                    if (tableIndex < mDataTable.Count())
-                    {
-                        //Table Clear
+                try{
+                    if (tableIndex < mDataTable.Count()){
+                        //Table Clean
                         mDataGrid.DataContext = null;
                         mDataTable.RemoveAt(tableIndex);
                         mDataGrid.DataContext = mDataTable;
                     }
                 }
-                catch { }
+                catch {}
             }
 
             if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
             {
                 // Get index
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
-                try
-                {
+
+                try{
                     if (tableIndex < mDataTable.Count() - 1)
                     {
                         // Insert Item
@@ -913,8 +973,9 @@ namespace Metro
             }
         }
 
-        // **********************************  End  *****************************************
+      
 
+        // **********************************  End  *****************************************
 
         public int MakeLParam(int LoWord, int HiWord)
         {

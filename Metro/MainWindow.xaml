@@ -87,12 +87,12 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
-
+                    <Controls:ToggleSwitch Click="Btn_Toggle_Click" Name="Btn_Toggle" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,240,0"></Controls:ToggleSwitch>
                     <Button Click="Btn_open_Click" Content="Open" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" />
                     <Button Click="Btn_Save_Click" Name="Btn_Save" Content="SAVE" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,60,0"/>
                     <Button Click="Btn_Run_Click" Name="Btn_Run" Content="Run" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,120,0" />
                     <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" />
-                    <Controls:ProgressRing Name="Ring" IsActive="{Binding IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,240,0"/>
+                    <Controls:ProgressRing Name="Ring" IsActive="{Binding IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>
                 </Grid>
             </TabItem>
         </TabControl>
