@@ -109,7 +109,6 @@ E:\Script_Lite\MoonyDesk\bin\Debug\dll\x64\opencv_videoio_ffmpeg430_64.dll
 E:\Script_Lite\MoonyDesk\bin\Debug\Metro.exe.config
 E:\Script_Lite\MoonyDesk\bin\Debug\Metro.exe
 E:\Script_Lite\MoonyDesk\bin\Debug\Metro.pdb
-E:\Script_Lite\Metro\obj\Debug\Metro.csprojAssemblyReference.cache
 E:\Script_Lite\Metro\obj\Debug\MainWindow.baml
 E:\Script_Lite\Metro\obj\Debug\App.baml
 E:\Script_Lite\Metro\obj\Debug\MainWindow.g.cs
@@ -123,3 +122,4 @@ E:\Script_Lite\Metro\obj\Debug\Metro.csproj.CoreCompileInputs.cache
 E:\Script_Lite\Metro\obj\Debug\Metro.csproj.CopyComplete
 E:\Script_Lite\Metro\obj\Debug\Metro.exe
 E:\Script_Lite\Metro\obj\Debug\Metro.pdb
+E:\Script_Lite\Metro\obj\Debug\Metro.csprojAssemblyReference.cache
