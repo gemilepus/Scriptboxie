@@ -23,6 +23,8 @@ using Ownskit.Utils;
 using GameOverlay.Drawing;
 using GameOverlay.Windows;
 using Gma.System.MouseKeyHook;
+using WindowsInputLib;
+using WindowsInputLib.Native;
 
 namespace Metro
 {
@@ -272,6 +274,9 @@ namespace Metro
             get { return (bool)this.GetValue(UnitIsCProperty); }
             set { this.SetValue(UnitIsCProperty, value); }
         }
+        //private WindowsInputLib.IInputSimulator mIInputSimulator;
+        InputSimulator mInputSimulator = new InputSimulator();
+
 
         private IKeyboardMouseEvents m_GlobalHook;
         private int now_x, now_y;
@@ -481,6 +486,8 @@ namespace Metro
                     string Command = mDataTable[n].mTable_Mode;
                     string CommandData = mDataTable[n].mTable_Action;
 
+                    mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
+
                     #region Switch Command
                     switch (Command)
                     {
@@ -688,6 +695,7 @@ namespace Metro
 
                             if (TempPathd.IndexOf(',') != -1)
                             {
+                                //s.png,0,0,300,300
                                 string[] mSize = TempPathd.Split(',');
                                 matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),int.Parse(mSize[3]), int.Parse(mSize[4])));
                                 TempPathd = mSize[0];
@@ -926,8 +934,7 @@ namespace Metro
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
-            if (columnIndex < 0)
-            {
+            if (columnIndex < 0){
                 return;
             }
 
@@ -944,8 +951,7 @@ namespace Metro
                 catch {}
             }
 
-            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
-            {
+            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
                 // Get index
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
 
