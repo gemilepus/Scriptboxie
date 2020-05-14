@@ -57,7 +57,7 @@ namespace GameOverlayExample.Examples
         public void Initialize()
         {
             // creates the window using the settings we applied to it in the constructor
-            _window.CreateWindow();
+            _window.Create();
 
             _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()
             _graphics.Setup();

@@ -274,10 +274,11 @@ namespace Metro
             get { return (bool)this.GetValue(UnitIsCProperty); }
             set { this.SetValue(UnitIsCProperty, value); }
         }
-        //private WindowsInputLib.IInputSimulator mIInputSimulator;
+
+        // WindowsInputLibrary
         InputSimulator mInputSimulator = new InputSimulator();
 
-
+        // globalmousekeyhook
         private IKeyboardMouseEvents m_GlobalHook;
         private int now_x, now_y;
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
@@ -469,8 +470,8 @@ namespace Metro
                     Width = _window.Width,
                     WindowHandle = IntPtr.Zero
                 };
-                
-                _window.CreateWindow();
+               
+                _window.Create();
                 _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()         
                 _graphics.Setup();
 
@@ -486,7 +487,7 @@ namespace Metro
                     string Command = mDataTable[n].mTable_Mode;
                     string CommandData = mDataTable[n].mTable_Action;
 
-                    mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
+                                           
 
                     #region Switch Command
                     switch (Command)
@@ -537,29 +538,35 @@ namespace Metro
 
                             if (CommandData.Equals("Left"))
                             {
-                                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
                             }
                             if (CommandData.Equals("Left_Down"))
                             {
-                                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
                             }
                             if (CommandData.Equals("Left_Up"))
                             {
-                                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
                             }
                             if (CommandData.Equals("Right"))
                             {
-                                mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
                             }
                             if (CommandData.Equals("Right_Down"))
                             {
-                                mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
                             }
                             if (CommandData.Equals("Right_Up"))
                             {
-                                mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
                             }
 
                             break;
@@ -637,6 +644,8 @@ namespace Metro
 
                             // {ENTER}
                             SendKeys.SendWait(CommandData);
+
+                            //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
 
                             break;
                         case "Get Point":
@@ -721,7 +730,7 @@ namespace Metro
                             {
                                 string[] xy = return_xyd.Split(',');
                                 // Move
-                                //SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
+                                SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
 
                                 gfx.BeginScene();
 
