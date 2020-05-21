@@ -25,6 +25,7 @@ using GameOverlay.Windows;
 using Gma.System.MouseKeyHook;
 using WindowsInputLib;
 using WindowsInputLib.Native;
+using OpenCvSharp.XFeatures2D;
 
 namespace Metro
 {
@@ -236,12 +237,12 @@ namespace Metro
             var gray1 = new Mat();
             var gray2 = new Mat();
 
-            //Cv2.CvtColor(src1, gray1, ColorConversionCodes.BGR2GRAY);
-            //Cv2.CvtColor(src2, gray2, ColorConversionCodes.BGR2GRAY);
+            Cv2.CvtColor(src1, gray1, ColorConversionCodes.BGR2GRAY);
+            Cv2.CvtColor(src2, gray2, ColorConversionCodes.BGR2GRAY);
 
-            //var sift = SIFT.Create();
+            var sift = SIFT.Create();
 
-            //// Detect the keypoints and generate their descriptors using SIFT
+            // Detect the keypoints and generate their descriptors using SIFT
             //KeyPoint[] keypoints1, keypoints2;
             //var descriptors1 = new MatOfFloat();
             //var descriptors2 = new MatOfFloat();
@@ -349,8 +350,8 @@ namespace Metro
 
             //Subscribe();
             // Combobox List
-            List<string> mList = new List<string>() { 
-                "Move", "Loop", "Click", "Match", "Key", "Delay", "Get Point",
+            List<string> mList = new List<string>() {
+                "Move","Offset", "Loop", "Click", "Match", "Key", "Delay", "Get Point",
                 "Run exe", "FindWindow","ScreenClip", "Draw", "Sift Match", 
                 "Clean Draw", "PostMessage", "PlaySound", "Shift", "Color Test"
             };
@@ -364,13 +365,12 @@ namespace Metro
         }
 
 
-        private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
+        private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e){
             e.NewItem = new mTable{
-              mTable_IsEnable = true,
-                        mTable_Mode = "",
-                        mTable_Action = "",
-                        mTable_Time = 0
+                mTable_IsEnable = true,
+                mTable_Mode = "",
+                mTable_Action = "",
+                mTable_Time = 0
             };
         }
         private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e){
@@ -395,13 +395,10 @@ namespace Metro
         {
             KListener.Dispose();
 
-            if (args.Key.ToString().Equals("F8"))// Get key
-            {
+            if (args.Key.ToString().Equals("F8")){
                 Run_script();
             }
-
-            if (args.Key.ToString().Equals("F9"))// Get key
-            {
+            if (args.Key.ToString().Equals("F9")){
                 Stop_script();
             }
                  
@@ -433,11 +430,11 @@ namespace Metro
 
                 SortedList mDoSortedList = new SortedList();
                 // key || value
-                mDoSortedList.Add("Point", "0,0");
-                mDoSortedList.Add("Point Array", "0,0,0,0");
-                mDoSortedList.Add("Sound", "");
-                mDoSortedList.Add("Draw", "");
-                mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
+                //mDoSortedList.Add("Point", "0,0");
+                //mDoSortedList.Add("Point Array", "0,0,0,0");
+                //mDoSortedList.Add("Sound", "");
+                //mDoSortedList.Add("Draw", "");
+                //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
 
                 //  GameOverlay .Net
                 OverlayWindow _window;
@@ -487,8 +484,6 @@ namespace Metro
                     string Command = mDataTable[n].mTable_Mode;
                     string CommandData = mDataTable[n].mTable_Action;
 
-                                           
-
                     #region Switch Command
                     switch (Command)
                     {
@@ -496,13 +491,14 @@ namespace Metro
 
                             if (CommandData.IndexOf('#') != -1)                          
                             {
-
+                                string[] mData = CommandData.Split(',');
+                                string mKey = mData[0];
                                 // Check Key
-                                if (mDoSortedList.IndexOfKey(CommandData) != -1) {
+                                if (mDoSortedList.IndexOfKey(mKey) != -1) {
                                     // Get SortedList Value by Key
-                                    string mDoItem = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(CommandData)).ToString();
+                                    string mDoItem = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(mKey)).ToString();
                                     // Remove SortedList Value by key  
-                                    mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(CommandData));
+                                    mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(mKey));
 
                                     string[] movestr = mDoItem.Split(',');
 
@@ -514,6 +510,19 @@ namespace Metro
                                 SetCursorPos(int.Parse(str_move[0]), int.Parse(str_move[1]));
                             }
                            
+                            break;
+
+                        case "Offset":
+
+                            if (CommandData.IndexOf('#') != -1){
+                               
+                            }
+                            else{
+                                string[] mOffset = CommandData.Split(',');
+                                System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
+                                SetCursorPos(point.X + int.Parse(mOffset[0]), point.Y + int.Parse(mOffset[1]));
+                            }
+
                             break;
 
                         case "Shift":
@@ -536,37 +545,81 @@ namespace Metro
 
                         case "Click":
 
-                            if (CommandData.Equals("Left"))
+                            if (CommandData.IndexOf('#') != -1)
                             {
-                                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+                                string[] mData = CommandData.Split(',');
+                                string mKey = mData[0];
+                                CommandData = mData[1];
+                                if (mDoSortedList.IndexOfKey(mKey) != -1)
+                                {
+                                    if (CommandData.Equals("Left"))
+                                    {
+                                        //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                        //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                        mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+                                    }
+                                    if (CommandData.Equals("Left_Down"))
+                                    {
+                                        //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                    }
+                                    if (CommandData.Equals("Left_Up"))
+                                    {
+                                        //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                                    }
+                                    if (CommandData.Equals("Right"))
+                                    {
+                                        //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                        //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                        mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+                                    }
+                                    if (CommandData.Equals("Right_Down"))
+                                    {
+                                        //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                    }
+                                    if (CommandData.Equals("Right_Up"))
+                                    {
+                                        //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                    }
+                                }
                             }
-                            if (CommandData.Equals("Left_Down"))
+                            else
                             {
-                                //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
-                            }
-                            if (CommandData.Equals("Left_Up"))
-                            {
-                                //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
-                            }
-                            if (CommandData.Equals("Right"))
-                            {
-                                //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
-                            }
-                            if (CommandData.Equals("Right_Down"))
-                            {
-                                //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
-                            }
-                            if (CommandData.Equals("Right_Up"))
-                            {
-                                //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                if (CommandData.Equals("Left"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                    //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+                                }
+                                if (CommandData.Equals("Left_Down"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                }
+                                if (CommandData.Equals("Left_Up"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                                }
+                                if (CommandData.Equals("Right"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                    //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+                                }
+                                if (CommandData.Equals("Right_Down"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                }
+                                if (CommandData.Equals("Right_Up"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                }
                             }
 
                             break;
@@ -650,14 +703,14 @@ namespace Metro
                             break;
                         case "Get Point":
 
-                            System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
-                            //TempIntA = point.X;
-                            //TempIntB = point.Y;
-
                             if (CommandData.IndexOf('#') != -1)
                             {
+                                System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
+                                //TempIntA = point.X;
+                                //TempIntB = point.Y;
                                 mDoSortedList.Add(CommandData, point.X.ToString() + "," + point.Y.ToString());
                             }
+
                             break;
                         case "Run exe":
 
@@ -743,6 +796,21 @@ namespace Metro
 
                             matTargetd.Dispose();
                             matTemplated.Dispose();
+
+                            if (CommandData.IndexOf('#') != -1)
+                            {
+                                string[] mData = CommandData.Split(',');
+                                string mKey = mData[0];
+                                CommandData = mData[1];
+                                if (mDoSortedList.IndexOfKey(mKey) != -1)
+                                {
+
+
+
+                                }
+
+                            }
+
 
                             break;
 
@@ -854,9 +922,6 @@ namespace Metro
 
                     n++;
                 }
-                //Stop_script();
-
-                //SetValue(UnitIsCProperty, false);
             });
             mThread.Start();
         }
@@ -893,8 +958,7 @@ namespace Metro
                 mDataGrid.DataContext = null;
                 mDataTable.Clear();
 
-                for (int i = 0; i < SplitStr.Length - 4; i = i + 4)
-                {
+                for (int i = 0; i < SplitStr.Length - 4; i += 4){
                     mDataTable.Add(new mTable()
                     {
                         mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
@@ -917,8 +981,7 @@ namespace Metro
             if (result == null) {return;}
 
             string out_string = "";
-            for (int i = 0; i < mDataTable.Count; i++)
-            {
+            for (int i = 0; i < mDataTable.Count; i++){
                 out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"              
                     + mDataTable[i].mTable_Mode + ";"                 
                     + mDataTable[i].mTable_Action + ";"                  
@@ -983,7 +1046,7 @@ namespace Metro
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (IsActive) {
+            if (IsActive){
                 mThread.Abort();
             }
         }
