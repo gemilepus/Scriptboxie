@@ -344,6 +344,8 @@ namespace Metro
         List<mTable> mDataTable = new List<mTable>();
         List<eTable> eDataTable = new List<eTable>();
 
+        private List<Thread> _workerThreads = new List<Thread>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -364,8 +366,8 @@ namespace Metro
 
             mDataGrid.DataContext = mDataTable;
 
-            eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_Note = "" });
-            eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Stop", eTable_Key = "E", eTable_Note = "" });
+            eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_Note = "" , eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
+            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Stop", eTable_Key = "E", eTable_Note = "", eTable_Path = "" });
             eDataGrid.DataContext = eDataTable;
 
             // .ini
@@ -387,7 +389,50 @@ namespace Metro
                     parser.WriteFile("user.ini", data);
                 }
             }
-            
+
+            Thread nThread = new Thread(() =>
+            {
+                while (true) {
+                    Console.WriteLine("do... 0");
+                    Thread.Sleep(1000);
+                }
+            });
+
+            Thread mThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    Console.WriteLine("do... 1");
+                    Thread.Sleep(1100);
+                }
+            });
+
+            Thread jThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    Console.WriteLine("do... 2");
+                    Thread.Sleep(1200);
+                }
+            });
+
+            //_workerThreads.Add(nThread);
+            //_workerThreads.Add(mThread);
+            //_workerThreads.Add(jThread);
+
+            //_workerThreads[0].Start();
+            //_workerThreads[1].Start();
+            //_workerThreads[2].Start();
+
+            for (int i = 0; i < eDataTable.Count; i++){
+                if (eDataTable[i].eTable_Path.Length > 0){
+                    Thread TempThread = new Thread(() =>{
+                        Script(Load_Script_to_DataTable(eDataTable[i-1].eTable_Path));
+                    });
+                    _workerThreads.Add(TempThread);
+                }
+            }
+            //_workerThreads[0].Start();
         }
 
 
@@ -415,6 +460,7 @@ namespace Metro
             public string eTable_Name { get; set; }
             public string eTable_Key { get; set; }
             public string eTable_Note { get; set; }
+            public string eTable_Path { get; set; }
         }
 
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
@@ -427,7 +473,48 @@ namespace Metro
             if (args.Key.ToString().Equals("F9")){
                 Stop_script();
             }
-                 
+
+            for (int i = 0; i < eDataTable.Count; i++)
+            {
+                if (args.Key.ToString().Equals(eDataTable[i].eTable_Key))
+                {
+                    //Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+
+                    //if (_workerThreads[i].IsAlive){                    
+                    //    //_workerThreads[i].ThreadState.                          
+                    //    if (_workerThreads[i].ThreadState.Equals("SuspendRequested")) {
+                    //        _workerThreads[i].Resume();
+                    //    } 
+                    //    else {
+                    //        _workerThreads[i].Suspend();
+                    //    }
+                    //   Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                    //}
+                    //else{
+                    //    Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                    //    _workerThreads[i].Start();
+                    //}
+
+
+                    if (!_workerThreads[i].IsAlive)
+                    {
+                        _workerThreads[i].Start();
+                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                    }
+                    else
+                    {
+                        _workerThreads[i].Abort();
+                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                        Thread TempThread = new Thread(() =>
+                        {
+                            Script(Load_Script_to_DataTable(eDataTable[i - 1].eTable_Path));
+                        });
+                        _workerThreads[i] = TempThread;
+
+                    }
+                }
+            }
+
             // Restart
             KListener = new KeyboardListener();
             KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
@@ -452,6 +539,521 @@ namespace Metro
 
             mThread = new Thread(() =>
             {
+                Script(mDataTable);
+
+                #region old
+                //Console.WriteLine("Thread Run");
+
+                //SortedList mDoSortedList = new SortedList();
+                //// key || value
+                ////mDoSortedList.Add("Point", "0,0");
+                ////mDoSortedList.Add("Point Array", "0,0,0,0");
+                ////mDoSortedList.Add("Sound", "");
+                ////mDoSortedList.Add("Draw", "");
+                ////mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
+
+                ////  GameOverlay .Net
+                //OverlayWindow _window;
+                //GameOverlay.Drawing.Graphics _graphics;
+
+                //// Brush
+                //GameOverlay.Drawing.SolidBrush _red;
+                //GameOverlay.Drawing.Font _font;
+                //GameOverlay.Drawing.SolidBrush _black;
+
+                //// it is important to set the window to visible (and topmost) if you want to see it!
+                //_window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height){
+                //    IsTopmost = true,
+                //    IsVisible = true
+                //};
+
+                //// handle this event to resize your Graphics surface
+                ////_window.SizeChanged += _window_SizeChanged;
+
+                //// initialize a new Graphics object
+                //// set everything before you call _graphics.Setup()
+                //_graphics = new GameOverlay.Drawing.Graphics
+                //{
+                //    //MeasureFPS = true,
+                //    Height = _window.Height,
+                //    PerPrimitiveAntiAliasing = true,
+                //    TextAntiAliasing = true,
+                //    UseMultiThreadedFactories = false,
+                //    VSync = true,
+                //    Width = _window.Width,
+                //    WindowHandle = IntPtr.Zero
+                //};
+
+                //_window.Create();
+                //_graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()         
+                //_graphics.Setup();
+
+                //_red = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Red); // those are the only pre defined Colors
+                //// creates a simple font with no additional style
+                //_font = _graphics.CreateFont("Arial", 25);
+                //_black = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Transparent);
+
+                //var gfx = _graphics; // little shortcut
+
+                //int n = 0;
+                //while (n < mDataTable.Count){
+                //    string Command = mDataTable[n].mTable_Mode;
+                //    string CommandData = mDataTable[n].mTable_Action;
+                //    bool CommandEnable = mDataTable[n].mTable_IsEnable;
+
+                //    #region Switch Command
+                //    switch (Command)
+                //    {
+                //        case "Move":
+
+                //            if (CommandData.IndexOf('#') != -1)                          
+                //            {
+                //                string[] mData = CommandData.Split(',');
+                //                string mKey = mData[0];
+                //                // Check Key
+                //                if (mDoSortedList.IndexOfKey(mKey) != -1) {
+                //                    // Get SortedList Value by Key
+                //                    string mDoItem = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(mKey)).ToString();
+                //                    // Remove SortedList Value by key  
+                //                    mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(mKey));
+
+                //                    string[] movestr = mDoItem.Split(',');
+
+                //                    SetCursorPos(int.Parse(movestr[0]), int.Parse(movestr[1]));
+                //                }
+                //            }
+                //            else {
+                //                string[] str_move = CommandData.Split(',');
+                //                SetCursorPos(int.Parse(str_move[0]), int.Parse(str_move[1]));
+                //            }
+
+                //            break;
+
+                //        case "Offset":
+
+                //            if (CommandEnable) {
+                //                if (CommandData.IndexOf('#') != -1)
+                //                {
+
+                //                }
+                //                else
+                //                {
+                //                    string[] mOffset = CommandData.Split(',');
+                //                    System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
+                //                    SetCursorPos(point.X + int.Parse(mOffset[0]), point.Y + int.Parse(mOffset[1]));
+                //                }
+                //            }
+
+                //            break;
+
+                //        case "Shift":
+
+                //            string[] str_shift = CommandData.Split(',');
+
+                //            System.Drawing.Point point_Shift = System.Windows.Forms.Control.MousePosition;
+
+                //            SetCursorPos(point_Shift.X + int.Parse(str_shift[0]), point_Shift.Y + int.Parse(str_shift[1]));
+
+
+                //            break;
+
+
+                //        case "Delay":
+
+                //            if (CommandEnable){
+                //                Thread.Sleep(Int32.Parse(CommandData));
+                //            }
+
+                //            break;
+
+                //        case "Click":
+                //            if (CommandEnable)
+                //            {
+                //                if (CommandData.IndexOf('#') != -1)
+                //                {
+                //                    string[] mData = CommandData.Split(',');
+                //                    string mKey = mData[0];
+                //                    CommandData = mData[1];
+                //                    if (mDoSortedList.IndexOfKey(mKey) != -1)
+                //                    {
+                //                        if (CommandData.Equals("Left"))
+                //                        {
+                //                            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                //                            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                //                            mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+                //                        }
+                //                        if (CommandData.Equals("Left_Down"))
+                //                        {
+                //                            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                //                            mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                //                        }
+                //                        if (CommandData.Equals("Left_Up"))
+                //                        {
+                //                            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                //                            mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                //                        }
+                //                        if (CommandData.Equals("Right"))
+                //                        {
+                //                            //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                //                            //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                //                            mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+                //                        }
+                //                        if (CommandData.Equals("Right_Down"))
+                //                        {
+                //                            //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                //                            mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                //                        }
+                //                        if (CommandData.Equals("Right_Up"))
+                //                        {
+                //                            //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                //                            mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                //                        }
+                //                    }
+                //                }
+                //                else
+                //                {
+                //                    if (CommandData.Equals("Left"))
+                //                    {
+                //                        //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                //                        //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                //                        mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+                //                    }
+                //                    if (CommandData.Equals("Left_Down"))
+                //                    {
+                //                        //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                //                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                //                    }
+                //                    if (CommandData.Equals("Left_Up"))
+                //                    {
+                //                        //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                //                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                //                    }
+                //                    if (CommandData.Equals("Right"))
+                //                    {
+                //                        //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                //                        //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                //                        mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+                //                    }
+                //                    if (CommandData.Equals("Right_Down"))
+                //                    {
+                //                        //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                //                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                //                    }
+                //                    if (CommandData.Equals("Right_Up"))
+                //                    {
+                //                        //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                //                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                //                    }
+                //                }
+                //            }
+
+                //            break;
+
+                //        case "Match":
+                //            do
+                //            {
+                //                string TempPath = CommandData;
+                //                Mat matTarget;
+                //                if (TempPath.Equals(""))
+                //                {
+                //                    TempPath = "s.png";
+                //                }
+
+                //                if (TempPath.IndexOf(',') != -1)
+                //                {
+                //                    string[] mSize = TempPath.Split(',');
+                //                    matTarget = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),
+                //                        int.Parse(mSize[3]), int.Parse(mSize[4])));
+                //                    TempPath = mSize[0];
+                //                }
+                //                else
+                //                {
+                //                    Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                //                    System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
+                //                    gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                //                    matTarget = BitmapConverter.ToMat(screenshot);
+
+                //                    gfxScreenshot.Dispose();
+                //                    screenshot.Dispose();
+                //                }
+
+
+                //                Mat matTemplate = new Mat(TempPath, ImreadModes.Color);
+                //                int temp_w = matTemplate.Width / 2, temp_h = matTemplate.Height / 2; // center x y
+
+                //                //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
+                //                string return_xy = RunTemplateMatch(matTarget, matTemplate);
+                //                if (!return_xy.Equals(""))
+                //                {
+                //                    string[] xy = return_xy.Split(',');
+                //                    SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
+                //                }
+
+                //            } while (false);
+
+                //            break;
+
+                //        case "Sift Match":
+
+                //            Mat matTarget_Sift = BitmapConverter.ToMat(makeScreenshot());
+                //            Mat matTemplate_Sift = new Mat( "s.png" , ImreadModes.Color);
+                //            //int temp_w = matTemplate.Width/2 , temp_h = matTemplate.Height/2; // center x y
+
+                //            //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
+                //            //string return_xy = RunTemplateMatch(matTarget, matTemplate);
+                //            //if (!return_xy.Equals("")) {
+                //            //    string[] xy = return_xy.Split(',');
+                //            //    SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
+                //            //}
+
+                //             MatchBySift(matTarget_Sift, matTemplate_Sift);
+
+
+                //            break;
+
+                //        case "Key":
+
+                //            //Char[] mChar =CommandData.ToCharArray();
+                //            //for (int j = 0; j < mChar.Length; j++)
+                //            //{
+                //            //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_EXTENDEDKEY, 0);
+                //            //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_KEYUP, 0);
+                //            //}
+
+                //            // {ENTER}
+                //            SendKeys.SendWait(CommandData);
+
+                //            //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
+
+                //            break;
+                //        case "Get Point":
+
+                //            if (CommandData.IndexOf('#') != -1)
+                //            {
+                //                System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
+                //                //TempIntA = point.X;
+                //                //TempIntB = point.Y;
+                //                mDoSortedList.Add(CommandData, point.X.ToString() + "," + point.Y.ToString());
+                //            }
+
+                //            break;
+                //        case "Run exe":
+
+                //            try
+                //            {
+                //                Process.Start(CommandData);
+                //            }
+                //            catch { }
+
+                //            break;
+
+                //        case "FindWindow":
+
+                //            // and window name were obtained using the Spy++ tool.
+                //            IntPtr calculatorHandle = FindWindow(null,CommandData);
+
+                //            // Verify that Calculator is a running process.
+                //            if (calculatorHandle == IntPtr.Zero)
+                //            {
+                //                //System.Windows.MessageBox.Show("is not running...");
+                //                //return;
+                //            }
+
+                //            // Make Calculator the foreground application and send it 
+                //            // a set of calculations.
+                //            SetForegroundWindow(calculatorHandle);
+                //            break;
+                //        case "ScreenClip":
+
+                //            string[] str_clip = CommandData.Split(',');
+                //            TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]), 
+                //                int.Parse(str_clip[2]), int.Parse(str_clip[3]));
+
+                //            break; 
+
+
+                //        case "Draw":
+
+                //            string TempPathd =CommandData;
+                //            Mat matTargetd = null;
+                //            if (TempPathd.Equals("")) { 
+                //                TempPathd = "s.png";
+                //            }
+
+                //            if (TempPathd.IndexOf(',') != -1)
+                //            {
+                //                //s.png,0,0,300,300
+                //                string[] mSize = TempPathd.Split(',');
+                //                matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),int.Parse(mSize[3]), int.Parse(mSize[4])));
+                //                TempPathd = mSize[0];
+                //            }
+                //            else {
+
+                //                Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                //                System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
+                //                gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                //                matTargetd = BitmapConverter.ToMat(screenshot);
+
+                //                gfxScreenshot.Dispose();
+                //                screenshot.Dispose();                          
+                //            }
+
+
+                //            Mat matTemplated = new Mat(TempPathd , ImreadModes.Color);
+                //            int temp_wd = matTemplated.Width/2 , temp_hd = matTemplated.Height/2; // center x y
+
+                //            //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
+                //            string return_xyd = RunTemplateMatch(matTargetd, matTemplated);
+                //            if (!return_xyd.Equals(""))
+                //            {
+                //                string[] xy = return_xyd.Split(',');
+                //                // Move
+                //                SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
+
+                //                gfx.BeginScene();
+
+                //                gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
+                //                gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd*2, temp_hd*2, 6), 2);
+                //                gfx.EndScene();
+
+                //                Tempflag = true;
+                //            }
+
+                //            matTargetd.Dispose();
+                //            matTemplated.Dispose();
+
+                //            if (CommandData.IndexOf('#') != -1)
+                //            {
+                //                string[] mData = CommandData.Split(',');
+                //                string mKey = mData[0];
+                //                CommandData = mData[1];
+                //                if (mDoSortedList.IndexOfKey(mKey) != -1)
+                //                {
+
+                //                }
+
+                //            }
+
+
+                //            break;
+
+                //        case "Clean Draw":
+
+                //            gfx.BeginScene(); // call before you start any drawing
+                //            gfx.ClearScene();
+                //            gfx.EndScene();
+
+                //            break;
+
+                //        case "PostMessage":
+
+                //            string[] send =CommandData.Split(',');
+
+                //            IntPtr windowHandle;
+                //            if (send[0].Equals("T"))
+                //            {                               
+                //                windowHandle = FindWindow(null, send[1]);  
+                //            }
+                //            else {
+                //                windowHandle = FindWindow(send[1], null);
+                //            }
+
+                //            IntPtr editHandle = windowHandle;
+
+
+                //            if (editHandle == IntPtr.Zero)
+                //            {
+                //                System.Windows.MessageBox.Show("is not running...");
+                //            }
+                //            else {
+                //                //System.Windows.MessageBox.Show(windowHandle.ToString());
+
+                //                gfx.BeginScene(); // call before you start any drawing
+                //                // Draw
+                //                gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, windowHandle.ToString());
+                //                gfx.EndScene();
+                //            }
+
+                //            for (int i = 2; i < send.Length; i++) {
+                //                int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(send[i]);
+                //                SendMessage((int)editHandle, WM_KEYDOWN, 0, "0x014B0001");
+                //                Thread.Sleep(50);
+                //                SendMessage((int)editHandle, WM_KEYUP, 0, "0xC14B0001");
+                //                Thread.Sleep(50);
+                //            }
+
+
+                //            Process[] processlist = Process.GetProcesses();
+
+                //            string titleText = "";
+                //            foreach (Process process in processlist)
+                //            {
+                //                if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                //                {
+                //                    Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName,process.Id, process.MainWindowTitle);
+                //                    titleText += process.MainWindowTitle.ToString();
+                //                }
+                //            }
+
+                //            //System.Windows.MessageBox.Show(titleText);
+                //            string out_string = titleText;
+
+                //            System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "out" + ".txt", out_string);
+
+                //            break;
+
+                //        case "PlaySound":
+
+                //            string SoundPath = CommandData;
+                //            if (Tempflag == true) {
+                //                // SoundPlayer
+                //                SoundPlayer mWaveFile = new SoundPlayer(SoundPath);
+                //                mWaveFile.PlaySync();
+                //                Tempflag = false;
+                //            }
+
+                //            break;
+
+                //        case "Color Test":
+
+                //            Mat mat_screen = new Mat();
+
+                //            Bitmap mscreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                //            System.Drawing.Graphics mgfxScreenshot = System.Drawing.Graphics.FromImage(mscreenshot);
+                //            mgfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                //            mat_screen = BitmapConverter.ToMat(mscreenshot);
+
+                //            Mat mask = new Mat();
+                //            Scalar low_value = new Scalar(100, 100, 100);
+                //            Scalar high_value = new Scalar(255, 255, 255);
+                //            Cv2.InRange(mat_screen, low_value, high_value, mask);
+                //            Cv2.ImShow("a", mask);
+                //            Cv2.WaitKey();
+
+                //            break;
+                //        case "Loop":
+                //            do{
+                //                n = -1;
+                //            } while (false);
+
+                //            break;
+                //        default:
+
+                //            break;
+                //    }
+                //    #endregion
+
+                //    n++;
+                //}
+                #endregion
+            });
+            mThread.Start();
+        }
+
+
+        private void Script(List<mTable> mDataTable)
+        {
+
                 //Console.WriteLine("Thread Run");
 
                 SortedList mDoSortedList = new SortedList();
@@ -472,7 +1074,8 @@ namespace Metro
                 GameOverlay.Drawing.SolidBrush _black;
 
                 // it is important to set the window to visible (and topmost) if you want to see it!
-                _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height){
+                _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
+                {
                     IsTopmost = true,
                     IsVisible = true
                 };
@@ -493,7 +1096,7 @@ namespace Metro
                     Width = _window.Width,
                     WindowHandle = IntPtr.Zero
                 };
-               
+
                 _window.Create();
                 _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()         
                 _graphics.Setup();
@@ -506,7 +1109,8 @@ namespace Metro
                 var gfx = _graphics; // little shortcut
 
                 int n = 0;
-                while (n < mDataTable.Count){
+                while (n < mDataTable.Count)
+                {
                     string Command = mDataTable[n].mTable_Mode;
                     string CommandData = mDataTable[n].mTable_Action;
                     bool CommandEnable = mDataTable[n].mTable_IsEnable;
@@ -516,12 +1120,13 @@ namespace Metro
                     {
                         case "Move":
 
-                            if (CommandData.IndexOf('#') != -1)                          
+                            if (CommandData.IndexOf('#') != -1)
                             {
                                 string[] mData = CommandData.Split(',');
                                 string mKey = mData[0];
                                 // Check Key
-                                if (mDoSortedList.IndexOfKey(mKey) != -1) {
+                                if (mDoSortedList.IndexOfKey(mKey) != -1)
+                                {
                                     // Get SortedList Value by Key
                                     string mDoItem = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(mKey)).ToString();
                                     // Remove SortedList Value by key  
@@ -532,16 +1137,18 @@ namespace Metro
                                     SetCursorPos(int.Parse(movestr[0]), int.Parse(movestr[1]));
                                 }
                             }
-                            else {
+                            else
+                            {
                                 string[] str_move = CommandData.Split(',');
                                 SetCursorPos(int.Parse(str_move[0]), int.Parse(str_move[1]));
                             }
-                           
+
                             break;
 
                         case "Offset":
 
-                            if (CommandEnable) {
+                            if (CommandEnable)
+                            {
                                 if (CommandData.IndexOf('#') != -1)
                                 {
 
@@ -559,18 +1166,19 @@ namespace Metro
                         case "Shift":
 
                             string[] str_shift = CommandData.Split(',');
-                            
+
                             System.Drawing.Point point_Shift = System.Windows.Forms.Control.MousePosition;
 
                             SetCursorPos(point_Shift.X + int.Parse(str_shift[0]), point_Shift.Y + int.Parse(str_shift[1]));
-                            
+
 
                             break;
 
 
                         case "Delay":
 
-                            if (CommandEnable){
+                            if (CommandEnable)
+                            {
                                 Thread.Sleep(Int32.Parse(CommandData));
                             }
 
@@ -656,7 +1264,7 @@ namespace Metro
                                     }
                                 }
                             }
-                           
+
                             break;
 
                         case "Match":
@@ -700,13 +1308,13 @@ namespace Metro
                                 }
 
                             } while (false);
-                         
+
                             break;
- 
+
                         case "Sift Match":
 
                             Mat matTarget_Sift = BitmapConverter.ToMat(makeScreenshot());
-                            Mat matTemplate_Sift = new Mat( "s.png" , ImreadModes.Color);
+                            Mat matTemplate_Sift = new Mat("s.png", ImreadModes.Color);
                             //int temp_w = matTemplate.Width/2 , temp_h = matTemplate.Height/2; // center x y
 
                             //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
@@ -716,7 +1324,7 @@ namespace Metro
                             //    SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
                             //}
 
-                             MatchBySift(matTarget_Sift, matTemplate_Sift);
+                            MatchBySift(matTarget_Sift, matTemplate_Sift);
 
 
                             break;
@@ -760,7 +1368,7 @@ namespace Metro
                         case "FindWindow":
 
                             // and window name were obtained using the Spy++ tool.
-                            IntPtr calculatorHandle = FindWindow(null,CommandData);
+                            IntPtr calculatorHandle = FindWindow(null, CommandData);
 
                             // Verify that Calculator is a running process.
                             if (calculatorHandle == IntPtr.Zero)
@@ -776,17 +1384,18 @@ namespace Metro
                         case "ScreenClip":
 
                             string[] str_clip = CommandData.Split(',');
-                            TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]), 
+                            TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]),
                                 int.Parse(str_clip[2]), int.Parse(str_clip[3]));
 
-                            break; 
-                           
-                      
+                            break;
+
+
                         case "Draw":
 
-                            string TempPathd =CommandData;
+                            string TempPathd = CommandData;
                             Mat matTargetd = null;
-                            if (TempPathd.Equals("")) { 
+                            if (TempPathd.Equals(""))
+                            {
                                 TempPathd = "s.png";
                             }
 
@@ -794,10 +1403,11 @@ namespace Metro
                             {
                                 //s.png,0,0,300,300
                                 string[] mSize = TempPathd.Split(',');
-                                matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),int.Parse(mSize[3]), int.Parse(mSize[4])));
+                                matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]), int.Parse(mSize[3]), int.Parse(mSize[4])));
                                 TempPathd = mSize[0];
                             }
-                            else {
+                            else
+                            {
 
                                 Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
                                 System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
@@ -805,12 +1415,12 @@ namespace Metro
                                 matTargetd = BitmapConverter.ToMat(screenshot);
 
                                 gfxScreenshot.Dispose();
-                                screenshot.Dispose();                          
+                                screenshot.Dispose();
                             }
 
-                            
-                            Mat matTemplated = new Mat(TempPathd , ImreadModes.Color);
-                            int temp_wd = matTemplated.Width/2 , temp_hd = matTemplated.Height/2; // center x y
+
+                            Mat matTemplated = new Mat(TempPathd, ImreadModes.Color);
+                            int temp_wd = matTemplated.Width / 2, temp_hd = matTemplated.Height / 2; // center x y
 
                             //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
                             string return_xyd = RunTemplateMatch(matTargetd, matTemplated);
@@ -823,7 +1433,7 @@ namespace Metro
                                 gfx.BeginScene();
 
                                 gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
-                                gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd*2, temp_hd*2, 6), 2);
+                                gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd * 2, temp_hd * 2, 6), 2);
                                 gfx.EndScene();
 
                                 Tempflag = true;
@@ -852,30 +1462,32 @@ namespace Metro
                             gfx.BeginScene(); // call before you start any drawing
                             gfx.ClearScene();
                             gfx.EndScene();
-                          
+
                             break;
 
                         case "PostMessage":
 
-                            string[] send =CommandData.Split(',');
+                            string[] send = CommandData.Split(',');
 
                             IntPtr windowHandle;
                             if (send[0].Equals("T"))
-                            {                               
-                                windowHandle = FindWindow(null, send[1]);  
+                            {
+                                windowHandle = FindWindow(null, send[1]);
                             }
-                            else {
+                            else
+                            {
                                 windowHandle = FindWindow(send[1], null);
                             }
 
                             IntPtr editHandle = windowHandle;
 
-                            
+
                             if (editHandle == IntPtr.Zero)
                             {
                                 System.Windows.MessageBox.Show("is not running...");
                             }
-                            else {
+                            else
+                            {
                                 //System.Windows.MessageBox.Show(windowHandle.ToString());
 
                                 gfx.BeginScene(); // call before you start any drawing
@@ -884,7 +1496,8 @@ namespace Metro
                                 gfx.EndScene();
                             }
 
-                            for (int i = 2; i < send.Length; i++) {
+                            for (int i = 2; i < send.Length; i++)
+                            {
                                 int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(send[i]);
                                 SendMessage((int)editHandle, WM_KEYDOWN, 0, "0x014B0001");
                                 Thread.Sleep(50);
@@ -900,7 +1513,7 @@ namespace Metro
                             {
                                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
                                 {
-                                    Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName,process.Id, process.MainWindowTitle);
+                                    Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
                                     titleText += process.MainWindowTitle.ToString();
                                 }
                             }
@@ -915,13 +1528,14 @@ namespace Metro
                         case "PlaySound":
 
                             string SoundPath = CommandData;
-                            if (Tempflag == true) {
+                            if (Tempflag == true)
+                            {
                                 // SoundPlayer
                                 SoundPlayer mWaveFile = new SoundPlayer(SoundPath);
                                 mWaveFile.PlaySync();
                                 Tempflag = false;
                             }
-                          
+
                             break;
 
                         case "Color Test":
@@ -942,10 +1556,11 @@ namespace Metro
 
                             break;
                         case "Loop":
-                            do{
+                            do
+                            {
                                 n = -1;
                             } while (false);
-                          
+
                             break;
                         default:
 
@@ -955,10 +1570,7 @@ namespace Metro
 
                     n++;
                 }
-            });
-            mThread.Start();
         }
-
 
         private void Stop_script(){
             mThread.Abort(); //main thread aborting newly created thread.  
@@ -1021,6 +1633,31 @@ namespace Metro
                 });
             }
             mDataGrid.DataContext = mDataTable;
+        }
+
+
+        private List<mTable> Load_Script_to_DataTable(string filePath)
+        {
+            List<mTable> tempDataTable = new List<mTable>();
+            string fileContent = string.Empty;
+            StreamReader reader = new StreamReader(filePath);
+
+            // read test
+            fileContent = reader.ReadToEnd();
+            fileContent.Replace(";", "%;");
+            string[] SplitStr = fileContent.Split(';');
+
+            for (int i = 0; i < SplitStr.Length - 4; i += 4)
+            {
+                tempDataTable.Add(new mTable()
+                {
+                    mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
+                    mTable_Mode = SplitStr[i + 1].Replace("%", ""),
+                    mTable_Action = SplitStr[i + 2].Replace("%", ""),
+                    mTable_Time = 0
+                });
+            }
+            return tempDataTable;
         }
 
         private async void Btn_Save_Click(object sender, RoutedEventArgs e) // async
