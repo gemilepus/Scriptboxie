@@ -27,6 +27,9 @@ using WindowsInputLib;
 using WindowsInputLib.Native;
 using OpenCvSharp.XFeatures2D;
 
+using IniParser;
+using IniParser.Model;
+
 namespace Metro
 {
     /// <summary>
@@ -36,6 +39,7 @@ namespace Metro
     public partial class MainWindow : MetroWindow
     {
         // **************************************** Motion ******************************************
+        #region Motion
         // key actions
         [DllImport("user32.dll", SetLastError = true)]
         static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
@@ -76,6 +80,7 @@ namespace Metro
             }
             return null;
         }
+        #endregion
         // End *********************************************************************************************
 
         // **************************************** Window Activate ******************************************
@@ -362,6 +367,27 @@ namespace Metro
             eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_Note = "" });
             eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Stop", eTable_Key = "E", eTable_Note = "" });
             eDataGrid.DataContext = eDataTable;
+
+            // .ini
+            var parser = new FileIniDataParser();
+            IniData data=new IniData();
+            try{
+                data = parser.ReadFile("user.ini");
+            }
+            catch{
+                parser.WriteFile("user.ini", new IniData());
+            }
+
+            if (data["Def"]["Script"] != null || data["Def"]["Script"] != "") {
+                try {
+                    Load_Script(data["Def"]["Script"]);
+                } 
+                catch {
+                    data["Def"]["Script"] = "";
+                    parser.WriteFile("user.ini", data);
+                }
+            }
+            
         }
 
 
@@ -483,6 +509,7 @@ namespace Metro
                 while (n < mDataTable.Count){
                     string Command = mDataTable[n].mTable_Mode;
                     string CommandData = mDataTable[n].mTable_Action;
+                    bool CommandEnable = mDataTable[n].mTable_IsEnable;
 
                     #region Switch Command
                     switch (Command)
@@ -514,13 +541,17 @@ namespace Metro
 
                         case "Offset":
 
-                            if (CommandData.IndexOf('#') != -1){
-                               
-                            }
-                            else{
-                                string[] mOffset = CommandData.Split(',');
-                                System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
-                                SetCursorPos(point.X + int.Parse(mOffset[0]), point.Y + int.Parse(mOffset[1]));
+                            if (CommandEnable) {
+                                if (CommandData.IndexOf('#') != -1)
+                                {
+
+                                }
+                                else
+                                {
+                                    string[] mOffset = CommandData.Split(',');
+                                    System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
+                                    SetCursorPos(point.X + int.Parse(mOffset[0]), point.Y + int.Parse(mOffset[1]));
+                                }
                             }
 
                             break;
@@ -539,18 +570,57 @@ namespace Metro
 
                         case "Delay":
 
-                            Thread.Sleep(Int32.Parse(CommandData));
+                            if (CommandEnable){
+                                Thread.Sleep(Int32.Parse(CommandData));
+                            }
 
                             break;
 
                         case "Click":
-
-                            if (CommandData.IndexOf('#') != -1)
+                            if (CommandEnable)
                             {
-                                string[] mData = CommandData.Split(',');
-                                string mKey = mData[0];
-                                CommandData = mData[1];
-                                if (mDoSortedList.IndexOfKey(mKey) != -1)
+                                if (CommandData.IndexOf('#') != -1)
+                                {
+                                    string[] mData = CommandData.Split(',');
+                                    string mKey = mData[0];
+                                    CommandData = mData[1];
+                                    if (mDoSortedList.IndexOfKey(mKey) != -1)
+                                    {
+                                        if (CommandData.Equals("Left"))
+                                        {
+                                            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                            mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+                                        }
+                                        if (CommandData.Equals("Left_Down"))
+                                        {
+                                            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                            mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                        }
+                                        if (CommandData.Equals("Left_Up"))
+                                        {
+                                            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                            mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                                        }
+                                        if (CommandData.Equals("Right"))
+                                        {
+                                            //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                            //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                            mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+                                        }
+                                        if (CommandData.Equals("Right_Down"))
+                                        {
+                                            //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                            mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                        }
+                                        if (CommandData.Equals("Right_Up"))
+                                        {
+                                            //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                            mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                        }
+                                    }
+                                }
+                                else
                                 {
                                     if (CommandData.Equals("Left"))
                                     {
@@ -586,42 +656,7 @@ namespace Metro
                                     }
                                 }
                             }
-                            else
-                            {
-                                if (CommandData.Equals("Left"))
-                                {
-                                    //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                    //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
-                                }
-                                if (CommandData.Equals("Left_Down"))
-                                {
-                                    //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
-                                }
-                                if (CommandData.Equals("Left_Up"))
-                                {
-                                    //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
-                                }
-                                if (CommandData.Equals("Right"))
-                                {
-                                    //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                    //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
-                                }
-                                if (CommandData.Equals("Right_Down"))
-                                {
-                                    //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
-                                }
-                                if (CommandData.Equals("Right_Up"))
-                                {
-                                    //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
-                                }
-                            }
-
+                           
                             break;
 
                         case "Match":
@@ -805,8 +840,6 @@ namespace Metro
                                 if (mDoSortedList.IndexOfKey(mKey) != -1)
                                 {
 
-
-
                                 }
 
                             }
@@ -946,33 +979,48 @@ namespace Metro
             try{
                 //Get the path of specified file
                 filePath = openFileDialog.FileName;
-                //Read the contents of the file into a stream
-                StreamReader reader = new StreamReader(filePath);
+                Load_Script(filePath);
 
-                // read test
-                fileContent = reader.ReadToEnd();
-                fileContent.Replace(";", "%;");
-                string[] SplitStr = fileContent.Split(';');
 
-                // Table Clear
-                mDataGrid.DataContext = null;
-                mDataTable.Clear();
-
-                for (int i = 0; i < SplitStr.Length - 4; i += 4){
-                    mDataTable.Add(new mTable()
-                    {
-                        mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
-                        mTable_Mode = SplitStr[i + 1].Replace("%", ""),
-                        mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                        mTable_Time = 0
-                    });
-                }
-                mDataGrid.DataContext = mDataTable;
+                // .ini
+                var parser = new FileIniDataParser();
+                IniData data= parser.ReadFile("user.ini");
+                data["Def"]["Script"] = filePath;
+                parser.WriteFile("user.ini", data);
             }
-            catch{ 
-                //this.ShowMessageAsync("", "ERROR!"); 
+            catch
+            {
+                this.ShowMessageAsync("", "ERROR!");
             }
 
+        }
+
+
+        private void Load_Script(string filePath)
+        {
+            string fileContent = string.Empty;
+            StreamReader reader = new StreamReader(filePath);
+
+            // read test
+            fileContent = reader.ReadToEnd();
+            fileContent.Replace(";", "%;");
+            string[] SplitStr = fileContent.Split(';');
+
+            // Table Clear
+            mDataGrid.DataContext = null;
+            mDataTable.Clear();
+
+            for (int i = 0; i < SplitStr.Length - 4; i += 4)
+            {
+                mDataTable.Add(new mTable()
+                {
+                    mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
+                    mTable_Mode = SplitStr[i + 1].Replace("%", ""),
+                    mTable_Action = SplitStr[i + 2].Replace("%", ""),
+                    mTable_Time = 0
+                });
+            }
+            mDataGrid.DataContext = mDataTable;
         }
 
         private async void Btn_Save_Click(object sender, RoutedEventArgs e) // async
@@ -1050,8 +1098,6 @@ namespace Metro
                 mThread.Abort();
             }
         }
-
-      
 
         // **********************************  End  *****************************************
 
