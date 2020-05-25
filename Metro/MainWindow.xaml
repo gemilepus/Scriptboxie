@@ -43,6 +43,7 @@
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
                         <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}"/>
                         <DataGridTextColumn Header="Note" Binding="{Binding Path=eTable_Note}" MinWidth="200"/>
+                        <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" MinWidth="200"/>
                         <DataGridTemplateColumn >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
