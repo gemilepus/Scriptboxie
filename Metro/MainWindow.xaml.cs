@@ -364,11 +364,16 @@ namespace Metro
             };
             mComboBoxColumn.ItemsSource = mList;
 
-            mDataGrid.DataContext = mDataTable;
+            //mDataGrid.DataContext = mDataTable;
 
-            eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_Note = "" , eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
+            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
+            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "T", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
+            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "Y", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
+            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "U", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
+            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "I", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
+
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Stop", eTable_Key = "E", eTable_Note = "", eTable_Path = "" });
-            eDataGrid.DataContext = eDataTable;
+            //eDataGrid.DataContext = eDataTable;
 
             // .ini
             var parser = new FileIniDataParser();
@@ -424,6 +429,9 @@ namespace Metro
             //_workerThreads[1].Start();
             //_workerThreads[2].Start();
 
+            Load_Script_ini();
+
+
             for (int i = 0; i < eDataTable.Count; i++){
                 if (eDataTable[i].eTable_Path.Length > 0){
                     Thread TempThread = new Thread(() =>{
@@ -459,6 +467,7 @@ namespace Metro
             public bool eTable_Enable { get; set; }
             public string eTable_Name { get; set; }
             public string eTable_Key { get; set; }
+            public string eTable_State { get; set; } 
             public string eTable_Note { get; set; }
             public string eTable_Path { get; set; }
         }
@@ -474,44 +483,60 @@ namespace Metro
                 Stop_script();
             }
 
-            for (int i = 0; i < eDataTable.Count; i++)
-            {
-                if (args.Key.ToString().Equals(eDataTable[i].eTable_Key))
+            // Select Script
+            for (int i = 0; i < eDataTable.Count; i++){
+                if (args.Key.ToString().Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
                 {
-                    //Console.WriteLine(_workerThreads[i].ThreadState.ToString());
-
-                    //if (_workerThreads[i].IsAlive){                    
-                    //    //_workerThreads[i].ThreadState.                          
-                    //    if (_workerThreads[i].ThreadState.Equals("SuspendRequested")) {
-                    //        _workerThreads[i].Resume();
-                    //    } 
-                    //    else {
-                    //        _workerThreads[i].Suspend();
-                    //    }
-                    //   Console.WriteLine(_workerThreads[i].ThreadState.ToString());
-                    //}
-                    //else{
-                    //    Console.WriteLine(_workerThreads[i].ThreadState.ToString());
-                    //    _workerThreads[i].Start();
-                    //}
-
-
-                    if (!_workerThreads[i].IsAlive)
+                   
+                    // Thread
+                    Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
+                    Console.WriteLine("Index " + i.ToString());
+                    Console.WriteLine("Length " + eDataTable.Count.ToString());
+                    if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin)
                     {
-                        _workerThreads[i].Start();
-                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                        break;
+                    }
+                    if (!_workerThreads[i].IsAlive){
+                        try{
+                            if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped)
+                            {
+                                _workerThreads[i].Start();
+                            }
+                            else
+                            {
+                                Thread TempThread = new Thread(() =>
+                                {
+                                    Console.WriteLine(eDataTable[i].eTable_Path);
+                                    Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path));
+                                });
+                                _workerThreads[i] = TempThread;
+                                _workerThreads[i].Start();
+                            }
+                            eDataTable[i].eTable_State = "Running";
+                            Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                        }
+                        catch (InvalidCastException e){
+                            Console.WriteLine(e);
+                        } 
                     }
                     else
                     {
-                        _workerThreads[i].Abort();
-                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
-                        Thread TempThread = new Thread(() =>
+                        try
                         {
-                            Script(Load_Script_to_DataTable(eDataTable[i - 1].eTable_Path));
-                        });
-                        _workerThreads[i] = TempThread;
-
+                            _workerThreads[i].Abort();
+                            Thread TempThread = new Thread(() =>
+                            {
+                                Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path));
+                            });
+                            _workerThreads[i] = TempThread;
+                            eDataTable[i].eTable_State = "Stop";
+                            Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                        }
+                        catch {
+                        }
                     }
+                    eDataGrid.DataContext = null;
+                    eDataGrid.DataContext = eDataTable;
                 }
             }
 
@@ -1331,19 +1356,28 @@ namespace Metro
 
                         case "Key":
 
-                            //Char[] mChar =CommandData.ToCharArray();
-                            //for (int j = 0; j < mChar.Length; j++)
-                            //{
-                            //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_EXTENDEDKEY, 0);
-                            //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_KEYUP, 0);
-                            //}
+                        //Char[] mChar =CommandData.ToCharArray();
+                        //for (int j = 0; j < mChar.Length; j++)
+                        //{
+                        //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_EXTENDEDKEY, 0);
+                        //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_KEYUP, 0);
+                        //}
 
-                            // {ENTER}
-                            SendKeys.SendWait(CommandData);
+                        // {ENTER}
+                        //SendKeys.SendWait(CommandData);
 
-                            //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
+                        //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
 
-                            break;
+                        string str = CommandData;
+                        char[] arr;
+
+                        arr = str.ToCharArray();
+                        foreach (char c in arr) {
+                            mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                        }
+
+                        break;
+
                         case "Get Point":
 
                             if (CommandData.IndexOf('#') != -1)
@@ -1577,6 +1611,112 @@ namespace Metro
             IsActive = false;
         }
 
+
+        private void Save_Script() // async
+        {
+            string out_string = "";
+            for (int i = 0; i < eDataTable.Count; i++)
+            {
+                out_string += eDataTable[i].eTable_Enable + ";"
+                    + eDataTable[i].eTable_Name + ";"
+                    + eDataTable[i].eTable_Key + ";"
+                    + eDataTable[i].eTable_State + ";"
+                    + eDataTable[i].eTable_Note + ";"
+                    + eDataTable[i].eTable_Path +";"
+                    + "\n";
+            }
+            System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "Script.ini", out_string);
+        }
+
+        private void Load_Script_ini()
+        {
+            string fileContent = string.Empty;
+            StreamReader reader = new StreamReader(System.Windows.Forms.Application.StartupPath + "/" + "Script.ini");
+
+            // read test
+            fileContent = reader.ReadToEnd();
+            fileContent.Replace(";", "%;");
+            string[] SplitStr = fileContent.Split(';');
+
+            // Table Clear
+            eDataGrid.DataContext = null;
+            eDataTable.Clear();
+
+            for (int i = 0; i < SplitStr.Length - 6; i += 6)
+            {
+                eDataTable.Add(new eTable()
+                {
+                 eTable_Enable = bool.Parse(SplitStr[i].Replace("%", "")),
+                    eTable_Name = SplitStr[i + 1].Replace("%", ""),
+                    eTable_Key = SplitStr[i + 2].Replace("%", ""),
+                    eTable_State = "",
+                    eTable_Note = SplitStr[i + 4].Replace("%", ""),
+                    eTable_Path = SplitStr[i + 5].Replace("%", "")
+                });
+            }
+            eDataGrid.DataContext = eDataTable;
+        }
+
+        private void eDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            Save_Script();
+        }
+
+        private void eDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int columnIndex = eDataGrid.Columns.IndexOf(eDataGrid.CurrentCell.Column);
+            if (columnIndex < 0)
+            {
+                return;
+            }
+
+            if (eDataGrid.Columns[columnIndex].Header.ToString().Equals(" "))
+            {
+                int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
+                try
+                {
+                    if (tableIndex < eDataTable.Count())
+                    {
+                        //Table Clean
+                        eDataGrid.DataContext = null;
+                        eDataTable.RemoveAt(tableIndex);
+                        eDataGrid.DataContext = eDataTable;
+                    }
+                }
+                catch { }
+            }
+
+            if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
+            {
+                // Get index
+                int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
+
+                try
+                {
+                    if (tableIndex < eDataTable.Count() - 1)
+                    {
+                        // Insert Item
+                        eDataGrid.DataContext = null;
+                        eDataTable.Insert(tableIndex + 1, new eTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                        eDataGrid.DataContext = eDataTable;
+                    }
+                    else
+                    {
+                        eDataGrid.DataContext = null;
+                        eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                        eDataGrid.DataContext = eDataTable;
+                    }
+                }
+                catch { }
+            }
+        }
+
+
+        private void eDataGrid_CurrentCellChanged(object sender, EventArgs e)
+        {
+            Save_Script();
+        }
+
         private void Btn_open_Click(object sender, RoutedEventArgs e){
             string fileContent = string.Empty;
             string filePath = string.Empty;
@@ -1606,7 +1746,7 @@ namespace Metro
             }
 
         }
-
+     
 
         private void Load_Script(string filePath)
         {
@@ -1658,6 +1798,7 @@ namespace Metro
                 });
             }
             return tempDataTable;
+           
         }
 
         private async void Btn_Save_Click(object sender, RoutedEventArgs e) // async
@@ -1675,6 +1816,8 @@ namespace Metro
             }
             System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
         }
+
+       
 
         private void Btn_Run_Click(object sender, RoutedEventArgs ee){
             Run_script();
@@ -1729,6 +1872,8 @@ namespace Metro
                 catch { }
             }  
         }
+
+       
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (IsActive){
@@ -1742,5 +1887,19 @@ namespace Metro
         {
             return ((HiWord << 16) | (LoWord & 0xffff));
         }
+
+     
+
+        public static Keys ConvertCharToVirtualKey(char ch)
+        {
+            short vkey = VkKeyScan(ch);
+            Keys retval = (Keys)(vkey & 0xff);
+            int modifiers = vkey >> 8;
+            if ((modifiers & 1) != 0) retval |= Keys.Shift;
+            if ((modifiers & 2) != 0) retval |= Keys.Control;
+            if ((modifiers & 4) != 0) retval |= Keys.Alt;
+            return retval;
+        }
+
     }
 }
