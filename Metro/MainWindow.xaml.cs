@@ -350,12 +350,11 @@ namespace Metro
         {
             InitializeComponent();
 
-            // Data Binding
-            this.DataContext = this;
-
             KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
 
-            //Subscribe();
+            // Data Binding
+            //this.DataContext = this;
+
             // Combobox List
             List<string> mList = new List<string>() {
                 "Move","Offset", "Loop", "Click", "Match", "Key", "Delay", "Get Point",
@@ -365,14 +364,11 @@ namespace Metro
             mComboBoxColumn.ItemsSource = mList;
 
             //mDataGrid.DataContext = mDataTable;
-
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "T", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "Y", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "U", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "I", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
-
-            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Stop", eTable_Key = "E", eTable_Note = "", eTable_Path = "" });
             //eDataGrid.DataContext = eDataTable;
 
             // .ini
@@ -395,52 +391,18 @@ namespace Metro
                 }
             }
 
-            Thread nThread = new Thread(() =>
-            {
-                while (true) {
-                    Console.WriteLine("do... 0");
-                    Thread.Sleep(1000);
-                }
-            });
-
-            Thread mThread = new Thread(() =>
-            {
-                while (true)
-                {
-                    Console.WriteLine("do... 1");
-                    Thread.Sleep(1100);
-                }
-            });
-
-            Thread jThread = new Thread(() =>
-            {
-                while (true)
-                {
-                    Console.WriteLine("do... 2");
-                    Thread.Sleep(1200);
-                }
-            });
-
-            //_workerThreads.Add(nThread);
-            //_workerThreads.Add(mThread);
-            //_workerThreads.Add(jThread);
-
-            //_workerThreads[0].Start();
-            //_workerThreads[1].Start();
-            //_workerThreads[2].Start();
-
             Load_Script_ini();
-
 
             for (int i = 0; i < eDataTable.Count; i++){
                 if (eDataTable[i].eTable_Path.Length > 0){
-                    Thread TempThread = new Thread(() =>{
-                        Script(Load_Script_to_DataTable(eDataTable[i-1].eTable_Path));
+                    Console.WriteLine(i + " " + eDataTable[i].eTable_Path);
+                    string mScript_Local = eDataTable[i].eTable_Path;
+                    Thread TempThread = new Thread(() =>{  
+                        Script(Load_Script_to_DataTable(mScript_Local));
                     });
                     _workerThreads.Add(TempThread);
                 }
             }
-            //_workerThreads[0].Start();
         }
 
 
@@ -492,48 +454,41 @@ namespace Metro
                     Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
                     Console.WriteLine("Index " + i.ToString());
                     Console.WriteLine("Length " + eDataTable.Count.ToString());
-                    if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-                    {
-                        break;
-                    }
+                    //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin){
+                    //    break;
+                    //}
                     if (!_workerThreads[i].IsAlive){
-                        try{
-                            if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped)
-                            {
-                                _workerThreads[i].Start();
-                            }
-                            else
-                            {
-                                Thread TempThread = new Thread(() =>
-                                {
-                                    Console.WriteLine(eDataTable[i].eTable_Path);
-                                    Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path));
-                                });
-                                _workerThreads[i] = TempThread;
-                                _workerThreads[i].Start();
-                            }
-                            eDataTable[i].eTable_State = "Running";
-                            Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                        if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped)
+                        {
+                            _workerThreads[i].Start();
                         }
-                        catch (InvalidCastException e){
-                            Console.WriteLine(e);
-                        } 
+                        else
+                        {
+                            Console.WriteLine(eDataTable[i].eTable_Path);
+                            string mScript_Local = eDataTable[i].eTable_Path;
+                            List<mTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+
+                            Thread TempThread = new Thread(() =>{
+                                    Script(Script_DataTable);
+                            });
+                            _workerThreads[i] = TempThread;
+                            _workerThreads[i].Start();
+                        }
+                        eDataTable[i].eTable_State = "Running";
+                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     else
                     {
-                        try
-                        {
-                            _workerThreads[i].Abort();
-                            Thread TempThread = new Thread(() =>
-                            {
-                                Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path));
-                            });
-                            _workerThreads[i] = TempThread;
-                            eDataTable[i].eTable_State = "Stop";
-                            Console.WriteLine(_workerThreads[i].ThreadState.ToString());
-                        }
-                        catch {
-                        }
+                        _workerThreads[i].Abort();
+                        Console.WriteLine(eDataTable[i].eTable_Path);
+                        string mScript_Local = eDataTable[i].eTable_Path;
+                        List<mTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                        Thread TempThread = new Thread(() =>{
+                            Script(Script_DataTable);
+                        });
+                        _workerThreads[i] = TempThread;
+                        eDataTable[i].eTable_State = "Stop";
+                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     eDataGrid.DataContext = null;
                     eDataGrid.DataContext = eDataTable;
@@ -1076,7 +1031,7 @@ namespace Metro
         }
 
 
-        private void Script(List<mTable> mDataTable)
+        private void Script(List<mTable> minDataTable)
         {
 
                 //Console.WriteLine("Thread Run");
@@ -1134,11 +1089,11 @@ namespace Metro
                 var gfx = _graphics; // little shortcut
 
                 int n = 0;
-                while (n < mDataTable.Count)
+                while (n < minDataTable.Count)
                 {
-                    string Command = mDataTable[n].mTable_Mode;
-                    string CommandData = mDataTable[n].mTable_Action;
-                    bool CommandEnable = mDataTable[n].mTable_IsEnable;
+                    string Command = minDataTable[n].mTable_Mode;
+                    string CommandData = minDataTable[n].mTable_Action;
+                    bool CommandEnable = minDataTable[n].mTable_IsEnable;
 
                     #region Switch Command
                     switch (Command)
@@ -1776,11 +1731,11 @@ namespace Metro
         }
 
 
-        private List<mTable> Load_Script_to_DataTable(string filePath)
+        private List<mTable> Load_Script_to_DataTable(string mfilePath)
         {
             List<mTable> tempDataTable = new List<mTable>();
             string fileContent = string.Empty;
-            StreamReader reader = new StreamReader(filePath);
+            StreamReader reader = new StreamReader(mfilePath);
 
             // read test
             fileContent = reader.ReadToEnd();
