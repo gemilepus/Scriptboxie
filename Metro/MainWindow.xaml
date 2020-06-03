@@ -38,7 +38,6 @@
                           MouseDoubleClick="eDataGrid_MouseDoubleClick">
 
                     <DataGrid.Columns>
-
                         <DataGridTextColumn Header="#"/>
                         <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
@@ -60,7 +59,6 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -72,12 +70,11 @@
                                MouseDoubleClick="mDataGrid_MouseDoubleClick">
 
                         <DataGrid.Columns>
-
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=mTable_IsEnable}"/>
                             <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=mTable_Mode}" MinWidth="100"/>
                             <DataGridTextColumn Header="Action" Binding="{Binding Path=mTable_Action}" MinWidth="250"/>
-                            <DataGridTextColumn Header="Time" Binding="{Binding Path=mTable_Time}"/>
+                            <DataGridTextColumn Visibility="Hidden" Header="Time" Binding="{Binding Path=mTable_Time}"/>
                             <DataGridTemplateColumn Header=" ">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
@@ -92,8 +89,6 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-
-
                         </DataGrid.Columns>
 
                     </DataGrid>
@@ -102,7 +97,8 @@
                     <Button Click="Btn_Save_Click" Name="Btn_Save" Content="SAVE" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,60,0"/>
                     <Button Click="Btn_Run_Click" Name="Btn_Run" Content="Run" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" />
                     <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,120,0" />
-                    <Controls:ProgressRing Name="Ring" IsActive="{Binding IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>
+                    <!--<Controls:ProgressRing Name="Ring" IsActive="{Binding Path=IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>-->
+                    <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -276,7 +276,8 @@ namespace Metro
         // End ***************************************************************************************
 
         public DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
-        public new bool IsActive{
+        public new bool IsActive
+        {
             get { return (bool)this.GetValue(UnitIsCProperty); }
             set { this.SetValue(UnitIsCProperty, value); }
         }
@@ -436,14 +437,16 @@ namespace Metro
 
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
+            
             KListener.Dispose();
-
             if (args.Key.ToString().Equals("F8")){
                 Run_script();
             }
             if (args.Key.ToString().Equals("F9")){
                 Stop_script();
             }
+
+            
 
             // Select Script
             for (int i = 0; i < eDataTable.Count; i++){
@@ -512,10 +515,11 @@ namespace Metro
         Bitmap TempBitmap;      
         private void Run_script() 
         {
-            if (IsActive == true) {
+            if (Ring.IsActive == true) {
+               
                 mThread.Abort();        
             }
-            IsActive = true;
+            Ring.IsActive = true;
 
             mThread = new Thread(() =>
             {
@@ -1109,11 +1113,8 @@ namespace Metro
                                 {
                                     // Get SortedList Value by Key
                                     string mDoItem = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(mKey)).ToString();
-                                    // Remove SortedList Value by key  
-                                    mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(mKey));
 
                                     string[] movestr = mDoItem.Split(',');
-
                                     SetCursorPos(int.Parse(movestr[0]), int.Parse(movestr[1]));
                                 }
                             }
@@ -1381,6 +1382,16 @@ namespace Metro
 
                         case "Draw":
 
+                        if (CommandEnable)
+                        {
+                            string mKey="";
+                            if (CommandData.IndexOf('#') != -1)
+                            {
+                                string[] mData = CommandData.Split(',');
+                                mKey = mData[0];
+                                CommandData = mData[1];
+                            }
+
                             string TempPathd = CommandData;
                             Mat matTargetd = null;
                             if (TempPathd.Equals(""))
@@ -1426,25 +1437,19 @@ namespace Metro
                                 gfx.EndScene();
 
                                 Tempflag = true;
+
+                                if (CommandData.IndexOf('#') != -1)
+                                {
+                                    mDoSortedList.Add(mKey, return_xyd);
+                                }
                             }
 
                             matTargetd.Dispose();
                             matTemplated.Dispose();
 
-                            if (CommandData.IndexOf('#') != -1)
-                            {
-                                string[] mData = CommandData.Split(',');
-                                string mKey = mData[0];
-                                CommandData = mData[1];
-                                if (mDoSortedList.IndexOfKey(mKey) != -1)
-                                {
+                        }
 
-                                }
-
-                            }
-
-
-                            break;
+                        break;
 
                         case "Clean Draw":
 
@@ -1563,7 +1568,7 @@ namespace Metro
 
         private void Stop_script(){
             mThread.Abort(); //main thread aborting newly created thread.  
-            IsActive = false;
+            Ring.IsActive = false;
         }
 
 

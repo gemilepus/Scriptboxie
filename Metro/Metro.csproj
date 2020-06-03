@@ -142,6 +142,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Func.cs" />
     <Compile Include="IExample.cs" />
     <Compile Include="keyboardlistener.cs" />
     <Compile Include="MainWindow.xaml.cs">
