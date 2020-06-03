@@ -315,8 +315,8 @@ namespace Metro
                 //if (e.Button.Equals("")) { 
                 //}
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() +","+ now_y.ToString(), mTable_Time = 0 });
-                mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString(), mTable_Time = 0 });
+                mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() +","+ now_y.ToString(), mTable_Event = "" });
+                mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString(), mTable_Event = "" });
                 mDataGrid.DataContext = mDataTable;
             }
             Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
@@ -412,7 +412,7 @@ namespace Metro
                 mTable_IsEnable = true,
                 mTable_Mode = "",
                 mTable_Action = "",
-                mTable_Time = 0
+                mTable_Event = ""
             };
         }
         private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e){
@@ -424,7 +424,7 @@ namespace Metro
             //public Mode_List mTable_Mode { get; set; }
             public string mTable_Mode { get; set; }
             public string mTable_Action { get; set; }
-            public int mTable_Time { get; set; }
+            public string mTable_Event { get; set; }
         }
         public class eTable{
             public bool eTable_Enable { get; set; }
@@ -1729,7 +1729,7 @@ namespace Metro
                     mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
                     mTable_Mode = SplitStr[i + 1].Replace("%", ""),
                     mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                    mTable_Time = 0
+                    mTable_Event = ""
                 });
             }
             mDataGrid.DataContext = mDataTable;
@@ -1754,7 +1754,7 @@ namespace Metro
                     mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
                     mTable_Mode = SplitStr[i + 1].Replace("%", ""),
                     mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                    mTable_Time = 0
+                    mTable_Event = ""
                 });
             }
             return tempDataTable;
@@ -1771,7 +1771,7 @@ namespace Metro
                 out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"              
                     + mDataTable[i].mTable_Mode + ";"                 
                     + mDataTable[i].mTable_Action + ";"                  
-                    + mDataTable[i].mTable_Time.ToString() + ";"                
+                    + mDataTable[i].mTable_Event.ToString() + ";"                
                     + "\n";
             }
             System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
@@ -1820,12 +1820,12 @@ namespace Metro
                     {
                         // Insert Item
                         mDataGrid.DataContext = null;
-                        mDataTable.Insert(tableIndex + 1, new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Time = 0 });
+                        mDataTable.Insert(tableIndex + 1, new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
                     else {
                         mDataGrid.DataContext = null;
-                        mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Time = 0 });
+                        mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = ""});
                         mDataGrid.DataContext = mDataTable;
                     }                  
                 }
