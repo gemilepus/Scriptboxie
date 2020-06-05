@@ -603,22 +603,23 @@ namespace Metro
                             {
                                 string[] str_move = CommandData.Split(',');
                                 SetCursorPos(int.Parse(str_move[0]), int.Parse(str_move[1]));
-                              
                             }
                             else
                             {
-                                string[] mData = CommandData.Split(',');
-                                string mKey = mData[0];
                                 // Check Key
-                                if (mDoSortedList.IndexOfKey(mKey) != -1)
+                                if (mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
-                                    // Get SortedList Value by Key
-                                    string mDoItem = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(mKey)).ToString();
-
-                                    string[] movestr = mDoItem.Split(',');
-                                    SetCursorPos(int.Parse(movestr[0]), int.Parse(movestr[1]));
+                                    string[] Event_Data;
+                                    if (CommandData.Length > 0)
+                                    {
+                                        Event_Data = CommandData.Split(',');
+                                    }
+                                    else {
+                                        // Get SortedList Value by Key
+                                       Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
+                                    }
+                                    SetCursorPos(int.Parse(Event_Data[0]), int.Parse(Event_Data[1]));
                                 }
-
                             }
 
                             break;
@@ -821,13 +822,17 @@ namespace Metro
 
                             //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
 
-                            string str = CommandData;
-                            char[] arr;
+                            //string str = CommandData;
+                            //char[] arr;
 
-                            arr = str.ToCharArray();
-                            foreach (char c in arr)
-                            {
-                                mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                            //arr = str.ToCharArray();
+                            //foreach (char c in arr)
+                            //{
+                            //    mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                            //}
+                           
+                            if (mDoSortedList.IndexOfKey(Event[0])!=-1) {
+                                mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(Event[0]));
                             }
 
                             break;
@@ -880,16 +885,6 @@ namespace Metro
 
                         case "Draw":
 
-                            if (CommandEnable)
-                            {
-                                string mKey = "";
-                                if (CommandData.IndexOf('#') != -1)
-                                {
-                                    string[] mData = CommandData.Split(',');
-                                    mKey = mData[0];
-                                    CommandData = mData[1];
-                                }
-
                                 string TempPathd = CommandData;
                                 Mat matTargetd = null;
                                 if (TempPathd.Equals(""))
@@ -925,27 +920,27 @@ namespace Metro
                                 if (!return_xyd.Equals(""))
                                 {
                                     string[] xy = return_xyd.Split(',');
-                                    // Move
-                                    SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
+                                // Move
+                                //SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
 
-                                    gfx.BeginScene();
+                                gfx.BeginScene();
+                                gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
+                                gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd * 2, temp_hd * 2, 6), 2);
+                                gfx.EndScene();
 
-                                    gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
-                                    gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd * 2, temp_hd * 2, 6), 2);
-                                    gfx.EndScene();
+                                //Tempflag = true;
 
-                                    Tempflag = true;
-
-                                    if (CommandData.IndexOf('#') != -1)
-                                    {
-                                        mDoSortedList.Add(mKey, return_xyd);
-                                    }
+                                // Add Key
+                                if (Event[0].Length > 0)
+                                {
+                                    mDoSortedList.Add(Event[0], return_xyd);
                                 }
+                            }
 
                                 matTargetd.Dispose();
                                 matTemplated.Dispose();
 
-                            }
+                            
 
                             break;
 
@@ -1229,7 +1224,7 @@ namespace Metro
                     mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
                     mTable_Mode = SplitStr[i + 1].Replace("%", ""),
                     mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                    mTable_Event = ""
+                    mTable_Event = SplitStr[i + 3].Replace("%", ""),
                 });
             }
             mDataGrid.DataContext = mDataTable;
@@ -1254,7 +1249,7 @@ namespace Metro
                     mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
                     mTable_Mode = SplitStr[i + 1].Replace("%", ""),
                     mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                    mTable_Event = ""
+                    mTable_Event = SplitStr[i + 3].Replace("%", ""),
                 });
             }
             return tempDataTable;
@@ -1288,7 +1283,7 @@ namespace Metro
         }
 
         private void Btn_About_Click(object sender, RoutedEventArgs e){
-            this.ShowMessageAsync("", "About");
+            this.ShowMessageAsync("Mmmmm............", "About");
         }
 
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
