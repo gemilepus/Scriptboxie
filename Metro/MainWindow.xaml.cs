@@ -826,6 +826,9 @@ namespace Metro
                             //SendKeys.SendWait(CommandData);
 
                             //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
+                            //KeysConverter kc = new KeysConverter();
+                            //string keyChar = kc.ConvertToString("A");
+
 
                             string str = CommandData;
                             char[]  arr = str.ToCharArray();
