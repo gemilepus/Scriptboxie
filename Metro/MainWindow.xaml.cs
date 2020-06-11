@@ -358,9 +358,9 @@ namespace Metro
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset", "Loop", "Click", "Match", "Key", "Delay", "Get Point",
+                "Move","Offset", "Loop", "Click", "Match", "Key","RemoveKey", "Delay", "Get Point",
                 "Run exe", "FindWindow","ScreenClip", "Draw", "Sift Match", 
-                "Clean Draw", "PostMessage", "PlaySound", "Shift", "Color Test"
+                "Clean Draw", "PostMessage", "PlaySound", "Color Test"
             };
             mComboBoxColumn.ItemsSource = mList;
 
@@ -609,9 +609,10 @@ namespace Metro
                                 // Check Key
                                 if (mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
-                                    string[] Event_Data;
+                                    string[] Event_Data;       
                                     if (CommandData.Length > 0)
                                     {
+                                        // use CommandData 
                                         Event_Data = CommandData.Split(',');
                                     }
                                     else {
@@ -626,88 +627,92 @@ namespace Metro
 
                         case "Offset":
 
-                            if (CommandEnable)
+                            if (Event.Length == 0)
                             {
-                                if (CommandData.IndexOf('#') != -1)
+                                string[] mOffset = CommandData.Split(',');
+                                System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
+                                SetCursorPos(point.X + int.Parse(mOffset[0]), point.Y + int.Parse(mOffset[1]));
+                            }
+                            else
+                            {
+                                // Check Key
+                                if (mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
-
-                                }
-                                else
-                                {
-                                    string[] mOffset = CommandData.Split(',');
+                                    string[] Event_Data;
+                                    if (CommandData.Length > 0)
+                                    {
+                                        // use CommandData 
+                                        Event_Data = CommandData.Split(',');
+                                    }
+                                    else
+                                    {
+                                        // Get SortedList Value by Key
+                                        Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
+                                    }
                                     System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
-                                    SetCursorPos(point.X + int.Parse(mOffset[0]), point.Y + int.Parse(mOffset[1]));
+                                    SetCursorPos(point.X + int.Parse(Event_Data[0]), point.Y + int.Parse(Event_Data[1]));
                                 }
                             }
 
                             break;
-
-                        case "Shift":
-
-                            string[] str_shift = CommandData.Split(',');
-
-                            System.Drawing.Point point_Shift = System.Windows.Forms.Control.MousePosition;
-
-                            SetCursorPos(point_Shift.X + int.Parse(str_shift[0]), point_Shift.Y + int.Parse(str_shift[1]));
-
-
-                            break;
-
 
                         case "Delay":
 
-                            if (CommandEnable)
+                            if (Event.Length == 0)
                             {
                                 Thread.Sleep(Int32.Parse(CommandData));
                             }
-
+                            else
+                            {
+                                // Check Key
+                                if (mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                {
+                                    Thread.Sleep(Int32.Parse(CommandData));
+                                }
+                            }
                             break;
 
                         case "Click":
-                            if (CommandEnable)
+
+                            if (Event.Length == 0)
                             {
-                                if (CommandData.IndexOf('#') != -1)
+                                if (CommandData.Equals("Left"))
                                 {
-                                    string[] mData = CommandData.Split(',');
-                                    string mKey = mData[0];
-                                    CommandData = mData[1];
-                                    if (mDoSortedList.IndexOfKey(mKey) != -1)
-                                    {
-                                        if (CommandData.Equals("Left"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
-                                        }
-                                        if (CommandData.Equals("Left_Down"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
-                                        }
-                                        if (CommandData.Equals("Left_Up"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
-                                        }
-                                        if (CommandData.Equals("Right"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                            //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
-                                        }
-                                        if (CommandData.Equals("Right_Down"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
-                                        }
-                                        if (CommandData.Equals("Right_Up"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
-                                        }
-                                    }
+                                    //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                    //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
                                 }
-                                else
+                                if (CommandData.Equals("Left_Down"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                }
+                                if (CommandData.Equals("Left_Up"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                                }
+                                if (CommandData.Equals("Right"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                    //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+                                }
+                                if (CommandData.Equals("Right_Down"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                }
+                                if (CommandData.Equals("Right_Up"))
+                                {
+                                    //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
+                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                }
+                            }
+                            else
+                            {
+                                // Check Key
+                                if (mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
                                     if (CommandData.Equals("Left"))
                                     {
@@ -810,44 +815,46 @@ namespace Metro
 
                         case "Key":
 
-                            //Char[] mChar =CommandData.ToCharArray();
+                            //Char[] mChar = CommandData.ToCharArray();
                             //for (int j = 0; j < mChar.Length; j++)
                             //{
                             //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_EXTENDEDKEY, 0);
                             //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_KEYUP, 0);
                             //}
 
-                            // {ENTER}
+                            //{ ENTER}
                             //SendKeys.SendWait(CommandData);
 
                             //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
 
-                            //string str = CommandData;
-                            //char[] arr;
+                            string str = CommandData;
+                            char[]  arr = str.ToCharArray();
+                            foreach (char c in arr)
+                            {
+                                mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                            }
 
-                            //arr = str.ToCharArray();
-                            //foreach (char c in arr)
-                            //{
-                            //    mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
-                            //}
-                           
-                            if (mDoSortedList.IndexOfKey(Event[0])!=-1) {
+                            break;
+
+                        case "RemoveKey":
+
+                            if (mDoSortedList.IndexOfKey(Event[0]) != -1)
+                            {
                                 mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(Event[0]));
                             }
 
                             break;
-
                         case "Get Point":
 
-                            if (CommandData.IndexOf('#') != -1)
+                            // Add Key
+                            if (Event[0].Length > 0)
                             {
                                 System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
-                                //TempIntA = point.X;
-                                //TempIntB = point.Y;
-                                mDoSortedList.Add(CommandData, point.X.ToString() + "," + point.Y.ToString());
+                                mDoSortedList.Add(Event[0], point.X.ToString() + "," + point.Y.ToString());
                             }
 
                             break;
+
                         case "Run exe":
 
                             try
@@ -874,73 +881,67 @@ namespace Metro
                             // a set of calculations.
                             SetForegroundWindow(calculatorHandle);
                             break;
+
                         case "ScreenClip":
 
                             string[] str_clip = CommandData.Split(',');
-                            TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]),
-                                int.Parse(str_clip[2]), int.Parse(str_clip[3]));
+                            TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]),int.Parse(str_clip[2]), int.Parse(str_clip[3]));
 
                             break;
 
-
                         case "Draw":
 
-                                string TempPathd = CommandData;
-                                Mat matTargetd = null;
-                                if (TempPathd.Equals(""))
-                                {
-                                    TempPathd = "s.png";
-                                }
+                            string TempPathd = CommandData;
+                            Mat matTargetd = null;
+                            if (TempPathd.Equals(""))
+                            {
+                                TempPathd = "s.png";
+                            }
 
-                                if (TempPathd.IndexOf(',') != -1)
-                                {
-                                    //s.png,0,0,300,300
-                                    string[] mSize = TempPathd.Split(',');
-                                    matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]), int.Parse(mSize[3]), int.Parse(mSize[4])));
-                                    TempPathd = mSize[0];
-                                }
-                                else
-                                {
+                            if (TempPathd.IndexOf(',') != -1)
+                            {
+                                //s.png,0,0,300,300
+                                string[] mSize = TempPathd.Split(',');
+                                matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]), int.Parse(mSize[3]), int.Parse(mSize[4])));
+                                TempPathd = mSize[0];
+                            }
+                            else
+                            {
 
-                                    Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-                                    System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
-                                    gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-                                    matTargetd = BitmapConverter.ToMat(screenshot);
+                                Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                                System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
+                                gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                                matTargetd = BitmapConverter.ToMat(screenshot);
 
-                                    gfxScreenshot.Dispose();
-                                    screenshot.Dispose();
-                                }
+                                gfxScreenshot.Dispose();
+                                screenshot.Dispose();
+                            }
 
 
-                                Mat matTemplated = new Mat(TempPathd, ImreadModes.Color);
-                                int temp_wd = matTemplated.Width / 2, temp_hd = matTemplated.Height / 2; // center x y
+                            Mat matTemplated = new Mat(TempPathd, ImreadModes.Color);
+                            int temp_wd = matTemplated.Width / 2, temp_hd = matTemplated.Height / 2; // center x y
 
-                                //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
-                                string return_xyd = RunTemplateMatch(matTargetd, matTemplated);
-                                if (!return_xyd.Equals(""))
-                                {
-                                    string[] xy = return_xyd.Split(',');
-                                // Move
-                                //SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
+                            //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
+                            string return_xyd = RunTemplateMatch(matTargetd, matTemplated);
+                            if (!return_xyd.Equals(""))
+                            {
+                                string[] xy = return_xyd.Split(',');
 
                                 gfx.BeginScene();
                                 gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
                                 gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd * 2, temp_hd * 2, 6), 2);
                                 gfx.EndScene();
 
-                                //Tempflag = true;
-
                                 // Add Key
                                 if (Event[0].Length > 0)
                                 {
                                     mDoSortedList.Add(Event[0], return_xyd);
                                 }
+                                // Move
+                                //SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
                             }
-
-                                matTargetd.Dispose();
-                                matTemplated.Dispose();
-
-                            
+                            matTargetd.Dispose();
+                            matTemplated.Dispose();
 
                             break;
 
@@ -949,6 +950,39 @@ namespace Metro
                             gfx.BeginScene(); // call before you start any drawing
                             gfx.ClearScene();
                             gfx.EndScene();
+
+                            break;
+
+                      
+
+                        case "PlaySound":
+
+                            string SoundPath = CommandData;
+                            if (Tempflag == true)
+                            {
+                                // SoundPlayer
+                                SoundPlayer mWaveFile = new SoundPlayer(SoundPath);
+                                mWaveFile.PlaySync();
+                                Tempflag = false;
+                            }
+
+                            break;
+
+                        case "Color Test":
+
+                            Mat mat_screen = new Mat();
+
+                            Bitmap mscreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                            System.Drawing.Graphics mgfxScreenshot = System.Drawing.Graphics.FromImage(mscreenshot);
+                            mgfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+                            mat_screen = BitmapConverter.ToMat(mscreenshot);
+
+                            Mat mask = new Mat();
+                            Scalar low_value = new Scalar(100, 100, 100);
+                            Scalar high_value = new Scalar(255, 255, 255);
+                            Cv2.InRange(mat_screen, low_value, high_value, mask);
+                            Cv2.ImShow("a", mask);
+                            Cv2.WaitKey();
 
                             break;
 
@@ -1012,36 +1046,6 @@ namespace Metro
 
                             break;
 
-                        case "PlaySound":
-
-                            string SoundPath = CommandData;
-                            if (Tempflag == true)
-                            {
-                                // SoundPlayer
-                                SoundPlayer mWaveFile = new SoundPlayer(SoundPath);
-                                mWaveFile.PlaySync();
-                                Tempflag = false;
-                            }
-
-                            break;
-
-                        case "Color Test":
-
-                            Mat mat_screen = new Mat();
-
-                            Bitmap mscreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-                            System.Drawing.Graphics mgfxScreenshot = System.Drawing.Graphics.FromImage(mscreenshot);
-                            mgfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-                            mat_screen = BitmapConverter.ToMat(mscreenshot);
-
-                            Mat mask = new Mat();
-                            Scalar low_value = new Scalar(100, 100, 100);
-                            Scalar high_value = new Scalar(255, 255, 255);
-                            Cv2.InRange(mat_screen, low_value, high_value, mask);
-                            Cv2.ImShow("a", mask);
-                            Cv2.WaitKey();
-
-                            break;
                         case "Loop":
                             do
                             {
@@ -1049,6 +1053,7 @@ namespace Metro
                             } while (false);
 
                             break;
+
                         default:
 
                             break;
