@@ -883,6 +883,7 @@ namespace Metro
                             // Make Calculator the foreground application and send it 
                             // a set of calculations.
                             SetForegroundWindow(calculatorHandle);
+
                             break;
 
                         case "ScreenClip":
