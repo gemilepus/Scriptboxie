@@ -1,0 +1,6 @@
+True;Draw;;1;
+False;Move;;1;
+True;Key;;1;
+True;Delay;100;;
+True;Clean Draw;;;
+True;Loop;;;
