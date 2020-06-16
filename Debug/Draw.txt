@@ -1,0 +1,4 @@
+True;Draw;;0;
+True;Delay;100;0;
+True;Clean Draw;;0;
+True;Loop;;0;

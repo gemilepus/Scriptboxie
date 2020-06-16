@@ -1,0 +1,13 @@
+True;Draw;s.png,0,0,300,300;0;
+True;Click;Left;0;
+True;Click;Left;0;
+True;Clean Draw;;0;
+True;Draw;s.png,0,0,300,300;0;
+True;Click;Left;0;
+True;Click;Left;0;
+True;Clean Draw;;0;
+True;Draw;s.png,0,0,300,300;0;
+True;Click;Left;0;
+True;Click;Left;0;
+True;Clean Draw;;0;
+True;Loop;;0;
