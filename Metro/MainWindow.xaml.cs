@@ -536,7 +536,6 @@ namespace Metro
             // key || value
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
-            //mDoSortedList.Add("Sound", "");
             //mDoSortedList.Add("Draw", "");
             //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
 
@@ -591,10 +590,8 @@ namespace Metro
                 string CommandData = minDataTable[n].mTable_Action;
                 bool CommandEnable = minDataTable[n].mTable_IsEnable;
                 string[] Event = minDataTable[n].mTable_Event.Split(',');
-                if (minDataTable[n].mTable_Event == "") {
-                    Event = new string[0];
-                }
-                Console.WriteLine(Event.Length.ToString());
+                if (minDataTable[n].mTable_Event == "") { Event = new string[0];}
+
                 if (CommandEnable) {
 
                     #region Switch Command
