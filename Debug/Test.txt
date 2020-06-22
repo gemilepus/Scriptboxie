@@ -1,6 +1,5 @@
-True;Draw;;1;
-False;Move;;1;
-True;Key;;1;
+True;Click;Left_Down;;
+True;Delay;50;;
+True;Click;Left_Up;;
 True;Delay;100;;
-True;Clean Draw;;;
 True;Loop;;;

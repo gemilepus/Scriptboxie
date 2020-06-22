@@ -591,7 +591,10 @@ namespace Metro
                 string CommandData = minDataTable[n].mTable_Action;
                 bool CommandEnable = minDataTable[n].mTable_IsEnable;
                 string[] Event = minDataTable[n].mTable_Event.Split(',');
-
+                if (minDataTable[n].mTable_Event == "") {
+                    Event = new string[0];
+                }
+                Console.WriteLine(Event.Length.ToString());
                 if (CommandEnable) {
 
                     #region Switch Command
