@@ -382,6 +382,15 @@ namespace Metro
                 parser.WriteFile("user.ini", new IniData());
             }
 
+            try
+            {
+                //data = parser.ReadFile("script.ini");
+            }
+            catch
+            {
+                //parser.WriteFile("script.ini", new IniData());
+            }
+
             if (data["Def"]["Script"] != null || data["Def"]["Script"] != "") {
                 try {
                     Load_Script(data["Def"]["Script"]);
