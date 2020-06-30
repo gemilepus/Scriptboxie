@@ -295,6 +295,12 @@ namespace Metro
             }
             else{
                 Unsubscribe();
+
+                // remove event
+                mDataGrid.DataContext = null;
+                mDataTable.RemoveAt(mDataTable.Count - 1);
+                mDataTable.RemoveAt(mDataTable.Count - 1);
+                mDataGrid.DataContext = mDataTable;
             }
         }
         public void Subscribe(){
