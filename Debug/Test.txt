@@ -1,5 +1,0 @@
-True;Click;Left_Down;;
-True;Delay;50;;
-True;Click;Left_Up;;
-True;Delay;100;;
-True;Loop;;;
