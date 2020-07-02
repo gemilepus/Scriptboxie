@@ -311,15 +311,13 @@ namespace Metro
             m_GlobalHook.MouseMove += HookManager_MouseMove;
         }
 
-
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e){
             Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
         }
 
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e){
             if (Btn_Toggle.IsChecked == true){
-                //if (e.Button.Equals("")) { 
-                //}
+                //if (e.Button.Equals("")) { }
                 mDataGrid.DataContext = null;
                 mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() +","+ now_y.ToString(), mTable_Event = "" });
                 mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString(), mTable_Event = "" });
@@ -454,10 +452,10 @@ namespace Metro
         {
             
             KListener.Dispose();
-            if (args.Key.ToString().Equals("F8")){
+            if (args.ToString().Equals("[")){
                 Run_script();
             }
-            if (args.Key.ToString().Equals("F9")){
+            if (args.ToString().Equals("]")){
                 Stop_script();
             }
 
