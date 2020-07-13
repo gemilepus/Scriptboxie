@@ -798,11 +798,22 @@ namespace Metro
 
                                 //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
                                 string return_xy = RunTemplateMatch(matTarget, matTemplate);
+                                //if (!return_xy.Equals(""))
+                                //{
+                                //    string[] xy = return_xy.Split(',');
+                                //    SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
+                                //}
+
                                 if (!return_xy.Equals(""))
                                 {
-                                    string[] xy = return_xy.Split(',');
-                                    SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
+                                    // Add Key
+                                    if (Event[0].Length > 0)
+                                    {
+                                        mDoSortedList.Add(Event[0], return_xy);
+                                    }
                                 }
+                                matTarget.Dispose();
+                                matTemplate.Dispose();
 
                             } while (false);
 
@@ -945,7 +956,7 @@ namespace Metro
                                 string[] xy = return_xyd.Split(',');
 
                                 gfx.BeginScene();
-                                gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
+                                //gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
                                 gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd * 2, temp_hd * 2, 6), 2);
                                 gfx.EndScene();
 
@@ -1308,31 +1319,39 @@ namespace Metro
             this.ShowMessageAsync("Mmmmm............", "About");
         }
 
+        // DataGrid Event
+        #region DataGrid Event
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
-            if (columnIndex < 0){
+            if (columnIndex < 0)
+            {
                 return;
             }
 
-            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals(" ")){
+            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals(" "))
+            {
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
-                try{
-                    if (tableIndex < mDataTable.Count()){
+                try
+                {
+                    if (tableIndex < mDataTable.Count())
+                    {
                         //Table Clean
                         mDataGrid.DataContext = null;
                         mDataTable.RemoveAt(tableIndex);
                         mDataGrid.DataContext = mDataTable;
                     }
                 }
-                catch {}
+                catch { }
             }
 
-            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
+            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
+            {
                 // Get index
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
 
-                try{
+                try
+                {
                     if (tableIndex < mDataTable.Count() - 1)
                     {
                         // Insert Item
@@ -1340,17 +1359,18 @@ namespace Metro
                         mDataTable.Insert(tableIndex + 1, new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
-                    else {
+                    else
+                    {
                         mDataGrid.DataContext = null;
-                        mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = ""});
+                        mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "" });
                         mDataGrid.DataContext = mDataTable;
-                    }                  
+                    }
                 }
                 catch { }
-            }  
+            }
         }
+        #endregion
 
-       
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (IsActive){
@@ -1365,7 +1385,6 @@ namespace Metro
             return ((HiWord << 16) | (LoWord & 0xffff));
         }
 
-     
 
         public static Keys ConvertCharToVirtualKey(char ch)
         {
