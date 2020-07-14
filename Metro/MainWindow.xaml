@@ -70,7 +70,7 @@
                                MouseDoubleClick="mDataGrid_MouseDoubleClick">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=mTable_IsEnable}"/>
                             <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=mTable_Mode}" MinWidth="100"/>
                             <DataGridTextColumn Header="Event" Binding="{Binding Path=mTable_Event}"/>
