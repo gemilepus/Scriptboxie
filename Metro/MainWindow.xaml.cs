@@ -149,7 +149,7 @@ namespace Metro
 
 
         //  Multiple results
-        private String RunTemplateMatch(Mat rec, Mat template)
+        private String RunTemplateMatch_GRAY(Mat rec, Mat template)
         {
             string reText = "";
 
@@ -162,6 +162,63 @@ namespace Metro
                 Mat gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2GRAY);
 
                 Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
+                Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
+
+                while (true)
+                {
+                    double minval, maxval, threshold = 0.8;
+                    OpenCvSharp.Point minloc, maxloc;
+                    Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
+
+                    if (maxval >= threshold)
+                    {
+                        //Setup the rectangle to draw
+                        //OpenCvSharp.Rect r = new OpenCvSharp.Rect(new OpenCvSharp.Point(maxloc.X, maxloc.Y), new OpenCvSharp.Size(tplMat.Width, tplMat.Height));
+
+                        //Draw a rectangle of the matching area
+                        //Cv2.Rectangle(refMat, r, Scalar.LimeGreen, 2);
+
+                        //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
+                        OpenCvSharp.Rect outRect;
+                        Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
+
+                        reText = reText + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    gref.Dispose();
+                    gtpl.Dispose();
+                }
+
+                refMat.Dispose();
+                tplMat.Dispose();
+
+                gref.Dispose();
+                gtpl.Dispose();
+
+                res.Dispose();
+
+                rec.Dispose();
+                template.Dispose();
+
+                return reText;
+            }
+        }
+
+        private String RunTemplateMatch(Mat rec, Mat template)
+        {
+            string reText = "";
+
+            using (Mat refMat = rec)
+            using (Mat tplMat = template)
+            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
+            {
+                Mat gref = refMat.CvtColor(ColorConversionCodes.BGR2HLS);
+                Mat gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2HLS);
+                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCorrNormed);
                 Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
 
                 while (true)
@@ -434,7 +491,6 @@ namespace Metro
 
         public class mTable{
             public bool   mTable_IsEnable { get; set; }
-            //public Mode_List mTable_Mode { get; set; }
             public string mTable_Mode { get; set; }
             public string mTable_Action { get; set; }
             public string mTable_Event { get; set; }
@@ -450,7 +506,6 @@ namespace Metro
 
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
-            
             KListener.Dispose();
             if (args.ToString().Equals("[")){
                 Run_script();
@@ -458,8 +513,6 @@ namespace Metro
             if (args.ToString().Equals("]")){
                 Stop_script();
             }
-
-            
 
             // Select Script
             for (int i = 0; i < eDataTable.Count; i++){
@@ -542,9 +595,6 @@ namespace Metro
 
         private void Script(List<mTable> minDataTable)
         {
-
-            //Console.WriteLine("Thread Run");
-
             SortedList mDoSortedList = new SortedList();
             // key || value
             //mDoSortedList.Add("Point", "0,0");
@@ -1230,7 +1280,7 @@ namespace Metro
             }
             catch
             {
-                this.ShowMessageAsync("", "ERROR!");
+                //this.ShowMessageAsync("", "ERROR!");
             }
 
         }
@@ -1316,7 +1366,7 @@ namespace Metro
         }
 
         private void Btn_About_Click(object sender, RoutedEventArgs e){
-            this.ShowMessageAsync("Mmmmm............", "About");
+            this.ShowMessageAsync("...........", "About");
         }
 
         // DataGrid Event
