@@ -65,9 +65,8 @@
             </TabItem>
             <TabItem Header="Edit">
                 <Grid Background="White">
-                    <DataGrid CanUserSortColumns="False" AlternationCount="500" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
-                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="320" VerticalAlignment="Center" HorizontalAlignment="Center"
-                               MouseDoubleClick="mDataGrid_MouseDoubleClick">
+                    <DataGrid CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
+                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="320" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDoubleClick="mDataGrid_MouseDoubleClick">
 
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
