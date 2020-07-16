@@ -476,7 +476,6 @@ namespace Metro
             }
         }
 
-
         private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e){
             e.NewItem = new mTable{
                 mTable_IsEnable = true,
@@ -1031,8 +1030,6 @@ namespace Metro
 
                             break;
 
-                      
-
                         case "PlaySound":
 
                             string SoundPath = CommandData;
@@ -1066,61 +1063,82 @@ namespace Metro
 
                         case "PostMessage":
 
-                            string[] send = CommandData.Split(',');
-
-                            IntPtr windowHandle;
-                            if (send[0].Equals("T"))
+                            if (Event.Length == 0)
                             {
-                                windowHandle = FindWindow(null, send[1]);
-                            }
-                            else
-                            {
-                                windowHandle = FindWindow(send[1], null);
-                            }
+                                string[] send = CommandData.Split(',');
 
-                            IntPtr editHandle = windowHandle;
-
-
-                            if (editHandle == IntPtr.Zero)
-                            {
-                                System.Windows.MessageBox.Show("is not running...");
-                            }
-                            else
-                            {
-                                //System.Windows.MessageBox.Show(windowHandle.ToString());
-
-                                gfx.BeginScene(); // call before you start any drawing
-                                                  // Draw
-                                gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, windowHandle.ToString());
-                                gfx.EndScene();
-                            }
-
-                            for (int i = 2; i < send.Length; i++)
-                            {
-                                int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(send[i]);
-                                SendMessage((int)editHandle, WM_KEYDOWN, 0, "0x014B0001");
-                                Thread.Sleep(50);
-                                SendMessage((int)editHandle, WM_KEYUP, 0, "0xC14B0001");
-                                Thread.Sleep(50);
-                            }
-
-
-                            Process[] processlist = Process.GetProcesses();
-
-                            string titleText = "";
-                            foreach (Process process in processlist)
-                            {
-                                if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                                IntPtr windowHandle;
+                                if (send[0].Equals("T"))
                                 {
-                                    Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
-                                    titleText += process.MainWindowTitle.ToString();
+                                    windowHandle = FindWindow(null, send[1]);
+                                }
+                                else
+                                {
+                                    windowHandle = FindWindow(send[1], null);
+                                }
+
+                                IntPtr editHandle = windowHandle;
+
+
+                                if (editHandle == IntPtr.Zero)
+                                {
+                                    System.Windows.MessageBox.Show("is not running...");
+                                }
+                                else
+                                {
+                                    //System.Windows.MessageBox.Show(windowHandle.ToString());
+
+                                    gfx.BeginScene(); // call before you start any drawing
+                                                      // Draw
+                                    gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, windowHandle.ToString());
+                                    gfx.EndScene();
+                                }
+
+                                for (int i = 2; i < send.Length; i++)
+                                {
+                                    int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(send[i]);
+                                    SendMessage((int)editHandle, WM_KEYDOWN, 0, "0x014B0001");
+                                    Thread.Sleep(50);
+                                    SendMessage((int)editHandle, WM_KEYUP, 0, "0xC14B0001");
+                                    Thread.Sleep(50);
+                                }
+
+
+                                //Process[] processlist = Process.GetProcesses();
+
+                                //string titleText = "";
+                                //foreach (Process process in processlist)
+                                //{
+                                //    if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                                //    {
+                                //        Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                                //        titleText += process.MainWindowTitle.ToString();
+                                //    }
+                                //}
+
+                                ////System.Windows.MessageBox.Show(titleText);
+                                //string out_string = titleText;
+
+                                //System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "out" + ".txt", out_string);
+                            }
+                            else
+                            {
+                                // Check Key
+                                if (mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                {
+                                    string[] Event_Data;
+                                    if (CommandData.Length > 0)
+                                    {
+                                        // use CommandData 
+                                        Event_Data = CommandData.Split(',');
+                                    }
+                                    else
+                                    {
+                                        // Get SortedList Value by Key
+                                        Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
+                                    }
                                 }
                             }
-
-                            //System.Windows.MessageBox.Show(titleText);
-                            string out_string = titleText;
-
-                            System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "out" + ".txt", out_string);
 
                             break;
 
@@ -1270,7 +1288,6 @@ namespace Metro
                 //Get the path of specified file
                 filePath = openFileDialog.FileName;
                 Load_Script(filePath);
-
 
                 // .ini
                 var parser = new FileIniDataParser();
