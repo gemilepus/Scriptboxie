@@ -475,6 +475,15 @@ namespace Metro
                 }
             }
         }
+        private static void GetEnumVirtualKeyCodeValues()
+        {
+            //Enum.GetName(typeof(VirtualKeyCode), enumValue);
+            Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
+            foreach (int enumValue in enumValueArray)
+            {
+                Console.WriteLine("Name: " + Enum.GetName(typeof(VirtualKeyCode), enumValue) + " , Value: " + enumValue);
+            }
+        }
 
         private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e){
             e.NewItem = new mTable{
@@ -902,14 +911,14 @@ namespace Metro
                             //KeysConverter kc = new KeysConverter();
                             //string keyChar = kc.ConvertToString("A");
 
-
+                            
                             string str = CommandData;
                             char[]  arr = str.ToCharArray();
                             foreach (char c in arr)
                             {
                                 mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
                             }
-
+                            //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
                             break;
 
                         case "RemoveKey":
