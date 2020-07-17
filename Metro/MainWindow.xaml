@@ -18,12 +18,15 @@
 
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="MahAppFlyout" Width="200">
-                <TextBlock Width = "200" Margin = "5px">  
-                    alt = % , shift = + and ctrl = ^  <LineBreak/>  
+            <Controls:Flyout x:Name="MahAppFlyout" Width="300">
+                <TextBlock Width = "300" Margin = "5px">  
+                    Match #Path,#X,#Y,#Height,#Width <LineBreak/>
+                    Move #X,#Y <LineBreak/>
+                    Offset #+X,#+Y <LineBreak/>
+                    Click #Left_Down Left_Up Right_Down Right_Up
+                    <!--alt = % , shift = + and ctrl = ^  <LineBreak/>  
                     EX: ^{v}" <LineBreak/>  
-                    {ENTER} ~ <LineBreak/>  
-                    Post 0x0D <LineBreak/>
+                    {ENTER} ~ <LineBreak/>-->  
                 </TextBlock>
             </Controls:Flyout>
         </Controls:FlyoutsControl>
@@ -36,7 +39,6 @@
                 <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" 
                           SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Height="320" VerticalAlignment="Center" HorizontalAlignment="Center" CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged"
                           MouseDoubleClick="eDataGrid_MouseDoubleClick">
-
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#"/>
                         <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
@@ -67,7 +69,6 @@
                 <Grid Background="White">
                     <DataGrid CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
                           SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="320" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDoubleClick="mDataGrid_MouseDoubleClick">
-
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
@@ -90,8 +91,8 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
-
                     </DataGrid>
+                    
                     <Controls:ToggleSwitch Click="Btn_Toggle_Click" Name="Btn_Toggle" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,240,0"></Controls:ToggleSwitch>
                     <Button Click="Btn_open_Click" Content="Open" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" />
                     <Button Click="Btn_Save_Click" Name="Btn_Save" Content="SAVE" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,60,0"/>
