@@ -1346,23 +1346,29 @@ namespace Metro
             string fileContent = string.Empty;
             StreamReader reader = new StreamReader(mfilePath);
 
-            // read test
-            fileContent = reader.ReadToEnd();
-            fileContent.Replace(";", "%;");
-            string[] SplitStr = fileContent.Split(';');
-
-            for (int i = 0; i < SplitStr.Length - 4; i += 4)
+            try
             {
-                tempDataTable.Add(new mTable()
+                // read test
+                fileContent = reader.ReadToEnd();
+                fileContent.Replace(";", "%;");
+                string[] SplitStr = fileContent.Split(';');
+
+                for (int i = 0; i < SplitStr.Length - 4; i += 4)
                 {
-                    mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
-                    mTable_Mode = SplitStr[i + 1].Replace("%", ""),
-                    mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                    mTable_Event = SplitStr[i + 3].Replace("%", ""),
-                });
+                    tempDataTable.Add(new mTable()
+                    {
+                        mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
+                        mTable_Mode = SplitStr[i + 1].Replace("%", ""),
+                        mTable_Action = SplitStr[i + 2].Replace("%", ""),
+                        mTable_Event = SplitStr[i + 3].Replace("%", ""),
+                    });
+                }
+            }
+            catch
+            {
+                this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
             }
             return tempDataTable;
-           
         }
 
         private async void Btn_Save_Click(object sender, RoutedEventArgs e) // async

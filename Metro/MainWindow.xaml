@@ -24,6 +24,7 @@
                     Move #X,#Y <LineBreak/>
                     Offset #+X,#+Y <LineBreak/>
                     Click #Left_Down Left_Up Right_Down Right_Up
+                    
                     <!--alt = % , shift = + and ctrl = ^  <LineBreak/>  
                     EX: ^{v}" <LineBreak/>  
                     {ENTER} ~ <LineBreak/>-->  
