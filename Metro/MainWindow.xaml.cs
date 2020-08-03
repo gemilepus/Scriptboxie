@@ -413,7 +413,7 @@ namespace Metro
             InitializeComponent();
 
             KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
-
+            ParseEnum();
             // Data Binding
             //this.DataContext = this;
 
@@ -469,15 +469,6 @@ namespace Metro
                     });
                     _workerThreads.Add(TempThread);
                 }
-            }
-        }
-        private static void GetEnumVirtualKeyCodeValues()
-        {
-            //Enum.GetName(typeof(VirtualKeyCode), enumValue);
-            Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
-            foreach (int enumValue in enumValueArray)
-            {
-                Console.WriteLine("Name: " + Enum.GetName(typeof(VirtualKeyCode), enumValue) + " , Value: " + enumValue);
             }
         }
 
@@ -1482,6 +1473,35 @@ namespace Metro
             if ((modifiers & 4) != 0) retval |= Keys.Alt;
             return retval;
         }
-
+        private int StringToVirtualKeyCode(String str)
+        {
+            int value = 0;
+            Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
+            foreach (int enumValue in enumValueArray)
+            {
+                if (Enum.GetName(typeof(VirtualKeyCode), enumValue).Equals(str))
+                {
+                    value = enumValue;
+                }
+            }
+            return value;
+        }
+        private static void GetEnumVirtualKeyCodeValues()
+        {
+            //Enum.GetName(typeof(VirtualKeyCode), enumValue);
+            Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
+            foreach (int enumValue in enumValueArray)
+            {
+                Console.WriteLine("Name: " + Enum.GetName(typeof(VirtualKeyCode), enumValue) + " , Value: " + enumValue);
+            }
+        }
+      
+        private static void ParseEnum()
+        {
+            VirtualKeyCode ms = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
+            Console.WriteLine(ms.ToString());
+            Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
+            //Console.WriteLine(Array.IndexOf(enumValueArray, ms));
+        }
     }
 }
