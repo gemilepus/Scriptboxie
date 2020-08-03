@@ -427,10 +427,6 @@ namespace Metro
 
             //mDataGrid.DataContext = mDataTable;
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
-            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "T", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
-            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "Y", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
-            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "U", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
-            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "I", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
             //eDataGrid.DataContext = eDataTable;
 
             // .ini
@@ -751,7 +747,11 @@ namespace Metro
                                 {
                                     //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                                     //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+                                    //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+
+                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                    Thread.Sleep(200);
+                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
                                 }
                                 if (CommandData.Equals("Left_Down"))
                                 {
@@ -767,7 +767,11 @@ namespace Metro
                                 {
                                     //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
                                     //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+                                    //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+
+                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                    Thread.Sleep(200);
+                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
                                 }
                                 if (CommandData.Equals("Right_Down"))
                                 {
