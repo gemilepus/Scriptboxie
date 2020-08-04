@@ -413,7 +413,6 @@ namespace Metro
             InitializeComponent();
 
             KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
-            ParseEnum();
             // Data Binding
             //this.DataContext = this;
 
@@ -1501,7 +1500,6 @@ namespace Metro
             VirtualKeyCode ms = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
             Console.WriteLine(ms.ToString());
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
-            //Console.WriteLine(Array.IndexOf(enumValueArray, ms));
         }
     }
 }
