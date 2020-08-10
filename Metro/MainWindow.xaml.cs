@@ -783,7 +783,11 @@ namespace Metro
                                     {
                                         //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                                         //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                        mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+                                        //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
+
+                                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                        Thread.Sleep(200);
+                                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
                                     }
                                     if (CommandData.Equals("Left_Down"))
                                     {
@@ -799,7 +803,12 @@ namespace Metro
                                     {
                                         //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
                                         //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                        mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+                                        //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
+
+
+                                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                        Thread.Sleep(200);
+                                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
                                     }
                                     if (CommandData.Equals("Right_Down"))
                                     {
