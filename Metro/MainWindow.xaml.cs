@@ -1492,6 +1492,11 @@ namespace Metro
                     value = enumValue;
                 }
             }
+
+            // ArrayList
+            //ArrayList myArrayList = new ArrayList();
+            //myArrayList.AddRange(enumValueArray);
+
             return value;
         }
         private static void GetEnumVirtualKeyCodeValues()
