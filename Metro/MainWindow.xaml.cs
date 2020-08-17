@@ -430,14 +430,20 @@ namespace Metro
 
             // .ini
             var parser = new FileIniDataParser();
-            IniData data=new IniData();
-            try{
+            IniData data = new IniData();
+            try
+            {
                 data = parser.ReadFile("user.ini");
             }
-            catch{
+            catch
+            {
                 parser.WriteFile("user.ini", new IniData());
             }
-
+            if (data["Def"]["x"] != null)
+            {
+                Left = double.Parse(data["Def"]["x"]);
+                Top = double.Parse(data["Def"]["y"]);
+            }
             try
             {
                 //data = parser.ReadFile("script.ini");
@@ -1458,6 +1464,15 @@ namespace Metro
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            // .ini
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+
+            data["Def"]["x"] = this.Left.ToString();
+            data["Def"]["y"] = this.Top.ToString();
+            parser.WriteFile("user.ini", data);
+
             if (IsActive){
                 mThread.Abort();
             }
