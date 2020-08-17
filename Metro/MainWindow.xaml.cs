@@ -428,7 +428,7 @@ namespace Metro
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
             //eDataGrid.DataContext = eDataTable;
 
-            // .ini
+            // user.ini
             var parser = new FileIniDataParser();
             IniData data = new IniData();
             try
@@ -439,18 +439,21 @@ namespace Metro
             {
                 parser.WriteFile("user.ini", new IniData());
             }
+
             if (data["Def"]["x"] != null)
             {
                 Left = double.Parse(data["Def"]["x"]);
                 Top = double.Parse(data["Def"]["y"]);
             }
+
+            // script.ini
             try
             {
-                //data = parser.ReadFile("script.ini");
+                data = parser.ReadFile("script.ini");
             }
             catch
             {
-                //parser.WriteFile("script.ini", new IniData());
+                parser.WriteFile("script.ini", new IniData());
             }
 
             if (data["Def"]["Script"] != null || data["Def"]["Script"] != "") {
