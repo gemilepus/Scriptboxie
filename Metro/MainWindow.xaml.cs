@@ -439,13 +439,13 @@ namespace Metro
             {
                 parser.WriteFile("user.ini", new IniData());
             }
-
+            // From location
             if (data["Def"]["x"] != null)
             {
                 Left = double.Parse(data["Def"]["x"]);
                 Top = double.Parse(data["Def"]["y"]);
             }
-
+            // Load Script
             if (data["Def"]["Script"] != null || data["Def"]["Script"] != "") {
                 try {
                     Load_Script(data["Def"]["Script"]);
