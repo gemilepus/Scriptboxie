@@ -446,16 +446,6 @@ namespace Metro
                 Top = double.Parse(data["Def"]["y"]);
             }
 
-            // script.ini
-            try
-            {
-                data = parser.ReadFile("script.ini");
-            }
-            catch
-            {
-                parser.WriteFile("script.ini", new IniData());
-            }
-
             if (data["Def"]["Script"] != null || data["Def"]["Script"] != "") {
                 try {
                     Load_Script(data["Def"]["Script"]);
