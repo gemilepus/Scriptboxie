@@ -418,9 +418,10 @@ namespace Metro
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset", "Loop", "Click", "Match", "Key","RemoveKey", "Delay", "Get Point",
-                "Run exe", "FindWindow","ScreenClip", "Draw", "Sift Match", 
-                "Clean Draw", "PostMessage", "PlaySound", "Color Test"
+                "Move","Offset", "Loop", "Click", "Match", "Key","RemoveKey",
+                "Delay", "Get Point","Run exe", "FindWindow","ScreenClip", 
+                "Draw", "Sift Match",  "Clean Draw", "PostMessage", "PlaySound",
+                "Color Test"
             };
             mComboBoxColumn.ItemsSource = mList;
 
@@ -468,18 +469,6 @@ namespace Metro
                     _workerThreads.Add(TempThread);
                 }
             }
-        }
-
-        private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e){
-            e.NewItem = new mTable{
-                mTable_IsEnable = true,
-                mTable_Mode = "",
-                mTable_Action = "",
-                mTable_Event = ""
-            };
-        }
-        private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e){
-            e.Row.Header = (e.Row.GetIndex()).ToString();
         }
 
         public class mTable{
@@ -566,7 +555,6 @@ namespace Metro
 
 
         Thread mThread = null;
-
         // data
         bool Tempflag = false;
         Bitmap TempBitmap;      
@@ -584,7 +572,6 @@ namespace Metro
             });
             mThread.Start();
         }
-
 
         private void Script(List<mTable> minDataTable)
         {
@@ -1178,7 +1165,7 @@ namespace Metro
             Ring.IsActive = false;
         }
 
-
+        #region Script Panel
         private void Save_Script() // async
         {
             string out_string = "";
@@ -1189,12 +1176,11 @@ namespace Metro
                     + eDataTable[i].eTable_Key + ";"
                     + eDataTable[i].eTable_State + ";"
                     + eDataTable[i].eTable_Note + ";"
-                    + eDataTable[i].eTable_Path +";"
+                    + eDataTable[i].eTable_Path + ";"
                     + "\n";
             }
             System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "Script.ini", out_string);
         }
-
         private void Load_Script_ini()
         {
             string fileContent = string.Empty;
@@ -1213,7 +1199,7 @@ namespace Metro
             {
                 eDataTable.Add(new eTable()
                 {
-                 eTable_Enable = bool.Parse(SplitStr[i].Replace("%", "")),
+                    eTable_Enable = bool.Parse(SplitStr[i].Replace("%", "")),
                     eTable_Name = SplitStr[i + 1].Replace("%", ""),
                     eTable_Key = SplitStr[i + 2].Replace("%", ""),
                     eTable_State = "",
@@ -1278,69 +1264,20 @@ namespace Metro
             }
         }
 
-
         private void eDataGrid_CurrentCellChanged(object sender, EventArgs e)
         {
             Save_Script();
         }
 
-        private void Btn_open_Click(object sender, RoutedEventArgs e){
-            string fileContent = string.Empty;
-            string filePath = string.Empty;
-
-            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
-            openFileDialog.Filter = "txt files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.ShowDialog();
-
-            try{
-                //Get the path of specified file
-                filePath = openFileDialog.FileName;
-                Load_Script(filePath);
-
-                // .ini
-                var parser = new FileIniDataParser();
-                IniData data= parser.ReadFile("user.ini");
-                data["Def"]["Script"] = filePath;
-                parser.WriteFile("user.ini", data);
-            }
-            catch
-            {
-                //this.ShowMessageAsync("", "ERROR!");
-            }
-
-        }
-     
-
         private void Load_Script(string filePath)
         {
-            string fileContent = string.Empty;
-            StreamReader reader = new StreamReader(filePath);
-
-            // read test
-            fileContent = reader.ReadToEnd();
-            fileContent.Replace(";", "%;");
-            string[] SplitStr = fileContent.Split(';');
-
             // Table Clear
             mDataGrid.DataContext = null;
             mDataTable.Clear();
 
-            for (int i = 0; i < SplitStr.Length - 4; i += 4)
-            {
-                mDataTable.Add(new mTable()
-                {
-                    mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
-                    mTable_Mode = SplitStr[i + 1].Replace("%", ""),
-                    mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                    mTable_Event = SplitStr[i + 3].Replace("%", ""),
-                });
-            }
+            mDataTable = Load_Script_to_DataTable(filePath);
             mDataGrid.DataContext = mDataTable;
         }
-
 
         private List<mTable> Load_Script_to_DataTable(string mfilePath)
         {
@@ -1372,39 +1309,84 @@ namespace Metro
             }
             return tempDataTable;
         }
+        #endregion
 
+        #region Edit Panel
+        private void Btn_open_Click(object sender, RoutedEventArgs e)
+        {
+            string fileContent = string.Empty;
+            string filePath = string.Empty;
+
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
+            openFileDialog.Filter = "txt files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.ShowDialog();
+
+            try
+            {
+                //Get the path of specified file
+                filePath = openFileDialog.FileName;
+                Load_Script(filePath);
+
+                // .ini
+                var parser = new FileIniDataParser();
+                IniData data = parser.ReadFile("user.ini");
+                data["Def"]["Script"] = filePath;
+                parser.WriteFile("user.ini", data);
+            }
+            catch
+            {
+                //this.ShowMessageAsync("", "ERROR!");
+            }
+
+        }
         private async void Btn_Save_Click(object sender, RoutedEventArgs e) // async
         {
             var result = await this.ShowInputAsync("Save", "input filename:");
-            if (result == null) {return;}
+            if (result == null) { return; }
 
             string out_string = "";
-            for (int i = 0; i < mDataTable.Count; i++){
-                out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"              
-                    + mDataTable[i].mTable_Mode + ";"                 
-                    + mDataTable[i].mTable_Action + ";"                  
-                    + mDataTable[i].mTable_Event.ToString() + ";"                
+            for (int i = 0; i < mDataTable.Count; i++)
+            {
+                out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
+                    + mDataTable[i].mTable_Mode + ";"
+                    + mDataTable[i].mTable_Action + ";"
+                    + mDataTable[i].mTable_Event.ToString() + ";"
                     + "\n";
             }
             System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
         }
-
-       
-
-        private void Btn_Run_Click(object sender, RoutedEventArgs ee){
+        private void Btn_Run_Click(object sender, RoutedEventArgs ee)
+        {
             Run_script();
         }
-
-        private void Btn_Stop_Click(object sender, RoutedEventArgs ee){
+        private void Btn_Stop_Click(object sender, RoutedEventArgs ee)
+        {
             Stop_script();
         }
-
-        private void Btn_About_Click(object sender, RoutedEventArgs e){
+        private void Btn_About_Click(object sender, RoutedEventArgs e)
+        {
             this.ShowMessageAsync("...........", "About");
         }
+        #endregion
 
-        // DataGrid Event
         #region DataGrid Event
+        private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            e.NewItem = new mTable
+            {
+                mTable_IsEnable = true,
+                mTable_Mode = "",
+                mTable_Action = "",
+                mTable_Event = ""
+            };
+        }
+        private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex()).ToString();
+        }
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
