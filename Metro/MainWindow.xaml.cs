@@ -84,6 +84,7 @@ namespace Metro
         // End *********************************************************************************************
 
         // **************************************** Window Activate ******************************************
+        #region Window Activate
         // Set Foreground Window                        
         // Get a handle to an application window.
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
@@ -95,9 +96,11 @@ namespace Metro
         // VkKeyScan Char to 0x00
         [DllImport("user32.dll")]
         static extern byte VkKeyScan(char ch);
+        #endregion
         // End *********************************************************************************************
 
         // ******************************** PostMessage & SendMessage & FindWindows ********************************
+        #region PostMessage & SendMessage & FindWindows 
         // FindWindows EX
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
@@ -116,7 +119,7 @@ namespace Metro
         // SendMessage
         [DllImport("user32.dll")]
         public static extern int SendMessage(int hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
-
+        #endregion
         // End *********************************************************************************************
 
         // **************************************** OpenCV & Media ******************************************
@@ -471,21 +474,6 @@ namespace Metro
             }
         }
 
-        public class mTable{
-            public bool   mTable_IsEnable { get; set; }
-            public string mTable_Mode { get; set; }
-            public string mTable_Action { get; set; }
-            public string mTable_Event { get; set; }
-        }
-        public class eTable{
-            public bool eTable_Enable { get; set; }
-            public string eTable_Name { get; set; }
-            public string eTable_Key { get; set; }
-            public string eTable_State { get; set; } 
-            public string eTable_Note { get; set; }
-            public string eTable_Path { get; set; }
-        }
-
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
             KListener.Dispose();
@@ -551,26 +539,6 @@ namespace Metro
             Console.WriteLine(args.Key.ToString());
             // Prints the text of pressed button, takes in account big and small letters. E.g. "Shift+a" => "A"
             Console.WriteLine(args.ToString());
-        }
-
-
-        Thread mThread = null;
-        // data
-        bool Tempflag = false;
-        Bitmap TempBitmap;      
-        private void Run_script() 
-        {
-            if (Ring.IsActive == true) {
-               
-                mThread.Abort();        
-            }
-            Ring.IsActive = true;
-
-            mThread = new Thread(() =>
-            {
-                Script(mDataTable);
-            });
-            mThread.Start();
         }
 
         private void Script(List<mTable> minDataTable)
@@ -1160,26 +1128,13 @@ namespace Metro
             }
         }
 
-        private void Stop_script(){
-            mThread.Abort(); //main thread aborting newly created thread.  
-            Ring.IsActive = false;
-        }
-
         #region Script Panel
-        private void Save_Script() // async
+        public class mTable
         {
-            string out_string = "";
-            for (int i = 0; i < eDataTable.Count; i++)
-            {
-                out_string += eDataTable[i].eTable_Enable + ";"
-                    + eDataTable[i].eTable_Name + ";"
-                    + eDataTable[i].eTable_Key + ";"
-                    + eDataTable[i].eTable_State + ";"
-                    + eDataTable[i].eTable_Note + ";"
-                    + eDataTable[i].eTable_Path + ";"
-                    + "\n";
-            }
-            System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "Script.ini", out_string);
+            public bool mTable_IsEnable { get; set; }
+            public string mTable_Mode { get; set; }
+            public string mTable_Action { get; set; }
+            public string mTable_Event { get; set; }
         }
         private void Load_Script_ini()
         {
@@ -1209,7 +1164,62 @@ namespace Metro
             }
             eDataGrid.DataContext = eDataTable;
         }
+        private void Save_Script() // async
+        {
+            string out_string = "";
+            for (int i = 0; i < eDataTable.Count; i++)
+            {
+                out_string += eDataTable[i].eTable_Enable + ";"
+                    + eDataTable[i].eTable_Name + ";"
+                    + eDataTable[i].eTable_Key + ";"
+                    + eDataTable[i].eTable_State + ";"
+                    + eDataTable[i].eTable_Note + ";"
+                    + eDataTable[i].eTable_Path + ";"
+                    + "\n";
+            }
+            System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "Script.ini", out_string);
+        }
+       
+        private void Load_Script(string filePath)
+        {
+            // Table Clear
+            mDataGrid.DataContext = null;
+            mDataTable.Clear();
 
+            mDataTable = Load_Script_to_DataTable(filePath);
+            mDataGrid.DataContext = mDataTable;
+        }
+
+        private List<mTable> Load_Script_to_DataTable(string mfilePath)
+        {
+            List<mTable> tempDataTable = new List<mTable>();
+            string fileContent = string.Empty;
+            StreamReader reader = new StreamReader(mfilePath);
+
+            try
+            {
+                // read test
+                fileContent = reader.ReadToEnd();
+                fileContent.Replace(";", "%;");
+                string[] SplitStr = fileContent.Split(';');
+
+                for (int i = 0; i < SplitStr.Length - 4; i += 4)
+                {
+                    tempDataTable.Add(new mTable()
+                    {
+                        mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
+                        mTable_Mode = SplitStr[i + 1].Replace("%", ""),
+                        mTable_Action = SplitStr[i + 2].Replace("%", ""),
+                        mTable_Event = SplitStr[i + 3].Replace("%", ""),
+                    });
+                }
+            }
+            catch
+            {
+                this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
+            }
+            return tempDataTable;
+        }
         private void eDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             Save_Script();
@@ -1268,50 +1278,43 @@ namespace Metro
         {
             Save_Script();
         }
-
-        private void Load_Script(string filePath)
-        {
-            // Table Clear
-            mDataGrid.DataContext = null;
-            mDataTable.Clear();
-
-            mDataTable = Load_Script_to_DataTable(filePath);
-            mDataGrid.DataContext = mDataTable;
-        }
-
-        private List<mTable> Load_Script_to_DataTable(string mfilePath)
-        {
-            List<mTable> tempDataTable = new List<mTable>();
-            string fileContent = string.Empty;
-            StreamReader reader = new StreamReader(mfilePath);
-
-            try
-            {
-                // read test
-                fileContent = reader.ReadToEnd();
-                fileContent.Replace(";", "%;");
-                string[] SplitStr = fileContent.Split(';');
-
-                for (int i = 0; i < SplitStr.Length - 4; i += 4)
-                {
-                    tempDataTable.Add(new mTable()
-                    {
-                        mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
-                        mTable_Mode = SplitStr[i + 1].Replace("%", ""),
-                        mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                        mTable_Event = SplitStr[i + 3].Replace("%", ""),
-                    });
-                }
-            }
-            catch
-            {
-                this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
-            }
-            return tempDataTable;
-        }
         #endregion
 
         #region Edit Panel
+        public class eTable
+        {
+            public bool eTable_Enable { get; set; }
+            public string eTable_Name { get; set; }
+            public string eTable_Key { get; set; }
+            public string eTable_State { get; set; }
+            public string eTable_Note { get; set; }
+            public string eTable_Path { get; set; }
+        }
+
+        Thread mThread = null;
+        // data
+        bool Tempflag = false;
+        Bitmap TempBitmap;
+        private void Run_script()
+        {
+            if (Ring.IsActive == true)
+            {
+
+                mThread.Abort();
+            }
+            Ring.IsActive = true;
+
+            mThread = new Thread(() =>
+            {
+                Script(mDataTable);
+            });
+            mThread.Start();
+        }
+        private void Stop_script()
+        {
+            mThread.Abort(); //main thread aborting newly created thread.  
+            Ring.IsActive = false;
+        }
         private void Btn_open_Click(object sender, RoutedEventArgs e)
         {
             string fileContent = string.Empty;
@@ -1365,10 +1368,6 @@ namespace Metro
         private void Btn_Stop_Click(object sender, RoutedEventArgs ee)
         {
             Stop_script();
-        }
-        private void Btn_About_Click(object sender, RoutedEventArgs e)
-        {
-            this.ShowMessageAsync("...........", "About");
         }
         #endregion
 
@@ -1437,6 +1436,11 @@ namespace Metro
         }
         #endregion
 
+        #region APP
+        private void Btn_About_Click(object sender, RoutedEventArgs e)
+        {
+            this.ShowMessageAsync("...........", "About");
+        }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // .ini
@@ -1448,10 +1452,12 @@ namespace Metro
             data["Def"]["y"] = this.Top.ToString();
             parser.WriteFile("user.ini", data);
 
-            if (IsActive){
+            if (IsActive)
+            {
                 mThread.Abort();
             }
         }
+        #endregion
 
         // **********************************  End  *****************************************
 
