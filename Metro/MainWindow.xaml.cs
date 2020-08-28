@@ -873,7 +873,10 @@ namespace Metro
                             char[]  arr = str.ToCharArray();
                             foreach (char c in arr)
                             {
-                                mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                                //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                                mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                                Thread.Sleep(100);
+                                mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertCharToVirtualKey(c));
                             }
                             //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
                             break;
