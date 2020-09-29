@@ -473,9 +473,23 @@ namespace Metro
                 }
             }
         }
-
+        private void Btn_ON_Click(object sender, RoutedEventArgs e)
+        {
+            if (Btn_ON.Content.Equals("ON"))
+            {
+                Btn_ON.Content = "OFF";
+            }
+            else
+            {
+                Btn_ON.Content = "ON";
+            }
+        }
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
+            if (!Btn_ON.Content.Equals("ON")) {
+                return;
+            }
+
             KListener.Dispose();
             if (args.ToString().Equals("[")){
                 Run_script();
@@ -1507,12 +1521,14 @@ namespace Metro
                 Console.WriteLine("Name: " + Enum.GetName(typeof(VirtualKeyCode), enumValue) + " , Value: " + enumValue);
             }
         }
-      
+
         private static void ParseEnum()
         {
             VirtualKeyCode ms = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
             Console.WriteLine(ms.ToString());
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
         }
+
+       
     }
 }
