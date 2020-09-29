@@ -10,6 +10,7 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
+            <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" />
             <Button Name="Btn_About" Click="Btn_About_Click" Content="About" />
             <ToggleButton Content="Help" IsChecked="{Binding ElementName=MahAppFlyout, Path=IsOpen}" Cursor="Hand"/>
         </Controls:WindowCommands>
@@ -63,7 +64,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-
+ 
             </TabItem>
             <TabItem Header="Edit">
                 <Grid Background="White">
