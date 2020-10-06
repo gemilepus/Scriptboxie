@@ -473,19 +473,21 @@ namespace Metro
                 }
             }
         }
-        private void Btn_ON_Click(object sender, RoutedEventArgs e)
-        {
-            if (Btn_ON.Content.Equals("ON"))
-            {
-                Btn_ON.Content = "OFF";
-            }
-            else
-            {
-                Btn_ON.Content = "ON";
-            }
-        }
+
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
+            // ON / OFF
+            if (args.ToString().Equals("'"))
+            {
+                if (Btn_ON.Content.Equals("ON"))
+                {
+                    Btn_ON.Content = "OFF";
+                }
+                else
+                {
+                    Btn_ON.Content = "ON";
+                }
+            }
             if (!Btn_ON.Content.Equals("ON")) {
                 return;
             }
@@ -882,7 +884,6 @@ namespace Metro
                             //KeysConverter kc = new KeysConverter();
                             //string keyChar = kc.ConvertToString("A");
 
-                            
                             string str = CommandData;
                             char[]  arr = str.ToCharArray();
                             foreach (char c in arr)
@@ -893,6 +894,24 @@ namespace Metro
                                 mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertCharToVirtualKey(c));
                             }
                             //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
+
+                            //Example: Modified keystrokes such as CTRL - C
+                            // CTRL-C (effectively a copy command in many situations)
+                            //mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertCharToVirtualKey(c), (WindowsInputLib.Native.ModifierKeys)ConvertCharToVirtualKey(c));
+                            //mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertCharToVirtualKey(''), WindowsInputLib.Native.ModifierKeys.Control);
+
+                            break;
+
+                        case "ModifierKey":
+
+                            //string str = CommandData;
+                            //char[] arr = str.ToCharArray();
+                            //foreach (char c in arr)
+                            //{
+                            //    mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c),
+                            //        (WindowsInputLib.Native.ModifierKeys)ConvertCharToVirtualKey(c));
+                            //}
+
                             break;
 
                         case "RemoveKey":
@@ -1454,6 +1473,15 @@ namespace Metro
         #endregion
 
         #region APP
+        private void Btn_ON_Click(object sender, RoutedEventArgs e)
+        {
+            if (Btn_ON.Content.Equals("ON")){
+                Btn_ON.Content = "OFF";
+            }
+            else{
+                Btn_ON.Content = "ON";
+            }
+        }
         private void Btn_About_Click(object sender, RoutedEventArgs e)
         {
             this.ShowMessageAsync("...........", "About");
@@ -1464,7 +1492,6 @@ namespace Metro
             var parser = new FileIniDataParser();
             IniData data = new IniData();
             data = parser.ReadFile("user.ini");
-
             data["Def"]["x"] = this.Left.ToString();
             data["Def"]["y"] = this.Top.ToString();
             parser.WriteFile("user.ini", data);
@@ -1496,7 +1523,7 @@ namespace Metro
         }
         private int StringToVirtualKeyCode(String str)
         {
-            int value = 0;
+        int value = 0;
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
             foreach (int enumValue in enumValueArray)
             {
@@ -1505,16 +1532,13 @@ namespace Metro
                     value = enumValue;
                 }
             }
-
             // ArrayList
             //ArrayList myArrayList = new ArrayList();
             //myArrayList.AddRange(enumValueArray);
-
             return value;
         }
         private static void GetEnumVirtualKeyCodeValues()
         {
-            //Enum.GetName(typeof(VirtualKeyCode), enumValue);
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
             foreach (int enumValue in enumValueArray)
             {
