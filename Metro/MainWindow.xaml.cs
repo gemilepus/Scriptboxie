@@ -473,7 +473,19 @@ namespace Metro
                 }
             }
         }
+        void AlertSound() {
+            try
+            {
+                SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
+                mWaveFile.PlaySync();
+                mWaveFile.Dispose();
+            }
+            catch (InvalidCastException e)
+            {
+                Console.WriteLine(e);
+            }
 
+        }
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
             // ON / OFF
@@ -493,7 +505,9 @@ namespace Metro
             }
 
             KListener.Dispose();
+           
             if (args.ToString().Equals("[")){
+                AlertSound();
                 Run_script();
             }
             if (args.ToString().Equals("]")){
