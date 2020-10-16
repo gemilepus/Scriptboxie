@@ -488,6 +488,17 @@ namespace Metro
         }
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
+            if (!TextBox_Title.Text.Equals("")) {
+                if (GetActiveWindowTitle() == null){
+                    return;
+                }
+                string ActiveTitle = GetActiveWindowTitle();
+                if (ActiveTitle.Length == ActiveTitle.Replace(TextBox_Title.Text, "").Length)
+                {
+                    return;
+                }
+            }
+           
             // ON / OFF
             if (args.ToString().Equals("'"))
             {
