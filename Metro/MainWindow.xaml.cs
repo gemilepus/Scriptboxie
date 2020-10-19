@@ -443,12 +443,20 @@ namespace Metro
             {
                 parser.WriteFile("user.ini", new IniData());
             }
+
             // From location
             if (data["Def"]["x"] != null)
             {
                 Left = double.Parse(data["Def"]["x"]);
                 Top = double.Parse(data["Def"]["y"]);
             }
+
+            // Load WindowTitle setting
+            if (data["Def"]["WindowTitle"] != null)
+            {
+                TextBox_Title.Text = data["Def"]["WindowTitle"];
+            }
+
             // Load Script
             if (data["Def"]["Script"] != null || data["Def"]["Script"] != "") {
                 try {
@@ -1498,6 +1506,15 @@ namespace Metro
         #endregion
 
         #region APP
+        private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // .ini
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+            data["Def"]["WindowTitle"] = TextBox_Title.Text;
+            parser.WriteFile("user.ini", data);
+        }
         private void Btn_ON_Click(object sender, RoutedEventArgs e)
         {
             if (Btn_ON.Content.Equals("ON")){
@@ -1570,6 +1587,8 @@ namespace Metro
                 Console.WriteLine("Name: " + Enum.GetName(typeof(VirtualKeyCode), enumValue) + " , Value: " + enumValue);
             }
         }
+
+       
 
         private static void ParseEnum()
         {
