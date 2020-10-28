@@ -299,6 +299,7 @@ namespace Metro
 
         private void MatchBySift(Mat src1, Mat src2)
         {
+            #region MatchBySift
             var gray1 = new Mat();
             var gray2 = new Mat();
 
@@ -331,6 +332,7 @@ namespace Metro
             //{
             //    Cv2.WaitKey();
             //}
+            #endregion
         }
         #endregion
         // End ***************************************************************************************
@@ -910,7 +912,7 @@ namespace Metro
                             //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_EXTENDEDKEY, 0);
                             //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_KEYUP, 0);
                             //}
-                            //alt = % , shift = +and ctrl = ^ ,{ENTER}
+                            //alt = % , shift = + , ctrl = ^ , enter = {ENTER}
                             // EX: ^{ v}  
                             //SendKeys.SendWait(CommandData);
 
