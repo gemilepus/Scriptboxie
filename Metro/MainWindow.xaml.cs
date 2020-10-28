@@ -903,20 +903,23 @@ namespace Metro
 
                         case "Key":
 
+                            //***************** SendKeys *****************
                             //Char[] mChar = CommandData.ToCharArray();
                             //for (int j = 0; j < mChar.Length; j++)
                             //{
                             //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_EXTENDEDKEY, 0);
                             //    keybd_event(VkKeyScan(mChar[j]), 0, KEYEVENTF_KEYUP, 0);
                             //}
-
-                            //{ ENTER}
+                            //alt = % , shift = +and ctrl = ^ ,{ENTER}
+                            // EX: ^{ v}  
                             //SendKeys.SendWait(CommandData);
 
                             //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
                             //KeysConverter kc = new KeysConverter();
                             //string keyChar = kc.ConvertToString("A");
+                            //***************** SendKeys *****************
 
+                            //***************** InputSimulator *****************
                             string str = CommandData;
                             char[]  arr = str.ToCharArray();
                             foreach (char c in arr)
@@ -932,6 +935,7 @@ namespace Metro
                             // CTRL-C (effectively a copy command in many situations)
                             //mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertCharToVirtualKey(c), (WindowsInputLib.Native.ModifierKeys)ConvertCharToVirtualKey(c));
                             //mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertCharToVirtualKey(''), WindowsInputLib.Native.ModifierKeys.Control);
+                            //***************** InputSimulator *****************
 
                             break;
 
@@ -1587,8 +1591,6 @@ namespace Metro
                 Console.WriteLine("Name: " + Enum.GetName(typeof(VirtualKeyCode), enumValue) + " , Value: " + enumValue);
             }
         }
-
-       
 
         private static void ParseEnum()
         {

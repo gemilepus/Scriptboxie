@@ -24,11 +24,7 @@
                     Match #Path,#X,#Y,#Height,#Width <LineBreak/>
                     Move #X,#Y <LineBreak/>
                     Offset #+X,#+Y <LineBreak/>
-                    Click #Left_Down Left_Up Right_Down Right_Up
-                    
-                    <!--alt = % , shift = + and ctrl = ^  <LineBreak/>  
-                    EX: ^{v}" <LineBreak/>  
-                    {ENTER} ~ <LineBreak/>-->  
+                    Click #Left_Down Left_Up Right_Down Right_Up 
                 </TextBlock>
             </Controls:Flyout>
         </Controls:FlyoutsControl>
