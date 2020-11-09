@@ -9,7 +9,7 @@ Add ON/OFF btn
 Add AActiveWindowTitle setting
 
 #1.1.0
-Update packages(GameOverlay.Net.4.3.0 ,OpenCvSharp4.4.5.0.20201013,MahApps.Metro.2.3.4)
+Update packages(GameOverlay.Net.4.3.0 ,OpenCvSharp4.4.5.0.20201013,MahApps.Metro.2.3.4),
 修正關閉後未停止的問題
 
 
