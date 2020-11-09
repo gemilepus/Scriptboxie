@@ -1,10 +1,13 @@
 #1.0.0
 初版
+
 #1.0.1
 各種優化
 Add ON/OFF btn
+
 #1.0.2
 Add AActiveWindowTitle setting
+
 #1.1.0
 Update packages(GameOverlay.Net.4.3.0 ,OpenCvSharp4.4.5.0.20201013,MahApps.Metro.2.3.4)
 修正關閉後未停止的問題
