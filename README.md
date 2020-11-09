@@ -2,11 +2,11 @@
 初版
 
 #1.0.1
-各種優化
+各種優化,
 Add ON/OFF btn
 
 #1.0.2
-Add AActiveWindowTitle setting
+Add ActiveWindowTitle setting
 
 #1.1.0
 Update packages(GameOverlay.Net.4.3.0 ,OpenCvSharp4.4.5.0.20201013,MahApps.Metro.2.3.4),
