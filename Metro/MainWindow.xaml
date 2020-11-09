@@ -24,7 +24,7 @@
                     Match #Path,#X,#Y,#Height,#Width <LineBreak/>
                     Move #X,#Y <LineBreak/>
                     Offset #+X,#+Y <LineBreak/>
-                    Click #Left_Down Left_Up Right_Down Right_Up 
+                    Click #Left_Down Left_Up Right_Down Right_Up
                 </TextBlock>
             </Controls:Flyout>
         </Controls:FlyoutsControl>
@@ -61,12 +61,16 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
- 
+
             </TabItem>
             <TabItem Header="Edit">
                 <Grid Background="White">
-                    <DataGrid CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
-                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="320" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDoubleClick="mDataGrid_MouseDoubleClick">
+                    <Grid.ColumnDefinitions>
+                        <!--<ColumnDefinition Width="13*"/>-->
+                        <!--<ColumnDefinition Width="380*"/>-->
+                    </Grid.ColumnDefinitions>
+                    <DataGrid MinWidth="500" CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
+                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="320" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDoubleClick="mDataGrid_MouseDoubleClick" Grid.Column="1">
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
@@ -90,14 +94,14 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    
-                    <Controls:ToggleSwitch Click="Btn_Toggle_Click" Name="Btn_Toggle" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,240,0"></Controls:ToggleSwitch>
-                    <Button Click="Btn_open_Click" Content="Open" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" />
-                    <Button Click="Btn_Save_Click" Name="Btn_Save" Content="SAVE" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,60,0"/>
-                    <Button Click="Btn_Run_Click" Name="Btn_Run" Content="Run" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" />
-                    <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,120,0" />
+
+                    <Controls:ToggleSwitch Toggled="Btn_Toggle_Click" Name="Btn_Toggle" Height="28" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" Grid.Column="1"></Controls:ToggleSwitch>
+                    <Button Click="Btn_open_Click" Content="Open" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Grid.Column="1" />
+                    <Button Click="Btn_Save_Click" Name="Btn_Save" Content="SAVE" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,60,0" Grid.Column="1"/>
+                    <Button Click="Btn_Run_Click" Name="Btn_Run" Content="Run" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" Grid.Column="1" />
+                    <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,120,0" Grid.Column="1" />
                     <!--<Controls:ProgressRing Name="Ring" IsActive="{Binding Path=IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>-->
-                    <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>
+                    <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>

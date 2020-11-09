@@ -16,26 +16,26 @@ using System.Diagnostics;
 
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using OpenCvSharp.XFeatures2D;
 
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+
 using Ownskit.Utils;
+
 using GameOverlay.Drawing;
 using GameOverlay.Windows;
+
 using Gma.System.MouseKeyHook;
+
 using WindowsInputLib;
 using WindowsInputLib.Native;
-using OpenCvSharp.XFeatures2D;
 
 using IniParser;
 using IniParser.Model;
 
 namespace Metro
 {
-    /// <summary>
-    /// MainWindow.xaml 的互動邏輯
-    /// </summary>
-    /// 
     public partial class MainWindow : MetroWindow
     {
         // **************************************** Motion ******************************************
@@ -221,7 +221,8 @@ namespace Metro
             {
                 Mat gref = refMat.CvtColor(ColorConversionCodes.BGR2HLS);
                 Mat gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2HLS);
-                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCorrNormed);
+                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
+                //Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.SqDiffNormed);
                 Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
 
                 while (true)
@@ -306,7 +307,7 @@ namespace Metro
             Cv2.CvtColor(src1, gray1, ColorConversionCodes.BGR2GRAY);
             Cv2.CvtColor(src2, gray2, ColorConversionCodes.BGR2GRAY);
 
-            var sift = SIFT.Create();
+            //var sift = SIFT.Create();
 
             // Detect the keypoints and generate their descriptors using SIFT
             //KeyPoint[] keypoints1, keypoints2;
@@ -352,7 +353,7 @@ namespace Metro
         private int now_x, now_y;
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
         {
-            if (Btn_Toggle.IsChecked == true){
+            if (Btn_Toggle.IsOn == true){
                 Subscribe();
             }
             else{
@@ -378,7 +379,7 @@ namespace Metro
         }
 
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e){
-            if (Btn_Toggle.IsChecked == true){
+            if (Btn_Toggle.IsOn == true){
                 //if (e.Button.Equals("")) { }
                 mDataGrid.DataContext = null;
                 mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() +","+ now_y.ToString(), mTable_Event = "" });
@@ -539,11 +540,8 @@ namespace Metro
             for (int i = 0; i < eDataTable.Count; i++){
                 if (args.Key.ToString().Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
                 {
-                   
                     Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
-
-                    //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-                    //{
+                    //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin){
                     //    break;
                     //}
                     if (!_workerThreads[i].IsAlive){
@@ -556,8 +554,15 @@ namespace Metro
                             Console.WriteLine(eDataTable[i].eTable_Path);
                             string mScript_Local = eDataTable[i].eTable_Path;
                             List<mTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
-                            Thread TempThread = new Thread(() =>{
+                            Thread TempThread = new Thread(() =>{                                  
+                                try
+                                {
                                     Script(Script_DataTable);
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine("{0} Exception caught.", e);
+                                }
                             });
                             _workerThreads[i] = TempThread;
                             _workerThreads[i].Start();
@@ -572,7 +577,14 @@ namespace Metro
                         string mScript_Local = eDataTable[i].eTable_Path;
                         List<mTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
                         Thread TempThread = new Thread(() =>{
-                            Script(Script_DataTable);
+                            try
+                            {
+                                Script(Script_DataTable);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("{0} Exception caught.", e);
+                            }
                         });
                         _workerThreads[i] = TempThread;
                         eDataTable[i].eTable_State = "Stop";
@@ -1536,13 +1548,21 @@ namespace Metro
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // .ini
+            // .ini window (x,y)
             var parser = new FileIniDataParser();
             IniData data = new IniData();
             data = parser.ReadFile("user.ini");
             data["Def"]["x"] = this.Left.ToString();
             data["Def"]["y"] = this.Top.ToString();
             parser.WriteFile("user.ini", data);
+
+            for (int i = 0; i < _workerThreads.Count; i++)
+            {
+                if (_workerThreads[i].IsAlive)
+                {
+                    _workerThreads[i].Abort();
+                }
+            }
 
             if (IsActive)
             {
