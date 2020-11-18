@@ -150,11 +150,67 @@ namespace Metro
             return screenshot;
         }
 
+        private String RunTemplateMatch_RGB(Mat rec, Mat template)
+        {
+            //res = cv2.matchTemplate(img[:,:, 0], target[:,:, 0], cv2.TM_SQDIFF_NORMED)
+            //threshold = 0.00001
+            //loc = np.where(res <= threshold )
+            //img_rgb = img.copy()
+            //for pt in zip(*loc[::- 1]) :
+            //cv2.rectangle(img_rgb, pt, (pt[0] + 100, pt[1] + 100), (0,0,255), 2)
 
-        //  Multiple results
+            string ResponseStr = "";
+
+            using (Mat refMat = rec)
+            using (Mat tplMat = template)
+            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
+            {
+                //Convert input images to gray
+                Mat gref = refMat.CvtColor(ColorConversionCodes.RGB2GRAY);
+                Mat gtpl = tplMat.CvtColor(ColorConversionCodes.RGB2GRAY);
+
+                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.SqDiffNormed);
+                Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
+
+                while (true)
+                {
+                    double minval, maxval, threshold = 0.8;
+                    OpenCvSharp.Point minloc, maxloc;
+                    Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
+
+                    if (maxval >= threshold)
+                    {
+                        OpenCvSharp.Rect outRect;
+                        Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
+
+                        ResponseStr = ResponseStr + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    gref.Dispose();
+                    gtpl.Dispose();
+                }
+
+                refMat.Dispose();
+                tplMat.Dispose();
+
+                gref.Dispose();
+                gtpl.Dispose();
+
+                res.Dispose();
+
+                rec.Dispose();
+                template.Dispose();
+
+                return ResponseStr;
+            }
+        }
         private String RunTemplateMatch_GRAY(Mat rec, Mat template)
         {
-            string reText = "";
+            string ResponseStr = "";
 
             using (Mat refMat = rec)
             using (Mat tplMat = template)
@@ -185,7 +241,7 @@ namespace Metro
                         OpenCvSharp.Rect outRect;
                         Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
 
-                        reText = reText + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
+                        ResponseStr = ResponseStr + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
                     }
                     else
                     {
@@ -207,13 +263,13 @@ namespace Metro
                 rec.Dispose();
                 template.Dispose();
 
-                return reText;
+                return ResponseStr;
             }
         }
 
         private String RunTemplateMatch(Mat rec, Mat template)
         {
-            string reText = "";
+            string ResponseStr = "";
 
             using (Mat refMat = rec)
             using (Mat tplMat = template)
@@ -243,7 +299,7 @@ namespace Metro
                         OpenCvSharp.Rect outRect;
                         Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
 
-                        reText = reText + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
+                        ResponseStr = ResponseStr + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
                     }
                     else
                     {
@@ -265,7 +321,7 @@ namespace Metro
                 rec.Dispose();
                 template.Dispose();
 
-                return reText;
+                return ResponseStr;
             }
         }
 
@@ -500,14 +556,9 @@ namespace Metro
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
             if (!TextBox_Title.Text.Equals("")) {
-                if (GetActiveWindowTitle() == null){
-                    return;
-                }
+                if (GetActiveWindowTitle() == null){ return; }
                 string ActiveTitle = GetActiveWindowTitle();
-                if (ActiveTitle.Length == ActiveTitle.Replace(TextBox_Title.Text, "").Length)
-                {
-                    return;
-                }
+                if (ActiveTitle.Length == ActiveTitle.Replace(TextBox_Title.Text, "").Length){ return; }
             }
            
             // ON / OFF
@@ -522,9 +573,8 @@ namespace Metro
                     Btn_ON.Content = "ON";
                 }
             }
-            if (!Btn_ON.Content.Equals("ON")) {
-                return;
-            }
+
+            if (!Btn_ON.Content.Equals("ON")) {return;}
 
             KListener.Dispose();
            
@@ -1315,10 +1365,7 @@ namespace Metro
         private void eDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = eDataGrid.Columns.IndexOf(eDataGrid.CurrentCell.Column);
-            if (columnIndex < 0)
-            {
-                return;
-            }
+            if (columnIndex < 0){return;}
 
             if (eDataGrid.Columns[columnIndex].Header.ToString().Equals(" "))
             {
@@ -1335,9 +1382,7 @@ namespace Metro
                 }
                 catch { }
             }
-
-            if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
-            {
+            else if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
                 // Get index
                 int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
 
@@ -1386,7 +1431,6 @@ namespace Metro
         {
             if (Ring.IsActive == true)
             {
-
                 mThread.Abort();
             }
             Ring.IsActive = true;
@@ -1476,10 +1520,7 @@ namespace Metro
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
-            if (columnIndex < 0)
-            {
-                return;
-            }
+            if (columnIndex < 0) { return; }
 
             if (mDataGrid.Columns[columnIndex].Header.ToString().Equals(" "))
             {
@@ -1495,10 +1536,7 @@ namespace Metro
                     }
                 }
                 catch { }
-            }
-
-            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
-            {
+            } else if(mDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
                 // Get index
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
 
@@ -1577,7 +1615,6 @@ namespace Metro
         {
             return ((HiWord << 16) | (LoWord & 0xffff));
         }
-
 
         public static Keys ConvertCharToVirtualKey(char ch)
         {
