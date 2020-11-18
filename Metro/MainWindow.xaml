@@ -65,10 +65,7 @@
             </TabItem>
             <TabItem Header="Edit">
                 <Grid Background="White">
-                    <Grid.ColumnDefinitions>
-                        <!--<ColumnDefinition Width="13*"/>-->
-                        <!--<ColumnDefinition Width="380*"/>-->
-                    </Grid.ColumnDefinitions>
+
                     <DataGrid MinWidth="500" CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
                           SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="320" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDoubleClick="mDataGrid_MouseDoubleClick" Grid.Column="1">
                         <DataGrid.Columns>
@@ -102,6 +99,7 @@
                     <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,120,0" Grid.Column="1" />
                     <!--<Controls:ProgressRing Name="Ring" IsActive="{Binding Path=IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>-->
                     <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Column="1"/>
+                    
                 </Grid>
             </TabItem>
         </TabControl>
