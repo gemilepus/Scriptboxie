@@ -28,11 +28,11 @@ using GameOverlay.Windows;
 
 using Gma.System.MouseKeyHook;
 
-using WindowsInputLib;
-using WindowsInputLib.Native;
 
 using IniParser;
 using IniParser.Model;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace Metro
 {
@@ -480,7 +480,7 @@ namespace Metro
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset", "Loop", "Click", "Match", "Key","RemoveKey",
+                "Move","Offset", "Loop", "Click", "Match", "Key","ModifierKey","RemoveKey",
                 "Delay", "Get Point","Run exe", "FindWindow","ScreenClip", 
                 "Draw", "Sift Match",  "Clean Draw", "PostMessage", "PlaySound",
                 "Color Test"
@@ -805,20 +805,19 @@ namespace Metro
                                     //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                                     //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                                     //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
-
-                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                    mInputSimulator.Mouse.LeftButtonDown();
                                     Thread.Sleep(200);
-                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                                    mInputSimulator.Mouse.LeftButtonUp();
                                 }
                                 if (CommandData.Equals("Left_Down"))
                                 {
                                     //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                    mInputSimulator.Mouse.LeftButtonDown();
                                 }
                                 if (CommandData.Equals("Left_Up"))
                                 {
                                     //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                                    mInputSimulator.Mouse.LeftButtonUp();
                                 }
                                 if (CommandData.Equals("Right"))
                                 {
@@ -826,19 +825,19 @@ namespace Metro
                                     //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
                                     //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
 
-                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                    mInputSimulator.Mouse.RightButtonDown();
                                     Thread.Sleep(200);
-                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                    mInputSimulator.Mouse.RightButtonUp();
                                 }
                                 if (CommandData.Equals("Right_Down"))
                                 {
                                     //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                    mInputSimulator.Mouse.RightButtonDown();
                                 }
                                 if (CommandData.Equals("Right_Up"))
                                 {
                                     //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                    mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                    mInputSimulator.Mouse.RightButtonUp();
                                 }
                             }
                             else
@@ -851,20 +850,19 @@ namespace Metro
                                         //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                                         //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                                         //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
-
-                                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                        mInputSimulator.Mouse.LeftButtonDown();
                                         Thread.Sleep(200);
-                                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                                        mInputSimulator.Mouse.LeftButtonUp();
                                     }
                                     if (CommandData.Equals("Left_Down"))
                                     {
                                         //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.LeftButton);
+                                        mInputSimulator.Mouse.LeftButtonDown();
                                     }
                                     if (CommandData.Equals("Left_Up"))
                                     {
                                         //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.LeftButton);
+                                        mInputSimulator.Mouse.LeftButtonUp();
                                     }
                                     if (CommandData.Equals("Right"))
                                     {
@@ -872,20 +870,19 @@ namespace Metro
                                         //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
                                         //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
 
-
-                                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                        mInputSimulator.Mouse.RightButtonDown();
                                         Thread.Sleep(200);
-                                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                        mInputSimulator.Mouse.RightButtonUp();
                                     }
                                     if (CommandData.Equals("Right_Down"))
                                     {
                                         //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                        mInputSimulator.Mouse.MouseButtonDown(WindowsInputLib.MouseButton.RightButton);
+                                        mInputSimulator.Mouse.RightButtonDown();
                                     }
                                     if (CommandData.Equals("Right_Up"))
                                     {
                                         //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                        mInputSimulator.Mouse.MouseButtonUp(WindowsInputLib.MouseButton.RightButton);
+                                        mInputSimulator.Mouse.RightButtonUp();
                                     }
                                 }
                             }
@@ -994,23 +991,25 @@ namespace Metro
                                 mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertCharToVirtualKey(c));
                             }
                             //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
-
-                            //Example: Modified keystrokes such as CTRL - C
-                            // CTRL-C (effectively a copy command in many situations)
-                            //mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertCharToVirtualKey(c), (WindowsInputLib.Native.ModifierKeys)ConvertCharToVirtualKey(c));
-                            //mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertCharToVirtualKey(''), WindowsInputLib.Native.ModifierKeys.Control);
                             //***************** InputSimulator *****************
-
                             break;
 
                         case "ModifierKey":
+
+                            // For example CTRL-ALT-SHIFT-ESC-K which is simulated as
+                            // CTRL-down, ALT-down, SHIFT-down, press ESC, press K, SHIFT-up, ALT-up, CTRL-up
+                            //InputSimulator.SimulateModifiedKeyStroke(
+                            //  new[] { VirtualKeyCode.CONTROL, VirtualKeyCode.MENU, VirtualKeyCode.SHIFT },
+                            //  new[] { VirtualKeyCode.ESCAPE, VirtualKeyCode.VK_K });
+
+                            mInputSimulator.Keyboard.ModifiedKeyStroke( VirtualKeyCode.MENU,VirtualKeyCode.TAB);
+
 
                             //string str = CommandData;
                             //char[] arr = str.ToCharArray();
                             //foreach (char c in arr)
                             //{
-                            //    mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c),
-                            //        (WindowsInputLib.Native.ModifierKeys)ConvertCharToVirtualKey(c));
+                               //mInputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.MENU, VirtualKeyCode.TAB);
                             //}
 
                             break;
