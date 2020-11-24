@@ -1001,17 +1001,16 @@ namespace Metro
                             //mInputSimulator.Keyboard.ModifiedKeyStroke(
                             //  new[] { VirtualKeyCode.CONTROL, VirtualKeyCode.MENU, VirtualKeyCode.SHIFT },
                             //  new[] { VirtualKeyCode.ESCAPE, VirtualKeyCode.VK_K });
+
                             String[] KeyStr = CommandData.Split('|');
                             String[] ModifierKeyArr = KeyStr[0].Split(',');
-                            String[] KeyArr = KeyStr[0].Split(',');
+                            String[] KeyArr = KeyStr[1].Split(',');
 
                             VirtualKeyCode[] ModifierKeyCodeArr = new VirtualKeyCode[ModifierKeyArr.Length];
                             VirtualKeyCode[] KeyCodeArr = new VirtualKeyCode[KeyArr.Length];
-
                             for (int i = 0; i < ModifierKeyCodeArr.Length; i++) {
                                 ModifierKeyCodeArr[i] = (VirtualKeyCode)StringToVirtualKeyCode(ModifierKeyArr[i]);
                             }
-
                             for (int i = 0; i < KeyCodeArr.Length; i++)
                             {
                                 KeyCodeArr[i] = (VirtualKeyCode)StringToVirtualKeyCode(KeyArr[i]);
