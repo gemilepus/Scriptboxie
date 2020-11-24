@@ -975,7 +975,6 @@ namespace Metro
                             // EX: ^{ v}  
                             //SendKeys.SendWait(CommandData);
 
-                            //mInputSimulator.Keyboard.KeyPress(VirtualKeyCode.Space);
                             //KeysConverter kc = new KeysConverter();
                             //string keyChar = kc.ConvertToString("A");
                             //***************** SendKeys *****************
@@ -992,25 +991,36 @@ namespace Metro
                             }
                             //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
                             //***************** InputSimulator *****************
+
                             break;
 
                         case "ModifierKey":
 
                             // For example CTRL-ALT-SHIFT-ESC-K which is simulated as
                             // CTRL-down, ALT-down, SHIFT-down, press ESC, press K, SHIFT-up, ALT-up, CTRL-up
-                            //InputSimulator.SimulateModifiedKeyStroke(
+                            //mInputSimulator.Keyboard.ModifiedKeyStroke(
                             //  new[] { VirtualKeyCode.CONTROL, VirtualKeyCode.MENU, VirtualKeyCode.SHIFT },
                             //  new[] { VirtualKeyCode.ESCAPE, VirtualKeyCode.VK_K });
+                            String[] KeyStr = CommandData.Split('|');
+                            String[] ModifierKeyArr = KeyStr[0].Split(',');
+                            String[] KeyArr = KeyStr[0].Split(',');
 
-                            mInputSimulator.Keyboard.ModifiedKeyStroke( VirtualKeyCode.MENU,VirtualKeyCode.TAB);
+                            VirtualKeyCode[] ModifierKeyCodeArr = new VirtualKeyCode[ModifierKeyArr.Length];
+                            VirtualKeyCode[] KeyCodeArr = new VirtualKeyCode[KeyArr.Length];
 
+                            for (int i = 0; i < ModifierKeyCodeArr.Length; i++) {
+                                ModifierKeyCodeArr[i] = (VirtualKeyCode)StringToVirtualKeyCode(ModifierKeyArr[i]);
+                            }
 
-                            //string str = CommandData;
-                            //char[] arr = str.ToCharArray();
-                            //foreach (char c in arr)
-                            //{
-                               //mInputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.MENU, VirtualKeyCode.TAB);
-                            //}
+                            for (int i = 0; i < KeyCodeArr.Length; i++)
+                            {
+                                KeyCodeArr[i] = (VirtualKeyCode)StringToVirtualKeyCode(KeyArr[i]);
+                            }
+
+                            mInputSimulator.Keyboard.ModifiedKeyStroke(ModifierKeyCodeArr, KeyCodeArr);
+
+                            //mInputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.MENU, VirtualKeyCode.TAB);
+                            //mInputSimulator.Keyboard.ModifiedKeyStroke((VirtualKeyCode)StringToVirtualKeyCode("MENU"), (VirtualKeyCode)StringToVirtualKeyCode("TAB"));
 
                             break;
 
@@ -1625,9 +1635,11 @@ namespace Metro
             if ((modifiers & 4) != 0) retval |= Keys.Alt;
             return retval;
         }
+
         private int StringToVirtualKeyCode(String str)
         {
-        int value = 0;
+            str = str.ToUpper();
+            int value = 0;
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
             foreach (int enumValue in enumValueArray)
             {
@@ -1636,11 +1648,15 @@ namespace Metro
                     value = enumValue;
                 }
             }
+
+            // TODO: Enum > ArrayList 
             // ArrayList
             //ArrayList myArrayList = new ArrayList();
             //myArrayList.AddRange(enumValueArray);
+
             return value;
         }
+
         private static void GetEnumVirtualKeyCodeValues()
         {
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
@@ -1657,6 +1673,5 @@ namespace Metro
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
         }
 
-       
     }
 }

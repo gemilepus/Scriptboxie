@@ -1,0 +1,3 @@
+True;ModifierKey;MENU|TAB;0;
+True;Delay;1000;;
+True;Loop;;;
