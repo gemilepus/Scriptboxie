@@ -539,6 +539,8 @@ namespace Metro
                     _workerThreads.Add(TempThread);
                 }
             }
+
+            GetEnumVirtualKeyCodeValues();
         }
         void AlertSound() {
             try
@@ -1659,15 +1661,18 @@ namespace Metro
         private static void GetEnumVirtualKeyCodeValues()
         {
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
+            ArrayList myArrayList = new ArrayList();
+            myArrayList.AddRange(enumValueArray);
+            //string m= myArrayList[0].ToString();
             foreach (int enumValue in enumValueArray)
             {
                 Console.WriteLine("Name: " + Enum.GetName(typeof(VirtualKeyCode), enumValue) + " , Value: " + enumValue);
-            }
+            }            
         }
 
         private static void ParseEnum()
         {
-            VirtualKeyCode ms = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
+            VirtualKeyCode ms = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "MENU");
             Console.WriteLine(ms.ToString());
             Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
         }
