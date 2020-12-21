@@ -569,6 +569,14 @@ namespace Metro
                 if (Btn_ON.Content.Equals("ON"))
                 {
                     Btn_ON.Content = "OFF";
+
+                    for (int i = 0; i < _workerThreads.Count; i++)
+                    {
+                        if (_workerThreads[i].IsAlive)
+                        {
+                            _workerThreads[i].Abort();
+                        }
+                    }
                 }
                 else
                 {
@@ -1390,7 +1398,10 @@ namespace Metro
                         eDataGrid.DataContext = eDataTable;
                     }
                 }
-                catch { }
+                catch (Exception err)
+                {
+                    Console.WriteLine("{0} Exception caught.", err);
+                }
             }
             else if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
                 // Get index
@@ -1412,7 +1423,10 @@ namespace Metro
                         eDataGrid.DataContext = eDataTable;
                     }
                 }
-                catch { }
+                catch (Exception err)
+                {
+                    Console.WriteLine("{0} Exception caught.", err);
+                }
             }
         }
 
@@ -1545,7 +1559,10 @@ namespace Metro
                         mDataGrid.DataContext = mDataTable;
                     }
                 }
-                catch { }
+                catch (Exception err)
+                {
+                    Console.WriteLine("{0} Exception caught.", err);
+                }
             } else if(mDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
                 // Get index
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
@@ -1566,7 +1583,10 @@ namespace Metro
                         mDataGrid.DataContext = mDataTable;
                     }
                 }
-                catch { }
+                catch (Exception err)
+                {
+                    Console.WriteLine("{0} Exception caught.", err);
+                }
             }
         }
         #endregion
