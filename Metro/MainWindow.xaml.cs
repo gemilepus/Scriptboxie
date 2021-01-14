@@ -34,6 +34,7 @@ using IniParser.Model;
 using WindowsInput;
 using WindowsInput.Native;
 
+
 namespace Metro
 {
     public partial class MainWindow : MetroWindow
@@ -438,8 +439,8 @@ namespace Metro
             if (Btn_Toggle.IsOn == true){
                 //if (e.Button.Equals("")) { }
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() +","+ now_y.ToString(), mTable_Event = "" });
-                mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString(), mTable_Event = "" });
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() +","+ now_y.ToString(), mTable_Event = "" });
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString(), mTable_Event = "" });
                 mDataGrid.DataContext = mDataTable;
             }
             Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
@@ -465,8 +466,8 @@ namespace Metro
         KeyboardListener KListener = new KeyboardListener();
 
         // DataGrid
-        List<mTable> mDataTable = new List<mTable>();
-        List<eTable> eDataTable = new List<eTable>();
+        List<MainTable> mDataTable = new List<MainTable>();
+        List<EditTable> eDataTable = new List<EditTable>();
 
         private List<Thread> _workerThreads = new List<Thread>();
 
@@ -540,8 +541,9 @@ namespace Metro
                 }
             }
 
-            GetEnumVirtualKeyCodeValues();
+            ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
+
         void AlertSound() {
             try
             {
@@ -613,7 +615,7 @@ namespace Metro
                         {
                             Console.WriteLine(eDataTable[i].eTable_Path);
                             string mScript_Local = eDataTable[i].eTable_Path;
-                            List<mTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                            List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
                             Thread TempThread = new Thread(() =>{                                  
                                 try
                                 {
@@ -635,7 +637,7 @@ namespace Metro
                         _workerThreads[i].Abort();
                         Console.WriteLine(eDataTable[i].eTable_Path);
                         string mScript_Local = eDataTable[i].eTable_Path;
-                        List<mTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                        List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
                         Thread TempThread = new Thread(() =>{
                             try
                             {
@@ -655,6 +657,14 @@ namespace Metro
                 }
             }
 
+            for (int i = 0; i < _workerThreads.Count; i++)
+            {
+                if (_workerThreads[i].ThreadState == System.Threading.ThreadState.Stopped)
+                {
+                    eDataTable[i].eTable_State = "Stop";
+                }
+            }
+
             // Restart
             KListener = new KeyboardListener();
             KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
@@ -664,7 +674,7 @@ namespace Metro
             Console.WriteLine(args.ToString());
         }
 
-        private void Script(List<mTable> minDataTable)
+        private void Script(List<MainTable> minDataTable)
         {
             SortedList mDoSortedList = new SortedList();
             // key || value
@@ -994,10 +1004,10 @@ namespace Metro
                             char[]  arr = str.ToCharArray();
                             foreach (char c in arr)
                             {
-                                //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertCharToVirtualKey(c));
-                                mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                                //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                                 Thread.Sleep(100);
-                                mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertCharToVirtualKey(c));
+                                mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                             }
                             //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
                             //***************** InputSimulator *****************
@@ -1019,17 +1029,17 @@ namespace Metro
                             VirtualKeyCode[] ModifierKeyCodeArr = new VirtualKeyCode[ModifierKeyArr.Length];
                             VirtualKeyCode[] KeyCodeArr = new VirtualKeyCode[KeyArr.Length];
                             for (int i = 0; i < ModifierKeyCodeArr.Length; i++) {
-                                ModifierKeyCodeArr[i] = (VirtualKeyCode)StringToVirtualKeyCode(ModifierKeyArr[i]);
+                                ModifierKeyCodeArr[i] = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(ModifierKeyArr[i]);
                             }
                             for (int i = 0; i < KeyCodeArr.Length; i++)
                             {
-                                KeyCodeArr[i] = (VirtualKeyCode)StringToVirtualKeyCode(KeyArr[i]);
+                                KeyCodeArr[i] = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(KeyArr[i]);
                             }
 
                             mInputSimulator.Keyboard.ModifiedKeyStroke(ModifierKeyCodeArr, KeyCodeArr);
 
                             //mInputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.MENU, VirtualKeyCode.TAB);
-                            //mInputSimulator.Keyboard.ModifiedKeyStroke((VirtualKeyCode)StringToVirtualKeyCode("MENU"), (VirtualKeyCode)StringToVirtualKeyCode("TAB"));
+                            //mInputSimulator.Keyboard.ModifiedKeyStroke((VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode("MENU"), (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode("TAB"));
 
                             break;
 
@@ -1284,13 +1294,6 @@ namespace Metro
         }
 
         #region Script Panel
-        public class mTable
-        {
-            public bool mTable_IsEnable { get; set; }
-            public string mTable_Mode { get; set; }
-            public string mTable_Action { get; set; }
-            public string mTable_Event { get; set; }
-        }
         private void Load_Script_ini()
         {
             string fileContent = string.Empty;
@@ -1307,7 +1310,7 @@ namespace Metro
 
             for (int i = 0; i < SplitStr.Length - 6; i += 6)
             {
-                eDataTable.Add(new eTable()
+                eDataTable.Add(new EditTable()
                 {
                     eTable_Enable = bool.Parse(SplitStr[i].Replace("%", "")),
                     eTable_Name = SplitStr[i + 1].Replace("%", ""),
@@ -1345,9 +1348,9 @@ namespace Metro
             mDataGrid.DataContext = mDataTable;
         }
 
-        private List<mTable> Load_Script_to_DataTable(string mfilePath)
+        private List<MainTable> Load_Script_to_DataTable(string mfilePath)
         {
-            List<mTable> tempDataTable = new List<mTable>();
+            List<MainTable> tempDataTable = new List<MainTable>();
             string fileContent = string.Empty;
             StreamReader reader = new StreamReader(mfilePath);
 
@@ -1360,7 +1363,7 @@ namespace Metro
 
                 for (int i = 0; i < SplitStr.Length - 4; i += 4)
                 {
-                    tempDataTable.Add(new mTable()
+                    tempDataTable.Add(new MainTable()
                     {
                         mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
                         mTable_Mode = SplitStr[i + 1].Replace("%", ""),
@@ -1378,6 +1381,10 @@ namespace Metro
         private void eDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             Save_Script();
+
+            // Restart
+            this.Close();
+            Process.Start("Metro.exe", "");
         }
 
         private void eDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -1413,13 +1420,13 @@ namespace Metro
                     {
                         // Insert Item
                         eDataGrid.DataContext = null;
-                        eDataTable.Insert(tableIndex + 1, new eTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                        eDataTable.Insert(tableIndex + 1, new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
                         eDataGrid.DataContext = eDataTable;
                     }
                     else
                     {
                         eDataGrid.DataContext = null;
-                        eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                        eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
                         eDataGrid.DataContext = eDataTable;
                     }
                 }
@@ -1437,16 +1444,6 @@ namespace Metro
         #endregion
 
         #region Edit Panel
-        public class eTable
-        {
-            public bool eTable_Enable { get; set; }
-            public string eTable_Name { get; set; }
-            public string eTable_Key { get; set; }
-            public string eTable_State { get; set; }
-            public string eTable_Note { get; set; }
-            public string eTable_Path { get; set; }
-        }
-
         Thread mThread = null;
         // data
         bool Tempflag = false;
@@ -1529,7 +1526,7 @@ namespace Metro
         #region DataGrid Event
         private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
-            e.NewItem = new mTable
+            e.NewItem = new MainTable
             {
                 mTable_IsEnable = true,
                 mTable_Mode = "",
@@ -1573,13 +1570,13 @@ namespace Metro
                     {
                         // Insert Item
                         mDataGrid.DataContext = null;
-                        mDataTable.Insert(tableIndex + 1, new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "" });
+                        mDataTable.Insert(tableIndex + 1, new MainTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
                     else
                     {
                         mDataGrid.DataContext = null;
-                        mDataTable.Add(new mTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "" });
+                        mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
                 }
@@ -1612,7 +1609,7 @@ namespace Metro
         }
         private void Btn_About_Click(object sender, RoutedEventArgs e)
         {
-            this.ShowMessageAsync("...........", "About");
+            this.ShowMessageAsync("About", "v1.2.0");
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -1638,64 +1635,5 @@ namespace Metro
             }
         }
         #endregion
-
-        // **********************************  End  *****************************************
-
-        public int MakeLParam(int LoWord, int HiWord)
-        {
-            return ((HiWord << 16) | (LoWord & 0xffff));
-        }
-
-        public static Keys ConvertCharToVirtualKey(char ch)
-        {
-            short vkey = VkKeyScan(ch);
-            Keys retval = (Keys)(vkey & 0xff);
-            int modifiers = vkey >> 8;
-            if ((modifiers & 1) != 0) retval |= Keys.Shift;
-            if ((modifiers & 2) != 0) retval |= Keys.Control;
-            if ((modifiers & 4) != 0) retval |= Keys.Alt;
-            return retval;
-        }
-
-        private int StringToVirtualKeyCode(String str)
-        {
-            str = str.ToUpper();
-            int value = 0;
-            Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
-            foreach (int enumValue in enumValueArray)
-            {
-                if (Enum.GetName(typeof(VirtualKeyCode), enumValue).Equals(str))
-                {
-                    value = enumValue;
-                }
-            }
-
-            // TODO: Enum > ArrayList 
-            // ArrayList
-            //ArrayList myArrayList = new ArrayList();
-            //myArrayList.AddRange(enumValueArray);
-
-            return value;
-        }
-
-        private static void GetEnumVirtualKeyCodeValues()
-        {
-            Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
-            ArrayList myArrayList = new ArrayList();
-            myArrayList.AddRange(enumValueArray);
-            //string m= myArrayList[0].ToString();
-            foreach (int enumValue in enumValueArray)
-            {
-                Console.WriteLine("Name: " + Enum.GetName(typeof(VirtualKeyCode), enumValue) + " , Value: " + enumValue);
-            }            
-        }
-
-        private static void ParseEnum()
-        {
-            VirtualKeyCode ms = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "MENU");
-            Console.WriteLine(ms.ToString());
-            Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
-        }
-
     }
 }
