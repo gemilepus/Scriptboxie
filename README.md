@@ -15,6 +15,8 @@
 #1.2.0
 - Change Win input library (WindowsInputLibrary > InputSimulator 1.04)
 
+#1.2.2
+- add ModifierKey & Match RGB
 
 ![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
 ![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
