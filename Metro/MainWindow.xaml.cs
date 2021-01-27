@@ -28,12 +28,11 @@ using GameOverlay.Windows;
 
 using Gma.System.MouseKeyHook;
 
-
 using IniParser;
 using IniParser.Model;
+
 using WindowsInput;
 using WindowsInput.Native;
-
 
 namespace Metro
 {
@@ -481,7 +480,7 @@ namespace Metro
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset", "Loop", "Click", "Match", "Key","ModifierKey","RemoveKey",
+                "Move","Offset", "Loop", "Click", "Match","Match RGB", "Key","ModifierKey","RemoveKey",
                 "Delay", "Get Point","Run exe", "FindWindow","ScreenClip", 
                 "Draw", "Sift Match",  "Clean Draw", "PostMessage", "PlaySound",
                 "Color Test"
@@ -544,21 +543,12 @@ namespace Metro
             ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
 
-        void AlertSound() {
-            try
-            {
-                SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
-                mWaveFile.PlaySync();
-                mWaveFile.Dispose();
-            }
-            catch (InvalidCastException e)
-            {
-                Console.WriteLine(e);
-            }
-
-        }
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
+            Console.WriteLine(args.Key.ToString());
+            // Prints the text of pressed button, takes in account big and small letters. E.g. "Shift+a" => "A"
+            Console.WriteLine(args.ToString());
+
             if (!TextBox_Title.Text.Equals("")) {
                 if (GetActiveWindowTitle() == null){ return; }
                 string ActiveTitle = GetActiveWindowTitle();
@@ -657,10 +647,10 @@ namespace Metro
                 }
             }
 
+            // Update thread status
             for (int i = 0; i < _workerThreads.Count; i++)
             {
-                if (_workerThreads[i].ThreadState == System.Threading.ThreadState.Stopped)
-                {
+                if (_workerThreads[i].ThreadState == System.Threading.ThreadState.Stopped){
                     eDataTable[i].eTable_State = "Stop";
                 }
             }
@@ -668,10 +658,6 @@ namespace Metro
             // Restart
             KListener = new KeyboardListener();
             KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
-
-            Console.WriteLine(args.Key.ToString());
-            // Prints the text of pressed button, takes in account big and small letters. E.g. "Shift+a" => "A"
-            Console.WriteLine(args.ToString());
         }
 
         private void Script(List<MainTable> minDataTable)
@@ -686,26 +672,21 @@ namespace Metro
             //  GameOverlay .Net
             OverlayWindow _window;
             GameOverlay.Drawing.Graphics _graphics;
-
             // Brush
             GameOverlay.Drawing.SolidBrush _red;
             GameOverlay.Drawing.Font _font;
             GameOverlay.Drawing.SolidBrush _black;
-
             // it is important to set the window to visible (and topmost) if you want to see it!
-            _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
-            {
+            _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height){
                 IsTopmost = true,
                 IsVisible = true
             };
-
             // handle this event to resize your Graphics surface
             //_window.SizeChanged += _window_SizeChanged;
 
             // initialize a new Graphics object
             // set everything before you call _graphics.Setup()
-            _graphics = new GameOverlay.Drawing.Graphics
-            {
+            _graphics = new GameOverlay.Drawing.Graphics{
                 //MeasureFPS = true,
                 Height = _window.Height,
                 PerPrimitiveAntiAliasing = true,
@@ -720,9 +701,8 @@ namespace Metro
             _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()         
             _graphics.Setup();
 
-            _red = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Red); // those are the only pre defined Colors
-                                                                              // creates a simple font with no additional style
-            _font = _graphics.CreateFont("Arial", 25);
+            _red = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Red); // those are the only pre defined Colors                                                              
+            _font = _graphics.CreateFont("Arial", 25); // creates a simple font with no additional style
             _black = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Transparent);
 
             var gfx = _graphics; // little shortcut
@@ -909,7 +889,7 @@ namespace Metro
 
                             break;
 
-                        case "Match":
+                        case "Match": case "Match RGB":
                             do
                             {
                                 string TempPath = CommandData;
@@ -942,7 +922,14 @@ namespace Metro
                                 int temp_w = matTemplate.Width / 2, temp_h = matTemplate.Height / 2; // center x y
 
                                 //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
-                                string return_xy = RunTemplateMatch(matTarget, matTemplate);
+                                string return_xy;
+                                if (Command.Equals("Match")){                                  
+                                    return_xy = RunTemplateMatch_GRAY(matTarget, matTemplate);
+                                }
+                                else {
+                                    return_xy = RunTemplateMatch(matTarget, matTemplate);
+                                }
+                              
                                 //if (!return_xy.Equals(""))
                                 //{
                                 //    string[] xy = return_xy.Split(',');
@@ -1589,6 +1576,20 @@ namespace Metro
         #endregion
 
         #region APP
+        private void AlertSound()
+        {
+            try
+            {
+                SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
+                mWaveFile.PlaySync();
+                mWaveFile.Dispose();
+            }
+            catch (InvalidCastException e)
+            {
+                Console.WriteLine(e);
+            }
+
+        }
         private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
         {
             // .ini
@@ -1609,7 +1610,7 @@ namespace Metro
         }
         private void Btn_About_Click(object sender, RoutedEventArgs e)
         {
-            this.ShowMessageAsync("About", "v1.2.0");
+            this.ShowMessageAsync("About", Metro.Properties.Resources.Version);
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
