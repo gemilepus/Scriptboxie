@@ -404,15 +404,27 @@ namespace Metro
         // WindowsInputLibrary
         InputSimulator mInputSimulator = new InputSimulator();
 
-        // globalmousekeyhook
+        // KeyboardListener
+        KeyboardListener KListener = new KeyboardListener();
+
+        // DataGrid
+        List<MainTable> mDataTable = new List<MainTable>();
+        List<EditTable> eDataTable = new List<EditTable>();
+
+        private List<Thread> _workerThreads = new List<Thread>();
+
+        // Globalmousekeyhook
+        #region
         private IKeyboardMouseEvents m_GlobalHook;
         private int now_x, now_y;
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
         {
-            if (Btn_Toggle.IsOn == true){
+            if (Btn_Toggle.IsOn == true)
+            {
                 Subscribe();
             }
-            else{
+            else
+            {
                 Unsubscribe();
 
                 // remove event
@@ -422,7 +434,8 @@ namespace Metro
                 mDataGrid.DataContext = mDataTable;
             }
         }
-        public void Subscribe(){
+        public void Subscribe()
+        {
             // Note: for the application hook, use the Hook.AppEvents() instead
             m_GlobalHook = Hook.GlobalEvents();
             m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
@@ -430,15 +443,18 @@ namespace Metro
             m_GlobalHook.MouseMove += HookManager_MouseMove;
         }
 
-        private void GlobalHookKeyPress(object sender, KeyPressEventArgs e){
+        private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
+        {
             Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
         }
 
-        private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e){
-            if (Btn_Toggle.IsOn == true){
+        private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
+        {
+            if (Btn_Toggle.IsOn == true)
+            {
                 //if (e.Button.Equals("")) { }
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() +","+ now_y.ToString(), mTable_Event = "" });
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() + "," + now_y.ToString(), mTable_Event = "" });
                 mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString(), mTable_Event = "" });
                 mDataGrid.DataContext = mDataTable;
             }
@@ -448,42 +464,36 @@ namespace Metro
             // if (e.Buttons == MouseButtons.Middle) { e.Handled = true; }
         }
 
-        private void HookManager_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e){
+        private void HookManager_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
             now_x = e.X;
             now_y = e.Y;
             //Console.WriteLine("MouseMove: x={0:0000}; y={1:0000}", e.X, e.Y);
         }
 
-        public void Unsubscribe(){
+        public void Unsubscribe()
+        {
             m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
             m_GlobalHook.KeyPress -= GlobalHookKeyPress;
 
             //It is recommened to dispose it
             m_GlobalHook.Dispose();
         }
-        
-        KeyboardListener KListener = new KeyboardListener();
-
-        // DataGrid
-        List<MainTable> mDataTable = new List<MainTable>();
-        List<EditTable> eDataTable = new List<EditTable>();
-
-        private List<Thread> _workerThreads = new List<Thread>();
+        #endregion
 
         public MainWindow()
         {
             InitializeComponent();
 
-            KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
             // Data Binding
             //this.DataContext = this;
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset", "Loop", "Click", "Match","Match RGB", "Key","ModifierKey","RemoveKey",
-                "Delay", "Get Point","Run exe", "FindWindow","ScreenClip", 
-                "Draw", "Sift Match",  "Clean Draw", "PostMessage", "PlaySound",
-                "Color Test"
+                "Move","Offset", "Loop", "Click", "Match","Match RGB", "Key",
+                "ModifierKey","RemoveKey","Delay", "Get Point","Run exe",
+                "FindWindow","ScreenClip", "Draw", "Sift Match", "Clean Draw",
+                "PostMessage", "PlaySound","Color Test"
             };
             mComboBoxColumn.ItemsSource = mList;
 
@@ -491,7 +501,7 @@ namespace Metro
             //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
             //eDataGrid.DataContext = eDataTable;
 
-            // user.ini
+            #region Load user.ini
             var parser = new FileIniDataParser();
             IniData data = new IniData();
             try
@@ -517,18 +527,24 @@ namespace Metro
             }
 
             // Load Script
-            if (data["Def"]["Script"] != null || data["Def"]["Script"] != "") {
-                try {
+            if (data["Def"]["Script"] != null || data["Def"]["Script"] != "")
+            {
+                try
+                {
                     Load_Script(data["Def"]["Script"]);
-                } 
-                catch {
+                }
+                catch
+                {
                     data["Def"]["Script"] = "";
                     parser.WriteFile("user.ini", data);
                 }
             }
+            #endregion
 
+            KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
+
+            // Load Script setting
             Load_Script_ini();
-
             for (int i = 0; i < eDataTable.Count; i++){
                 if (eDataTable[i].eTable_Path.Length > 0){
                     Console.WriteLine(i + " " + eDataTable[i].eTable_Path);
@@ -540,15 +556,13 @@ namespace Metro
                 }
             }
 
+            // test
             ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
 
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
-            Console.WriteLine(args.Key.ToString());
-            // Prints the text of pressed button, takes in account big and small letters. E.g. "Shift+a" => "A"
-            Console.WriteLine(args.ToString());
-
+            
             if (!TextBox_Title.Text.Equals("")) {
                 if (GetActiveWindowTitle() == null){ return; }
                 string ActiveTitle = GetActiveWindowTitle();
@@ -575,11 +589,13 @@ namespace Metro
                     Btn_ON.Content = "ON";
                 }
             }
-
             if (!Btn_ON.Content.Equals("ON")) {return;}
 
             KListener.Dispose();
-           
+            Console.WriteLine(args.Key.ToString());
+            // Prints the text of pressed button, takes in account big and small letters. E.g. "Shift+a" => "A"
+            Console.WriteLine(args.ToString());
+
             if (args.ToString().Equals("[")){
                 AlertSound();
                 Run_script();
@@ -1278,6 +1294,7 @@ namespace Metro
 
                 n++;
             }
+
         }
 
         #region Script Panel
@@ -1431,6 +1448,7 @@ namespace Metro
         #endregion
 
         #region Edit Panel
+
         Thread mThread = null;
         // data
         bool Tempflag = false;
