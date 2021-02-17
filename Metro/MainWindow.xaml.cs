@@ -333,7 +333,7 @@ namespace Metro
                 result = src.Clone();
                 Cv2.CvtColor(src, gray, ColorConversionCodes.BGR2GRAY);
                 // Detect faces
-                OpenCvSharp.Rect[] faces = cascade.DetectMultiScale(gray, 1.08, 2, HaarDetectionType.ScaleImage, new OpenCvSharp.Size(30, 30));
+                OpenCvSharp.Rect[] faces = cascade.DetectMultiScale(gray, 1.08, 2, HaarDetectionTypes.ScaleImage, new OpenCvSharp.Size(30, 30));
                 //Render all detected faces
                 foreach (OpenCvSharp.Rect face in faces)
                 {
