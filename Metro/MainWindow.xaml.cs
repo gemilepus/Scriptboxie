@@ -1640,6 +1640,8 @@ namespace Metro
             data["Def"]["y"] = this.Top.ToString();
             parser.WriteFile("user.ini", data);
 
+
+            // Stop all thread
             for (int i = 0; i < _workerThreads.Count; i++)
             {
                 if (_workerThreads[i].IsAlive)
