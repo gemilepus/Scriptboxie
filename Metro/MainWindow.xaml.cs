@@ -557,7 +557,7 @@ namespace Metro
             }
 
             // test
-            ConvertHelper.GetEnumVirtualKeyCodeValues();
+            //ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
 
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
