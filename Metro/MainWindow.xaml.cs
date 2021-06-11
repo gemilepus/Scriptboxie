@@ -555,7 +555,7 @@ namespace Metro
                     _workerThreads.Add(TempThread);
                 }
             }
-
+            
             // test
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
