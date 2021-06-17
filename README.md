@@ -18,6 +18,10 @@
 #1.2.2
 - add ModifierKey & Match RGB
 
+## Demo ##
 ![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
-![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
+## Main ##
 ![alt text?](https://github.com/gemilepus/Script_Lite/blob/master/cover.png)
+## Edit ##
+![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
+
