@@ -1356,10 +1356,10 @@ namespace Metro
         {
             List<MainTable> tempDataTable = new List<MainTable>();
             string fileContent = string.Empty;
-            StreamReader reader = new StreamReader(mfilePath);
-
+            
             try
             {
+                StreamReader reader = new StreamReader(mfilePath);
                 // read test
                 fileContent = reader.ReadToEnd();
                 fileContent.Replace(";", "%;");
