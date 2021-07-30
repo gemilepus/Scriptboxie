@@ -24,4 +24,5 @@
 ![alt text?](https://github.com/gemilepus/Script_Lite/blob/master/cover.png)
 ## Edit ##
 ![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
-
+## TODO ##
+ - 把分散各CASE的判斷整合成一個
