@@ -1457,9 +1457,9 @@ namespace Metro
         {
             if (Ring.IsActive == true)
             {
-                //mThread.Abort();
+                mThread.Abort();
             }
-            mThread.Abort();
+            //mThread.Abort();
             Ring.IsActive = true;
 
             mThread = new Thread(() =>
