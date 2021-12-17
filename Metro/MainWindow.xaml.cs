@@ -723,9 +723,10 @@ namespace Metro
 
             var gfx = _graphics; // little shortcut
 
-            int n = 0;
+            int n = 0; int LoopCount = 0;
             while (n < minDataTable.Count)
             {
+               
                 string Command = minDataTable[n].mTable_Mode;
                 string CommandData = minDataTable[n].mTable_Action;
                 bool CommandEnable = minDataTable[n].mTable_IsEnable;
@@ -1279,7 +1280,18 @@ namespace Metro
                         case "Loop":
                             do
                             {
-                                n = -1;
+                                if (!CommandData.Equals(""))
+                                {
+                                    LoopCount++;
+                                    int LoopSum = int.Parse(CommandData);
+                                    if (LoopCount != LoopSum)
+                                    {
+                                        n = -1;
+                                    }
+                                }
+                                else {
+                                    n = -1;
+                                }                           
                             } while (false);
 
                             break;
