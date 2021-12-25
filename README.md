@@ -26,4 +26,3 @@
 ![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
 ## TODO ##
  - 把分散各CASE的判斷整合成一個
- - Loop Count
