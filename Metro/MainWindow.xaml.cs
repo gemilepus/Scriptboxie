@@ -726,14 +726,15 @@ namespace Metro
             int n = 0; int LoopCount = 0;
             while (n < minDataTable.Count)
             {
-               
+
                 string Command = minDataTable[n].mTable_Mode;
                 string CommandData = minDataTable[n].mTable_Action;
                 bool CommandEnable = minDataTable[n].mTable_IsEnable;
                 string[] Event = minDataTable[n].mTable_Event.Split(',');
-                if (minDataTable[n].mTable_Event == "") { Event = new string[0];}
+                if (minDataTable[n].mTable_Event == "") { Event = new string[0]; }
 
-                if (CommandEnable) {
+                if (CommandEnable)
+                {
 
                     #region Switch Command
                     switch (Command)
@@ -750,15 +751,16 @@ namespace Metro
                                 // Check Key
                                 if (mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
-                                    string[] Event_Data;       
+                                    string[] Event_Data;
                                     if (CommandData.Length > 0)
                                     {
                                         // use CommandData 
                                         Event_Data = CommandData.Split(',');
                                     }
-                                    else {
+                                    else
+                                    {
                                         // Get SortedList Value by Key
-                                       Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
+                                        Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
                                     }
                                     SetCursorPos(int.Parse(Event_Data[0]), int.Parse(Event_Data[1]));
                                 }
@@ -906,7 +908,8 @@ namespace Metro
 
                             break;
 
-                        case "Match": case "Match RGB":
+                        case "Match":
+                        case "Match RGB":
                             do
                             {
                                 string TempPath = CommandData;
@@ -940,13 +943,15 @@ namespace Metro
 
                                 //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
                                 string return_xy;
-                                if (Command.Equals("Match")){                                  
+                                if (Command.Equals("Match"))
+                                {
                                     return_xy = RunTemplateMatch_GRAY(matTarget, matTemplate);
                                 }
-                                else {
+                                else
+                                {
                                     return_xy = RunTemplateMatch(matTarget, matTemplate);
                                 }
-                              
+
                                 //if (!return_xy.Equals(""))
                                 //{
                                 //    string[] xy = return_xy.Split(',');
@@ -958,7 +963,17 @@ namespace Metro
                                     // Add Key
                                     if (Event[0].Length > 0)
                                     {
-                                        mDoSortedList.Add(Event[0], return_xy);
+                                        if (Event[0].IndexOf("-") == -1)
+                                        {
+                                            mDoSortedList.Add(Event[0], return_xy);
+                                        }
+                                        else
+                                        {
+                                            if (mDoSortedList.IndexOfKey(Event[0].Replace("-", "")) == -1)
+                                            {
+                                                mDoSortedList.Add(Event[0].Replace("-", ""), return_xy);
+                                            }
+                                        }
                                     }
                                 }
                                 matTarget.Dispose();
@@ -1005,7 +1020,7 @@ namespace Metro
 
                             //***************** InputSimulator *****************
                             string str = CommandData;
-                            char[]  arr = str.ToCharArray();
+                            char[] arr = str.ToCharArray();
                             foreach (char c in arr)
                             {
                                 //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
@@ -1032,7 +1047,8 @@ namespace Metro
 
                             VirtualKeyCode[] ModifierKeyCodeArr = new VirtualKeyCode[ModifierKeyArr.Length];
                             VirtualKeyCode[] KeyCodeArr = new VirtualKeyCode[KeyArr.Length];
-                            for (int i = 0; i < ModifierKeyCodeArr.Length; i++) {
+                            for (int i = 0; i < ModifierKeyCodeArr.Length; i++)
+                            {
                                 ModifierKeyCodeArr[i] = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(ModifierKeyArr[i]);
                             }
                             for (int i = 0; i < KeyCodeArr.Length; i++)
@@ -1097,7 +1113,7 @@ namespace Metro
                         case "ScreenClip":
 
                             string[] str_clip = CommandData.Split(',');
-                            TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]),int.Parse(str_clip[2]), int.Parse(str_clip[3]));
+                            TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]), int.Parse(str_clip[2]), int.Parse(str_clip[3]));
 
                             break;
 
@@ -1147,7 +1163,17 @@ namespace Metro
                                 // Add Key
                                 if (Event[0].Length > 0)
                                 {
-                                    mDoSortedList.Add(Event[0], return_xyd);
+                                    if (Event[0].IndexOf("-") == -1)
+                                    {
+                                        mDoSortedList.Add(Event[0], return_xyd);
+                                    }
+                                    else
+                                    {
+                                        if (mDoSortedList.IndexOfKey(Event[0].Replace("-", "")) == -1)
+                                        {
+                                            mDoSortedList.Add(Event[0].Replace("-", ""), return_xyd);
+                                        }
+                                    }
                                 }
                                 // Move
                                 //SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
@@ -1289,9 +1315,10 @@ namespace Metro
                                         n = -1;
                                     }
                                 }
-                                else {
+                                else
+                                {
                                     n = -1;
-                                }                           
+                                }
                             } while (false);
 
                             break;
@@ -1306,7 +1333,6 @@ namespace Metro
 
                 n++;
             }
-
         }
 
         #region Script Panel
@@ -1399,8 +1425,8 @@ namespace Metro
             Save_Script();
 
             // Restart
-            this.Close();
-            Process.Start("Metro.exe", "");
+            //this.Close();
+            //Process.Start("Metro.exe", "");
         }
 
         private void eDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
