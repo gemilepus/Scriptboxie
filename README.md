@@ -29,3 +29,4 @@
  - add jump commend
  - add script ctrl
  - add CMD display
+ - add auto save btn
