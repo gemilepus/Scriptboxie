@@ -28,3 +28,4 @@
  - 把分散各CASE的判斷整合成一個
  - add jump commend
  - add script ctrl
+ - add CMD display
