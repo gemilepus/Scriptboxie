@@ -21,8 +21,6 @@ using OpenCvSharp.XFeatures2D;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
-using Ownskit.Utils;
-
 using GameOverlay.Drawing;
 using GameOverlay.Windows;
 
@@ -143,7 +141,7 @@ namespace Metro
 
             System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
 
-            gfxScreenshot.CopyFromScreen(x, y, 0 , 0 , screenshot.Size);
+            gfxScreenshot.CopyFromScreen(x, y, 0, 0, screenshot.Size);
 
             gfxScreenshot.Dispose();
 
@@ -404,8 +402,6 @@ namespace Metro
         // WindowsInputLibrary
         InputSimulator mInputSimulator = new InputSimulator();
 
-        // KeyboardListener
-        KeyboardListener KListener = new KeyboardListener();
 
         // DataGrid
         List<MainTable> mDataTable = new List<MainTable>();
@@ -416,6 +412,8 @@ namespace Metro
         // Globalmousekeyhook
         #region
         private IKeyboardMouseEvents m_GlobalHook;
+        private IKeyboardMouseEvents Main_GlobalHook;
+        
         private int now_x, now_y;
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
         {
@@ -541,36 +539,53 @@ namespace Metro
             }
             #endregion
 
-            KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
+            KListener();
 
             // Load Script setting
             Load_Script_ini();
-            for (int i = 0; i < eDataTable.Count; i++){
-                if (eDataTable[i].eTable_Path.Length > 0){
+            for (int i = 0; i < eDataTable.Count; i++)
+            {
+                if (eDataTable[i].eTable_Path.Length > 0)
+                {
                     Console.WriteLine(i + " " + eDataTable[i].eTable_Path);
                     string mScript_Local = eDataTable[i].eTable_Path;
-                    Thread TempThread = new Thread(() =>{  
+                    Thread TempThread = new Thread(() => {
                         Script(Load_Script_to_DataTable(mScript_Local));
                     });
                     _workerThreads.Add(TempThread);
                 }
             }
-            
+
             // test
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
+
+           
         }
 
-        void KListener_KeyDown(object sender, RawKeyEventArgs args)
+        public void KListener()
         {
-            
-            if (!TextBox_Title.Text.Equals("")) {
-                if (GetActiveWindowTitle() == null){ return; }
+            // Note: for the application hook, use the Hook.AppEvents() instead
+            Main_GlobalHook = Hook.GlobalEvents();
+            Main_GlobalHook.KeyDown += Main_GlobalHookKeyPress;
+        }
+        public void UnKListener()
+        {
+            Main_GlobalHook.KeyDown -= Main_GlobalHookKeyPress;
+            //It is recommened to dispose it
+            Main_GlobalHook.Dispose();
+        }
+        private void Main_GlobalHookKeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+
+            if (!TextBox_Title.Text.Equals(""))
+            {
+                if (GetActiveWindowTitle() == null) { return; }
                 string ActiveTitle = GetActiveWindowTitle();
-                if (ActiveTitle.Length == ActiveTitle.Replace(TextBox_Title.Text, "").Length){ return; }
+                if (ActiveTitle.Length == ActiveTitle.Replace(TextBox_Title.Text, "").Length) { return; }
             }
-           
+
             // ON / OFF
-            if (args.ToString().Equals("'"))
+            if (e.KeyCode.ToString().Equals("Oem7")) // "'"
             {
                 if (Btn_ON.Content.Equals("ON"))
                 {
@@ -589,30 +604,33 @@ namespace Metro
                     Btn_ON.Content = "ON";
                 }
             }
-            if (!Btn_ON.Content.Equals("ON")) {return;}
+            if (!Btn_ON.Content.Equals("ON")) { return; }
 
-            KListener.Dispose();
-            Console.WriteLine(args.Key.ToString());
+            UnKListener();
             // Prints the text of pressed button, takes in account big and small letters. E.g. "Shift+a" => "A"
-            Console.WriteLine(args.ToString());
+            Console.WriteLine(e.KeyCode.ToString());
 
-            if (args.ToString().Equals("[")){
+            if (e.KeyCode.ToString().Equals("OemOpenBrackets"))//"["
+            {
                 AlertSound();
                 Run_script();
             }
-            if (args.ToString().Equals("]")){
+            if (e.KeyCode.ToString().Equals("Oem6"))//"]"
+            {
                 Stop_script();
             }
 
             // Select Script
-            for (int i = 0; i < eDataTable.Count; i++){
-                if (args.Key.ToString().Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
+            for (int i = 0; i < eDataTable.Count; i++)
+            {
+                if (e.KeyCode.ToString().Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
                 {
                     Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
                     //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin){
                     //    break;
                     //}
-                    if (!_workerThreads[i].IsAlive){
+                    if (!_workerThreads[i].IsAlive)
+                    {
                         if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped)
                         {
                             _workerThreads[i].Start();
@@ -622,12 +640,13 @@ namespace Metro
                             Console.WriteLine(eDataTable[i].eTable_Path);
                             string mScript_Local = eDataTable[i].eTable_Path;
                             List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
-                            Thread TempThread = new Thread(() =>{                                  
+                            Thread TempThread = new Thread(() =>
+                            {
                                 try
                                 {
                                     Script(Script_DataTable);
                                 }
-                                catch (Exception e)
+                                catch (Exception ex)
                                 {
                                     Console.WriteLine("{0} Exception caught.", e);
                                 }
@@ -639,17 +658,18 @@ namespace Metro
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     else
-                    { 
+                    {
                         _workerThreads[i].Abort();
                         Console.WriteLine(eDataTable[i].eTable_Path);
                         string mScript_Local = eDataTable[i].eTable_Path;
                         List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
-                        Thread TempThread = new Thread(() =>{
+                        Thread TempThread = new Thread(() =>
+                        {
                             try
                             {
                                 Script(Script_DataTable);
                             }
-                            catch (Exception e)
+                            catch (Exception ex)
                             {
                                 Console.WriteLine("{0} Exception caught.", e);
                             }
@@ -666,15 +686,16 @@ namespace Metro
             // Update thread status
             for (int i = 0; i < _workerThreads.Count; i++)
             {
-                if (_workerThreads[i].ThreadState == System.Threading.ThreadState.Stopped){
+                if (_workerThreads[i].ThreadState == System.Threading.ThreadState.Stopped)
+                {
                     eDataTable[i].eTable_State = "Stop";
                 }
             }
 
             // Restart
-            KListener = new KeyboardListener();
-            KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
+            KListener();
         }
+
 
         private void Script(List<MainTable> minDataTable)
         {
@@ -693,7 +714,8 @@ namespace Metro
             GameOverlay.Drawing.Font _font;
             GameOverlay.Drawing.SolidBrush _black;
             // it is important to set the window to visible (and topmost) if you want to see it!
-            _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height){
+            _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
+            {
                 IsTopmost = true,
                 IsVisible = true
             };
@@ -702,7 +724,8 @@ namespace Metro
 
             // initialize a new Graphics object
             // set everything before you call _graphics.Setup()
-            _graphics = new GameOverlay.Drawing.Graphics{
+            _graphics = new GameOverlay.Drawing.Graphics
+            {
                 //MeasureFPS = true,
                 Height = _window.Height,
                 PerPrimitiveAntiAliasing = true,
@@ -1379,7 +1402,7 @@ namespace Metro
             }
             System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "Script.ini", out_string);
         }
-       
+
         private void Load_Script(string filePath)
         {
             // Table Clear
@@ -1394,7 +1417,7 @@ namespace Metro
         {
             List<MainTable> tempDataTable = new List<MainTable>();
             string fileContent = string.Empty;
-            
+
             try
             {
                 StreamReader reader = new StreamReader(mfilePath);
@@ -1432,7 +1455,7 @@ namespace Metro
         private void eDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = eDataGrid.Columns.IndexOf(eDataGrid.CurrentCell.Column);
-            if (columnIndex < 0){return;}
+            if (columnIndex < 0) { return; }
 
             if (eDataGrid.Columns[columnIndex].Header.ToString().Equals(" "))
             {
@@ -1452,7 +1475,8 @@ namespace Metro
                     Console.WriteLine("{0} Exception caught.", err);
                 }
             }
-            else if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
+            else if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
+            {
                 // Get index
                 int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
 
@@ -1604,7 +1628,9 @@ namespace Metro
                 {
                     Console.WriteLine("{0} Exception caught.", err);
                 }
-            } else if(mDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
+            }
+            else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
+            {
                 // Get index
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
 
@@ -1658,10 +1684,12 @@ namespace Metro
         }
         private void Btn_ON_Click(object sender, RoutedEventArgs e)
         {
-            if (Btn_ON.Content.Equals("ON")){
+            if (Btn_ON.Content.Equals("ON"))
+            {
                 Btn_ON.Content = "OFF";
             }
-            else{
+            else
+            {
                 Btn_ON.Content = "ON";
             }
         }
