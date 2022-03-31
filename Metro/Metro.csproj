@@ -156,7 +156,6 @@
     <Compile Include="EditTable.cs" />
     <Compile Include="MainTable.cs" />
     <Compile Include="SettingHelper.cs" />
-    <Compile Include="keyboardlistener.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
