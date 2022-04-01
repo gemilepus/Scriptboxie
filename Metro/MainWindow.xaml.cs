@@ -411,9 +411,8 @@ namespace Metro
 
         // Globalmousekeyhook
         #region
-        private IKeyboardMouseEvents m_GlobalHook;
-        private IKeyboardMouseEvents Main_GlobalHook;
-        
+        private IKeyboardMouseEvents m_GlobalHook, Main_GlobalHook;
+
         private int now_x, now_y;
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
         {
@@ -479,10 +478,20 @@ namespace Metro
         }
         #endregion
 
+        // GameOverlay .Net
+        OverlayWindow _window;
+        GameOverlay.Drawing.Graphics _graphics;
+        // Brush
+        GameOverlay.Drawing.SolidBrush _red;
+        GameOverlay.Drawing.Font _font;
+        GameOverlay.Drawing.SolidBrush _black;
+
+        GameOverlay.Drawing.Graphics gfx;
+
         public MainWindow()
         {
             InitializeComponent();
-
+           
             // Data Binding
             //this.DataContext = this;
 
@@ -539,8 +548,6 @@ namespace Metro
             }
             #endregion
 
-            KListener();
-
             // Load Script setting
             Load_Script_ini();
             for (int i = 0; i < eDataTable.Count; i++)
@@ -556,10 +563,46 @@ namespace Metro
                 }
             }
 
+            #region OverlayWindow
+
+            // it is important to set the window to visible (and topmost) if you want to see it!
+            _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
+            {
+                IsTopmost = true,
+                IsVisible = true
+            };
+            // handle this event to resize your Graphics surface
+            //_window.SizeChanged += _window_SizeChanged;
+
+            // initialize a new Graphics object
+            // set everything before you call _graphics.Setup()
+            _graphics = new GameOverlay.Drawing.Graphics
+            {
+                //MeasureFPS = true,
+                Height = _window.Height,
+                PerPrimitiveAntiAliasing = true,
+                TextAntiAliasing = true,
+                UseMultiThreadedFactories = false,
+                VSync = true,
+                Width = _window.Width,
+                WindowHandle = IntPtr.Zero
+            };
+
+            _window.Create();
+            _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()         
+            _graphics.Setup();
+
+            _red = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Red); // those are the only pre defined Colors                                                              
+            _font = _graphics.CreateFont("Arial", 25); // creates a simple font with no additional style
+            _black = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Transparent);
+
+            gfx = _graphics; // little shortcut
+            #endregion
+
+            KListener();
+
             // test
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
-
-           
         }
 
         public void KListener()
@@ -606,16 +649,17 @@ namespace Metro
             }
             if (!Btn_ON.Content.Equals("ON")) { return; }
 
+            // stop KListener
             UnKListener();
-            // Prints the text of pressed button, takes in account big and small letters. E.g. "Shift+a" => "A"
+
             Console.WriteLine(e.KeyCode.ToString());
 
-            if (e.KeyCode.ToString().Equals("OemOpenBrackets"))//"["
+            if (e.KeyCode.ToString().Equals("OemOpenBrackets")) //"["
             {
                 AlertSound();
                 Run_script();
             }
-            if (e.KeyCode.ToString().Equals("Oem6"))//"]"
+            if (e.KeyCode.ToString().Equals("Oem6")) //"]"
             {
                 Stop_script();
             }
@@ -692,7 +736,7 @@ namespace Metro
                 }
             }
 
-            // Restart
+            // Restart KListener
             KListener();
         }
 
@@ -705,46 +749,6 @@ namespace Metro
             //mDoSortedList.Add("Point Array", "0,0,0,0");
             //mDoSortedList.Add("Draw", "");
             //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
-
-            //  GameOverlay .Net
-            OverlayWindow _window;
-            GameOverlay.Drawing.Graphics _graphics;
-            // Brush
-            GameOverlay.Drawing.SolidBrush _red;
-            GameOverlay.Drawing.Font _font;
-            GameOverlay.Drawing.SolidBrush _black;
-            // it is important to set the window to visible (and topmost) if you want to see it!
-            _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
-            {
-                IsTopmost = true,
-                IsVisible = true
-            };
-            // handle this event to resize your Graphics surface
-            //_window.SizeChanged += _window_SizeChanged;
-
-            // initialize a new Graphics object
-            // set everything before you call _graphics.Setup()
-            _graphics = new GameOverlay.Drawing.Graphics
-            {
-                //MeasureFPS = true,
-                Height = _window.Height,
-                PerPrimitiveAntiAliasing = true,
-                TextAntiAliasing = true,
-                UseMultiThreadedFactories = false,
-                VSync = true,
-                Width = _window.Width,
-                WindowHandle = IntPtr.Zero
-            };
-
-            _window.Create();
-            _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()         
-            _graphics.Setup();
-
-            _red = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Red); // those are the only pre defined Colors                                                              
-            _font = _graphics.CreateFont("Arial", 25); // creates a simple font with no additional style
-            _black = _graphics.CreateSolidBrush(GameOverlay.Drawing.Color.Transparent);
-
-            var gfx = _graphics; // little shortcut
 
             int n = 0; int LoopCount = 0;
             while (n < minDataTable.Count)
