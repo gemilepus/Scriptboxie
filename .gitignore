@@ -1,8 +1,8 @@
 .vs/
 Metro/obj/
 packages/
-Debug/de
-Debug/dll
+Debug/de/
+Debug/dll/
 Debug/*.exe
 Debug/*.exe.config
 Debug/*.pdb
