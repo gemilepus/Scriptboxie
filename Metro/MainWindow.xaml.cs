@@ -740,6 +740,24 @@ namespace Metro
             KListener();
         }
 
+        private string[] Get_Split(string CommandData) {
+
+            string[] Split;
+            Split = CommandData.Split(',');
+
+            return Split;
+        }
+
+        private string[] Get_EventValue(SortedList mSortedList, string Event) { 
+
+            string[] EventValue = null;
+            // Check Key
+            if (mSortedList.IndexOfKey(Event) != -1) {
+                EventValue = mSortedList.GetByIndex(mSortedList.IndexOfKey(Event)).ToString().Split(',');
+            }
+
+            return EventValue;
+        }
 
         private void Script(List<MainTable> minDataTable)
         {
@@ -757,6 +775,7 @@ namespace Metro
                 string Command = minDataTable[n].mTable_Mode;
                 string CommandData = minDataTable[n].mTable_Action;
                 bool CommandEnable = minDataTable[n].mTable_IsEnable;
+
                 string[] Event = minDataTable[n].mTable_Event.Split(',');
                 if (minDataTable[n].mTable_Event == "") { Event = new string[0]; }
 
@@ -949,7 +968,8 @@ namespace Metro
                                 if (TempPath.IndexOf(',') != -1)
                                 {
                                     string[] mSize = TempPath.Split(',');
-                                    matTarget = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]),
+                                    matTarget = BitmapConverter.ToMat(makeScreenshot_clip(
+                                        int.Parse(mSize[1]), int.Parse(mSize[2]),
                                         int.Parse(mSize[3]), int.Parse(mSize[4])));
                                     TempPath = mSize[0];
                                 }
