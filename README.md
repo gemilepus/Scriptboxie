@@ -30,4 +30,4 @@
  - add script ctrl
  - add CMD display
  - add auto save btn
- - 
+ - add x y setting
