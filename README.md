@@ -17,6 +17,8 @@
 
 #1.2.2
 - add ModifierKey & Match RGB
+#1.2.3
+- add ELSE IF
 
 ## Demo ##
 ![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
