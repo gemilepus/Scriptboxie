@@ -30,5 +30,4 @@
  - 把分散各CASE的判斷整合成一個
  - add script ctrl
  - add CMD display
- - add auto save btn
  - add x y setting
