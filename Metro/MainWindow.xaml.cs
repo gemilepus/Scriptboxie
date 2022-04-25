@@ -546,6 +546,26 @@ namespace Metro
                     parser.WriteFile("user.ini", data);
                 }
             }
+
+            // Load ScaleX, ScaleY, OffsetX, OffsetY
+            if (data["Def"]["ScaleX"] != null
+                && data["Def"]["ScaleY"] != null
+                && data["Def"]["OffsetX"] != null
+                && data["Def"]["OffsetY"] != null)
+            {
+                ScaleX = float.Parse(data["Def"]["ScaleX"]);
+                ScaleY = float.Parse(data["Def"]["ScaleY"]);
+                OffsetX = int.Parse(data["Def"]["OffsetX"]);
+                OffsetY = int.Parse(data["Def"]["OffsetY"]);
+            }
+            else {
+                data["Def"]["ScaleX"] = "1";
+                data["Def"]["ScaleY"] = "1";
+                data["Def"]["OffsetX"] = "0";
+                data["Def"]["OffsetY"] = "0";
+                parser.WriteFile("user.ini", data);
+            }
+
             #endregion
 
             // Load Script setting
@@ -757,6 +777,22 @@ namespace Metro
             }
 
             return EventValue;
+        }
+
+        private float ScaleX, ScaleY;
+        private int OffsetX, OffsetY;
+        private int Get_ValueX(int x)
+        {
+            x = (int)(x * ScaleX) + OffsetX;
+
+            return x;
+        }
+
+        private int Get_ValueY(int y)
+        {
+            y = (int)(y * ScaleY) + OffsetY;
+
+            return y;
         }
 
         private void Script(List<MainTable> minDataTable)
@@ -1354,7 +1390,6 @@ namespace Metro
 
                             if (Event.Length == 0) {
                                 n += int.Parse(CommandData);
-
                             }
                             else
                             {
