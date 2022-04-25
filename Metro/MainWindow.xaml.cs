@@ -1605,7 +1605,7 @@ namespace Metro
             }
 
         }
-        private async void Btn_Save_Click(object sender, RoutedEventArgs e) // async
+        private async void Btn_Save_as_Click(object sender, RoutedEventArgs e) // async
         {
             var result = await this.ShowInputAsync("Save", "input filename:");
             if (result == null) { return; }
@@ -1621,6 +1621,37 @@ namespace Metro
             }
             System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
         }
+
+        private void Btn_Save_Click(object sender, RoutedEventArgs e)
+        {
+            string result = null;
+
+            // Get Script Path
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+            if (data["Def"]["Script"] != null || data["Def"]["Script"] != "")
+            {
+                result = data["Def"]["Script"];
+            }
+
+            if (result == null) {
+                this.ShowMessageAsync("", "ERROR!");
+                return;
+            }
+
+            string out_string = "";
+            for (int i = 0; i < mDataTable.Count; i++)
+            {
+                out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
+                    + mDataTable[i].mTable_Mode + ";"
+                    + mDataTable[i].mTable_Action + ";"
+                    + mDataTable[i].mTable_Event.ToString() + ";"
+                    + "\n";
+            }
+            System.IO.File.WriteAllText(result, out_string);
+        }
+
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {
             Run_script();
