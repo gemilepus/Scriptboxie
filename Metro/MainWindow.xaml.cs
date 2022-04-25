@@ -497,7 +497,7 @@ namespace Metro
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset", "Loop", "Click", "Match","Match RGB", "Key",
+                "Move","Offset", "Loop", "Click", "Match","Jump","Match RGB", "Key",
                 "ModifierKey","RemoveKey","Delay", "Get Point","Run exe",
                 "FindWindow","ScreenClip", "Draw", "Sift Match", "Clean Draw",
                 "PostMessage", "PlaySound","Color Test"
@@ -1345,6 +1345,22 @@ namespace Metro
                                         // Get SortedList Value by Key
                                         Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
                                     }
+                                }
+                            }
+
+                            break;
+
+                        case "Jump":
+
+                            if (Event.Length == 0) {
+                                n += int.Parse(CommandData);
+
+                            }
+                            else
+                            {
+                                if (Get_EventValue(mDoSortedList, Event[0]) != null)
+                                {
+                                    n += int.Parse(CommandData);
                                 }
                             }
 
