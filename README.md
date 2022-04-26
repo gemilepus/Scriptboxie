@@ -17,8 +17,15 @@
 
 #1.2.2
 - add ModifierKey & Match RGB
+
 #1.2.3
 - add ELSE IF
+
+#1.2.4
+- Add Debug
+- Add Jump
+- Fixed keyboard listener issue
+
 
 ## Demo ##
 ![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
