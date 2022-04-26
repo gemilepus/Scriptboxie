@@ -1871,6 +1871,9 @@ namespace Metro
             {
                 mThread.Abort();
             }
+
+            mNotifyIcon.Visible = false;
+
         }
 
         #endregion
