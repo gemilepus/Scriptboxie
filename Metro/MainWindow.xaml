@@ -7,9 +7,10 @@
                       Width="800"                            
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing">
-
+    
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
+     
             <TextBox x:Name="TextBox_Title" Width="100" Margin="5px" TextChanged="TextBox_Title_TextChanged"/>
             <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON"/>
             <Button Name="Btn_About" Click="Btn_About_Click" Content="About"/>
@@ -100,7 +101,7 @@
                     <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" Grid.Column="1" />
                     <!--<Controls:ProgressRing Name="Ring" IsActive="{Binding Path=IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>-->
                     <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Column="1"/>
-                    
+                   
                 </Grid>
             </TabItem>
         </TabControl>
