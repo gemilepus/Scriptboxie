@@ -625,15 +625,14 @@ namespace Metro
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
 
             // 最小化 test
-            //mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            //mNotifyIcon.Visible = true;
+            mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            mNotifyIcon.Visible = true;
             //this.Hide();
             //this.WindowState = System.Windows.WindowState.Minimized;
-
         }
 
         // 最小化 test
-        //NotifyIcon mNotifyIcon = new NotifyIcon();
+        NotifyIcon mNotifyIcon = new NotifyIcon();
         //private void MenuItem_Click(object sender, RoutedEventArgs e)
         //{
         //    this.Show();
@@ -686,15 +685,27 @@ namespace Metro
             // stop KListener
             UnKListener();
 
+
             Console.WriteLine(e.KeyCode.ToString());
+
+            // Hide BalloonTip
+            if (mNotifyIcon.Visible) {
+                mNotifyIcon.Visible = false;
+                mNotifyIcon.Visible = true;
+            }
 
             if (e.KeyCode.ToString().Equals("OemOpenBrackets")) //"["
             {
+                //test
+                mNotifyIcon.ShowBalloonTip(500, "Run", " ", ToolTipIcon.None);
+
                 AlertSound();
                 Run_script();
             }
             if (e.KeyCode.ToString().Equals("Oem6")) //"]"
             {
+                // test
+                mNotifyIcon.ShowBalloonTip(500, "Stop", " ", ToolTipIcon.None);
                 Stop_script();
             }
 
@@ -704,6 +715,7 @@ namespace Metro
                 if (e.KeyCode.ToString().Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
                 {
                     Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
+                    
                     //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin){
                     //    break;
                     //}
@@ -733,6 +745,7 @@ namespace Metro
                             _workerThreads[i].Start();
                         }
                         eDataTable[i].eTable_State = "Running";
+                        mNotifyIcon.ShowBalloonTip(500, "Running ", eDataTable[i].eTable_Name , ToolTipIcon.None);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     else
@@ -753,7 +766,9 @@ namespace Metro
                             }
                         });
                         _workerThreads[i] = TempThread;
+                        
                         eDataTable[i].eTable_State = "Stop";
+                        mNotifyIcon.ShowBalloonTip(500, "Stop ", eDataTable[i].eTable_Name , ToolTipIcon.None);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     eDataGrid.DataContext = null;
@@ -1447,7 +1462,9 @@ namespace Metro
                         Console.WriteLine("{0} Exception caught.", e);
 
                         if (e.Message.ToString().IndexOf("Thread") == -1) {
+                            
                             System.Windows.MessageBox.Show(  "[Error] Line " + n.ToString() + " : " + e.Message);
+
                             break;
                         }
                     }

@@ -37,5 +37,4 @@
  - 可以用Key去控制其他Script
 ## TODO ##
  - 把分散各CASE的判斷整合成一個
- - add CMD display
  - add x y setting
