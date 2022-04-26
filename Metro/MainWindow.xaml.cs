@@ -726,7 +726,7 @@ namespace Metro
                                 }
                                 catch (Exception ex)
                                 {
-                                    Console.WriteLine("{0} Exception caught.", e);
+                                    Console.WriteLine("{0} Exception caught.", ex);
                                 }
                             });
                             _workerThreads[i] = TempThread;
@@ -749,7 +749,7 @@ namespace Metro
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine("{0} Exception caught.", e);
+                                Console.WriteLine("{0} Exception caught.", ex);
                             }
                         });
                         _workerThreads[i] = TempThread;
