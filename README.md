@@ -26,8 +26,9 @@
 ![alt text?](https://github.com/gemilepus/Script_Lite/blob/master/cover.png)
 ## Edit ##
 ![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
+## NOTE ##
+ - 可以用Key去控制其他Script
 ## TODO ##
  - 把分散各CASE的判斷整合成一個
- - add script ctrl
  - add CMD display
  - add x y setting
