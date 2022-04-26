@@ -93,14 +93,14 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Controls:ToggleSwitch Toggled="Btn_Toggle_Click" Name="Btn_Toggle" Height="28" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" Grid.Column="1"></Controls:ToggleSwitch>
+                    <Controls:ToggleSwitch Toggled="Btn_Toggle_Click" Name="Btn_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
                     <Button Click="Btn_open_Click" Content="Open" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Grid.Column="1" />
                     <Button Click="Btn_Save_Click" Name="Btn_Save" Content="Save" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,60,0" Grid.Column="1"/>
                     <Button Click="Btn_Save_as_Click" Name="Btn_Save_AS" Content="Save as" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,120,0" Grid.Column="1"/>
                     <Button Click="Btn_Run_Click" Name="Btn_Run" Content="Run" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,240,0" Grid.Column="1" />
                     <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" Grid.Column="1" />
                     <!--<Controls:ProgressRing Name="Ring" IsActive="{Binding Path=IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>-->
-                    <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Column="1"/>
+                    <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Column="1"/>
                    
                 </Grid>
             </TabItem>
