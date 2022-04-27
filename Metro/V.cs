@@ -28,4 +28,18 @@ public class V
 
         return EventValue;
     }
+
+    public static int Get_ValueX(int x, float ScaleX, int OffsetX)
+    {
+        x = (int)(x * ScaleX) + OffsetX;
+
+        return x;
+    }
+
+    public static int Get_ValueY(int y, float ScaleY, int OffsetY)
+    {
+        y = (int)(y * ScaleY) + OffsetY;
+
+        return y;
+    }
 }

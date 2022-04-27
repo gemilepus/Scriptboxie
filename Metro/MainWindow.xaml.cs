@@ -409,7 +409,7 @@ namespace Metro
 
         private List<Thread> _workerThreads = new List<Thread>();
 
-        // Globalmousekeyhook
+        // Globalmousekeyhook for record
         #region
         private IKeyboardMouseEvents m_GlobalHook, Main_GlobalHook;
 
@@ -495,6 +495,8 @@ namespace Metro
         //    this.Show();
         //}
 
+        SettingHelper mSettingHelper = new SettingHelper();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -516,61 +518,28 @@ namespace Metro
             //eDataGrid.DataContext = eDataTable;
 
             #region Load user.ini
+
             var parser = new FileIniDataParser();
             IniData data = new IniData();
-            try
-            {
-                data = parser.ReadFile("user.ini");
-            }
-            catch
-            {
-                parser.WriteFile("user.ini", new IniData());
-            }
+            data = parser.ReadFile("user.ini");
 
-            // From location
-            if (data["Def"]["x"] != null)
-            {
-                Left = double.Parse(data["Def"]["x"]);
-                Top = double.Parse(data["Def"]["y"]);
-            }
+            // Load Form location
+            Left = double.Parse(data["Def"]["x"]);
+            Top = double.Parse(data["Def"]["y"]);
 
             // Load WindowTitle setting
-            if (data["Def"]["WindowTitle"] != null)
-            {
-                TextBox_Title.Text = data["Def"]["WindowTitle"];
-            }
-
-            // Load Script
-            if (data["Def"]["Script"] != null || data["Def"]["Script"] != "")
-            {
-                try
-                {
-                    Load_Script(data["Def"]["Script"]);
-                }
-                catch
-                {
-                    data["Def"]["Script"] = "";
-                    parser.WriteFile("user.ini", data);
-                }
-            }
+            TextBox_Title.Text = data["Def"]["WindowTitle"];
 
             // Load ScaleX, ScaleY, OffsetX, OffsetY
-            if (data["Def"]["ScaleX"] != null
-                && data["Def"]["ScaleY"] != null
-                && data["Def"]["OffsetX"] != null
-                && data["Def"]["OffsetY"] != null)
+            ScaleX = float.Parse(data["Def"]["ScaleX"]);
+            ScaleY = float.Parse(data["Def"]["ScaleY"]);
+            OffsetX = int.Parse(data["Def"]["OffsetX"]);
+            OffsetY = int.Parse(data["Def"]["OffsetY"]);
+
+            // Load Script
+            if (!data["Def"]["Script"].Equals(""))
             {
-                ScaleX = float.Parse(data["Def"]["ScaleX"]);
-                ScaleY = float.Parse(data["Def"]["ScaleY"]);
-                OffsetX = int.Parse(data["Def"]["OffsetX"]);
-                OffsetY = int.Parse(data["Def"]["OffsetY"]);
-            }
-            else {
-                data["Def"]["ScaleX"] = "1";
-                data["Def"]["ScaleY"] = "1";
-                data["Def"]["OffsetX"] = "0";
-                data["Def"]["OffsetY"] = "0";
-                parser.WriteFile("user.ini", data);
+                Load_Script(data["Def"]["Script"]);
             }
 
             #endregion
@@ -794,22 +763,10 @@ namespace Metro
         }
         #endregion
 
+        // For resize x,y
         private float ScaleX, ScaleY;
         private int OffsetX, OffsetY;
-        private int Get_ValueX(int x)
-        {
-            x = (int)(x * ScaleX) + OffsetX;
-
-            return x;
-        }
-
-        private int Get_ValueY(int y)
-        {
-            y = (int)(y * ScaleY) + OffsetY;
-
-            return y;
-        }
-
+        
         private void Script(List<MainTable> minDataTable)
         {
             SortedList mDoSortedList = new SortedList();
@@ -1807,8 +1764,6 @@ namespace Metro
             }
 
         }
-
-       
 
         private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
         {
