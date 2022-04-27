@@ -153,6 +153,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="V.cs" />
     <Compile Include="EditTable.cs" />
     <Compile Include="MainTable.cs" />
     <Compile Include="SettingHelper.cs" />

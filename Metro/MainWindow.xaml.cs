@@ -488,6 +488,13 @@ namespace Metro
 
         GameOverlay.Drawing.Graphics gfx;
 
+        // NotifyIcon 最小化
+        NotifyIcon mNotifyIcon = new NotifyIcon();
+        //private void MenuItem_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Show();
+        //}
+
         public MainWindow()
         {
             InitializeComponent();
@@ -631,13 +638,7 @@ namespace Metro
             //this.WindowState = System.Windows.WindowState.Minimized;
         }
 
-        // 最小化 test
-        NotifyIcon mNotifyIcon = new NotifyIcon();
-        //private void MenuItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.Show();
-        //}
-
+        #region KListener
         public void KListener()
         {
             // Note: for the application hook, use the Hook.AppEvents() instead
@@ -650,6 +651,7 @@ namespace Metro
             //It is recommened to dispose it
             Main_GlobalHook.Dispose();
         }
+
         private void Main_GlobalHookKeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
         {
 
@@ -689,10 +691,12 @@ namespace Metro
             Console.WriteLine(e.KeyCode.ToString());
 
             // Hide BalloonTip
-            if (mNotifyIcon.Visible) {
+            if (mNotifyIcon.Visible)
+            {
                 mNotifyIcon.Visible = false;
                 mNotifyIcon.Visible = true;
             }
+
 
             if (e.KeyCode.ToString().Equals("OemOpenBrackets")) //"["
             {
@@ -715,7 +719,7 @@ namespace Metro
                 if (e.KeyCode.ToString().Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
                 {
                     Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
-                    
+
                     //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin){
                     //    break;
                     //}
@@ -745,7 +749,7 @@ namespace Metro
                             _workerThreads[i].Start();
                         }
                         eDataTable[i].eTable_State = "Running";
-                        mNotifyIcon.ShowBalloonTip(500, "Running ", eDataTable[i].eTable_Name , ToolTipIcon.None);
+                        mNotifyIcon.ShowBalloonTip(500, "Running ", eDataTable[i].eTable_Name, ToolTipIcon.None);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     else
@@ -766,9 +770,9 @@ namespace Metro
                             }
                         });
                         _workerThreads[i] = TempThread;
-                        
+
                         eDataTable[i].eTable_State = "Stop";
-                        mNotifyIcon.ShowBalloonTip(500, "Stop ", eDataTable[i].eTable_Name , ToolTipIcon.None);
+                        mNotifyIcon.ShowBalloonTip(500, "Stop ", eDataTable[i].eTable_Name, ToolTipIcon.None);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     eDataGrid.DataContext = null;
@@ -788,25 +792,7 @@ namespace Metro
             // Restart KListener
             KListener();
         }
-
-        private string[] Get_Split(string CommandData) {
-
-            string[] Split;
-            Split = CommandData.Split(',');
-
-            return Split;
-        }
-
-        private string[] Get_EventValue(SortedList mSortedList, string Event) { 
-
-            string[] EventValue = null;
-            // Check Key
-            if (mSortedList.IndexOfKey(Event) != -1) {
-                EventValue = mSortedList.GetByIndex(mSortedList.IndexOfKey(Event)).ToString().Split(',');
-            }
-
-            return EventValue;
-        }
+        #endregion
 
         private float ScaleX, ScaleY;
         private int OffsetX, OffsetY;
@@ -1423,7 +1409,8 @@ namespace Metro
                                 }
                                 else
                                 {
-                                    if (Get_EventValue(mDoSortedList, Event[0]) != null)
+                                    
+                                    if (V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                     {
                                         n += int.Parse(CommandData);
                                     }
@@ -1814,7 +1801,7 @@ namespace Metro
                 mWaveFile.PlaySync();
                 mWaveFile.Dispose();
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
             }
