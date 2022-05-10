@@ -605,6 +605,7 @@ namespace Metro
             mNotifyIcon.Visible = true;
             //this.Hide();
             //this.WindowState = System.Windows.WindowState.Minimized;
+
         }
 
         #region KListener
@@ -631,6 +632,9 @@ namespace Metro
                 if (ActiveTitle.Length == ActiveTitle.Replace(TextBox_Title.Text, "").Length) { return; }
             }
 
+            // stop KListener
+            UnKListener();
+
             // ON / OFF
             if (e.KeyCode.ToString().Equals("Oem7")) // "'"
             {
@@ -643,6 +647,22 @@ namespace Metro
                         if (_workerThreads[i].IsAlive)
                         {
                             _workerThreads[i].Abort();
+                            string mScript_Local = eDataTable[i].eTable_Path;
+                            List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                            Thread TempThread = new Thread(() =>
+                            {
+                                try
+                                {
+                                    Script(Script_DataTable);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("{0} Exception caught.", ex);
+                                }
+                            });
+                            _workerThreads[i] = TempThread;
+
+                            eDataTable[i].eTable_State = "Stop";
                         }
                     }
                 }
@@ -650,12 +670,12 @@ namespace Metro
                 {
                     Btn_ON.Content = "ON";
                 }
+                eDataGrid.DataContext = null;
+                eDataGrid.DataContext = eDataTable;
             }
-            if (!Btn_ON.Content.Equals("ON")) { return; }
-
-            // stop KListener
-            UnKListener();
-
+            if (!Btn_ON.Content.Equals("ON")) {
+                KListener(); 
+                return; }
 
             Console.WriteLine(e.KeyCode.ToString());
 
@@ -1817,6 +1837,8 @@ namespace Metro
             mNotifyIcon.Visible = false;
 
         }
+
+
 
         #endregion
     }
