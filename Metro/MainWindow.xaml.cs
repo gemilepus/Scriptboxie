@@ -777,9 +777,11 @@ namespace Metro
             }
 
             // eDataGrid
-            eDataGrid.DataContext = null;
-            eDataGrid.DataContext = eDataTable;
-
+            if (!eDataGrid.IsKeyboardFocusWithin) {
+                eDataGrid.DataContext = null;
+                eDataGrid.DataContext = eDataTable;
+            }
+           
             // Restart KListener
             KListener();
         }
@@ -1588,6 +1590,11 @@ namespace Metro
         private void eDataGrid_CurrentCellChanged(object sender, EventArgs e)
         {
             Save_Script();
+        }
+
+        private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
         }
         #endregion
 
