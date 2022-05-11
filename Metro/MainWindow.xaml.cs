@@ -1595,6 +1595,13 @@ namespace Metro
         private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
         {
             eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
+            if (eDataGrid.IsEnabled)
+            {
+                Btn_ON.Content = "OFF";
+            }
+            else {
+                Btn_ON.Content = "ON";
+            }
         }
         #endregion
 
