@@ -764,8 +764,6 @@ namespace Metro
                         mNotifyIcon.ShowBalloonTip(500, "Stop ", eDataTable[i].eTable_Name, ToolTipIcon.None);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
-                    eDataGrid.DataContext = null;
-                    eDataGrid.DataContext = eDataTable;
                 }
             }
 
@@ -777,6 +775,10 @@ namespace Metro
                     eDataTable[i].eTable_State = "Stop";
                 }
             }
+
+            // eDataGrid
+            eDataGrid.DataContext = null;
+            eDataGrid.DataContext = eDataTable;
 
             // Restart KListener
             KListener();
