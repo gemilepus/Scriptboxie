@@ -1592,6 +1592,16 @@ namespace Metro
             Save_Script();
         }
 
+        private void DataGridCell_Selected(object sender, RoutedEventArgs e)
+        {
+            // Lookup for the source to be DataGridCell
+            if (e.OriginalSource.GetType() == typeof(System.Windows.Controls.DataGridCell))
+            {
+                // Starts the Edit on the row;
+                System.Windows.Controls.DataGrid grd = (System.Windows.Controls.DataGrid)sender;
+                grd.BeginEdit(e);
+            }
+        }
         private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
         {
             eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
@@ -1853,8 +1863,6 @@ namespace Metro
             mNotifyIcon.Visible = false;
 
         }
-
-
 
         #endregion
     }
