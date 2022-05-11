@@ -37,7 +37,8 @@
                 <Grid Background="White">
                     <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" 
                           SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Height="320" VerticalAlignment="Center" HorizontalAlignment="Center" CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged"
-                          MouseDoubleClick="eDataGrid_MouseDoubleClick" IsEnabled="False">
+                          MouseDoubleClick="eDataGrid_MouseDoubleClick" IsEnabled="False"
+                              DataGridCell.Selected="DataGridCell_Selected" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="#"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
@@ -70,7 +71,8 @@
                 <Grid Background="White">
 
                     <DataGrid MinWidth="500" CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
-                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="320" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDoubleClick="mDataGrid_MouseDoubleClick" Grid.Column="1">
+                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="320" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDoubleClick="mDataGrid_MouseDoubleClick" Grid.Column="1"
+                               DataGridCell.Selected="DataGridCell_Selected">
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
