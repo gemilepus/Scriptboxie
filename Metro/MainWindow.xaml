@@ -34,35 +34,37 @@
     <Grid>
         <TabControl VerticalAlignment="Top">
             <TabItem Header="Main">
-
-                <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" 
+                <Grid Background="White">
+                    <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" 
                           SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Height="320" VerticalAlignment="Center" HorizontalAlignment="Center" CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged"
-                          MouseDoubleClick="eDataGrid_MouseDoubleClick">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="#"/>
-                        <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
-                        <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}"/>
-                        <DataGridTextColumn Header="State" Binding="{Binding Path=eTable_State}"/>
-                        <DataGridTextColumn Header="Note" Binding="{Binding Path=eTable_Note}" MinWidth="150"/>
-                        <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" MinWidth="200"/>
-                        <DataGridTemplateColumn Header=" ">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <Image  Height="16" Width="16" Source="trash.png"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="+">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <Image  Height="16" Width="16" Source="plus.png"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                          MouseDoubleClick="eDataGrid_MouseDoubleClick" IsEnabled="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="#"/>
+                            <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
+                            <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}"/>
+                            <DataGridTextColumn Header="State" Binding="{Binding Path=eTable_State}"/>
+                            <DataGridTextColumn Header="Note" Binding="{Binding Path=eTable_Note}" MinWidth="150"/>
+                            <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" MinWidth="200"/>
+                            <DataGridTemplateColumn Header=" ">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <Image  Height="16" Width="16" Source="trash.png"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="+">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <Image  Height="16" Width="16" Source="plus.png"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
+                    <Controls:ToggleSwitch Toggled="Script_Toggle_Toggled" Name="Script_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
+                </Grid>
             </TabItem>
             <TabItem Header="Edit">
                 <Grid Background="White">
