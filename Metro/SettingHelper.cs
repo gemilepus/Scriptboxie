@@ -55,10 +55,14 @@ namespace Metro
 
         }
 
-        public void End(int x)
+        public void End(MainWindow MainWindow)
         {
-
-
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+            data["Def"]["x"] = MainWindow.Left.ToString();
+            data["Def"]["y"] = MainWindow.Top.ToString();
+            parser.WriteFile("user.ini", data);
         }
     }
 }
