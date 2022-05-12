@@ -822,7 +822,7 @@ namespace Metro
                                 if (Event.Length == 0)
                                 {
                                     string[] str_move = CommandData.Split(',');
-                                    SetCursorPos(int.Parse(str_move[0]), int.Parse(str_move[1]));
+                                    SetCursorPos(V.Get_ValueX(int.Parse(str_move[0]), ScaleX, OffsetX), V.Get_ValueY(int.Parse(str_move[1]), ScaleY, OffsetY));
                                 }
                                 else
                                 {
@@ -852,7 +852,7 @@ namespace Metro
                                 {
                                     string[] mOffset = CommandData.Split(',');
                                     System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
-                                    SetCursorPos(point.X + int.Parse(mOffset[0]), point.Y + int.Parse(mOffset[1]));
+                                    SetCursorPos(point.X + V.Get_ValueX(int.Parse(mOffset[0]), ScaleX, 0), point.Y + V.Get_ValueY(int.Parse(mOffset[1]), ScaleY, 0));
                                 }
                                 else
                                 {
@@ -867,11 +867,12 @@ namespace Metro
                                         }
                                         else
                                         {
+                                            // TODO: ?
                                             // Get SortedList Value by Key
                                             Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
                                         }
                                         System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
-                                        SetCursorPos(point.X + int.Parse(Event_Data[0]), point.Y + int.Parse(Event_Data[1]));
+                                        SetCursorPos(point.X + V.Get_ValueX(int.Parse(Event_Data[0]), ScaleX, 0), point.Y + V.Get_ValueY(int.Parse(Event_Data[1]), ScaleY, 0));
                                     }
                                 }
 
@@ -895,7 +896,7 @@ namespace Metro
 
                             case "Click":
 
-                                if (Event.Length == 0)
+                                if (Event.Length == 0 || mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
                                     if (CommandData.Equals("Left"))
                                     {
@@ -937,56 +938,10 @@ namespace Metro
                                         mInputSimulator.Mouse.RightButtonUp();
                                     }
                                 }
-                                else
-                                {
-                                    // Check Key
-                                    if (mDoSortedList.IndexOfKey(Event[0]) != -1)
-                                    {
-                                        if (CommandData.Equals("Left"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                            //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
-                                            mInputSimulator.Mouse.LeftButtonDown();
-                                            Thread.Sleep(200);
-                                            mInputSimulator.Mouse.LeftButtonUp();
-                                        }
-                                        if (CommandData.Equals("Left_Down"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.LeftButtonDown();
-                                        }
-                                        if (CommandData.Equals("Left_Up"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.LeftButtonUp();
-                                        }
-                                        if (CommandData.Equals("Right"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                            //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                            //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
-
-                                            mInputSimulator.Mouse.RightButtonDown();
-                                            Thread.Sleep(200);
-                                            mInputSimulator.Mouse.RightButtonUp();
-                                        }
-                                        if (CommandData.Equals("Right_Down"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.RightButtonDown();
-                                        }
-                                        if (CommandData.Equals("Right_Up"))
-                                        {
-                                            //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                            mInputSimulator.Mouse.RightButtonUp();
-                                        }
-                                    }
-                                }
 
                                 break;
 
-                            case "Match":
+                            case "Match": // get
                             case "Match RGB":
                                 do
                                 {
@@ -1433,6 +1388,13 @@ namespace Metro
                             
                             System.Windows.MessageBox.Show(  "[Error] Line " + n.ToString() + " : " + e.Message);
 
+                            IntPtr nPrt = FindWindow(null, "MoonyTool");
+                            if (nPrt != IntPtr.Zero)
+                            {
+                                    string Param = "9487";
+                                    int wParam = int.Parse(Param);
+                                    SendMessage((int)nPrt, (int)MSG_SHOW, wParam, "0x00000001");
+                            }
                             break;
                         }
                     }
@@ -1442,6 +1404,29 @@ namespace Metro
             }
         }
 
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern uint RegisterWindowMessage(string lpString);
+        uint MSG_SHOW = RegisterWindowMessage("Show Message");
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            System.Windows.Interop.HwndSource source = PresentationSource.FromVisual(this) as System.Windows.Interop.HwndSource;
+            source.AddHook(WndProc);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            // Handle messages...
+            Console.WriteLine(lParam);
+            if (msg == MSG_SHOW)
+            {
+                if (wParam.ToString().Equals("9487")) {
+                    Ring.IsActive = false;
+                }
+            }
+            return IntPtr.Zero;
+        }
         #region Script Panel
         private void Load_Script_ini()
         {
@@ -1837,14 +1822,8 @@ namespace Metro
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // .ini window (x,y)
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-            data["Def"]["x"] = this.Left.ToString();
-            data["Def"]["y"] = this.Top.ToString();
-            parser.WriteFile("user.ini", data);
 
+            mSettingHelper.End(this);
 
             // Stop all thread
             for (int i = 0; i < _workerThreads.Count; i++)
