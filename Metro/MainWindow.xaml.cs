@@ -1418,7 +1418,7 @@ namespace Metro
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             // Handle messages...
-            Console.WriteLine(lParam);
+            //Console.WriteLine(lParam);
             if (msg == MSG_SHOW)
             {
                 if (wParam.ToString().Equals("9487")) {
@@ -1794,6 +1794,16 @@ namespace Metro
                 Console.WriteLine(e);
             }
 
+        }
+
+        private void mDataGrid_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key.ToString().Equals("Return"))
+            {
+                mDataGrid.CancelEdit();
+                EditGrid.Focus();
+
+            }
         }
 
         private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
