@@ -597,15 +597,28 @@ namespace Metro
 
             KListener();
 
-            // test
-            //ConvertHelper.GetEnumVirtualKeyCodeValues();
-
-            // 最小化 test
+            // NotifyIcon
             mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             mNotifyIcon.Visible = true;
-            //this.Hide();
-            //this.WindowState = System.Windows.WindowState.Minimized;
+            mNotifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 
+            // test
+            //ConvertHelper.GetEnumVirtualKeyCodeValues();
+        }
+        private void notifyIcon_DoubleClick(object Sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Minimized;
+                this.Hide();
+            }
+            else {
+                this.Show();
+                this.WindowState = WindowState.Normal;
+
+                // Activate the form.
+                this.Activate();
+            }
         }
 
         #region KListener
@@ -880,18 +893,11 @@ namespace Metro
 
                             case "Delay":
 
-                                if (Event.Length == 0)
+                                if (Event.Length == 0 || mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
                                     Thread.Sleep(Int32.Parse(CommandData));
                                 }
-                                else
-                                {
-                                    // Check Key
-                                    if (mDoSortedList.IndexOfKey(Event[0]) != -1)
-                                    {
-                                        Thread.Sleep(Int32.Parse(CommandData));
-                                    }
-                                }
+
                                 break;
 
                             case "Click":
@@ -1339,17 +1345,9 @@ namespace Metro
 
                             case "Jump":
 
-                                if (Event.Length == 0)
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                 {
                                     n += int.Parse(CommandData);
-                                }
-                                else
-                                {
-                                    
-                                    if (V.Get_EventValue(mDoSortedList, Event[0]) != null)
-                                    {
-                                        n += int.Parse(CommandData);
-                                    }
                                 }
 
                                 break;
@@ -1406,7 +1404,7 @@ namespace Metro
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern uint RegisterWindowMessage(string lpString);
-        uint MSG_SHOW = RegisterWindowMessage("Show Message");
+        uint MSG_SHOW = RegisterWindowMessage("ScriptTool Message");
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -1694,6 +1692,7 @@ namespace Metro
         }
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {
+            Btn_ON.Content = "ON";
             Run_script();
         }
         private void Btn_Stop_Click(object sender, RoutedEventArgs ee)
@@ -1809,7 +1808,6 @@ namespace Metro
             }
 
         }
-
         private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
         {
             // .ini
