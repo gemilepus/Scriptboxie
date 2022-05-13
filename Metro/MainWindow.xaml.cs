@@ -1427,6 +1427,7 @@ namespace Metro
             }
             return IntPtr.Zero;
         }
+
         #region Script Panel
         private void Load_Script_ini()
         {
@@ -1577,16 +1578,6 @@ namespace Metro
             Save_Script();
         }
 
-        private void DataGridCell_Selected(object sender, RoutedEventArgs e)
-        {
-            // Lookup for the source to be DataGridCell
-            if (e.OriginalSource.GetType() == typeof(System.Windows.Controls.DataGridCell))
-            {
-                // Starts the Edit on the row;
-                System.Windows.Controls.DataGrid grd = (System.Windows.Controls.DataGrid)sender;
-                grd.BeginEdit(e);
-            }
-        }
         private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
         {
             eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
@@ -1672,7 +1663,6 @@ namespace Metro
             }
             System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
         }
-
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
             string result = null;
@@ -1702,7 +1692,6 @@ namespace Metro
             }
             System.IO.File.WriteAllText(result, out_string);
         }
-
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {
             Run_script();
@@ -1714,6 +1703,31 @@ namespace Metro
         #endregion
 
         #region DataGrid Event
+        private void DataGridCell_Selected(object sender, RoutedEventArgs e)
+        {
+            // Lookup for the source to be DataGridCell
+            if (e.OriginalSource.GetType() == typeof(System.Windows.Controls.DataGridCell))
+            {
+                // Starts the Edit on the row;
+                System.Windows.Controls.DataGrid grd = (System.Windows.Controls.DataGrid)sender;
+                grd.BeginEdit(e);
+            }
+        }
+        private void mDataGrid_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key.ToString().Equals("Return"))
+            {
+                // CancelEdit & Change Focus
+                mDataGrid.CancelEdit();
+                EditGrid.Focus();
+
+                Btn_ON.Content = "ON";
+            }
+        }
+        private void mDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            Btn_ON.Content = "OFF";
+        }
         private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
             e.NewItem = new MainTable
@@ -1796,16 +1810,6 @@ namespace Metro
 
         }
 
-        private void mDataGrid_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key.ToString().Equals("Return"))
-            {
-                mDataGrid.CancelEdit();
-                EditGrid.Focus();
-
-            }
-        }
-
         private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
         {
             // .ini
@@ -1844,7 +1848,7 @@ namespace Metro
                 }
             }
 
-            if (IsActive)
+            if (Ring.IsActive)
             {
                 mThread.Abort();
             }
