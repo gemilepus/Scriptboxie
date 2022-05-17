@@ -553,7 +553,7 @@ namespace Metro
                     Console.WriteLine(i + " " + eDataTable[i].eTable_Path);
                     string mScript_Local = eDataTable[i].eTable_Path;
                     Thread TempThread = new Thread(() => {
-                        Script(Load_Script_to_DataTable(mScript_Local));
+                        Script(Load_Script_to_DataTable(mScript_Local),"Def");
                     });
                     _workerThreads.Add(TempThread);
                 }
@@ -605,6 +605,9 @@ namespace Metro
             // test
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
+
+        #region APP
+
         private void notifyIcon_DoubleClick(object Sender, EventArgs e)
         {
             if (this.WindowState == WindowState.Normal)
@@ -612,7 +615,8 @@ namespace Metro
                 this.WindowState = WindowState.Minimized;
                 this.Hide();
             }
-            else {
+            else
+            {
                 this.Show();
                 this.WindowState = WindowState.Normal;
 
@@ -620,7 +624,69 @@ namespace Metro
                 this.Activate();
             }
         }
+        private void AlertSound()
+        {
+            try
+            {
+                SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
+                mWaveFile.PlaySync();
+                mWaveFile.Dispose();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
+        }
+        private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // .ini
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+            data["Def"]["WindowTitle"] = TextBox_Title.Text;
+            parser.WriteFile("user.ini", data);
+        }
+        private void Btn_ON_Click(object sender, RoutedEventArgs e)
+        {
+            if (Btn_ON.Content.Equals("ON"))
+            {
+                Btn_ON.Content = "OFF";
+            }
+            else
+            {
+                Btn_ON.Content = "ON";
+            }
+        }
+        private void Btn_About_Click(object sender, RoutedEventArgs e)
+        {
+            this.ShowMessageAsync("About", Metro.Properties.Resources.Version);
+        }
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            mSettingHelper.End(this);
+
+            // Stop all thread
+            for (int i = 0; i < _workerThreads.Count; i++)
+            {
+                if (_workerThreads[i].IsAlive)
+                {
+                    _workerThreads[i].Abort();
+                }
+            }
+
+            if (Ring.IsActive)
+            {
+                mThread.Abort();
+            }
+
+            mNotifyIcon.Visible = false;
+
+        }
+
+        #endregion
+       
         #region KListener
         public void KListener()
         {
@@ -666,7 +732,7 @@ namespace Metro
                             {
                                 try
                                 {
-                                    Script(Script_DataTable);
+                                    Script(Script_DataTable,"Def");
                                 }
                                 catch (Exception ex)
                                 {
@@ -740,7 +806,7 @@ namespace Metro
                             {
                                 try
                                 {
-                                    Script(Script_DataTable);
+                                    Script(Script_DataTable,"Def");
                                 }
                                 catch (Exception ex)
                                 {
@@ -764,7 +830,7 @@ namespace Metro
                         {
                             try
                             {
-                                Script(Script_DataTable);
+                                Script(Script_DataTable, "Def");
                             }
                             catch (Exception ex)
                             {
@@ -804,7 +870,7 @@ namespace Metro
         private float ScaleX, ScaleY;
         private int OffsetX, OffsetY;
         
-        private void Script(List<MainTable> minDataTable)
+        private void Script(List<MainTable> minDataTable,string Mode)
         {
             SortedList mDoSortedList = new SortedList();
             // key || value
@@ -1383,17 +1449,19 @@ namespace Metro
                         Console.WriteLine("{0} Exception caught.", e);
 
                         if (e.Message.ToString().IndexOf("Thread") == -1) {
-                            
-                            System.Windows.MessageBox.Show(  "[Error] Line " + n.ToString() + " : " + e.Message);
 
-                            IntPtr nPrt = FindWindow(null, "MoonyTool");
-                            if (nPrt != IntPtr.Zero)
-                            {
+                            if (Mode.Equals("Debug")) {
+                                System.Windows.MessageBox.Show("[Error] Line " + n.ToString() + " : " + e.Message);
+
+                                IntPtr nPrt = FindWindow(null, "MoonyTool");
+                                if (nPrt != IntPtr.Zero)
+                                {
                                     string Param = "9487";
                                     int wParam = int.Parse(Param);
                                     SendMessage((int)nPrt, (int)MSG_SHOW, wParam, "0x00000001");
-                            }
-                            break;
+                                }
+                                break;
+                            } 
                         }
                     }
                 }
@@ -1606,7 +1674,7 @@ namespace Metro
 
             mThread = new Thread(() =>
             {
-                Script(mDataTable);
+                Script(mDataTable, "Debug");
             });
             mThread.Start();
         }
@@ -1791,70 +1859,6 @@ namespace Metro
                 }
             }
         }
-        #endregion
-
-        #region APP
-        private void AlertSound()
-        {
-            try
-            {
-                SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
-                mWaveFile.PlaySync();
-                mWaveFile.Dispose();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-        }
-        private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // .ini
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-            data["Def"]["WindowTitle"] = TextBox_Title.Text;
-            parser.WriteFile("user.ini", data);
-        }
-        private void Btn_ON_Click(object sender, RoutedEventArgs e)
-        {
-            if (Btn_ON.Content.Equals("ON"))
-            {
-                Btn_ON.Content = "OFF";
-            }
-            else
-            {
-                Btn_ON.Content = "ON";
-            }
-        }
-        private void Btn_About_Click(object sender, RoutedEventArgs e)
-        {
-            this.ShowMessageAsync("About", Metro.Properties.Resources.Version);
-        }
-        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-            mSettingHelper.End(this);
-
-            // Stop all thread
-            for (int i = 0; i < _workerThreads.Count; i++)
-            {
-                if (_workerThreads[i].IsAlive)
-                {
-                    _workerThreads[i].Abort();
-                }
-            }
-
-            if (Ring.IsActive)
-            {
-                mThread.Abort();
-            }
-
-            mNotifyIcon.Visible = false;
-
-        }
-
         #endregion
     }
 }
