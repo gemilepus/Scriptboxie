@@ -758,26 +758,17 @@ namespace Metro
 
             Console.WriteLine(e.KeyCode.ToString());
 
-            // Hide BalloonTip
-            if (mNotifyIcon.Visible)
-            {
-                mNotifyIcon.Visible = false;
-                mNotifyIcon.Visible = true;
-            }
-
 
             if (e.KeyCode.ToString().Equals("OemOpenBrackets")) //"["
             {
-                //test
-                mNotifyIcon.ShowBalloonTip(500, "Run", " ", ToolTipIcon.None);
+                ShowBalloon("Run", "");
 
                 AlertSound();
                 Run_script();
             }
             if (e.KeyCode.ToString().Equals("Oem6")) //"]"
             {
-                // test
-                mNotifyIcon.ShowBalloonTip(500, "Stop", " ", ToolTipIcon.None);
+                ShowBalloon("Stop", "");
                 Stop_script();
             }
 
@@ -817,7 +808,7 @@ namespace Metro
                             _workerThreads[i].Start();
                         }
                         eDataTable[i].eTable_State = "Running";
-                        mNotifyIcon.ShowBalloonTip(500, "Running ", eDataTable[i].eTable_Name, ToolTipIcon.None);
+                        ShowBalloon("Running ", eDataTable[i].eTable_Name);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     else
@@ -840,7 +831,7 @@ namespace Metro
                         _workerThreads[i] = TempThread;
 
                         eDataTable[i].eTable_State = "Stop";
-                        mNotifyIcon.ShowBalloonTip(500, "Stop ", eDataTable[i].eTable_Name, ToolTipIcon.None);
+                        ShowBalloon("Stop ", eDataTable[i].eTable_Name);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                 }
@@ -866,8 +857,19 @@ namespace Metro
         }
         #endregion
 
-        // For resize x,y
-        private float ScaleX, ScaleY;
+        private void ShowBalloon(string title,string msg) {
+            // Hide BalloonTip
+            if (mNotifyIcon.Visible)
+            {
+                mNotifyIcon.Visible = false;
+                mNotifyIcon.Visible = true;
+            }
+            mNotifyIcon.ShowBalloonTip(500, title, msg, ToolTipIcon.None);
+        }
+        
+
+    // For resize x,y
+    private float ScaleX, ScaleY;
         private int OffsetX, OffsetY;
         
         private void Script(List<MainTable> minDataTable,string Mode)
