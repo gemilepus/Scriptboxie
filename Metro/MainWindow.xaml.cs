@@ -761,14 +761,14 @@ namespace Metro
 
             if (e.KeyCode.ToString().Equals("OemOpenBrackets")) //"["
             {
-                ShowBalloon("Run", "");
+                ShowBalloon("Run", "...");
 
                 AlertSound();
                 Run_script();
             }
             if (e.KeyCode.ToString().Equals("Oem6")) //"]"
             {
-                ShowBalloon("Stop", "");
+                ShowBalloon("Stop", "...");
                 Stop_script();
             }
 
