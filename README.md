@@ -26,6 +26,11 @@
 - Add Jump
 - Fixed keyboard listener issue
 
+#1.2.5
+- Add Balloon Notifications
+- Add Minimize to tray(click notifyIcon)
+- Add Global x,y settimg
+
 
 ## Demo ##
 ![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
