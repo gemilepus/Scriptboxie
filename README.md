@@ -26,7 +26,7 @@
 - Add Jump
 - Fixed keyboard listener issue
 
-#1.2.5
+#1.3.0
 - Add Balloon Notifications
 - Add Minimize to tray(click notifyIcon)
 - Add Global x,y settimg
