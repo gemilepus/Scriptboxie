@@ -652,10 +652,12 @@ namespace Metro
             if (Btn_ON.Content.Equals("ON"))
             {
                 Btn_ON.Content = "OFF";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
             }
             else
             {
                 Btn_ON.Content = "ON";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             }
         }
         private void Btn_About_Click(object sender, RoutedEventArgs e)
@@ -720,6 +722,7 @@ namespace Metro
                 if (Btn_ON.Content.Equals("ON"))
                 {
                     Btn_ON.Content = "OFF";
+                    Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
 
                     for (int i = 0; i < _workerThreads.Count; i++)
                     {
@@ -748,6 +751,7 @@ namespace Metro
                 else
                 {
                     Btn_ON.Content = "ON";
+                    Btn_ON.Foreground = System.Windows.Media.Brushes.White;
                 }
                 eDataGrid.DataContext = null;
                 eDataGrid.DataContext = eDataTable;
