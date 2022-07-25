@@ -747,6 +747,10 @@ namespace Metro
                             eDataTable[i].eTable_State = "Stop";
                         }
                     }
+
+                    if (Ring.IsActive == true) {
+                        Stop_script();
+                    }
                 }
                 else
                 {
