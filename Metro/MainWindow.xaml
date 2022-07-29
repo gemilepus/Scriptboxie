@@ -12,7 +12,7 @@
         <Controls:WindowCommands>
      
             <TextBox x:Name="TextBox_Title" Width="100" Margin="5px" TextChanged="TextBox_Title_TextChanged"/>
-            <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON"/>
+            <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" Width="45"/>
             <Button Name="Btn_About" Click="Btn_About_Click" Content="About"/>
             <ToggleButton Content="Help" IsChecked="{Binding ElementName=MahAppFlyout, Path=IsOpen}" Cursor="Hand"/>
         </Controls:WindowCommands>
@@ -35,10 +35,9 @@
         <TabControl VerticalAlignment="Top">
             <TabItem Header="Main">
                 <Grid Background="White">
-                    <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" 
-                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Height="320" VerticalAlignment="Center" HorizontalAlignment="Center" CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged"
-                          MouseDoubleClick="eDataGrid_MouseDoubleClick" IsEnabled="False"
-                              DataGridCell.Selected="DataGridCell_Selected" >
+                    <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" IsEnabled="False"
+                              Height="300" Margin="0,0,0,20"  VerticalAlignment="Center" HorizontalAlignment="Center" 
+                              CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="#"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
@@ -69,10 +68,10 @@
             </TabItem>
             <TabItem Header="Edit">
                 <Grid Background="White" Name="EditGrid">
-
-                    <DataGrid CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" LoadingRow="mDataGrid_LoadingRow" 
-                          SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" MinHeight="300" MinWidth="500" Margin="0,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Center" MouseDoubleClick="mDataGrid_MouseDoubleClick" Grid.Column="1"
-                               DataGridCell.Selected="DataGridCell_Selected" KeyUp="mDataGrid_KeyUp" BeginningEdit="mDataGrid_BeginningEdit">
+                    <DataGrid CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Grid.Column="1"
+                              MinHeight="300" MinWidth="500" Margin="0,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                              LoadingRow="mDataGrid_LoadingRow" 
+                              MouseDoubleClick="mDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected" KeyUp="mDataGrid_KeyUp" BeginningEdit="mDataGrid_BeginningEdit">
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
