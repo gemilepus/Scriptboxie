@@ -1660,9 +1660,11 @@ namespace Metro
             if (eDataGrid.IsEnabled)
             {
                 Btn_ON.Content = "OFF";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
             }
             else {
                 Btn_ON.Content = "ON";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             }
         }
         #endregion
@@ -1771,6 +1773,7 @@ namespace Metro
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {
             Btn_ON.Content = "ON";
+            Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             Run_script();
         }
         private void Btn_Stop_Click(object sender, RoutedEventArgs ee)
@@ -1799,11 +1802,14 @@ namespace Metro
                 EditGrid.Focus();
 
                 Btn_ON.Content = "ON";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             }
         }
+
         private void mDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
             Btn_ON.Content = "OFF";
+            Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
         }
         private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
