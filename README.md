@@ -1,4 +1,17 @@
-#1.0.0
+## Demo ##
+![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
+## Main ##
+![alt text?](https://github.com/gemilepus/Script_Lite/blob/master/cover.png)
+## Edit ##
+![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
+## NOTE ##
+ - 可以用Key去控制其他Script
+## TODO ##
+ - 把分散各CASE的判斷整合成一個
+ - add x y setting
+ 
+ 
+ #1.0.0
 - 初版
 
 #1.0.1
@@ -30,16 +43,3 @@
 - Add Balloon Notifications
 - Add Minimize to tray(click notifyIcon)
 - Add Global x,y settimg
-
-
-## Demo ##
-![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
-## Main ##
-![alt text?](https://github.com/gemilepus/Script_Lite/blob/master/cover.png)
-## Edit ##
-![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
-## NOTE ##
- - 可以用Key去控制其他Script
-## TODO ##
- - 把分散各CASE的判斷整合成一個
- - add x y setting
