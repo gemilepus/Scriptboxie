@@ -1769,6 +1769,10 @@ namespace Metro
                     + "\n";
             }
             System.IO.File.WriteAllText(result, out_string);
+
+            // Restart
+            this.Close();
+            Process.Start("Metro.exe", "");
         }
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {
