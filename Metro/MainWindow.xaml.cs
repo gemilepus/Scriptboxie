@@ -1478,6 +1478,15 @@ namespace Metro
 
                 n++;
             }
+
+            // ScriptEnd
+            IntPtr mPrt = FindWindow(null, "MoonyTool");
+            if (mPrt != IntPtr.Zero)
+            {
+                string Param = "1000";
+                int wParam = int.Parse(Param);
+                SendMessage((int)mPrt, (int)MSG_SHOW, wParam, "0x00000001");
+            }
         }
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
@@ -1500,6 +1509,44 @@ namespace Metro
                 if (wParam.ToString().Equals("9487")) {
                     Ring.IsActive = false;
                 }
+
+                // Update thread status
+                if (wParam.ToString().Equals("1001"))
+                {
+                    for (int i = 0; i < _workerThreads.Count; i++)
+                    {
+                        if (!_workerThreads[i].IsAlive)
+                        {
+                            eDataTable[i].eTable_State = "Stop";
+
+                            // eDataGrid
+                            if (!eDataGrid.IsKeyboardFocusWithin)
+                            {
+                                eDataGrid.DataContext = null;
+                                eDataGrid.DataContext = eDataTable;
+                            }
+                        }
+                    }
+                }
+
+                // On ScriptEnd delay 100ms
+                if (wParam.ToString().Equals("1000"))
+                {
+                    Thread TempThread = new Thread(() =>
+                    {
+                        Thread.Sleep(100);
+
+                        IntPtr mPrt = FindWindow(null, "MoonyTool");
+                        if (mPrt != IntPtr.Zero)
+                        {
+                            string mParam = "1001";
+                            int WParam = int.Parse(mParam);
+                            SendMessage((int)mPrt, (int)MSG_SHOW, WParam, "0x00000001");
+                        }
+                    });
+                    TempThread.Start();
+                }
+
             }
             return IntPtr.Zero;
         }
