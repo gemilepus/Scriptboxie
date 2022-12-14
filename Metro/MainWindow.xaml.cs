@@ -822,6 +822,8 @@ namespace Metro
                     else
                     {
                         _workerThreads[i].Abort();
+                        _workerThreads[i].DisableComObjectEagerCleanup();
+
                         Console.WriteLine(eDataTable[i].eTable_Path);
                         string mScript_Local = eDataTable[i].eTable_Path;
                         List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
@@ -837,7 +839,7 @@ namespace Metro
                             }
                         });
                         _workerThreads[i] = TempThread;
-
+                       
                         eDataTable[i].eTable_State = "Stop";
                         ShowBalloon("Stop ", eDataTable[i].eTable_Name);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
@@ -865,12 +867,12 @@ namespace Metro
             }
             mNotifyIcon.ShowBalloonTip(500, title, msg, ToolTipIcon.None);
         }
-        
 
-    // For resize x,y
-    private float ScaleX, ScaleY;
+
+        // For resize x,y
+        private float ScaleX, ScaleY;
         private int OffsetX, OffsetY;
-        
+
         private void Script(List<MainTable> minDataTable,string Mode)
         {
             SortedList mDoSortedList = new SortedList();
@@ -1454,7 +1456,7 @@ namespace Metro
                             if (Mode.Equals("Debug")) {
                                 System.Windows.MessageBox.Show("[Error] Line " + n.ToString() + " : " + e.Message);
 
-                                // debug error msg
+                                // debug stop msg
                                 CreateMessage("9487");
 
                                 break;
@@ -1466,8 +1468,13 @@ namespace Metro
                 n++;
             }
 
+            if (Mode.Equals("Debug")){
+                CreateMessage("9487");
+            }
             // script eng msg
             CreateMessage("1000");
+
+            Thread.CurrentThread.DisableComObjectEagerCleanup();
         }
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
@@ -1729,7 +1736,10 @@ namespace Metro
         }
         private void Stop_script()
         {
-            mThread.Abort(); //main thread aborting newly created thread.  
+            if (mThread != null)
+            {
+                mThread.Abort();
+            }
             Ring.IsActive = false;
         }
         private void Btn_open_Click(object sender, RoutedEventArgs e)
