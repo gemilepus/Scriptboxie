@@ -845,15 +845,6 @@ namespace Metro
                 }
             }
 
-            // Update thread status
-            for (int i = 0; i < _workerThreads.Count; i++)
-            {
-                if (_workerThreads[i].ThreadState == System.Threading.ThreadState.Stopped)
-                {
-                    eDataTable[i].eTable_State = "Stop";
-                }
-            }
-
             // eDataGrid
             if (!eDataGrid.IsKeyboardFocusWithin) {
                 eDataGrid.DataContext = null;
@@ -1463,13 +1454,9 @@ namespace Metro
                             if (Mode.Equals("Debug")) {
                                 System.Windows.MessageBox.Show("[Error] Line " + n.ToString() + " : " + e.Message);
 
-                                IntPtr nPrt = FindWindow(null, "MoonyTool");
-                                if (nPrt != IntPtr.Zero)
-                                {
-                                    string Param = "9487";
-                                    int wParam = int.Parse(Param);
-                                    SendMessage((int)nPrt, (int)MSG_SHOW, wParam, "0x00000001");
-                                }
+                                // debug error msg
+                                CreateMessage("9487");
+
                                 break;
                             } 
                         }
@@ -1479,14 +1466,8 @@ namespace Metro
                 n++;
             }
 
-            // ScriptEnd
-            IntPtr mPrt = FindWindow(null, "MoonyTool");
-            if (mPrt != IntPtr.Zero)
-            {
-                string Param = "1000";
-                int wParam = int.Parse(Param);
-                SendMessage((int)mPrt, (int)MSG_SHOW, wParam, "0x00000001");
-            }
+            // script eng msg
+            CreateMessage("1000");
         }
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
@@ -1549,6 +1530,15 @@ namespace Metro
 
             }
             return IntPtr.Zero;
+        }
+        private void CreateMessage(string Param)
+        {
+            IntPtr mPrt = FindWindow(null, "MoonyTool");
+            if (mPrt != IntPtr.Zero)
+            {
+                int wParam = int.Parse(Param);
+                SendMessage((int)mPrt, (int)MSG_SHOW, wParam, "0x00000001");
+            }
         }
 
         #region Script Panel
