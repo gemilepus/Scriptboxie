@@ -729,23 +729,19 @@ namespace Metro
                         if (_workerThreads[i].IsAlive)
                         {
                             _workerThreads[i].Abort();
-                            string mScript_Local = eDataTable[i].eTable_Path;
-                            List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
-                            Thread TempThread = new Thread(() =>
+                            _workerThreads[i] = new Thread(() =>
                             {
                                 try
                                 {
-                                    Script(Script_DataTable,"Def");
+                                    Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
                                 }
                                 catch (Exception ex)
                                 {
                                     Console.WriteLine("{0} Exception caught.", ex);
                                 }
                             });
-                            _workerThreads[i] = TempThread;
-
-                            eDataTable[i].eTable_State = "Stop";
                         }
+                        eDataTable[i].eTable_State = "Stop";
                     }
 
                     if (Ring.IsActive == true) {
@@ -799,20 +795,19 @@ namespace Metro
                         else
                         {
                             Console.WriteLine(eDataTable[i].eTable_Path);
-                            string mScript_Local = eDataTable[i].eTable_Path;
-                            List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
-                            Thread TempThread = new Thread(() =>
+                            //string mScript_Local = eDataTable[i].eTable_Path;
+                            //List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                            _workerThreads[i] = new Thread(() =>
                             {
                                 try
                                 {
-                                    Script(Script_DataTable,"Def");
+                                    Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
                                 }
                                 catch (Exception ex)
                                 {
                                     Console.WriteLine("{0} Exception caught.", ex);
                                 }
                             });
-                            _workerThreads[i] = TempThread;
                             _workerThreads[i].Start();
                         }
                         eDataTable[i].eTable_State = "Running";
@@ -825,21 +820,20 @@ namespace Metro
                         _workerThreads[i].DisableComObjectEagerCleanup();
 
                         Console.WriteLine(eDataTable[i].eTable_Path);
-                        string mScript_Local = eDataTable[i].eTable_Path;
-                        List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
-                        Thread TempThread = new Thread(() =>
+                        //string mScript_Local = eDataTable[i].eTable_Path;
+                        //List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                        _workerThreads[i] = new Thread(() =>
                         {
                             try
                             {
-                                Script(Script_DataTable, "Def");
+                                Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
                             }
                             catch (Exception ex)
                             {
                                 Console.WriteLine("{0} Exception caught.", ex);
                             }
                         });
-                        _workerThreads[i] = TempThread;
-                       
+                        
                         eDataTable[i].eTable_State = "Stop";
                         ShowBalloon("Stop ", eDataTable[i].eTable_Name);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
