@@ -86,7 +86,7 @@ namespace Metro
         // Set Foreground Window                        
         // Get a handle to an application window.
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         // Activate an application window.
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
@@ -116,13 +116,13 @@ namespace Metro
 
         // SendMessage
         [DllImport("user32.dll")]
-        public static extern int SendMessage(int hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
+        private static extern int SendMessage(int hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
         #endregion
         // End *********************************************************************************************
 
         // **************************************** OpenCV & Media ******************************************
         #region OpenCV & Media
-        public static Bitmap makeScreenshot()
+        private Bitmap makeScreenshot()
         {
             Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 
@@ -135,7 +135,7 @@ namespace Metro
             return screenshot;
         }
 
-        public static Bitmap makeScreenshot_clip(int x, int y, int height, int width)
+        private Bitmap makeScreenshot_clip(int x, int y, int height, int width)
         {
             Bitmap screenshot = new Bitmap(width, height);
 
@@ -688,15 +688,15 @@ namespace Metro
         }
 
         #endregion
-       
+
         #region KListener
-        public void KListener()
+        private void KListener()
         {
             // Note: for the application hook, use the Hook.AppEvents() instead
             Main_GlobalHook = Hook.GlobalEvents();
             Main_GlobalHook.KeyDown += Main_GlobalHookKeyPress;
         }
-        public void UnKListener()
+        private void UnKListener()
         {
             Main_GlobalHook.KeyDown -= Main_GlobalHookKeyPress;
             //It is recommened to dispose it
@@ -786,6 +786,7 @@ namespace Metro
                     //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin){
                     //    break;
                     //}
+                    /*
                     if (!_workerThreads[i].IsAlive)
                     {
                         if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped)
@@ -795,8 +796,61 @@ namespace Metro
                         else
                         {
                             Console.WriteLine(eDataTable[i].eTable_Path);
-                            //string mScript_Local = eDataTable[i].eTable_Path;
-                            //List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                            string mScript_Local = eDataTable[i].eTable_Path;
+                            List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                            Thread TempThread = new Thread(() =>
+                            {
+                                try
+                                {
+                                    Script(Script_DataTable, "Def");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("{0} Exception caught.", ex);
+                                }
+                            });
+                            _workerThreads[i] = TempThread;
+                            _workerThreads[i].Start();
+                        }
+                        eDataTable[i].eTable_State = "Running";
+                        ShowBalloon("Running ", eDataTable[i].eTable_Name);
+                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                    }
+                    else
+                    {
+                        _workerThreads[i].Abort();
+                        Console.WriteLine(eDataTable[i].eTable_Path);
+                        string mScript_Local = eDataTable[i].eTable_Path;
+                        List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+                        Thread TempThread = new Thread(() =>
+                        {
+                            try
+                            {
+                                Script(Script_DataTable, "Def");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("{0} Exception caught.", ex);
+                            }
+                        });
+                        _workerThreads[i] = TempThread;
+
+                        eDataTable[i].eTable_State = "Stop";
+                        ShowBalloon("Stop ", eDataTable[i].eTable_Name);
+                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
+                    }*/
+
+
+                    if (!_workerThreads[i].IsAlive)
+                    {
+                        if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped && _workerThreads[i].ThreadState != System.Threading.ThreadState.Unstarted)
+                        {
+                            _workerThreads[i].Start();
+                        }
+                        else
+                        {
+                            Console.WriteLine(eDataTable[i].eTable_Path);
+
                             _workerThreads[i] = new Thread(() =>
                             {
                                 try
@@ -817,11 +871,10 @@ namespace Metro
                     else
                     {
                         _workerThreads[i].Abort();
-                        _workerThreads[i].DisableComObjectEagerCleanup();
+                        _workerThreads[i] = null;
 
                         Console.WriteLine(eDataTable[i].eTable_Path);
-                        //string mScript_Local = eDataTable[i].eTable_Path;
-                        //List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
+
                         _workerThreads[i] = new Thread(() =>
                         {
                             try
@@ -833,11 +886,12 @@ namespace Metro
                                 Console.WriteLine("{0} Exception caught.", ex);
                             }
                         });
-                        
+
                         eDataTable[i].eTable_State = "Stop";
                         ShowBalloon("Stop ", eDataTable[i].eTable_Name);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
+
                 }
             }
 
@@ -1468,7 +1522,6 @@ namespace Metro
             // script eng msg
             CreateMessage("1000");
 
-            Thread.CurrentThread.DisableComObjectEagerCleanup();
         }
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
@@ -1527,6 +1580,20 @@ namespace Metro
                         }
                     });
                     TempThread.Start();
+                }
+
+                // On ScriptEnd delay 100ms
+                if (wParam.ToString().Substring(0,2).Equals("22"))
+                {
+                    switch (wParam.ToString())
+                    {
+                        case "2200":
+                            this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
+                            break;
+                        default:
+
+                            break;
+                    }
                 }
 
             }
@@ -1624,6 +1691,7 @@ namespace Metro
             catch
             {
                 this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
+                //CreateMessage("2200");
             }
             return tempDataTable;
         }
