@@ -9,7 +9,7 @@ public class ConvertHelper
 {
     // VkKeyScan Char to 0x00
     [DllImport("user32.dll")]
-    static extern byte VkKeyScan(char ch);
+    private static extern byte VkKeyScan(char ch);
 
     public int MakeLParam(int LoWord, int HiWord)
     {
