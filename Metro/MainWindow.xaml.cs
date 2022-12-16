@@ -40,7 +40,7 @@ namespace Metro
         #region Motion
         // key actions
         [DllImport("user32.dll", SetLastError = true)]
-        static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
+        private static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
         private const int KEYEVENTF_EXTENDEDKEY = 0x0001; //Key down flag
         private const int KEYEVENTF_KEYUP = 0x0002; //Key up flag
         private const int VK_LCONTROL = 0xA2; //Left Control key code
@@ -61,10 +61,10 @@ namespace Metro
 
         // GetActiveWindowTitle
         [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
+        private static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll")]
-        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
         private string GetActiveWindowTitle()
         {
@@ -93,7 +93,7 @@ namespace Metro
 
         // VkKeyScan Char to 0x00
         [DllImport("user32.dll")]
-        static extern byte VkKeyScan(char ch);
+        private static extern byte VkKeyScan(char ch);
         #endregion
         // End *********************************************************************************************
 
@@ -101,15 +101,15 @@ namespace Metro
         #region PostMessage & SendMessage & FindWindows 
         // FindWindows EX
         [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+        private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
         // PostMessageA
         [DllImport("User32.Dll", EntryPoint = "PostMessageA")]
         private static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
 
-        const int WM_KEYDOWN = 0x100;
-        const int WM_KEYUP = 0x101;
-        const int WM_CHAR = 0x0102;
+        private const int WM_KEYDOWN = 0x100;
+        private const int WM_KEYUP = 0x101;
+        private const int WM_CHAR = 0x0102;
 
         //const int WM_LBUTTONDOWN = 0x201;
         //const int WM_LBUTTONUP = 0x202;
