@@ -786,6 +786,7 @@ namespace Metro
                     //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin){
                     //    break;
                     //}
+
                     /*
                     if (!_workerThreads[i].IsAlive)
                     {
@@ -840,7 +841,6 @@ namespace Metro
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }*/
 
-
                     if (!_workerThreads[i].IsAlive)
                     {
                         if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped && _workerThreads[i].ThreadState != System.Threading.ThreadState.Unstarted)
@@ -851,6 +851,7 @@ namespace Metro
                         {
                             Console.WriteLine(eDataTable[i].eTable_Path);
 
+                            _workerThreads[i] = null;
                             _workerThreads[i] = new Thread(() =>
                             {
                                 try
@@ -864,16 +865,17 @@ namespace Metro
                             });
                             _workerThreads[i].Start();
                         }
+
                         eDataTable[i].eTable_State = "Running";
                         ShowBalloon("Running ", eDataTable[i].eTable_Name);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
                     else
                     {
+                        Console.WriteLine(eDataTable[i].eTable_Path);
+
                         _workerThreads[i].Abort();
                         _workerThreads[i] = null;
-
-                        Console.WriteLine(eDataTable[i].eTable_Path);
 
                         _workerThreads[i] = new Thread(() =>
                         {
@@ -891,7 +893,6 @@ namespace Metro
                         ShowBalloon("Stop ", eDataTable[i].eTable_Name);
                         Console.WriteLine(_workerThreads[i].ThreadState.ToString());
                     }
-
                 }
             }
 
