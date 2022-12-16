@@ -400,12 +400,12 @@ namespace Metro
         }
 
         // WindowsInputLibrary
-        InputSimulator mInputSimulator = new InputSimulator();
+        private InputSimulator mInputSimulator = new InputSimulator();
 
 
         // DataGrid
-        List<MainTable> mDataTable = new List<MainTable>();
-        List<EditTable> eDataTable = new List<EditTable>();
+        private List<MainTable> mDataTable = new List<MainTable>();
+        private List<EditTable> eDataTable = new List<EditTable>();
 
         private List<Thread> _workerThreads = new List<Thread>();
 
@@ -479,23 +479,23 @@ namespace Metro
         #endregion
 
         // GameOverlay .Net
-        OverlayWindow _window;
-        GameOverlay.Drawing.Graphics _graphics;
+        private OverlayWindow _window;
+        private GameOverlay.Drawing.Graphics _graphics;
         // Brush
-        GameOverlay.Drawing.SolidBrush _red;
-        GameOverlay.Drawing.Font _font;
-        GameOverlay.Drawing.SolidBrush _black;
+        private GameOverlay.Drawing.SolidBrush _red;
+        private GameOverlay.Drawing.Font _font;
+        private GameOverlay.Drawing.SolidBrush _black;
 
-        GameOverlay.Drawing.Graphics gfx;
+        private GameOverlay.Drawing.Graphics gfx;
 
         // NotifyIcon 最小化
-        NotifyIcon mNotifyIcon = new NotifyIcon();
+        private NotifyIcon mNotifyIcon = new NotifyIcon();
         //private void MenuItem_Click(object sender, RoutedEventArgs e)
         //{
         //    this.Show();
         //}
 
-        SettingHelper mSettingHelper = new SettingHelper();
+        private SettingHelper mSettingHelper = new SettingHelper();
 
         public MainWindow()
         {
@@ -1525,8 +1525,8 @@ namespace Metro
         }
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        static extern uint RegisterWindowMessage(string lpString);
-        uint MSG_SHOW = RegisterWindowMessage("ScriptTool Message");
+        private static extern uint RegisterWindowMessage(string lpString);
+        private uint MSG_SHOW = RegisterWindowMessage("ScriptTool Message");
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -1777,10 +1777,10 @@ namespace Metro
 
         #region Edit Panel
 
-        Thread mThread = null;
+        private Thread mThread = null;
         // data
-        bool Tempflag = false;
-        Bitmap TempBitmap;
+        private bool Tempflag = false;
+        private Bitmap TempBitmap;
         private void Run_script()
         {
             if (Ring.IsActive == true)
