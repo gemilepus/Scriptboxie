@@ -729,6 +729,8 @@ namespace Metro
                         if (_workerThreads[i].IsAlive)
                         {
                             _workerThreads[i].Abort();
+                            _workerThreads[i] = null;
+
                             _workerThreads[i] = new Thread(() =>
                             {
                                 try
@@ -1511,6 +1513,10 @@ namespace Metro
                                 break;
                             } 
                         }
+                    }
+                    finally
+                    {
+                       
                     }
                 }
 
