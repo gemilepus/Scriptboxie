@@ -41,18 +41,18 @@ namespace Metro
         // key actions
         [DllImport("user32.dll", SetLastError = true)]
         static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
-        public const int KEYEVENTF_EXTENDEDKEY = 0x0001; //Key down flag
-        public const int KEYEVENTF_KEYUP = 0x0002; //Key up flag
-        public const int VK_LCONTROL = 0xA2; //Left Control key code
-        public const int A = 0x41; //A key code
-        public const int C = 0x43; //C key code
+        private const int KEYEVENTF_EXTENDEDKEY = 0x0001; //Key down flag
+        private const int KEYEVENTF_KEYUP = 0x0002; //Key up flag
+        private const int VK_LCONTROL = 0xA2; //Left Control key code
+        private const int A = 0x41; //A key code
+        private const int C = 0x43; //C key code
 
         // Mouse move
         [DllImport("user32")]
-        public static extern int SetCursorPos(int x, int y);
+        private static extern int SetCursorPos(int x, int y);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
+        private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
         // Mouse actions
         private const int MOUSEEVENTF_LEFTDOWN = 0x02;
         private const int MOUSEEVENTF_LEFTUP = 0x04;
@@ -89,7 +89,7 @@ namespace Metro
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         // Activate an application window.
         [DllImport("USER32.DLL")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         // VkKeyScan Char to 0x00
         [DllImport("user32.dll")]
@@ -392,8 +392,8 @@ namespace Metro
         #endregion
         // End ***************************************************************************************
 
-        public DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
-        public new bool IsActive
+        private DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+        private new bool IsActive
         {
             get { return (bool)this.GetValue(UnitIsCProperty); }
             set { this.SetValue(UnitIsCProperty, value); }
@@ -431,7 +431,7 @@ namespace Metro
                 mDataGrid.DataContext = mDataTable;
             }
         }
-        public void Subscribe()
+        private void Subscribe()
         {
             // Note: for the application hook, use the Hook.AppEvents() instead
             m_GlobalHook = Hook.GlobalEvents();
@@ -468,7 +468,7 @@ namespace Metro
             //Console.WriteLine("MouseMove: x={0:0000}; y={1:0000}", e.X, e.Y);
         }
 
-        public void Unsubscribe()
+        private void Unsubscribe()
         {
             m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
             m_GlobalHook.KeyPress -= GlobalHookKeyPress;
