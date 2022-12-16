@@ -552,9 +552,24 @@ namespace Metro
                 {
                     Console.WriteLine(i + " " + eDataTable[i].eTable_Path);
                     string mScript_Local = eDataTable[i].eTable_Path;
-                    Thread TempThread = new Thread(() => {
-                        Script(Load_Script_to_DataTable(mScript_Local),"Def");
+                    Thread TempThread = new Thread(() =>
+                    {
+                        try
+                        {
+                            Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("{0} Exception caught.", ex);
+                        }
+                        finally
+                        {
+                            GC.Collect();
+                            GC.WaitForPendingFinalizers();
+                           
+                        }
                     });
+
                     _workerThreads.Add(TempThread);
                 }
             }
@@ -741,6 +756,10 @@ namespace Metro
                                 {
                                     Console.WriteLine("{0} Exception caught.", ex);
                                 }
+                                finally { 
+                                    GC.Collect(); 
+                                    GC.WaitForPendingFinalizers();
+                                }
                             });
                         }
                         eDataTable[i].eTable_State = "Stop";
@@ -863,6 +882,13 @@ namespace Metro
                                 catch (Exception ex)
                                 {
                                     Console.WriteLine("{0} Exception caught.", ex);
+
+                                }
+                                finally
+                                {
+                                    GC.Collect();
+                                    GC.WaitForPendingFinalizers();
+                                    Console.WriteLine("WaitForPendingFinalizers");
                                 }
                             });
                             _workerThreads[i].Start();
@@ -888,6 +914,12 @@ namespace Metro
                             catch (Exception ex)
                             {
                                 Console.WriteLine("{0} Exception caught.", ex);
+                            }
+                            finally
+                            {
+                                GC.Collect();
+                                GC.WaitForPendingFinalizers();
+                                Console.WriteLine("WaitForPendingFinalizers");
                             }
                         });
 
@@ -1516,7 +1548,7 @@ namespace Metro
                     }
                     finally
                     {
-                       
+
                     }
                 }
 
@@ -1552,7 +1584,7 @@ namespace Metro
                     Ring.IsActive = false;
                 }
 
-                // Update thread status
+                // Update Thread status
                 if (wParam.ToString().Equals("1001"))
                 {
                     for (int i = 0; i < _workerThreads.Count; i++)
@@ -1585,6 +1617,9 @@ namespace Metro
                             int WParam = int.Parse(mParam);
                             SendMessage((int)mPrt, (int)MSG_SHOW, WParam, "0x00000001");
                         }
+
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
                     });
                     TempThread.Start();
                 }
