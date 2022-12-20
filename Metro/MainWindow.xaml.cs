@@ -1557,6 +1557,9 @@ namespace Metro
                         matTemplate?.Dispose();
                         matTarget?.Dispose();
                         mInputSimulator = null;
+                        V = null;
+                        ConvertHelper = null;
+
                     }
                     finally
                     {
