@@ -717,8 +717,10 @@ namespace Metro
             Main_GlobalHook.Dispose();
         }
 
+        private string PassCtrlKey = "";
         private void Main_GlobalHookKeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
         {
+
 
             if (!TextBox_Title.Text.Equals(""))
             {
@@ -796,10 +798,28 @@ namespace Metro
                 Stop_script();
             }
 
+            string KeyCode = PassCtrlKey + e.KeyCode.ToString();
+
+            switch (e.KeyCode.ToString())
+            {
+                case "LControlKey":
+                    PassCtrlKey = "Ctrl+";
+                    break;
+                case "LMenu":
+                    PassCtrlKey = "Alt+";
+                    break;
+                case "LShiftKey":
+                    PassCtrlKey = "Shift+";
+                    break;
+                default:
+                    PassCtrlKey = "";
+                    break;
+            }
+
             // Select Script
             for (int i = 0; i < eDataTable.Count; i++)
             {
-                if (e.KeyCode.ToString().Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
+                if (KeyCode.Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
                 {
                     Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
 
@@ -954,7 +974,7 @@ namespace Metro
         // For resize x,y
         private float ScaleX, ScaleY;
         private int OffsetX, OffsetY;
-
+      
         private void Script(List<MainTable> minDataTable,string Mode)
         {
             // WindowsInputLibrary
