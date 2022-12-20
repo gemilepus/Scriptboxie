@@ -31,6 +31,7 @@ using IniParser.Model;
 
 using WindowsInput;
 using WindowsInput.Native;
+using static Keyboard;
 
 namespace Metro
 {
@@ -1239,14 +1240,33 @@ namespace Metro
                                 //***************** InputSimulator *****************
                                 string str = CommandData;
                                 char[] arr = str.ToCharArray();
+
+                                Keyboard ky = new Keyboard();
                                 foreach (char c in arr)
                                 {
-                                    
                                     //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-                                    mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-                                    Thread.Sleep(100);
-                                    mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+
+
+                                    //mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                    //Thread.Sleep(100);
+                                    //mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+
+                                    string str2 = "KEY_" + c.ToString().ToUpper();
+                                    short value = 0;
+                                    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
+                                    foreach (short enumValue in enumValueArray)
+                                    {
+                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(str2))
+                                        {
+                                            value = enumValue;
+
+                                            ky.Send(value);
+                                            Thread.Sleep(100);
+                                        }
+                                    }
+
                                 }
+                                ky = null;
                                 //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
                                 //***************** InputSimulator *****************
 
