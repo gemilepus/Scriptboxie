@@ -16,7 +16,7 @@ public class ConvertHelper
         return ((HiWord << 16) | (LoWord & 0xffff));
     }
 
-    public static Keys ConvertCharToVirtualKey(char ch)
+    public Keys ConvertCharToVirtualKey(char ch)
     {
         short vkey = VkKeyScan(ch);
         Keys retval = (Keys)(vkey & 0xff);
@@ -27,7 +27,7 @@ public class ConvertHelper
         return retval;
     }
 
-    public static int StringToVirtualKeyCode(String str)
+    public int StringToVirtualKeyCode(String str)
     {
         str = str.ToUpper();
         int value = 0;
@@ -41,7 +41,7 @@ public class ConvertHelper
         }
         return value;
     }
-    public static void GetEnumVirtualKeyCodeValues()
+    public void GetEnumVirtualKeyCodeValues()
     {
         Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));
         ArrayList myArrayList = new ArrayList();
@@ -53,7 +53,7 @@ public class ConvertHelper
         }
     }
 
-    public static void ParseEnum()
+    public void ParseEnum()
     {
         VirtualKeyCode ms = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "MENU");
         Console.WriteLine(ms.ToString());

@@ -399,9 +399,6 @@ namespace Metro
             set { this.SetValue(UnitIsCProperty, value); }
         }
 
-        // WindowsInputLibrary
-        private InputSimulator mInputSimulator = new InputSimulator();
-
 
         // DataGrid
         private List<MainTable> mDataTable = new List<MainTable>();
@@ -411,7 +408,7 @@ namespace Metro
 
         // Globalmousekeyhook for record
         #region
-        private IKeyboardMouseEvents m_GlobalHook, Main_GlobalHook;
+        private static IKeyboardMouseEvents m_GlobalHook, Main_GlobalHook;
 
         private int now_x, now_y;
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
@@ -489,7 +486,7 @@ namespace Metro
         private GameOverlay.Drawing.Graphics gfx;
 
         // NotifyIcon 最小化
-        private NotifyIcon mNotifyIcon = new NotifyIcon();
+        private static NotifyIcon mNotifyIcon = new NotifyIcon();
         //private void MenuItem_Click(object sender, RoutedEventArgs e)
         //{
         //    this.Show();
@@ -500,7 +497,9 @@ namespace Metro
         public MainWindow()
         {
             InitializeComponent();
-           
+
+            MSG_SHOW = RegisterWindowMessage("ScriptTool Message");
+
             // Data Binding
             //this.DataContext = this;
 
@@ -958,7 +957,13 @@ namespace Metro
 
         private void Script(List<MainTable> minDataTable,string Mode)
         {
+            // WindowsInputLibrary
+            InputSimulator mInputSimulator = new InputSimulator();
+
+            V V = new V();
+            ConvertHelper ConvertHelper = new ConvertHelper();
             SortedList mDoSortedList = new SortedList();
+
             // key || value
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
@@ -977,6 +982,8 @@ namespace Metro
 
                 if (CommandEnable)
                 {
+                    Mat matTemplate = null, matTarget = null;
+
                     try
                     {
                         #region Switch Command
@@ -1104,7 +1111,6 @@ namespace Metro
                                 do
                                 {
                                     string TempPath = CommandData;
-                                    Mat matTarget;
                                     if (TempPath.Equals(""))
                                     {
                                         TempPath = "s.png";
@@ -1130,7 +1136,7 @@ namespace Metro
                                     }
 
 
-                                    Mat matTemplate = new Mat(TempPath, ImreadModes.Color);
+                                    matTemplate = new Mat(TempPath, ImreadModes.Color);
                                     int temp_w = matTemplate.Width / 2, temp_h = matTemplate.Height / 2; // center x y
 
                                     //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
@@ -1215,6 +1221,7 @@ namespace Metro
                                 char[] arr = str.ToCharArray();
                                 foreach (char c in arr)
                                 {
+                                    
                                     //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                                     mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                                     Thread.Sleep(100);
@@ -1532,7 +1539,8 @@ namespace Metro
                     }
                     catch(Exception e)
                     {
-                        Console.WriteLine("{0} Exception caught.", e);
+                        //Console.WriteLine("{0} Exception caught.", e);
+                        Console.WriteLine("Exception caught.");
 
                         if (e.Message.ToString().IndexOf("Thread") == -1) {
 
@@ -1545,10 +1553,14 @@ namespace Metro
                                 break;
                             } 
                         }
+
+                        matTemplate?.Dispose();
+                        matTarget?.Dispose();
+                        mInputSimulator = null;
                     }
                     finally
                     {
-
+                       
                     }
                 }
 
@@ -1565,7 +1577,7 @@ namespace Metro
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern uint RegisterWindowMessage(string lpString);
-        private uint MSG_SHOW = RegisterWindowMessage("ScriptTool Message");
+        private uint MSG_SHOW;
 
         protected override void OnSourceInitialized(EventArgs e)
         {
