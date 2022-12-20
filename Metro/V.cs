@@ -1,13 +1,8 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using WindowsInput.Native;
-using System.Collections;
-using System.Windows.Forms;
+﻿using System.Collections;
 
 public class V
 {
-    public static string[] Get_Split(string CommandData)
+    public string[] Get_Split(string CommandData)
     {
 
         string[] Split;
@@ -16,7 +11,7 @@ public class V
         return Split;
     }
 
-    public static string[] Get_EventValue(SortedList mSortedList, string Event)
+    public string[] Get_EventValue(SortedList mSortedList, string Event)
     {
 
         string[] EventValue = null;
@@ -29,14 +24,14 @@ public class V
         return EventValue;
     }
 
-    public static int Get_ValueX(int x, float ScaleX, int OffsetX)
+    public int Get_ValueX(int x, float ScaleX, int OffsetX)
     {
         x = (int)(x * ScaleX) + OffsetX;
 
         return x;
     }
 
-    public static int Get_ValueY(int y, float ScaleY, int OffsetY)
+    public int Get_ValueY(int y, float ScaleY, int OffsetY)
     {
         y = (int)(y * ScaleY) + OffsetY;
 
