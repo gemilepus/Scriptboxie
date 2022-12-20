@@ -1559,6 +1559,7 @@ namespace Metro
                         mInputSimulator = null;
                         V = null;
                         ConvertHelper = null;
+                        mDoSortedList.Clear();
 
                     }
                     finally
