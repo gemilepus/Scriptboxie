@@ -43,3 +43,12 @@
 - Add Balloon Notifications
 - Add Minimize to tray(click notifyIcon)
 - Add Global x,y settimg
+
+#1.3.1
+- 優化狀態顯示
+
+#1.3.2
+- UI 調整
+- Add SendKeyDown & SendKeyUp
+- Add 組合快捷鍵
+
