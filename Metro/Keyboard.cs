@@ -1,15 +1,26 @@
 ﻿using System.Runtime.InteropServices;
 using System;
-
+using static Keyboard;
 public class Keyboard
 {
-    public void Send(short a)
+    public void SendKeyDown(short a)
     {
         INPUT[] Inputs = new INPUT[1];
         INPUT Input = new INPUT();
         Input.type = 1; // 1 = Keyboard Input
         Input.U.ki.wScan = a;
         Input.U.ki.dwFlags = KEYEVENTF.SCANCODE;
+        Inputs[0] = Input;
+        SendInput(1, Inputs, INPUT.Size);
+    }
+
+    public void SendKeyUp(short a)
+    {
+        INPUT[] Inputs = new INPUT[1];
+        INPUT Input = new INPUT();
+        Input.type = 1; // 1 = Keyboard Input
+        Input.U.ki.wScan = a;
+        Input.U.ki.dwFlags = KEYEVENTF.KEYUP | KEYEVENTF.SCANCODE;
         Inputs[0] = Input;
         SendInput(1, Inputs, INPUT.Size);
     }
