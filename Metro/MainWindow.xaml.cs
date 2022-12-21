@@ -1225,13 +1225,9 @@ namespace Metro
 
                             case "Key":
 
-                                if (Event.Length != 0)
+                                if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                 {
-                                    // Check Key
-                                    if (mDoSortedList.IndexOfKey(Event[0]) == -1)
-                                    {
-                                        break;
-                                    }
+                                    break;
                                 }
 
                                 //***************** SendKeys *****************
@@ -1271,13 +1267,9 @@ namespace Metro
 
                             case "SendKeyDown":
 
-                                if (Event.Length != 0)
+                                if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                 {
-                                    // Check Key
-                                    if (mDoSortedList.IndexOfKey(Event[0]) == -1)
-                                    {
-                                        break;
-                                    }
+                                    break;
                                 }
 
                                 char[] SendKeyDownarr = CommandData.ToCharArray();
@@ -1304,13 +1296,9 @@ namespace Metro
 
                             case "SendKeyUp":
 
-                                if (Event.Length != 0)
+                                if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                 {
-                                    // Check Key
-                                    if (mDoSortedList.IndexOfKey(Event[0]) == -1)
-                                    {
                                         break;
-                                    }
                                 }
 
                                 char[] SendKeyUparr = CommandData.ToCharArray();
@@ -1335,6 +1323,11 @@ namespace Metro
                                 break;
 
                             case "ModifierKey":
+
+                                if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
+                                {
+                                    break;
+                                }
 
                                 // For example CTRL-ALT-SHIFT-ESC-K which is simulated as
                                 // CTRL-down, ALT-down, SHIFT-down, press ESC, press K, SHIFT-up, ALT-up, CTRL-up
