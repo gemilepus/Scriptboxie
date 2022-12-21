@@ -32,6 +32,7 @@ using IniParser.Model;
 using WindowsInput;
 using WindowsInput.Native;
 using static Keyboard;
+using ControlzEx.Standard;
 
 namespace Metro
 {
@@ -1260,13 +1261,15 @@ namespace Metro
                                         {
                                             value = enumValue;
 
-                                            ky.Send(value);
+                                            ky.SendKeyDown(value);
                                             Thread.Sleep(100);
+                                            ky.SendKeyUp(value);
                                         }
                                     }
 
                                 }
                                 ky = null;
+
                                 //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
                                 //***************** InputSimulator *****************
 
