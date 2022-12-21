@@ -507,7 +507,7 @@ namespace Metro
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset", "Loop", "Click", "Match","Jump","Match RGB", "Key",
+                "Move","Offset", "Loop", "Click", "Match","Jump","Match RGB", "Key","SendKeyUp","SendKeyDown",
                 "ModifierKey","RemoveKey","Delay", "Get Point","Run exe",
                 "FindWindow","ScreenClip", "Draw", "Sift Match", "Clean Draw",
                 "PostMessage", "PlaySound","Color Test"
@@ -981,10 +981,12 @@ namespace Metro
         {
             // WindowsInputLibrary
             InputSimulator mInputSimulator = new InputSimulator();
+            Keyboard ky = new Keyboard();
 
             V V = new V();
             ConvertHelper ConvertHelper = new ConvertHelper();
             SortedList mDoSortedList = new SortedList();
+            
 
             // key || value
             //mDoSortedList.Add("Point", "0,0");
@@ -1223,6 +1225,15 @@ namespace Metro
 
                             case "Key":
 
+                                if (Event.Length != 0)
+                                {
+                                    // Check Key
+                                    if (mDoSortedList.IndexOfKey(Event[0]) == -1)
+                                    {
+                                        break;
+                                    }
+                                }
+
                                 //***************** SendKeys *****************
                                 //Char[] mChar = CommandData.ToCharArray();
                                 //for (int j = 0; j < mChar.Length; j++)
@@ -1242,15 +1253,37 @@ namespace Metro
                                 string str = CommandData;
                                 char[] arr = str.ToCharArray();
 
-                                Keyboard ky = new Keyboard();
                                 foreach (char c in arr)
                                 {
                                     //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
 
 
-                                    //mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-                                    //Thread.Sleep(100);
-                                    //mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                    mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                    Thread.Sleep(100);
+                                    mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+
+                                }
+
+                                //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
+                                //***************** InputSimulator *****************
+
+                                break;
+
+                            case "SendKeyDown":
+
+                                if (Event.Length != 0)
+                                {
+                                    // Check Key
+                                    if (mDoSortedList.IndexOfKey(Event[0]) == -1)
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                char[] SendKeyDownarr = CommandData.ToCharArray();
+
+                                foreach (char c in SendKeyDownarr)
+                                {
 
                                     string str2 = "KEY_" + c.ToString().ToUpper();
                                     short value = 0;
@@ -1262,17 +1295,43 @@ namespace Metro
                                             value = enumValue;
 
                                             ky.SendKeyDown(value);
-                                            Thread.Sleep(100);
+                                        }
+                                    }
+
+                                }
+
+                                break;
+
+                            case "SendKeyUp":
+
+                                if (Event.Length != 0)
+                                {
+                                    // Check Key
+                                    if (mDoSortedList.IndexOfKey(Event[0]) == -1)
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                char[] SendKeyUparr = CommandData.ToCharArray();
+
+                                foreach (char c in SendKeyUparr)
+                                {
+
+                                    string str2 = "KEY_" + c.ToString().ToUpper();
+                                    short value = 0;
+                                    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
+                                    foreach (short enumValue in enumValueArray)
+                                    {
+                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(str2))
+                                        {
+                                            value = enumValue;
+
                                             ky.SendKeyUp(value);
                                         }
                                     }
 
                                 }
-                                ky = null;
-
-                                //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
-                                //***************** InputSimulator *****************
-
                                 break;
 
                             case "ModifierKey":
@@ -1600,6 +1659,7 @@ namespace Metro
                         matTemplate?.Dispose();
                         matTarget?.Dispose();
                         mInputSimulator = null;
+                        ky = null;
                         V = null;
                         ConvertHelper = null;
                         mDoSortedList.Clear();
