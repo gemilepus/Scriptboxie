@@ -207,7 +207,8 @@ namespace Metro
                 return ResponseStr;
             }
         }
-        private String RunTemplateMatch_GRAY(Mat rec, Mat template)
+
+        private String RunTemplateMatch(Mat rec, Mat template,string Mode,double mThreshold)
         {
             string ResponseStr = "";
 
@@ -215,74 +216,25 @@ namespace Metro
             using (Mat tplMat = template)
             using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
             {
-                //Convert input images to gray
-                Mat gref = refMat.CvtColor(ColorConversionCodes.BGR2GRAY);
-                Mat gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2GRAY);
-
-                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
-                Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
-
-                while (true)
+                Mat gref, gtpl;
+                if (Mode.Equals("RGB"))
                 {
-                    double minval, maxval, threshold = 0.8;
-                    OpenCvSharp.Point minloc, maxloc;
-                    Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
-
-                    if (maxval >= threshold)
-                    {
-                        //Setup the rectangle to draw
-                        //OpenCvSharp.Rect r = new OpenCvSharp.Rect(new OpenCvSharp.Point(maxloc.X, maxloc.Y), new OpenCvSharp.Size(tplMat.Width, tplMat.Height));
-
-                        //Draw a rectangle of the matching area
-                        //Cv2.Rectangle(refMat, r, Scalar.LimeGreen, 2);
-
-                        //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
-                        OpenCvSharp.Rect outRect;
-                        Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
-
-                        ResponseStr = ResponseStr + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    gref.Dispose();
-                    gtpl.Dispose();
+                    gref = refMat.CvtColor(ColorConversionCodes.BGR2HLS);
+                    gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2HLS);
+                }
+                else
+                {
+                    gref = refMat.CvtColor(ColorConversionCodes.BGR2GRAY);
+                    gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2GRAY);
                 }
 
-                refMat.Dispose();
-                tplMat.Dispose();
-
-                gref.Dispose();
-                gtpl.Dispose();
-
-                res.Dispose();
-
-                rec.Dispose();
-                template.Dispose();
-
-                return ResponseStr;
-            }
-        }
-
-        private String RunTemplateMatch(Mat rec, Mat template)
-        {
-            string ResponseStr = "";
-
-            using (Mat refMat = rec)
-            using (Mat tplMat = template)
-            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
-            {
-                Mat gref = refMat.CvtColor(ColorConversionCodes.BGR2HLS);
-                Mat gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2HLS);
                 Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
                 //Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.SqDiffNormed);
                 Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
 
                 while (true)
                 {
-                    double minval, maxval, threshold = 0.8;
+                    double minval, maxval, threshold = mThreshold;
                     OpenCvSharp.Point minloc, maxloc;
                     Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
 
@@ -1161,23 +1113,30 @@ namespace Metro
 
                                 break;
 
+                            case "Draw":
                             case "Match": // get
                             case "Match RGB":
                                 do
                                 {
-                                    string TempPath = CommandData;
-                                    if (TempPath.Equals(""))
+                                    // img,x,y,x-length,y-length,
+                                    string[] MatchArr = V.Get_Split(CommandData);
+                                    double threshold = 0.8;
+
+                                    if (MatchArr[0].Equals(""))
                                     {
-                                        TempPath = "s.png";
+                                        MatchArr[0] = "s.png";
                                     }
 
-                                    if (TempPath.IndexOf(',') != -1)
+                                    if (MatchArr.Length > 2)
                                     {
-                                        string[] mSize = TempPath.Split(',');
                                         matTarget = BitmapConverter.ToMat(makeScreenshot_clip(
-                                            int.Parse(mSize[1]), int.Parse(mSize[2]),
-                                            int.Parse(mSize[3]), int.Parse(mSize[4])));
-                                        TempPath = mSize[0];
+                                            int.Parse(MatchArr[1]), int.Parse(MatchArr[2]),
+                                            int.Parse(MatchArr[3]), int.Parse(MatchArr[4])));
+
+                                        if (MatchArr.Length > 5)
+                                        {
+                                            threshold = Convert.ToDouble(MatchArr[1]);
+                                        }
                                     }
                                     else
                                     {
@@ -1188,31 +1147,40 @@ namespace Metro
 
                                         gfxScreenshot.Dispose();
                                         screenshot.Dispose();
+
+                                        if (MatchArr.Length > 1)
+                                        {
+                                            threshold = Convert.ToDouble(MatchArr[1]);
+                                        }
                                     }
 
-
-                                    matTemplate = new Mat(TempPath, ImreadModes.Color);
+                                    matTemplate = new Mat(MatchArr[0], ImreadModes.Color);
                                     int temp_w = matTemplate.Width / 2, temp_h = matTemplate.Height / 2; // center x y
-
-                                    //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
+                                   
                                     string return_xy;
                                     if (Command.Equals("Match"))
                                     {
-                                        return_xy = RunTemplateMatch_GRAY(matTarget, matTemplate);
+                                        return_xy = RunTemplateMatch(matTarget, matTemplate,"GRAY", threshold);
                                     }
                                     else
                                     {
-                                        return_xy = RunTemplateMatch(matTarget, matTemplate);
+                                        return_xy = RunTemplateMatch(matTarget, matTemplate, "RGB", threshold);
                                     }
-
-                                    //if (!return_xy.Equals(""))
-                                    //{
-                                    //    string[] xy = return_xy.Split(',');
-                                    //    SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
-                                    //}
+                                    //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
 
                                     if (!return_xy.Equals(""))
                                     {
+                                        if (Command.Equals("Draw"))
+                                        {
+                                            string[] xy = return_xy.Split(',');
+                                            //SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
+
+                                            gfx.BeginScene();
+                                            //gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
+                                            gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_w * 2, temp_h * 2, 6), 2);
+                                            gfx.EndScene();
+                                        }
+                                    
                                         // Add Key
                                         if (Event[0].Length > 0)
                                         {
@@ -1439,72 +1407,6 @@ namespace Metro
 
                                 string[] str_clip = CommandData.Split(',');
                                 TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]), int.Parse(str_clip[2]), int.Parse(str_clip[3]));
-
-                                break;
-
-                            case "Draw":
-
-                                string TempPathd = CommandData;
-                                Mat matTargetd = null;
-                                if (TempPathd.Equals(""))
-                                {
-                                    TempPathd = "s.png";
-                                }
-
-                                if (TempPathd.IndexOf(',') != -1)
-                                {
-                                    //s.png,0,0,300,300
-                                    string[] mSize = TempPathd.Split(',');
-                                    matTargetd = BitmapConverter.ToMat(makeScreenshot_clip(int.Parse(mSize[1]), int.Parse(mSize[2]), int.Parse(mSize[3]), int.Parse(mSize[4])));
-                                    TempPathd = mSize[0];
-                                }
-                                else
-                                {
-
-                                    Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-                                    System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
-                                    gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-                                    matTargetd = BitmapConverter.ToMat(screenshot);
-
-                                    gfxScreenshot.Dispose();
-                                    screenshot.Dispose();
-                                }
-
-
-                                Mat matTemplated = new Mat(TempPathd, ImreadModes.Color);
-                                int temp_wd = matTemplated.Width / 2, temp_hd = matTemplated.Height / 2; // center x y
-
-                                //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
-                                string return_xyd = RunTemplateMatch(matTargetd, matTemplated);
-                                if (!return_xyd.Equals(""))
-                                {
-                                    string[] xy = return_xyd.Split(',');
-
-                                    gfx.BeginScene();
-                                    //gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
-                                    gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_wd * 2, temp_hd * 2, 6), 2);
-                                    gfx.EndScene();
-
-                                    // Add Key
-                                    if (Event[0].Length > 0)
-                                    {
-                                        if (Event[0].IndexOf("-") == -1)
-                                        {
-                                            mDoSortedList.Add(Event[0], return_xyd);
-                                        }
-                                        else
-                                        {
-                                            if (mDoSortedList.IndexOfKey(Event[0].Replace("-", "")) == -1)
-                                            {
-                                                mDoSortedList.Add(Event[0].Replace("-", ""), return_xyd);
-                                            }
-                                        }
-                                    }
-                                    // Move
-                                    //SetCursorPos(int.Parse(xy[0]) + temp_wd, int.Parse(xy[1]) + temp_hd);
-                                }
-                                matTargetd.Dispose();
-                                matTemplated.Dispose();
 
                                 break;
 
