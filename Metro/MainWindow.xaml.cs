@@ -803,30 +803,51 @@ namespace Metro
                 Stop_script();
             }
 
+            PassCtrlKey = "";
+            if (e.Control)
+            {
+                PassCtrlKey = "Ctrl+";
+            }
+            else if (e.Alt)
+            {
+                PassCtrlKey = "Alt+";
+            }
+            else if (e.Shift)
+            {
+                PassCtrlKey = "Shift+";
+            }
+
             string KeyCode = PassCtrlKey + e.KeyCode.ToString();
+
 
             double TimestampNow = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
 
             if (TimestampNow - Timestamp > 2000)
             {
-                PassCtrlKey = "";
+               // PassCtrlKey = "";
             }
+           
+      
+            //switch (e.KeyCode.ToString())
+            //{
+            //    case "LControlKey":
+            //        PassCtrlKey = "Ctrl+";
+            //        Timestamp = TimestampNow;
+            //        break;
+            //    case "LMenu":
+            //        PassCtrlKey = "Alt+";
+            //        break;
+            //    case "LShiftKey":
+            //    case "RShiftKey":
+            //        PassCtrlKey = "Shift+";
+            //        break;
+            //    default:
+            //        break;
+            //}
 
-            switch (e.KeyCode.ToString())
-            {
-                case "LControlKey":
-                    PassCtrlKey = "Ctrl+";
-                    Timestamp = TimestampNow;
-                    break;
-                case "LMenu":
-                    PassCtrlKey = "Alt+";
-                    break;
-                case "LShiftKey":
-                    PassCtrlKey = "Shift+";
-                    break;
-                default:
-                    break;
-            }
+           
+
+
 
             // Select Script
             for (int i = 0; i < eDataTable.Count; i++)
