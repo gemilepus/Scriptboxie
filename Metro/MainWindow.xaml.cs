@@ -32,7 +32,6 @@ using IniParser.Model;
 using WindowsInput;
 using WindowsInput.Native;
 using static Keyboard;
-using ControlzEx.Standard;
 
 namespace Metro
 {
@@ -502,14 +501,17 @@ namespace Metro
 
             MSG_SHOW = RegisterWindowMessage("ScriptTool Message");
 
+            Timestamp = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+
             // Data Binding
             //this.DataContext = this;
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset", "Loop", "Click", "Match","Jump","Match RGB", "Key","SendKeyUp","SendKeyDown",
-                "ModifierKey","RemoveKey","Delay", "Get Point","Run exe",
-                "FindWindow","ScreenClip", "Draw", "Sift Match", "Clean Draw",
+                "Move","Offset","Click", "Match","Match RGB","Draw",
+                "Key","ModifierKey","SendKeyDown","SendKeyUp","Delay",
+                "Jump", "Loop", "RemoveKey","Clean Draw",
+                "FindWindow","ScreenClip", "Sift Match", "Get Point","Run exe",
                 "PostMessage", "PlaySound","Color Test"
             };
             mComboBoxColumn.ItemsSource = mList;
@@ -720,6 +722,7 @@ namespace Metro
         }
 
         private string PassCtrlKey = "";
+        private double Timestamp;
         private void Main_GlobalHookKeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
         {
 
@@ -802,10 +805,18 @@ namespace Metro
 
             string KeyCode = PassCtrlKey + e.KeyCode.ToString();
 
+            double TimestampNow = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+
+            if (TimestampNow - Timestamp > 2000)
+            {
+                PassCtrlKey = "";
+            }
+
             switch (e.KeyCode.ToString())
             {
                 case "LControlKey":
                     PassCtrlKey = "Ctrl+";
+                    Timestamp = TimestampNow;
                     break;
                 case "LMenu":
                     PassCtrlKey = "Alt+";
@@ -814,7 +825,6 @@ namespace Metro
                     PassCtrlKey = "Shift+";
                     break;
                 default:
-                    PassCtrlKey = "";
                     break;
             }
 
@@ -1007,7 +1017,7 @@ namespace Metro
                 if (CommandEnable)
                 {
                     Mat matTemplate = null, matTarget = null;
-
+                    Boolean err = false;
                     try
                     {
                         #region Switch Command
@@ -1649,8 +1659,8 @@ namespace Metro
                             } 
                         }
 
-                        matTemplate?.Dispose();
-                        matTarget?.Dispose();
+                        err = true;
+                    
                         mInputSimulator = null;
                         ky = null;
                         V = null;
@@ -1660,7 +1670,13 @@ namespace Metro
                     }
                     finally
                     {
-                       
+                        if (err) { 
+                        
+                        }
+
+                        matTemplate?.Dispose();
+                        matTarget?.Dispose();
+
                     }
                 }
 
