@@ -742,17 +742,14 @@ namespace Metro
 
             if (e.KeyCode.ToString().Equals("OemOpenBrackets")) //"["
             {
-                Run_script();
-                ShowBalloon("Run", "...");
-
                 AlertSound();
-               
+                ShowBalloon("Run", "...");
+                Run_script();
             }
             if (e.KeyCode.ToString().Equals("Oem6")) //"]"
             {
                 Stop_script();
                 ShowBalloon("Stop", "...");
-               
             }
 
             PassCtrlKey = "";
@@ -1253,53 +1250,34 @@ namespace Metro
                                 break;
 
                             case "SendKeyDown":
+                            case "SendKeyUp":
 
                                 if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                 {
                                     break;
                                 }
-
-                                char[] SendKeyDownarr = CommandData.ToCharArray();
-
-                                foreach (char c in SendKeyDownarr)
-                                {
-                                    string str2 = "KEY_" + c.ToString().ToUpper();
-                                    short value = 0;
-                                    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
-                                    foreach (short enumValue in enumValueArray)
+                                else {
+                                    string SendKeyStr = CommandData;
+                                    if (SendKeyStr.Length == 1)
                                     {
-                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(str2))
-                                        {
-                                            value = enumValue;
-
-                                            ky.SendKeyDown(value);
-                                        }
+                                        SendKeyStr = "KEY_" + SendKeyStr.ToUpper();
                                     }
-                                }
 
-                                break;
-
-                            case "SendKeyUp":
-
-                                if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
-                                {
-                                        break;
-                                }
-
-                                char[] SendKeyUparr = CommandData.ToCharArray();
-
-                                foreach (char c in SendKeyUparr)
-                                {
-                                    string str2 = "KEY_" + c.ToString().ToUpper();
                                     short value = 0;
                                     Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
                                     foreach (short enumValue in enumValueArray)
                                     {
-                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(str2))
+                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(SendKeyStr))
                                         {
                                             value = enumValue;
 
-                                            ky.SendKeyUp(value);
+                                            if (Command.Equals("SendKeyDown"))
+                                            {
+                                                ky.SendKeyDown(value);
+                                            }
+                                            else {
+                                                ky.SendKeyUp(value);
+                                            }
                                         }
                                     }
                                 }
