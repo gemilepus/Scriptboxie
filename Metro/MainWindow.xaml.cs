@@ -391,6 +391,12 @@ namespace Metro
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
         {
+            if (Btn_Toggle.IsOn == true)
+            {
+                mDataGrid.DataContext = null;
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Key", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "" });
+                mDataGrid.DataContext = mDataTable;
+            }
             Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
         }
 
