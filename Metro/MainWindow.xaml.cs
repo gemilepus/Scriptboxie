@@ -16,7 +16,6 @@ using System.Diagnostics;
 
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
-using OpenCvSharp.XFeatures2D;
 
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -678,7 +677,6 @@ namespace Metro
         private void Main_GlobalHookKeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
         {
 
-
             if (!TextBox_Title.Text.Equals(""))
             {
                 if (GetActiveWindowTitle() == null) { return; }
@@ -744,15 +742,17 @@ namespace Metro
 
             if (e.KeyCode.ToString().Equals("OemOpenBrackets")) //"["
             {
+                Run_script();
                 ShowBalloon("Run", "...");
 
                 AlertSound();
-                Run_script();
+               
             }
             if (e.KeyCode.ToString().Equals("Oem6")) //"]"
             {
-                ShowBalloon("Stop", "...");
                 Stop_script();
+                ShowBalloon("Stop", "...");
+               
             }
 
             PassCtrlKey = "";
@@ -771,15 +771,12 @@ namespace Metro
 
             string KeyCode = PassCtrlKey + e.KeyCode.ToString();
 
-
             double TimestampNow = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
-
             if (TimestampNow - Timestamp > 2000)
             {
                // PassCtrlKey = "";
             }
            
-      
             //switch (e.KeyCode.ToString())
             //{
             //    case "LControlKey":
@@ -796,10 +793,6 @@ namespace Metro
             //    default:
             //        break;
             //}
-
-           
-
-
 
             // Select Script
             for (int i = 0; i < eDataTable.Count; i++)
@@ -962,15 +955,12 @@ namespace Metro
       
         private void Script(List<MainTable> minDataTable,string Mode)
         {
-            // WindowsInputLibrary
             InputSimulator mInputSimulator = new InputSimulator();
             Keyboard ky = new Keyboard();
-
-            V V = new V();
             ConvertHelper ConvertHelper = new ConvertHelper();
             SortedList mDoSortedList = new SortedList();
-            
-
+            V V = new V();
+           
             // key || value
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
@@ -1113,12 +1103,12 @@ namespace Metro
 
                                 break;
 
-                            case "Draw":
-                            case "Match": // get
+                            case "Draw": // get
+                            case "Match":
                             case "Match RGB":
                                 do
                                 {
-                                    // img,x,y,x-length,y-length,
+                                    // img,x,y,x-length,y-length,threshold
                                     string[] MatchArr = V.Get_Split(CommandData);
                                     double threshold = 0.8;
 
@@ -1252,11 +1242,9 @@ namespace Metro
                                 {
                                     //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
 
-
                                     mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                                     Thread.Sleep(100);
                                     mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-
                                 }
 
                                 //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
@@ -1275,7 +1263,6 @@ namespace Metro
 
                                 foreach (char c in SendKeyDownarr)
                                 {
-
                                     string str2 = "KEY_" + c.ToString().ToUpper();
                                     short value = 0;
                                     Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
@@ -1288,7 +1275,6 @@ namespace Metro
                                             ky.SendKeyDown(value);
                                         }
                                     }
-
                                 }
 
                                 break;
@@ -1304,7 +1290,6 @@ namespace Metro
 
                                 foreach (char c in SendKeyUparr)
                                 {
-
                                     string str2 = "KEY_" + c.ToString().ToUpper();
                                     short value = 0;
                                     Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
@@ -1317,8 +1302,8 @@ namespace Metro
                                             ky.SendKeyUp(value);
                                         }
                                     }
-
                                 }
+
                                 break;
 
                             case "ModifierKey":
