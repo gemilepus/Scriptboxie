@@ -148,65 +148,6 @@ namespace Metro
             return screenshot;
         }
 
-        private String RunTemplateMatch_RGB(Mat rec, Mat template)
-        {
-            //res = cv2.matchTemplate(img[:,:, 0], target[:,:, 0], cv2.TM_SQDIFF_NORMED)
-            //threshold = 0.00001
-            //loc = np.where(res <= threshold )
-            //img_rgb = img.copy()
-            //for pt in zip(*loc[::- 1]) :
-            //cv2.rectangle(img_rgb, pt, (pt[0] + 100, pt[1] + 100), (0,0,255), 2)
-
-            string ResponseStr = "";
-
-            using (Mat refMat = rec)
-            using (Mat tplMat = template)
-            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
-            {
-                //Convert input images to gray
-                Mat gref = refMat.CvtColor(ColorConversionCodes.RGB2GRAY);
-                Mat gtpl = tplMat.CvtColor(ColorConversionCodes.RGB2GRAY);
-
-                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.SqDiffNormed);
-                Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
-
-                while (true)
-                {
-                    double minval, maxval, threshold = 0.8;
-                    OpenCvSharp.Point minloc, maxloc;
-                    Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
-
-                    if (maxval >= threshold)
-                    {
-                        OpenCvSharp.Rect outRect;
-                        Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
-
-                        ResponseStr = ResponseStr + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    gref.Dispose();
-                    gtpl.Dispose();
-                }
-
-                refMat.Dispose();
-                tplMat.Dispose();
-
-                gref.Dispose();
-                gtpl.Dispose();
-
-                res.Dispose();
-
-                rec.Dispose();
-                template.Dispose();
-
-                return ResponseStr;
-            }
-        }
-
         private String RunTemplateMatch(Mat rec, Mat template,string Mode,double mThreshold)
         {
             string ResponseStr = "";
@@ -964,7 +905,7 @@ namespace Metro
             SortedList mDoSortedList = new SortedList();
             V V = new V();
            
-            // key || value
+            // key || value ex:
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
             //mDoSortedList.Add("Draw", "");
