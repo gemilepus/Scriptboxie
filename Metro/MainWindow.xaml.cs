@@ -406,7 +406,7 @@ namespace Metro
 
             // Combobox List
             List<string> mList = new List<string>() {
-                "Move","Offset","Click", "Match","Match RGB","Draw",
+                "Move","Offset","Click", "Match","Match RGB","Match&Draw",
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","Delay",
                 "Jump", "Loop", "RemoveKey","Clean Draw",
                 "FindWindow","ScreenClip", "Sift Match", "Get Point","Run exe",
@@ -1047,7 +1047,7 @@ namespace Metro
 
                                 break;
 
-                            case "Draw": // get
+                            case "Match&Draw": // get
                             case "Match":
                             case "Match RGB":
                                 do
@@ -1104,7 +1104,7 @@ namespace Metro
 
                                     if (!return_xy.Equals(""))
                                     {
-                                        if (Command.Equals("Draw"))
+                                        if (Command.Equals("Match&Draw"))
                                         {
                                             string[] xy = return_xy.Split(',');
                                             //SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
@@ -1682,10 +1682,20 @@ namespace Metro
 
                 for (int i = 0; i < SplitStr.Length - 4; i += 4)
                 {
+                    string mMode = SplitStr[i + 1].Replace("%", "");
+                    switch (mMode)
+                    {
+                        case "Draw":
+                            mMode = "Match&Draw";
+                            break;
+                        default:
+                            break;
+                    }
+
                     tempDataTable.Add(new MainTable()
                     {
                         mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
-                        mTable_Mode = SplitStr[i + 1].Replace("%", ""),
+                        mTable_Mode = mMode,
                         mTable_Action = SplitStr[i + 2].Replace("%", ""),
                         mTable_Event = SplitStr[i + 3].Replace("%", ""),
                     });
