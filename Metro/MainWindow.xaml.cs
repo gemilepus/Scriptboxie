@@ -414,10 +414,6 @@ namespace Metro
             };
             mComboBoxColumn.ItemsSource = mList;
 
-            //mDataGrid.DataContext = mDataTable;
-            //eDataTable.Add(new eTable() { eTable_Enable = true, eTable_Name = "Run", eTable_Key = "R", eTable_State = "", eTable_Note = "", eTable_Path = @"E:\Script_Lite\MoonyDesk\bin\Debug\Do.txt" });
-            //eDataGrid.DataContext = eDataTable;
-
             #region Load user.ini
 
             var parser = new FileIniDataParser();
@@ -749,60 +745,6 @@ namespace Metro
                     //    break;
                     //}
 
-                    /*
-                    if (!_workerThreads[i].IsAlive)
-                    {
-                        if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped)
-                        {
-                            _workerThreads[i].Start();
-                        }
-                        else
-                        {
-                            Console.WriteLine(eDataTable[i].eTable_Path);
-                            string mScript_Local = eDataTable[i].eTable_Path;
-                            List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
-                            Thread TempThread = new Thread(() =>
-                            {
-                                try
-                                {
-                                    Script(Script_DataTable, "Def");
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine("{0} Exception caught.", ex);
-                                }
-                            });
-                            _workerThreads[i] = TempThread;
-                            _workerThreads[i].Start();
-                        }
-                        eDataTable[i].eTable_State = "Running";
-                        ShowBalloon("Running ", eDataTable[i].eTable_Name);
-                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
-                    }
-                    else
-                    {
-                        _workerThreads[i].Abort();
-                        Console.WriteLine(eDataTable[i].eTable_Path);
-                        string mScript_Local = eDataTable[i].eTable_Path;
-                        List<MainTable> Script_DataTable = Load_Script_to_DataTable(mScript_Local);
-                        Thread TempThread = new Thread(() =>
-                        {
-                            try
-                            {
-                                Script(Script_DataTable, "Def");
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine("{0} Exception caught.", ex);
-                            }
-                        });
-                        _workerThreads[i] = TempThread;
-
-                        eDataTable[i].eTable_State = "Stop";
-                        ShowBalloon("Stop ", eDataTable[i].eTable_Name);
-                        Console.WriteLine(_workerThreads[i].ThreadState.ToString());
-                    }*/
-
                     if (!_workerThreads[i].IsAlive)
                     {
                         if (_workerThreads[i].ThreadState != System.Threading.ThreadState.Stopped && _workerThreads[i].ThreadState != System.Threading.ThreadState.Unstarted)
@@ -891,7 +833,6 @@ namespace Metro
             }
             mNotifyIcon.ShowBalloonTip(500, title, msg, ToolTipIcon.None);
         }
-
 
         // For resize x,y
         private float ScaleX, ScaleY;
