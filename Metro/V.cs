@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 public class V
 {
     public string[] Get_Split(string CommandData)
     {
-
         string[] Split;
         Split = CommandData.Split(',');
 
@@ -13,7 +13,6 @@ public class V
 
     public string[] Get_EventValue(SortedList mSortedList, string Event)
     {
-
         string[] EventValue = null;
         // Check Key
         if (mSortedList.IndexOfKey(Event) != -1)
@@ -36,5 +35,14 @@ public class V
         y = (int)(y * ScaleY) + OffsetY;
 
         return y;
+    }
+    public Boolean NOT_Check(string Event, Boolean mBoolean)
+    {
+        if (Event.Substring(0, 1).Equals("!"))
+        {
+            mBoolean = !mBoolean;
+        }
+
+        return mBoolean;
     }
 }
