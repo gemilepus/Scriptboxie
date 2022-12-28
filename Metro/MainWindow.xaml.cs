@@ -1440,7 +1440,6 @@ namespace Metro
                         V = null;
                         ConvertHelper = null;
                         mDoSortedList.Clear();
-
                     }
                     finally
                     {
@@ -1450,7 +1449,6 @@ namespace Metro
 
                         matTemplate?.Dispose();
                         matTarget?.Dispose();
-
                     }
                 }
 
@@ -1478,7 +1476,6 @@ namespace Metro
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            // Handle messages...
             //Console.WriteLine(lParam);
             if (msg == MSG_SHOW)
             {
@@ -1526,7 +1523,6 @@ namespace Metro
                     TempThread.Start();
                 }
 
-                // On ScriptEnd delay 100ms
                 if (wParam.ToString().Substring(0,2).Equals("22"))
                 {
                     switch (wParam.ToString())
