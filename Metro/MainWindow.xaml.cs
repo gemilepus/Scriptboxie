@@ -1483,7 +1483,7 @@ namespace Metro
                         if (e.Message.ToString().IndexOf("Thread") == -1) {
 
                             if (Mode.Equals("Debug")) {
-                                System.Windows.MessageBox.Show("[Error] Line " + n.ToString() + " : " + e.Message);
+                                System.Windows.MessageBox.Show("[Error] Line " + (n+1).ToString() + " : " + e.Message);
 
                                 // debug stop msg
                                 CreateMessage("9487");
@@ -1923,10 +1923,10 @@ namespace Metro
         {
             if (e.Key.ToString().Equals("Return"))
             {
-                // CancelEdit & Change Focus
-                mDataGrid.CancelEdit();
+                // CommitEdit & Change Focus
+                mDataGrid.CommitEdit();
                 EditGrid.Focus();
-
+                
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             }
