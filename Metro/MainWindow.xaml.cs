@@ -1512,7 +1512,7 @@ namespace Metro
                     {
                         Thread.Sleep(100);
 
-                        IntPtr mPrt = FindWindow(null, "MoonyTool");
+                        IntPtr mPrt = FindWindow(null, "ScriptTool");
                         if (mPrt != IntPtr.Zero)
                         {
                             string mParam = "1001";
@@ -1545,7 +1545,7 @@ namespace Metro
         }
         private void CreateMessage(string Param)
         {
-            IntPtr mPrt = FindWindow(null, "MoonyTool");
+            IntPtr mPrt = FindWindow(null, "ScriptTool");
             if (mPrt != IntPtr.Zero)
             {
                 int wParam = int.Parse(Param);
