@@ -52,3 +52,6 @@
 - Add SendKeyDown & SendKeyUp
 - Add 組合快捷鍵
 
+#1.3.3
+- Script 優化
+
