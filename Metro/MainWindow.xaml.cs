@@ -409,8 +409,8 @@ namespace Metro
                 "Move","Offset","Click", "Match","Match RGB","Match&Draw",
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","Delay",
                 "Jump", "Loop", "RemoveKey","Clean Draw",
-                "FindWindow","ScreenClip", "Sift Match", "Get Point","Run exe",
-                "PostMessage", "PlaySound","Color Test"
+                "Run .exe","PlaySound"
+                //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
             mComboBoxColumn.ItemsSource = mList;
 
@@ -1215,7 +1215,8 @@ namespace Metro
                                 }
 
                                 break;
-                            case "Get Point":
+
+                            case "GetPoint":
 
                                 // Add Key
                                 if (Event[0].Length > 0)
@@ -1226,14 +1227,19 @@ namespace Metro
 
                                 break;
 
-                            case "Run exe":
+                            case "Run .exe":
 
-                                try
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                 {
-                                    Process.Start(CommandData);
-                                }
-                                catch { }
+                                    try
+                                    {
+                                        Process.Start(CommandData);
+                                    }
+                                    catch {
 
+                                    }
+                                }
+                               
                                 break;
 
                             case "FindWindow":
@@ -1271,13 +1277,21 @@ namespace Metro
 
                             case "PlaySound":
 
-                                string SoundPath = CommandData;
-                                if (Tempflag == true)
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                 {
-                                    // SoundPlayer
-                                    SoundPlayer mWaveFile = new SoundPlayer(SoundPath);
-                                    mWaveFile.PlaySync();
-                                    Tempflag = false;
+                                    SoundPlayer mWaveFile = null;
+                                    try
+                                    {
+                                        mWaveFile = new SoundPlayer(CommandData);
+                                        mWaveFile.PlaySync();
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                    finally {
+                                        mWaveFile?.Dispose();
+                                    }
                                 }
 
                                 break;
