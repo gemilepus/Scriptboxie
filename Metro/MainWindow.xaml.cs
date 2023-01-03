@@ -31,6 +31,7 @@ using IniParser.Model;
 using WindowsInput;
 using WindowsInput.Native;
 using static Keyboard;
+using System.Windows.Shapes;
 
 namespace Metro
 {
@@ -444,7 +445,20 @@ namespace Metro
             #endregion
 
             // Load Script setting
-            Load_Script_ini();
+            try
+            {
+                Load_Script_ini();
+            }
+            catch (Exception ex)
+            {
+                if (!File.Exists("Script.ini"))
+                {
+                    eDataGrid.DataContext = null;
+                    eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                    eDataGrid.DataContext = eDataTable;
+                }
+            }
+            
             for (int i = 0; i < eDataTable.Count; i++)
             {
                 if (eDataTable[i].eTable_Path.Length > 0)
