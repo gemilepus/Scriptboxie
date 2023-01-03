@@ -335,7 +335,9 @@ namespace Metro
             if (Btn_Toggle.IsOn == true)
             {
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Key", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "" });
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "" });
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "100", mTable_Event = "" });
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "" });
                 mDataGrid.DataContext = mDataTable;
             }
             Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
