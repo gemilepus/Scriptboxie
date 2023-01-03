@@ -25,19 +25,20 @@
                 <ScrollViewer>
                     <TextBlock Width = "350" Margin = "5px" ScrollViewer.CanContentScroll="True">  
                         
-                        <Run Foreground="Gold">⭐Match : match and get image point</Run><LineBreak/>
+                        <Run Foreground="Gold">⭐Match,Match&amp;Draw : match and get image point</Run><LineBreak/>
                         <Run Foreground="Orange">-@Path</Run><LineBreak/>
                         <Run Foreground="Orange">-@Path,@Threshold</Run><LineBreak/>
                          Path: image file path,use .png format<LineBreak/>                  
                         Threshold: 0.8~1.0(def 0.8) <LineBreak/>
                         ex: apple.png <LineBreak/>
+                        <Run Foreground="OrangeRed">Match&amp;Draw will be marked on the screen,just for test</Run><LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐Move</Run><LineBreak/>
                         <Run Foreground="Orange">-@X,@Y</Run><LineBreak/>
                         <Run Foreground="Orange">-Empty</Run><LineBreak/>
-                        X: screan point x value<LineBreak/> 
-                        Y: screan point y value<LineBreak/>
+                        X: screen point x value<LineBreak/> 
+                        Y: screen point y value<LineBreak/>
                         Empty:if set Event,it can use image matching point<LineBreak/>          
                         ex: 500,600 <LineBreak/>
                         <LineBreak/>
@@ -59,6 +60,7 @@
                         <Run Foreground="Orange">-@Key</Run><LineBreak/>        
                         Key: key value<LineBreak/>
                         ex: A<LineBreak/>
+                        ex: RIGHT<LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐ModifierKey : modifier key</Run><LineBreak/>
@@ -88,10 +90,23 @@
                         ex: 5<LineBreak/>
                         <LineBreak/>
                         
+                        <Run Foreground="Gold">⭐Jump</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Lines</Run><LineBreak/>     
+                        Lines: +-lines<LineBreak/>
+                        ex: -3<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐Run .exe</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Path</Run><LineBreak/>     
+                        Path: .exe Path<LineBreak/>
+                        ex: C:\Users\Metro.exe<LineBreak/>
+                        <LineBreak/>
+                        
                         <Run Foreground="Gold">⭐RemoveEvent</Run><LineBreak/>
-                        <Run Foreground="Red">After the Event is established, it will always exist</Run><LineBreak/>
-                        <Run Foreground="Red">if you don't want use it, use this</Run><LineBreak/>
-                        <Run Foreground="Red">input want to remove Event in Event column</Run><LineBreak/>
+                        <Run Foreground="OrangeRed">After the Event is established, it will always exist.</Run><LineBreak/>
+                        <Run Foreground="OrangeRed">If you don't want use it, run this.</Run><LineBreak/>
+                        <Run Foreground="Red">Input the name of the event you want to delete</Run><LineBreak/>
+                        <Run Foreground="Red">in the event column</Run><LineBreak/>
                         <LineBreak/>
 
                     </TextBlock>
