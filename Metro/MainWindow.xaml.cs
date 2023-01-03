@@ -408,7 +408,7 @@ namespace Metro
             List<string> mList = new List<string>() {
                 "Move","Offset","Click", "Match","Match RGB","Match&Draw",
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","Delay",
-                "Jump", "Loop", "RemoveKey","Clean Draw",
+                "Jump", "Loop", "RemoveEvent","Clean Draw",
                 "Run .exe","PlaySound"
                 //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
@@ -574,7 +574,11 @@ namespace Metro
         }
         private void Btn_About_Click(object sender, RoutedEventArgs e)
         {
-            this.ShowMessageAsync("About", Metro.Properties.Resources.Version);
+            this.ShowMessageAsync("About", 
+                Metro.Properties.Resources.Version + "\n"
+                + "Author: " + "gemilepus" + "\n"
+                + "Mail: " + "gemilepus@gmail.com" + "\n"
+                );
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -1193,10 +1197,18 @@ namespace Metro
                                 VirtualKeyCode[] KeyCodeArr = new VirtualKeyCode[KeyArr.Length];
                                 for (int i = 0; i < ModifierKeyCodeArr.Length; i++)
                                 {
+                                    if (ModifierKeyArr[i].Length == 1) {
+                                        ModifierKeyArr[i] = "VK_"+ModifierKeyArr[i];
+                                    }
                                     ModifierKeyCodeArr[i] = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(ModifierKeyArr[i]);
+                                   
                                 }
                                 for (int i = 0; i < KeyCodeArr.Length; i++)
                                 {
+                                    if (KeyArr[i].Length == 1)
+                                    {
+                                        KeyArr[i] = "VK_" + KeyArr[i];
+                                    }
                                     KeyCodeArr[i] = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(KeyArr[i]);
                                 }
 
@@ -1638,6 +1650,9 @@ namespace Metro
                     {
                         case "Draw":
                             mMode = "Match&Draw";
+                            break;
+                        case "RemoveKey":
+                            mMode = "RemoveEvent";
                             break;
                         default:
                             break;

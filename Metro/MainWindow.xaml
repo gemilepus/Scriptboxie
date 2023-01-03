@@ -21,13 +21,82 @@
 
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="MahAppFlyout" Width="300">
-                <TextBlock Width = "300" Margin = "5px">  
-                    Match #Path,#X,#Y,#Height,#Width <LineBreak/>
-                    Move #X,#Y <LineBreak/>
-                    Offset #+X,#+Y <LineBreak/>
-                    Click #Left_Down Left_Up Right_Down Right_Up
-                </TextBlock>
+            <Controls:Flyout x:Name="MahAppFlyout" Width="350">
+                <ScrollViewer>
+                    <TextBlock Width = "350" Margin = "5px" ScrollViewer.CanContentScroll="True">  
+                        
+                        <Run Foreground="Gold">⭐Match : match and get image point</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Path</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Path,@Threshold</Run><LineBreak/>
+                         Path: image file path,use .png format<LineBreak/>                  
+                        Threshold: 0.8~1.0(def 0.8) <LineBreak/>
+                        ex: apple.png <LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐Move</Run><LineBreak/>
+                        <Run Foreground="Orange">-@X,@Y</Run><LineBreak/>
+                        <Run Foreground="Orange">-Empty</Run><LineBreak/>
+                        X: screan point x value<LineBreak/> 
+                        Y: screan point y value<LineBreak/>
+                        Empty:if set Event,it can use image matching point<LineBreak/>          
+                        ex: 500,600 <LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐Offset</Run><LineBreak/>
+                        <Run Foreground="Orange">-@X,@Y</Run><LineBreak/>
+                        X: move x value<LineBreak/> 
+                        Y: move y value<LineBreak/>
+                        ex:+10,-20 <LineBreak/>
+                        <LineBreak/>
+
+                        <Run Foreground="Gold">⭐Click : mouse input</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Action</Run><LineBreak/>        
+                        Action: use Left_Down,Left_Up,Right_Down,Right_Up<LineBreak/>
+                        ex: Left_Down<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐SendKeyDown,SendKeyUp : keyboard input</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Key</Run><LineBreak/>        
+                        Key: key value<LineBreak/>
+                        ex: A<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐ModifierKey : modifier key</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Key</Run><LineBreak/>        
+                        Key: input like modifier key|key,<LineBreak/>
+                        modifier key use CONTROL,MENU,SHIFT... <LineBreak/>
+                        ex: CONTROL|A<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐key : key in</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Key</Run><LineBreak/>        
+                        Key: key in value<LineBreak/>
+                        ex: 123abc<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐Delay</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Time</Run><LineBreak/>        
+                        Time: ms,1000 ms=1 second<LineBreak/>
+                        ex: 1000<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐Loop</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Times</Run><LineBreak/>     
+                        <Run Foreground="Orange">-Empty</Run><LineBreak/>
+                        Times: run several times<LineBreak/>
+                        Empty: always running<LineBreak/>
+                        ex: 5<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐RemoveEvent</Run><LineBreak/>
+                        <Run Foreground="Red">After the Event is established, it will always exist</Run><LineBreak/>
+                        <Run Foreground="Red">if you don't want use it, use this</Run><LineBreak/>
+                        <Run Foreground="Red">input want to remove Event in Event column</Run><LineBreak/>
+                        <LineBreak/>
+
+                    </TextBlock>
+                </ScrollViewer>
+
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
