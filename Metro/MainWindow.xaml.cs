@@ -1703,6 +1703,16 @@ namespace Metro
             }
         }
 
+        private void eDataGrid_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key.ToString().Equals("Return"))
+            {
+                // CommitEdit & Change Focus
+                eDataGrid.CommitEdit();
+                ScriptGrid.Focus();
+            }
+        }
+
         private void eDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = eDataGrid.Columns.IndexOf(eDataGrid.CurrentCell.Column);

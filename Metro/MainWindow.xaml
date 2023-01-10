@@ -119,10 +119,10 @@
     <Grid>
         <TabControl VerticalAlignment="Top">
             <TabItem Header="Main">
-                <Grid Background="White">
+                <Grid Background="White" Name="ScriptGrid">
                     <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" IsEnabled="False"
                               Height="300" Margin="0,0,0,20"  VerticalAlignment="Center" HorizontalAlignment="Center" 
-                              CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected" >
+                              CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected"  KeyUp="eDataGrid_KeyUp">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="#"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
