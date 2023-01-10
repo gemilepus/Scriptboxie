@@ -1694,9 +1694,13 @@ namespace Metro
         {
             Save_Script();
 
-            // Restart
-            //this.Close();
-            //Process.Start("Metro.exe", "");
+            if (e.Column.Header.Equals("Path")) {
+                int RowIndex = e.Row.GetIndex();
+
+                // Restart
+                //this.Close();
+                //Process.Start("Metro.exe", "");
+            }
         }
 
         private void eDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
