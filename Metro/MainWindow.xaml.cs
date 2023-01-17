@@ -31,7 +31,6 @@ using IniParser.Model;
 using WindowsInput;
 using WindowsInput.Native;
 using static Keyboard;
-using System.Windows.Shapes;
 
 namespace Metro
 {
@@ -292,7 +291,6 @@ namespace Metro
             get { return (bool)this.GetValue(UnitIsCProperty); }
             set { this.SetValue(UnitIsCProperty, value); }
         }
-
 
         // DataGrid
         private List<MainTable> mDataTable = new List<MainTable>();
@@ -789,9 +787,11 @@ namespace Metro
                                 }
                                 finally
                                 {
+                                    Console.WriteLine("Memory used before collection:       {0:N0}",GC.GetTotalMemory(false));
                                     GC.Collect();
                                     GC.WaitForPendingFinalizers();
                                     Console.WriteLine("WaitForPendingFinalizers");
+                                    Console.WriteLine("Memory used after full collection:   {0:N0}", GC.GetTotalMemory(false));
                                 }
                             });
                             _workerThreads[i].Start();
@@ -1571,6 +1571,7 @@ namespace Metro
                     {
                         case "2200":
                             this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
+
                             break;
                         default:
 
@@ -1904,7 +1905,7 @@ namespace Metro
         }
         #endregion
 
-        #region DataGrid Event
+        #region Edit Panel DataGrid Event
         private void DataGridCell_Selected(object sender, RoutedEventArgs e)
         {
             // Lookup for the source to be DataGridCell
