@@ -91,8 +91,8 @@
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐Jump</Run><LineBreak/>
-                        <Run Foreground="Orange">-@Lines</Run><LineBreak/>     
-                        Lines: +-lines<LineBreak/>
+                        <Run Foreground="Orange">-@Number</Run><LineBreak/>     
+                        Number: Jump number of line<LineBreak/>
                         ex: -3<LineBreak/>
                         <LineBreak/>
                         
