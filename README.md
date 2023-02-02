@@ -1,3 +1,7 @@
+<h1 align="center">Scriptboxie</h1>
+
+<p align="center">This tool allows you to easily create tasks</p>
+
 ## Demo ##
 ![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
 ## Main ##
