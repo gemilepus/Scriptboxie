@@ -398,7 +398,7 @@ namespace Metro
         {
             InitializeComponent();
 
-            MSG_SHOW = RegisterWindowMessage("ScriptTool Message");
+            MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
 
             Timestamp = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
 
@@ -1551,7 +1551,7 @@ namespace Metro
                     {
                         Thread.Sleep(100);
 
-                        IntPtr mPrt = FindWindow(null, "ScriptTool");
+                        IntPtr mPrt = FindWindow(null, "Scriptboxie");
                         if (mPrt != IntPtr.Zero)
                         {
                             string mParam = "1001";
@@ -1584,7 +1584,7 @@ namespace Metro
         }
         private void CreateMessage(string Param)
         {
-            IntPtr mPrt = FindWindow(null, "ScriptTool");
+            IntPtr mPrt = FindWindow(null, "Scriptboxie");
             if (mPrt != IntPtr.Zero)
             {
                 int wParam = int.Parse(Param);
