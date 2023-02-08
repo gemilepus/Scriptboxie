@@ -64,7 +64,3 @@
 #1.3.3
 - Script 優化
 
-<h1 align="center">TODO</h1>
-
- - add x y setting
-
