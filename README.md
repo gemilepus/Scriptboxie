@@ -1,21 +1,26 @@
-<h1 align="center">Scriptboxie</h1>
+<p align="center">
+<img align="center" alt="screen recorder" src="Metro/package.ico" />
+</p>
 
+<h1 align="center">Scriptboxie</h1>
 <p align="center">This tool allows you to easily control and create tasks,like some mouse macro.</p>
 
-## Demo ##
-![alt text?]( https://github.com/gemilepus/ScriptTool/blob/master/test.png)
-## Main ##
-![alt text?](https://github.com/gemilepus/Script_Lite/blob/master/cover.png)
-## Edit ##
-![alt text?](https://github.com/gemilepus/ScriptTool/blob/master/Cover-2.png)
-## NOTE ##
- - 可以用Key去控制其他Script
-## TODO ##
- - 把分散各CASE的判斷整合成一個
- - add x y setting
- 
- 
- #1.0.0
+<h1 align="center">Demo</h1>
+<p align="center">
+ <img align="center" alt="Edit" src="test.png" />
+</p>
+
+<h1 align="center">Screenshots</h1>
+<p align="center">
+ <img align="center" alt="Main" src="cover.png" />
+</p>
+<p align="center">
+ <img align="center" alt="Edit" src="Cover-2.png" />
+</p>
+
+<h1 align="center">Changelog</h1>
+
+#1.0.0
 - 初版
 
 #1.0.1
@@ -58,4 +63,8 @@
 
 #1.3.3
 - Script 優化
+
+<h1 align="center">TODO</h1>
+
+ - add x y setting
 
