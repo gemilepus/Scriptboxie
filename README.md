@@ -1,5 +1,5 @@
 <p align="center">
-<img align="center" alt="screen recorder" src="Metro/package.ico" />
+<img align="center" src="Metro/package.ico" />
 </p>
 
 <h1 align="center">Scriptboxie</h1>
