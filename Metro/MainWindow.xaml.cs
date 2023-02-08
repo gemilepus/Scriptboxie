@@ -1082,7 +1082,10 @@ namespace Metro
                                         {
                                             if (Event[0].IndexOf("-") == -1)
                                             {
-                                                mDoSortedList.Add(Event[0], return_xy);
+                                                if (V.Get_EventValue(mDoSortedList, Event[0]) == null)
+                                                {
+                                                    mDoSortedList.Add(Event[0], return_xy);
+                                                }
                                             }
                                             else
                                             {
@@ -1236,7 +1239,7 @@ namespace Metro
 
                                 break;
 
-                            case "RemoveKey":
+                            case "RemoveEvent":
 
                                 if (mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
@@ -1465,7 +1468,6 @@ namespace Metro
                         Console.WriteLine("Exception caught.");
 
                         if (e.Message.ToString().IndexOf("Thread") == -1) {
-
                             if (Mode.Equals("Debug")) {
                                 System.Windows.MessageBox.Show("[Error] Line " + (n+1).ToString() + " : " + e.Message);
 
@@ -1475,6 +1477,12 @@ namespace Metro
                                 break;
                             } 
                         }
+
+                        mInputSimulator = null;
+                        ky = null;
+                        V = null;
+                        ConvertHelper = null;
+                        mDoSortedList.Clear();
 
                         err = true;
                     }
@@ -1487,11 +1495,6 @@ namespace Metro
                         matTemplate?.Dispose();
                         matTarget?.Dispose();
 
-                        //mInputSimulator = null;
-                        //ky = null;
-                        //V = null;
-                        //ConvertHelper = null;
-                        //mDoSortedList.Clear();
                     }
                 }
 
