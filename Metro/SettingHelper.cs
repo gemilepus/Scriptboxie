@@ -51,6 +51,12 @@ namespace Metro
               
             }
 
+            //  ShowBalloon
+            if (data["Def"]["ShowBalloon"] == null)
+            {
+                data["Def"]["ShowBalloon"] = "";
+            }
+
             parser.WriteFile("user.ini", data);
 
         }

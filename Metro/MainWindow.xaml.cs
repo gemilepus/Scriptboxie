@@ -592,6 +592,7 @@ namespace Metro
                 Metro.Properties.Resources.Version + "\n"
                 + "Author: " + "gemilepus" + "\n"
                 + "Mail: " + "gemilepus@gmail.com" + "\n"
+                + "Github: " + "https://github.com/gemilepus/Scriptboxie" + "\n"
                 );
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -1476,12 +1477,6 @@ namespace Metro
                         }
 
                         err = true;
-                    
-                        mInputSimulator = null;
-                        ky = null;
-                        V = null;
-                        ConvertHelper = null;
-                        mDoSortedList.Clear();
                     }
                     finally
                     {
@@ -1491,6 +1486,12 @@ namespace Metro
 
                         matTemplate?.Dispose();
                         matTarget?.Dispose();
+
+                        //mInputSimulator = null;
+                        //ky = null;
+                        //V = null;
+                        //ConvertHelper = null;
+                        //mDoSortedList.Clear();
                     }
                 }
 
@@ -1789,7 +1790,6 @@ namespace Metro
 
         private Thread mThread = null;
         // data
-        private bool Tempflag = false;
         private Bitmap TempBitmap;
         private void Run_script()
         {
