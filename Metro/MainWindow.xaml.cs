@@ -552,16 +552,16 @@ namespace Metro
         }
         private void AlertSound()
         {
-            try
-            {
-                SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
-                mWaveFile.PlaySync();
-                mWaveFile.Dispose();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            //try
+            //{
+            //    SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
+            //    mWaveFile.PlaySync();
+            //    mWaveFile.Dispose();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //}
 
         }
         private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
@@ -1020,7 +1020,7 @@ namespace Metro
 
                                     if (MatchArr[0].Equals(""))
                                     {
-                                        MatchArr[0] = "s.png";
+                                        MatchArr[0] = "example/s.png";
                                     }
 
                                     if (MatchArr.Length > 2)
@@ -1690,7 +1690,11 @@ namespace Metro
             }
             catch
             {
-                this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
+                bool fileExist = File.Exists(mfilePath);
+                if (fileExist)
+                {
+                    this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
+                }
                 //CreateMessage("2200");
             }
             return tempDataTable;
