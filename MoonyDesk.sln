@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metro", "Metro\Metro.csproj", "{DEE25CBF-F648-4A90-8D8F-BC3179281073}"
 EndProject
@@ -9,9 +9,11 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
 		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -19,11 +21,15 @@ Global
 		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Debug|x64.Build.0 = Debug|Any CPU
+		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Debug|x86.ActiveCfg = Debug|x64
 		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Release|x64.ActiveCfg = Release|x64
+		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Release|x64.Build.0 = Release|x64
 		{DEE25CBF-F648-4A90-8D8F-BC3179281073}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
