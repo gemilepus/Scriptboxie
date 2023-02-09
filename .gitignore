@@ -3,8 +3,4 @@ Metro/obj/
 packages/
 Debug/de/
 Debug/dll/
-Debug/*.exe
-Debug/*.exe.config
-Debug/*.pdb
-Debug/*.xml
-Debug/*.dll
+Debug/*.*
