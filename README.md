@@ -18,3 +18,13 @@
  <img align="center" alt="Edit" src="Cover-2.png" />
 </p>
 
+<h1 align="center">Download</h1>
+
+Download available at <https://github.com/gemilepus/Scriptboxie/releases>.
+
+<h1 align="center">Documentation</h1>
+<p align="center">
+ <img align="center" alt="Edit" src="documentation.png" />
+</p>
+
+
