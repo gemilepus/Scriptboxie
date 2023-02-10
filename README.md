@@ -15,7 +15,7 @@
  <img align="center" alt="Main" src="cover.png" />
 </p>
 <p align="center">
- <img align="center" alt="Edit" src="Cover-2.png" />
+ <img align="center" alt="Edit" src="cover2.png" />
 </p>
 
 <h1 align="center">Download</h1>
