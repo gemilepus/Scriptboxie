@@ -301,7 +301,7 @@ namespace Metro
 
         // Globalmousekeyhook for record
         #region
-        private static IKeyboardMouseEvents m_GlobalHook, Main_GlobalHook;
+        private static IKeyboardMouseEvents m_GlobalHook, Main_GlobalHook, Main_GlobalKeyUpHook;
 
         private int now_x, now_y;
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
@@ -395,7 +395,7 @@ namespace Metro
 
         private SettingHelper mSettingHelper = new SettingHelper();
 
-        private string OnOff_Hotkey;
+        private string OnOff_Hotkey, Run_Hotkey, Stop_Hotkey;
         public MainWindow()
         {
             InitializeComponent();
@@ -490,6 +490,13 @@ namespace Metro
             // Load setting
             OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
             TextBox_OnOff_Hotkey.Text = data["Def"]["OnOff_Hotkey"];
+            OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
+            TextBox_OnOff_Hotkey.Text = data["Def"]["OnOff_Hotkey"];
+            Run_Hotkey = data["Def"]["Run_Hotkey"];
+            TextBox_Run_Hotkey.Text = data["Def"]["Run_Hotkey"];
+            Stop_Hotkey = data["Def"]["Stop_Hotkey"];
+            TextBox_Stop_Hotkey.Text = data["Def"]["Stop_Hotkey"];
+
 
             #region OverlayWindow
 
@@ -528,6 +535,9 @@ namespace Metro
             #endregion
 
             KListener();
+
+            Main_GlobalKeyUpHook = Hook.GlobalEvents();
+            Main_GlobalKeyUpHook.KeyUp += Main_GlobalHookKeyUp;
 
             // NotifyIcon
             mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -639,6 +649,23 @@ namespace Metro
             Main_GlobalHook.Dispose();
         }
 
+        private void Main_GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+
+            if (TextBox_OnOff_Hotkey.IsFocused)
+            {
+                TextBox_OnOff_Hotkey.Text = e.KeyCode.ToString();
+            }
+            else if (TextBox_Run_Hotkey.IsFocused)
+            {
+                TextBox_Run_Hotkey.Text = e.KeyCode.ToString();
+            }
+            else if (TextBox_Stop_Hotkey.IsFocused)
+            {
+                TextBox_Stop_Hotkey.Text = e.KeyCode.ToString();
+            }
+        }
+
         private string PassCtrlKey = "";
         private double Timestamp;
         private void Main_GlobalHookKeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -707,13 +734,13 @@ namespace Metro
             Console.WriteLine(e.KeyCode.ToString());
 
 
-            if (e.KeyCode.ToString().Equals("OemOpenBrackets")) //"["
+            if (e.KeyCode.ToString().Equals(Run_Hotkey)) //"["
             {
                 AlertSound();
                 ShowBalloon("Run", "...");
                 Run_script();
             }
-            if (e.KeyCode.ToString().Equals("Oem6")) //"]"
+            if (e.KeyCode.ToString().Equals(Stop_Hotkey)) //"]"
             {
                 Stop_script();
                 ShowBalloon("Stop", "...");
@@ -1961,6 +1988,7 @@ namespace Metro
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
+
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
@@ -2017,6 +2045,20 @@ namespace Metro
         {
             Process.Start("https://github.com/gemilepus/Scriptboxie");
         }
+        private void TextBox_OnOff_Hotkey_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            TextBox_OnOff_Hotkey.Text = "";
+        }
+
+        private void TextBox_Run_Hotkey_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            TextBox_Run_Hotkey.Text = "";
+        }
+
+        private void TextBox_Stop_Hotkey_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            TextBox_Stop_Hotkey.Text = "";
+        }
 
         private void TextBox_OnOff_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -2026,5 +2068,24 @@ namespace Metro
             data["Def"]["OnOff_Hotkey"] = TextBox_OnOff_Hotkey.Text.ToString();
             parser.WriteFile("user.ini", data);
         }
+
+        private void TextBox_Run_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+            data["Def"]["Run_Hotkey"] = TextBox_Run_Hotkey.Text.ToString();
+            parser.WriteFile("user.ini", data);
+        }
+
+        private void TextBox_Stop_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+            data["Def"]["Stop_Hotkey"] = TextBox_Stop_Hotkey.Text.ToString();
+            parser.WriteFile("user.ini", data);
+        }
+
     }
 }

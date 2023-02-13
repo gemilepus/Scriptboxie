@@ -198,10 +198,21 @@
                     <ScrollViewer>
                         <TextBlock ScrollViewer.CanContentScroll="True" Margin="5px" MinHeight="300">
                             
-                            <Run FontSize="16" Foreground="Black">ON/OFF Hotkey:</Run>
+                            <Run FontSize="16" Foreground="Black">ON/OFF Hotkey(default is " )</Run>
+                            <Run FontSize="16" Foreground="Black"> ):</Run>
                             <LineBreak/> 
-                            <TextBox x:Name="TextBox_OnOff_Hotkey" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="100" Margin="5px"/>
+                            <TextBox x:Name="TextBox_OnOff_Hotkey" KeyDown="TextBox_OnOff_Hotkey_KeyDown" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="100" Margin="5px"/>
+                            <LineBreak/>
+
+                            <Run FontSize="16" Foreground="Black">Run Editing Script Hotkey(default is [ ):</Run>
                             <LineBreak/> 
+                            <TextBox x:Name="TextBox_Run_Hotkey" KeyDown="TextBox_Run_Hotkey_KeyDown"  TextChanged="TextBox_Run_Hotkey_TextChanged" Width="100" Margin="5px"/>
+                            <LineBreak/>
+                              
+                            <Run FontSize="16" Foreground="Black">Stop Editing Script Hotkey(default is ] ):</Run>
+                            <LineBreak/> 
+                            <TextBox x:Name="TextBox_Stop_Hotkey" KeyDown="TextBox_Stop_Hotkey_KeyDown" TextChanged="TextBox_Stop_Hotkey_TextChanged" Width="100" Margin="5px"/>
+                            <LineBreak/>
                             
                             <Run FontSize="16" Foreground="Black">Website(Github):</Run>
                             <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate"> 
