@@ -5,6 +5,8 @@
 <h1 align="center">Scriptboxie</h1>
 <p align="center">This tool allows you to easily control and create tasks,like some mouse macro.</p>
 
+[![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
+
 <h1 align="center">Demo</h1>
 <p align="center">
  <img align="center" alt="Edit" src="test.png" />
