@@ -57,6 +57,12 @@ namespace Metro
                 data["Def"]["ShowBalloon"] = "";
             }
 
+            //  ON_OFF Hotkey
+            if (data["Def"]["OnOff_Hotkey"] == null)
+            {
+                data["Def"]["OnOff_Hotkey"] = "Oem7";
+            }
+
             parser.WriteFile("user.ini", data);
 
         }
