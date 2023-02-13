@@ -441,6 +441,11 @@ namespace Metro
             {
                 Load_Script(data["Def"]["Script"]);
             }
+            else {
+                mDataGrid.DataContext = null;
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "" });
+                mDataGrid.DataContext = mDataTable;
+            }
 
             #endregion
 
@@ -1930,7 +1935,7 @@ namespace Metro
 
             // Restart
             this.Close();
-            Process.Start("Metro.exe", "");
+            Process.Start("Scriptboxie.exe", "");
         }
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {

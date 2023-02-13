@@ -1,5 +1,5 @@
-True;Draw;;0;
+True;Match&Draw;s.png;0;
 True;Delay;100;;
-True;RemoveKey;;0;
+True;RemoveEvent;;0;
 True;Clean Draw;;;
 True;Loop;;;
