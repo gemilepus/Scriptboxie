@@ -199,7 +199,6 @@
                         <TextBlock ScrollViewer.CanContentScroll="True" Margin="5px" MinHeight="300">
                             
                             <Run FontSize="16" Foreground="Black">ON/OFF Hotkey(default is " )</Run>
-                            <Run FontSize="16" Foreground="Black"> ):</Run>
                             <LineBreak/> 
                             <TextBox x:Name="TextBox_OnOff_Hotkey" KeyDown="TextBox_OnOff_Hotkey_KeyDown" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
