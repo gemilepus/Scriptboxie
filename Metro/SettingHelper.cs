@@ -60,7 +60,19 @@ namespace Metro
             //  ON_OFF Hotkey
             if (data["Def"]["OnOff_Hotkey"] == null)
             {
-                data["Def"]["OnOff_Hotkey"] = "Oem7";
+                data["Def"]["OnOff_Hotkey"] = "Oem7";// '
+            }
+
+            //  Run Hotkey
+            if (data["Def"]["Run_Hotkey"] == null)
+            {
+                data["Def"]["Run_Hotkey"] = "OemOpenBrackets"; // [
+            }
+
+            //  Stop Hotkey
+            if (data["Def"]["Stop_Hotkey"] == null)
+            {
+                data["Def"]["Stop_Hotkey"] = "Oem6"; // ]
             }
 
             parser.WriteFile("user.ini", data);
