@@ -32,6 +32,7 @@ using WindowsInput;
 using WindowsInput.Native;
 using static Keyboard;
 using System.Windows.Navigation;
+using System.Security.Principal;
 
 namespace Metro
 {
@@ -366,6 +367,7 @@ namespace Metro
             //Console.WriteLine("MouseMove: x={0:0000}; y={1:0000}", e.X, e.Y);
         }
 
+        public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         private void Unsubscribe()
         {
             m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
@@ -548,6 +550,11 @@ namespace Metro
             mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             mNotifyIcon.Visible = true;
             mNotifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+
+            if (!IsAdmin)
+            {
+                TextBlock_Please.Visibility = Visibility.Visible;
+            }
 
             // test
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
