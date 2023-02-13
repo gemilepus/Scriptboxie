@@ -193,6 +193,29 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Setting">
+                <Grid Background="White" Name="SettingGrid">
+                    <ScrollViewer>
+                        <TextBlock ScrollViewer.CanContentScroll="True" Margin="5px" MinHeight="300">
+                            
+                            <Run FontSize="16" Foreground="Black">ON/OFF Hotkey:</Run>
+                            <LineBreak/> 
+                            <TextBox x:Name="TextBox_OnOff_Hotkey" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="100" Margin="5px"/>
+                            <LineBreak/> 
+                            
+                            <Run FontSize="16" Foreground="Black">Website(Github):</Run>
+                            <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate"> 
+                                   <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
+                            </Hyperlink>
+                            <LineBreak/> 
+                            
+                            <LineBreak/>
+                            <Run FontSize="16" Foreground="Gray">Note:settings will apply after restart app</Run><LineBreak/>
+
+                        </TextBlock>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 

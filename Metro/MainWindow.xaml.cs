@@ -31,6 +31,7 @@ using IniParser.Model;
 using WindowsInput;
 using WindowsInput.Native;
 using static Keyboard;
+using System.Windows.Navigation;
 
 namespace Metro
 {
@@ -394,6 +395,7 @@ namespace Metro
 
         private SettingHelper mSettingHelper = new SettingHelper();
 
+        private string OnOff_Hotkey;
         public MainWindow()
         {
             InitializeComponent();
@@ -484,6 +486,10 @@ namespace Metro
                     _workerThreads.Add(TempThread);
                 }
             }
+
+            // Load setting
+            OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
+            TextBox_OnOff_Hotkey.Text = data["Def"]["OnOff_Hotkey"];
 
             #region OverlayWindow
 
@@ -592,7 +598,6 @@ namespace Metro
                 Metro.Properties.Resources.Version + "\n"
                 + "Author: " + "gemilepus" + "\n"
                 + "Mail: " + "gemilepus@gmail.com" + "\n"
-                + "Github: " + "https://github.com/gemilepus/Scriptboxie" + "\n"
                 );
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -650,7 +655,7 @@ namespace Metro
             UnKListener();
 
             // ON / OFF
-            if (e.KeyCode.ToString().Equals("Oem7")) // "'"
+            if (e.KeyCode.ToString().Equals(OnOff_Hotkey)) // "'"
             {
                 if (Btn_ON.Content.Equals("ON"))
                 {
@@ -1941,6 +1946,7 @@ namespace Metro
             Btn_ON.Content = "OFF";
             Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
         }
+
         private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
             e.NewItem = new MainTable
@@ -2006,5 +2012,19 @@ namespace Metro
             }
         }
         #endregion
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start("https://github.com/gemilepus/Scriptboxie");
+        }
+
+        private void TextBox_OnOff_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+            data["Def"]["OnOff_Hotkey"] = TextBox_OnOff_Hotkey.Text.ToString();
+            parser.WriteFile("user.ini", data);
+        }
     }
 }
