@@ -16,7 +16,7 @@
 
 Download available at <https://github.com/gemilepus/Scriptboxie/releases>.
 
-If you like this, you can support it:
+If you like Scriptboxie, you can support it:
 
 <a href='https://ko-fi.com/R6R8IQ1MD' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
