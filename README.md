@@ -9,7 +9,7 @@
 
 <h1 align="center">Demo</h1>
 <p align="center">
- <img align="center" alt="Edit" src="test.png" />
+ <img align="center" alt="Edit" src="test.gif" />
 </p>
 
 <h1 align="center">Screenshots</h1>
