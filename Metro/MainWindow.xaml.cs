@@ -556,6 +556,10 @@ namespace Metro
                 TextBlock_Please.Visibility = Visibility.Visible;
             }
 
+            this.WindowState = WindowState.Minimized;
+            this.Show();
+            this.WindowState = WindowState.Normal;
+
             // test
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
