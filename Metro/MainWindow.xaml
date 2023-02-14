@@ -5,7 +5,7 @@
                       Title="Scriptboxie"
                       TitleCharacterCasing="Normal"
                       Height="400"
-                      Width="800"                            
+                      Width="800"             
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing">
 
@@ -150,7 +150,7 @@
                     </DataGrid>
 
                     <Controls:ToggleSwitch Toggled="Script_Toggle_Toggled" Name="Script_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
-                    <TextBlock x:Name="TextBlock_Please" Visibility="Hidden" Height="28" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0" Grid.Column="1">
+                    <TextBlock x:Name="TextBlock_Please" Visibility="Hidden" Height="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0" Grid.Column="1">
                          <Run Foreground="OrangeRed">Please run as administrator</Run>
                     </TextBlock>
                 </Grid>
@@ -201,17 +201,17 @@
                     <ScrollViewer>
                         <TextBlock ScrollViewer.CanContentScroll="True" Margin="5px" MinHeight="300">
                             
-                            <Run FontSize="16" Foreground="Black">ON/OFF Hotkey(default is " )</Run>
+                            <Run FontSize="16" Foreground="Black">ON/OFF(default is " )</Run>
                             <LineBreak/> 
                             <TextBox x:Name="TextBox_OnOff_Hotkey" KeyDown="TextBox_OnOff_Hotkey_KeyDown" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
 
-                            <Run FontSize="16" Foreground="Black">Run Editing Script Hotkey(default is [ ):</Run>
+                            <Run FontSize="16" Foreground="Black">Run Editing Script(default is [ ):</Run>
                             <LineBreak/> 
                             <TextBox x:Name="TextBox_Run_Hotkey" KeyDown="TextBox_Run_Hotkey_KeyDown"  TextChanged="TextBox_Run_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
                               
-                            <Run FontSize="16" Foreground="Black">Stop Editing Script Hotkey(default is ] ):</Run>
+                            <Run FontSize="16" Foreground="Black">Stop Editing Script(default is ] ):</Run>
                             <LineBreak/> 
                             <TextBox x:Name="TextBox_Stop_Hotkey" KeyDown="TextBox_Stop_Hotkey_KeyDown" TextChanged="TextBox_Stop_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
@@ -223,7 +223,7 @@
                             <LineBreak/> 
                             
                             <LineBreak/>
-                            <Run FontSize="16" Foreground="Gray">Note:settings will apply after restart app</Run><LineBreak/>
+                            <Run FontSize="16" Foreground="Gray">Note: settings will apply after restart app</Run><LineBreak/>
 
                         </TextBlock>
                     </ScrollViewer>
