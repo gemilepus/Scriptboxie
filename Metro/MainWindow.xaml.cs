@@ -33,6 +33,7 @@ using WindowsInput.Native;
 using static Keyboard;
 using System.Windows.Navigation;
 using System.Security.Principal;
+using System.Management;
 
 namespace Metro
 {
@@ -554,6 +555,22 @@ namespace Metro
             if (!IsAdmin)
             {
                 TextBlock_Please.Visibility = Visibility.Visible;
+            }
+
+            ManagementObjectSearcher objvida = new ManagementObjectSearcher("select * from Win32_VideoController ");
+            string VC = String.Empty, DI = String.Empty;
+            foreach (ManagementObject obj in objvida.Get())
+            {
+                if (obj["CurrentBitsPerPixel"] != null && obj["CurrentHorizontalResolution"] != null)
+                {
+                    if (((String)obj["DeviceID"]).IndexOf("VideoController1") !=-1 )
+                    {
+                        DI = obj["DeviceID"].ToString();
+                        VC = obj["Description"].ToString();
+
+                        Console.WriteLine("DeviceID: " +DI + ",Description: " + VC);
+                    }
+                }
             }
 
             this.WindowState = WindowState.Minimized;
