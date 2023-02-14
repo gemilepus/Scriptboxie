@@ -25,17 +25,17 @@ If you like Scriptboxie, you can support it:
  <img align="center" alt="Main" src="doc1.png" />
 </p>
 
+<h1 align="center">Documentation</h1>
+<p align="center">
+ <img align="center" alt="Edit" src="documentation.png" />
+</p>
+
 <h1 align="center">Screenshots</h1>
 <p align="center">
  <img align="center" alt="Main" src="cover.png" />
 </p>
 <p align="center">
  <img align="center" alt="Edit" src="cover2.png" />
-</p>
-
-<h1 align="center">Documentation</h1>
-<p align="center">
- <img align="center" alt="Edit" src="documentation.png" />
 </p>
 
 
