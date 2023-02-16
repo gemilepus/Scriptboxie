@@ -20,7 +20,7 @@
 
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="MahAppFlyout" Width="350">
+            <Controls:Flyout x:Name="MahAppFlyout" Width="350" Opacity="0.9">
                 <ScrollViewer>
                     <TextBlock Width = "350" Margin = "5px" ScrollViewer.CanContentScroll="True">
                         <Run FontSize="16" Foreground="White">[Mode Document]</Run><LineBreak/>
@@ -129,7 +129,21 @@
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
                             <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}"/>
-                            <DataGridTextColumn Header="State" Binding="{Binding Path=eTable_State}"/>
+                            <DataGridTextColumn Header="State" IsReadOnly="True" Binding="{Binding Path=eTable_State}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="Stop">
+                                                <Setter Property="Foreground" Value="Gray"/>
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Running">
+                                                <Setter Property="Foreground" Value="OrangeRed"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
                             <DataGridTextColumn Header="Note" Binding="{Binding Path=eTable_Note}" MinWidth="150"/>
                             <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" MinWidth="200"/>
                             <DataGridTemplateColumn Header=" ">
