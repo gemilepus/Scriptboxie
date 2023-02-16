@@ -1797,9 +1797,8 @@ namespace Metro
                 int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
                 try
                 {
-                    if (tableIndex < eDataTable.Count())
+                    if (tableIndex < eDataGrid.Items.Count)
                     {
-                        //Table Clean
                         eDataGrid.DataContext = null;
                         eDataTable.RemoveAt(tableIndex);
                         eDataGrid.DataContext = eDataTable;
@@ -1807,6 +1806,7 @@ namespace Metro
                 }
                 catch (Exception err)
                 {
+                    eDataGrid.DataContext = eDataTable;
                     Console.WriteLine("{0} Exception caught.", err);
                 }
             }
@@ -2034,7 +2034,6 @@ namespace Metro
                 {
                     if (tableIndex < mDataTable.Count())
                     {
-                        //Table Clean
                         mDataGrid.DataContext = null;
                         mDataTable.RemoveAt(tableIndex);
                         mDataGrid.DataContext = mDataTable;
@@ -2042,6 +2041,7 @@ namespace Metro
                 }
                 catch (Exception err)
                 {
+                    mDataGrid.DataContext = mDataTable;
                     Console.WriteLine("{0} Exception caught.", err);
                 }
             }
