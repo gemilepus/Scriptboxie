@@ -35,6 +35,8 @@ using System.Windows.Navigation;
 using System.Security.Principal;
 using System.Management;
 using System.Windows.Media;
+using System.Net;
+using System.Text.Json;
 
 namespace Metro
 {
@@ -2151,6 +2153,28 @@ namespace Metro
             {
                 TestMode = false;
                 mSettingHelper.TestMode = "0";
+            }
+        }
+
+        private async void Updates_Button_Click(object sender, RoutedEventArgs e)
+        {
+            const string GITHUB_API = "https://api.github.com/repos/{0}/{1}/releases/latest";
+            WebClient mWebClient = new WebClient();
+            mWebClient.Headers.Add("User-Agent", "Unity web player");
+            Uri uri = new Uri(string.Format(GITHUB_API, "gemilepus", "Scriptboxie"));
+            string releases = mWebClient.DownloadString(uri);
+            Console.WriteLine(releases);
+
+            var deserialize = JsonSerializer.Deserialize<Dictionary<string, object>>(releases);
+            deserialize.TryGetValue("tag_name", out var tag_name);
+
+            if (tag_name.ToString().Equals(Metro.Properties.Resources.Version.ToString())) {
+                await this.ShowMessageAsync("", "The latest version is used");
+            }
+            else
+            {
+                await this.ShowMessageAsync("", "The current latest version is " + tag_name.ToString() + ", you can download from github :)");
+                Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
             }
         }
 

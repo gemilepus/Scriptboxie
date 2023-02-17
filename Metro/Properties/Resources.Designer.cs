@@ -61,7 +61,7 @@ namespace Metro.Properties {
         }
         
         /// <summary>
-        ///   查詢類似 v1.3.5 的當地語系化字串。
+        ///   查詢類似 v1.3.6 的當地語系化字串。
         /// </summary>
         internal static string Version {
             get {
