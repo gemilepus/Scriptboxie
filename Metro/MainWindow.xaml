@@ -206,7 +206,7 @@
                     <Button Click="Btn_Run_Click" Name="Btn_Run" Content="Run" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,240,0" Grid.Column="1" />
                     <Button Click="Btn_Stop_Click" Name="Btn_Stop" Content="Stop" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" Grid.Column="1" />
                     <!--<Controls:ProgressRing Name="Ring" IsActive="{Binding Path=IsActive}"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,350,0"/>-->
-                    <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Column="1"/>
+                    <Controls:ProgressRing Name="Ring" IsActive="False"  MinWidth="25" Width="25" Height="17" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Column="1" Foreground="OrangeRed"/>
 
                 </Grid>
             </TabItem>
@@ -243,8 +243,9 @@
                             <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate"> 
                                    <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
                             </Hyperlink>
-                            <LineBreak/> 
                             
+                            <LineBreak/>
+                            <Button Margin="0,5,0,0" Click="Updates_Button_Click" Content="Check for Updates" MinWidth="25" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
                             <LineBreak/>
                             <!--<Run FontSize="16" Foreground="Gray">Note: settings will apply after restart app</Run><LineBreak/>-->
 
