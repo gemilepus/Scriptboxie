@@ -34,6 +34,7 @@ using static Keyboard;
 using System.Windows.Navigation;
 using System.Security.Principal;
 using System.Management;
+using System.Windows.Media;
 
 namespace Metro
 {
@@ -399,6 +400,8 @@ namespace Metro
         private SettingHelper mSettingHelper = new SettingHelper();
 
         private string OnOff_Hotkey, Run_Hotkey, Stop_Hotkey;
+        private bool TestMode = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -505,6 +508,10 @@ namespace Metro
             Stop_Hotkey = data["Def"]["Stop_Hotkey"];
             TextBox_Stop_Hotkey.Text = data["Def"]["Stop_Hotkey"];
 
+            // Load TestMode setting
+            if (!data["Def"]["TestMode"].Equals("0")) {
+                TestMode = true;
+            }
 
             #region OverlayWindow
 
@@ -941,6 +948,14 @@ namespace Metro
             int n = 0; int LoopCount = 0;
             while (n < minDataTable.Count)
             {
+                if (Mode.Equals("Debug") && TestMode)
+                {
+                    int number = 80000;
+                    number += n;
+                    CreateMessage(number.ToString());
+                    Thread.Sleep(1000);
+                }
+
                 string Command = minDataTable[n].mTable_Mode;
                 string CommandData = minDataTable[n].mTable_Action;
                 bool CommandEnable = minDataTable[n].mTable_IsEnable;
@@ -950,6 +965,7 @@ namespace Metro
 
                 if (CommandEnable)
                 {
+                  
                     Mat matTemplate = null, matTarget = null;
                     Boolean err = false;
                     try
@@ -1594,6 +1610,34 @@ namespace Metro
                     Ring.IsActive = false;
                 }
 
+                // TestMode
+                if (wParam.ToString().Substring(0,1).Equals("8"))
+                {
+                    int number = int.Parse(wParam.ToString().Substring(1, 4));
+
+                    DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(number);
+                    if (row != null)
+                    {
+                        SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 104, 0));
+                        row.Background = brush;
+                    }
+
+                    if (number > 0)
+                    {
+                        number--;
+                    }
+                    else {
+                        number = mDataTable.Count() - 1;
+                    }
+                    row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(number);
+                    if (row != null)
+                    {
+                        SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 255, 255));
+                        row.Background = brush;
+                    }
+
+                }
+
                 // Update Thread status
                 if (wParam.ToString().Equals("1001"))
                 {
@@ -1770,10 +1814,6 @@ namespace Metro
 
             if (e.Column.Header.Equals("Path")) {
                 int RowIndex = e.Row.GetIndex();
-
-                // Restart
-                //this.Close();
-                //Process.Start("Metro.exe", "");
             }
         }
 
@@ -1797,7 +1837,7 @@ namespace Metro
                 int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
                 try
                 {
-                    if (tableIndex < eDataGrid.Items.Count)
+                    if (tableIndex < eDataTable.Count())
                     {
                         eDataGrid.DataContext = null;
                         eDataTable.RemoveAt(tableIndex);
