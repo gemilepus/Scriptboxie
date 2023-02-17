@@ -398,8 +398,6 @@ namespace Metro
         //}
 
         private SettingHelper mSettingHelper = new SettingHelper();
-
-        private string OnOff_Hotkey, Run_Hotkey, Stop_Hotkey;
         private bool TestMode = false;
 
         public MainWindow()
@@ -499,14 +497,9 @@ namespace Metro
             }
 
             // Load setting
-            OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
-            TextBox_OnOff_Hotkey.Text = data["Def"]["OnOff_Hotkey"];
-            OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
-            TextBox_OnOff_Hotkey.Text = data["Def"]["OnOff_Hotkey"];
-            Run_Hotkey = data["Def"]["Run_Hotkey"];
-            TextBox_Run_Hotkey.Text = data["Def"]["Run_Hotkey"];
-            Stop_Hotkey = data["Def"]["Stop_Hotkey"];
-            TextBox_Stop_Hotkey.Text = data["Def"]["Stop_Hotkey"];
+            TextBox_OnOff_Hotkey.Text = mSettingHelper.OnOff_Hotkey;
+            TextBox_Run_Hotkey.Text = mSettingHelper.Run_Hotkey;
+            TextBox_Stop_Hotkey.Text = mSettingHelper.Stop_Hotkey;
 
             // Load TestMode setting
             if (!data["Def"]["TestMode"].Equals("0")) {
@@ -722,7 +715,7 @@ namespace Metro
             UnKListener();
 
             // ON / OFF
-            if (e.KeyCode.ToString().Equals(OnOff_Hotkey)) // "'"
+            if (e.KeyCode.ToString().Equals(mSettingHelper.OnOff_Hotkey)) // "'"
             {
                 if (Btn_ON.Content.Equals("ON"))
                 {
@@ -774,13 +767,13 @@ namespace Metro
             Console.WriteLine(e.KeyCode.ToString());
 
 
-            if (e.KeyCode.ToString().Equals(Run_Hotkey)) //"["
+            if (e.KeyCode.ToString().Equals(mSettingHelper.Run_Hotkey)) //"["
             {
                 AlertSound();
                 ShowBalloon("Run", "...");
                 Run_script();
             }
-            if (e.KeyCode.ToString().Equals(Stop_Hotkey)) //"]"
+            if (e.KeyCode.ToString().Equals(mSettingHelper.Stop_Hotkey)) //"]"
             {
                 Stop_script();
                 ShowBalloon("Stop", "...");
@@ -2135,29 +2128,17 @@ namespace Metro
 
         private void TextBox_OnOff_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-            data["Def"]["OnOff_Hotkey"] = TextBox_OnOff_Hotkey.Text.ToString();
-            parser.WriteFile("user.ini", data);
+            mSettingHelper.OnOff_Hotkey = TextBox_OnOff_Hotkey.Text.ToString();
         }
 
         private void TextBox_Run_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-            data["Def"]["Run_Hotkey"] = TextBox_Run_Hotkey.Text.ToString();
-            parser.WriteFile("user.ini", data);
+            mSettingHelper.Run_Hotkey = TextBox_Run_Hotkey.Text.ToString();
         }
 
         private void TextBox_Stop_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-            data["Def"]["Stop_Hotkey"] = TextBox_Stop_Hotkey.Text.ToString();
-            parser.WriteFile("user.ini", data);
+            mSettingHelper.Stop_Hotkey = TextBox_Stop_Hotkey.Text.ToString();
         }
 
     }
