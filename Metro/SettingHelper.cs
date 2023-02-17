@@ -75,6 +75,12 @@ namespace Metro
                 data["Def"]["Stop_Hotkey"] = "Oem6"; // ]
             }
 
+            // TestMode
+            if (data["Def"]["TestMode"] == null)
+            {
+                data["Def"]["TestMode"] = "0";
+            }
+
             parser.WriteFile("user.ini", data);
 
         }
