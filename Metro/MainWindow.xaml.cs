@@ -502,8 +502,14 @@ namespace Metro
             TextBox_Stop_Hotkey.Text = mSettingHelper.Stop_Hotkey;
 
             // Load TestMode setting
-            if (!data["Def"]["TestMode"].Equals("0")) {
+            if (!data["Def"]["TestMode"].Equals("0"))
+            {
                 TestMode = true;
+                TestMode_Toggle.IsOn = true;
+            }
+            else {
+                TestMode = false;
+                TestMode_Toggle.IsOn = false;
             }
 
             #region OverlayWindow
@@ -1594,6 +1600,7 @@ namespace Metro
             source.AddHook(WndProc);
         }
 
+        int LastNumber = 0;
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             //Console.WriteLine(lParam);
@@ -1606,29 +1613,21 @@ namespace Metro
                 // TestMode
                 if (wParam.ToString().Substring(0,1).Equals("8"))
                 {
-                    int number = int.Parse(wParam.ToString().Substring(1, 4));
-
-                    DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(number);
-                    if (row != null)
-                    {
-                        SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 104, 0));
-                        row.Background = brush;
-                    }
-
-                    if (number > 0)
-                    {
-                        number--;
-                    }
-                    else {
-                        number = mDataTable.Count() - 1;
-                    }
-                    row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(number);
+                    DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(LastNumber);
                     if (row != null)
                     {
                         SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 255, 255));
                         row.Background = brush;
                     }
 
+                    int number = int.Parse(wParam.ToString().Substring(1, 4));
+                    row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(number);
+                    if (row != null)
+                    {
+                        LastNumber = number;
+                        SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 104, 0));
+                        row.Background = brush;
+                    }
                 }
 
                 // Update Thread status
@@ -1995,8 +1994,8 @@ namespace Metro
             System.IO.File.WriteAllText(result, out_string);
 
             // Restart
-            this.Close();
-            Process.Start("Scriptboxie.exe", "");
+            //this.Close();
+            //Process.Start("Scriptboxie.exe", "");
         }
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {
@@ -2139,6 +2138,20 @@ namespace Metro
         private void TextBox_Stop_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
             mSettingHelper.Stop_Hotkey = TextBox_Stop_Hotkey.Text.ToString();
+        }
+
+        private void TestMode_Toggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (TestMode_Toggle.IsOn == true)
+            {
+                TestMode = true;
+                mSettingHelper.TestMode = "1";
+            }
+            else
+            {
+                TestMode = false;
+                mSettingHelper.TestMode = "0";
+            }
         }
 
     }

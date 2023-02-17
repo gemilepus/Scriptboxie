@@ -230,6 +230,15 @@
                             <TextBox x:Name="TextBox_Stop_Hotkey" KeyDown="TextBox_Stop_Hotkey_KeyDown" TextChanged="TextBox_Stop_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
                             
+                             
+                            <Run FontSize="16" Foreground="Black">Test Mode:</Run>
+                            <LineBreak/> 
+                            <Controls:ToggleSwitch Toggled="TestMode_Toggle_Toggled" Name="TestMode_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
+                            <LineBreak/>
+                             <Run FontSize="10" Foreground="Gray">The script being edited will delayed by 1 second every step and mark the running step.</Run>
+                            <LineBreak/> 
+                            
+                            <LineBreak/> 
                             <Run FontSize="16" Foreground="Black">Website(Github):</Run>
                             <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate"> 
                                    <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
