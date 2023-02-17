@@ -237,7 +237,7 @@
                             <LineBreak/> 
                             
                             <LineBreak/>
-                            <Run FontSize="16" Foreground="Gray">Note: settings will apply after restart app</Run><LineBreak/>
+                            <!--<Run FontSize="16" Foreground="Gray">Note: settings will apply after restart app</Run><LineBreak/>-->
 
                         </TextBlock>
                     </ScrollViewer>

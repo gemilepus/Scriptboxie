@@ -5,6 +5,7 @@ namespace Metro
 {
     public class SettingHelper
     {
+        public string OnOff_Hotkey, Run_Hotkey, Stop_Hotkey;
 
         public SettingHelper()
         {
@@ -83,6 +84,11 @@ namespace Metro
 
             parser.WriteFile("user.ini", data);
 
+
+            OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
+            Run_Hotkey = data["Def"]["Run_Hotkey"];
+            Stop_Hotkey = data["Def"]["Stop_Hotkey"];
+
         }
 
         public void End(MainWindow MainWindow)
@@ -90,8 +96,13 @@ namespace Metro
             var parser = new FileIniDataParser();
             IniData data = new IniData();
             data = parser.ReadFile("user.ini");
+
             data["Def"]["x"] = MainWindow.Left.ToString();
             data["Def"]["y"] = MainWindow.Top.ToString();
+            data["Def"]["OnOff_Hotkey"] = OnOff_Hotkey;
+            data["Def"]["Run_Hotkey"] = Run_Hotkey;
+            data["Def"]["Stop_Hotkey"] = Stop_Hotkey;
+
             parser.WriteFile("user.ini", data);
         }
     }
