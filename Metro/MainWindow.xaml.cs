@@ -1549,7 +1549,7 @@ namespace Metro
 
                         if (e.Message.ToString().IndexOf("Thread") == -1) {
                             if (Mode.Equals("Debug")) {
-                                System.Windows.MessageBox.Show("[Error] Line " + (n+1).ToString() + " : " + e.Message);
+                                System.Windows.MessageBox.Show("[Error] Line " + (n+1).ToString() + " \nMessage: " + e.Message);
 
                                 // debug stop msg
                                 CreateMessage("9487");
