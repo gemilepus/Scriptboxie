@@ -10,6 +10,7 @@
 <h1 align="center">Demo</h1>
 <p align="center">
  <img align="center" alt="Edit" src="test.gif" />
+ <img align="center" alt="Edit" src="test2.gif" />
 </p>
 
 <h1 align="center">Download</h1>
