@@ -37,6 +37,7 @@ using System.Management;
 using System.Windows.Media;
 using System.Net;
 using System.Text.Json;
+using System.Windows.Interop;
 
 namespace Metro
 {
@@ -645,8 +646,10 @@ namespace Metro
         }
         private void Btn_About_Click(object sender, RoutedEventArgs e)
         {
-            this.ShowMessageAsync("About", 
-                Metro.Properties.Resources.Version + "\n"
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            this.ShowMessageAsync("About",
+                "v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion + "\n"
                 + "Author: " + "gemilepus" + "\n"
                 + "Mail: " + "gemilepus@gmail.com" + "\n"
                 );
@@ -1654,11 +1657,14 @@ namespace Metro
                 // On ScriptEnd delay 100ms
                 if (wParam.ToString().Equals("1000"))
                 {
+                    System.Windows.Window window = System.Windows.Window.GetWindow(this);
+                    var wih = new WindowInteropHelper(window);
+                    IntPtr mPrt = wih.Handle;
+
                     Thread TempThread = new Thread(() =>
                     {
                         Thread.Sleep(100);
 
-                        IntPtr mPrt = FindWindow(null, "Scriptboxie");
                         if (mPrt != IntPtr.Zero)
                         {
                             string mParam = "1001";
@@ -2168,7 +2174,9 @@ namespace Metro
             var deserialize = JsonSerializer.Deserialize<Dictionary<string, object>>(releases);
             deserialize.TryGetValue("tag_name", out var tag_name);
 
-            if (tag_name.ToString().Equals(Metro.Properties.Resources.Version.ToString())) {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            if (tag_name.ToString().Equals("v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion)) {
                 await this.ShowMessageAsync("", "The latest version is used");
             }
             else
