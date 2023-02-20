@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Scriptboxie</h1>
-<p align="center">This tool allows you to easily control and create tasks,like some mouse macro.</p>
+<p align="center">This tool allows you to easily control and create scripts, similar to some mouse macros.</p>
 
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
 
