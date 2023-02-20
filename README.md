@@ -7,6 +7,20 @@
 
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
 
+<h1 align="center">How to use</h1>
+<p align="center">edit script: just enter the keyboard and mouse actions to be use</p>
+<p align="center">
+ <img align="center" alt="Main" src="doc2.png" />
+</p>
+<p align="center">setting script </p>
+<p align="center">
+ <img align="center" alt="Main" src="doc1.png" />
+</p>
+<p align="center">more info</p>
+<p align="center">
+ <img align="center" alt="Edit" src="documentation.png" />
+</p>
+
 <h1 align="center">Demo</h1>
 <p align="center">
  <img align="center" alt="Edit" src="test.gif" />
@@ -21,16 +35,7 @@ If you like Scriptboxie, you can support it:
 
 <a href='https://ko-fi.com/R6R8IQ1MD' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
-<h1 align="center">How to use</h1>
-<p align="center">
- <img align="center" alt="Main" src="doc1.png" />
-</p>
-
-<h1 align="center">Documentation</h1>
-<p align="center">
- <img align="center" alt="Edit" src="documentation.png" />
-</p>
-
+<!--
 <h1 align="center">Screenshots</h1>
 <p align="center">
  <img align="center" alt="Main" src="cover.png" />
@@ -38,6 +43,7 @@ If you like Scriptboxie, you can support it:
 <p align="center">
  <img align="center" alt="Edit" src="cover2.png" />
 </p>
+-->
 
 
 
