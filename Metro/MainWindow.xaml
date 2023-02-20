@@ -175,11 +175,184 @@
                               MinHeight="300" MinWidth="500" Margin="0,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Center" 
                               LoadingRow="mDataGrid_LoadingRow" 
                               MouseDoubleClick="mDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected" KeyUp="mDataGrid_KeyUp" BeginningEdit="mDataGrid_BeginningEdit">
+                        <DataGrid.Resources>
+                            <DataTemplate x:Key="template">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image  Height="16" Width="16">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Style.Triggers>
+                                                    <Trigger Property="DataContext" Value="Move">
+                                                        <Setter Property="Source" Value="move.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Offset">
+                                                        <Setter Property="Source" Value="move.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Click">
+                                                        <Setter Property="Source" Value="mouse.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Match">
+                                                        <Setter Property="Source" Value="match.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Match RGB">
+                                                        <Setter Property="Source" Value="match.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Match&amp;Draw">
+                                                        <Setter Property="Source" Value="match.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Key">
+                                                        <Setter Property="Source" Value="key.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="ModifierKey">
+                                                        <Setter Property="Source" Value="key.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="SendKeyDown">
+                                                        <Setter Property="Source" Value="key.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="SendKeyUp">
+                                                        <Setter Property="Source" Value="key.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Delay">
+                                                        <Setter Property="Source" Value="delay.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Jump">
+                                                        <Setter Property="Source" Value="jump.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Loop">
+                                                        <Setter Property="Source" Value="loop.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="RemoveEvent">
+                                                        <Setter Property="Source" Value="trash.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Clean Draw">
+                                                        <Setter Property="Source" Value="clean.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Run .exe">
+                                                        <Setter Property="Source" Value="run.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="PlaySound">
+                                                        <Setter Property="Source" Value="sound.png"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+
+                                    <TextBlock Margin="3,0,0,0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" >
+                                                <!--<Setter Property="Text" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=DataContext.mTable_Mode}" />-->
+                                                <Style.Triggers>
+                                                    <Trigger Property="DataContext" Value="Move">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Move" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Offset">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Offset" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Click">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Click" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Match">
+                                                        <Setter Property="Foreground" Value="DarkRed"/>
+                                                        <Setter Property="Text" Value="Match" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Match RGB">
+                                                        <Setter Property="Foreground" Value="DarkRed"/>
+                                                        <Setter Property="Text" Value="Match RGB" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Match&amp;Draw">
+                                                        <Setter Property="Foreground" Value="DarkRed"/>
+                                                        <Setter Property="Text" Value="Match&amp;Draw"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Key">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Key" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="ModifierKey">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="ModifierKey" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="SendKeyDown">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="SendKeyDown" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="SendKeyUp">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="SendKeyUp" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Delay">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Delay" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Jump">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Jump" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Loop">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Loop" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="RemoveEvent">
+                                                        <Setter Property="Foreground" Value="DarkRed"/>
+                                                        <Setter Property="Text" Value="RemoveEvent" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Clean Draw">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Clean Draw" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Run .exe">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Run .exe" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="PlaySound">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="PlaySound" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                            
+                        </DataGrid.Resources>
+
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=mTable_IsEnable}"/>
-                            <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=mTable_Mode}" MinWidth="100"/>
+
+                            <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=mTable_Mode}" MinWidth="100">
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemTemplate" Value="{StaticResource template}" />
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemTemplate" Value="{StaticResource template}" />
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+
+                                <!--<DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="Match">
+                                                <Setter Property="Foreground" Value="Gray"/>
+                                                <Setter Property="ItemTemplate" Value="{StaticResource template}" />
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="Running">
+                                                <Setter Property="Foreground" Value="OrangeRed"/>
+                                                <Setter Property="ItemTemplate" Value="{StaticResource template}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>-->
+                                
+                            </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Event" Binding="{Binding Path=mTable_Event}"/>
                             <DataGridTextColumn Header="Action" Binding="{Binding Path=mTable_Action}" MinWidth="250"/>
                             <DataGridTemplateColumn Header=" ">
