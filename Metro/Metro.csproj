@@ -378,6 +378,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Costura64\OpenCvSharpExtern.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="circle.png" />
+    <Resource Include="clean.png" />
+    <Resource Include="jump.png" />
+    <Resource Include="key.png" />
+    <Resource Include="loop.png" />
+    <Resource Include="match.png" />
+    <Resource Include="mouse.png" />
+    <Resource Include="move.png" />
+    <Resource Include="run.png" />
+    <Resource Include="sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="delay.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
