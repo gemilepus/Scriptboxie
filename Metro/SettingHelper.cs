@@ -6,6 +6,7 @@ namespace Metro
     public class SettingHelper
     {
         public string OnOff_Hotkey, Run_Hotkey, Stop_Hotkey , TestMode;
+        public bool ShowBalloon = false;
 
         public SettingHelper()
         {
@@ -55,7 +56,7 @@ namespace Metro
             //  ShowBalloon
             if (data["Def"]["ShowBalloon"] == null)
             {
-                data["Def"]["ShowBalloon"] = "";
+                data["Def"]["ShowBalloon"] = "0";
             }
 
             //  ON_OFF Hotkey
@@ -84,6 +85,9 @@ namespace Metro
 
             parser.WriteFile("user.ini", data);
 
+            if (data["Def"]["ShowBalloon"].ToString().Equals("1")) {
+                ShowBalloon = true;
+            }
 
             OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
             Run_Hotkey = data["Def"]["Run_Hotkey"];
