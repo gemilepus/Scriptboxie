@@ -370,28 +370,33 @@
     <Resource Include="package.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="trash.png" />
+    <Resource Include="img\trash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="plus.png" />
+    <Resource Include="img\plus.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Costura64\OpenCvSharpExtern.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="circle.png" />
-    <Resource Include="clean.png" />
-    <Resource Include="jump.png" />
-    <Resource Include="key.png" />
-    <Resource Include="loop.png" />
-    <Resource Include="match.png" />
-    <Resource Include="mouse.png" />
-    <Resource Include="move.png" />
-    <Resource Include="run.png" />
-    <Resource Include="sound.png" />
+    <Resource Include="img\circle.png" />
+    <Resource Include="img\clean.png" />
+    <Resource Include="img\jump.png" />
+    <Resource Include="img\key.png" />
+    <Resource Include="img\loop.png" />
+    <Resource Include="img\match.png" />
+    <Resource Include="img\mouse.png" />
+    <Resource Include="img\move.png" />
+    <Resource Include="img\run.png" />
+    <Resource Include="img\sound.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="delay.png" />
+    <Resource Include="img\delay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\goto.png" />
+    <Resource Include="img\search.png" />
+    <Resource Include="img\remove.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
