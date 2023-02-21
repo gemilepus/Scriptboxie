@@ -218,6 +218,9 @@
                                                     <Trigger Property="DataContext" Value="Jump">
                                                         <Setter Property="Source" Value="img/jump.png"/>
                                                     </Trigger>
+                                                    <Trigger Property="DataContext" Value="Goto">
+                                                        <Setter Property="Source" Value="img/goto.png"/>
+                                                    </Trigger>
                                                     <Trigger Property="DataContext" Value="Loop">
                                                         <Setter Property="Source" Value="img/loop.png"/>
                                                     </Trigger>
@@ -290,6 +293,10 @@
                                                     <Trigger Property="DataContext" Value="Jump">
                                                         <Setter Property="Foreground" Value="Black"/>
                                                         <Setter Property="Text" Value="Jump" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Goto">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Goto" />
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Loop">
                                                         <Setter Property="Foreground" Value="Black"/>

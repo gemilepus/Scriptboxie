@@ -1524,6 +1524,15 @@ namespace Metro
 
                                 break;
 
+                            case "Goto":
+
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
+                                {
+                                    n = int.Parse(CommandData) -2;
+                                }
+
+                                break;
+
                             case "Loop":
                                 do
                                 {
