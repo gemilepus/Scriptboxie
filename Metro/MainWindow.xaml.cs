@@ -418,7 +418,7 @@ namespace Metro
             List<string> mList = new List<string>() {
                 "Move","Offset","Click", "Match","Match RGB","Match&Draw",
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","Delay",
-                "Jump", "Loop", "RemoveEvent","Clean Draw",
+                "Jump","Goto","Loop","RemoveEvent","Clean Draw",
                 "Run .exe","PlaySound"
                 //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
