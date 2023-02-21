@@ -928,7 +928,10 @@ namespace Metro
                 mNotifyIcon.Visible = false;
                 mNotifyIcon.Visible = true;
             }
-            mNotifyIcon.ShowBalloonTip(500, title, msg, ToolTipIcon.None);
+
+            if (mSettingHelper.ShowBalloon) { 
+                mNotifyIcon.ShowBalloonTip(500, title, msg, ToolTipIcon.None);
+            }
         }
 
         // For resize x,y
@@ -1254,7 +1257,7 @@ namespace Metro
                                     break;
                                 }
                                 else {
-                                    string SendKeyStr = CommandData;
+                                    string SendKeyStr = CommandData.Trim();
                                     if (SendKeyStr.Length == 1)
                                     {
                                         SendKeyStr = "KEY_" + SendKeyStr.ToUpper();
