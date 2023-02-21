@@ -149,14 +149,14 @@
                             <DataGridTemplateColumn Header=" ">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <Image  Height="16" Width="16" Source="trash.png"/>
+                                        <Image  Height="16" Width="16" Source="img/trash.png"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="+">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <Image  Height="16" Width="16" Source="plus.png"/>
+                                        <Image  Height="16" Width="16" Source="img/plus.png"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -183,55 +183,55 @@
                                             <Style TargetType="Image">
                                                 <Style.Triggers>
                                                     <Trigger Property="DataContext" Value="Move">
-                                                        <Setter Property="Source" Value="move.png"/>
+                                                        <Setter Property="Source" Value="img/move.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Offset">
-                                                        <Setter Property="Source" Value="move.png"/>
+                                                        <Setter Property="Source" Value="img/move.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Click">
-                                                        <Setter Property="Source" Value="mouse.png"/>
+                                                        <Setter Property="Source" Value="img/mouse.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Match">
-                                                        <Setter Property="Source" Value="match.png"/>
+                                                        <Setter Property="Source" Value="img/match.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Match RGB">
-                                                        <Setter Property="Source" Value="match.png"/>
+                                                        <Setter Property="Source" Value="img/match.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Match&amp;Draw">
-                                                        <Setter Property="Source" Value="match.png"/>
+                                                        <Setter Property="Source" Value="img/match.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Key">
-                                                        <Setter Property="Source" Value="key.png"/>
+                                                        <Setter Property="Source" Value="img/key.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="ModifierKey">
-                                                        <Setter Property="Source" Value="key.png"/>
+                                                        <Setter Property="Source" Value="img/key.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="SendKeyDown">
-                                                        <Setter Property="Source" Value="key.png"/>
+                                                        <Setter Property="Source" Value="img/key.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="SendKeyUp">
-                                                        <Setter Property="Source" Value="key.png"/>
+                                                        <Setter Property="Source" Value="img/key.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Delay">
-                                                        <Setter Property="Source" Value="delay.png"/>
+                                                        <Setter Property="Source" Value="img/delay.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Jump">
-                                                        <Setter Property="Source" Value="jump.png"/>
+                                                        <Setter Property="Source" Value="img/jump.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Loop">
-                                                        <Setter Property="Source" Value="loop.png"/>
+                                                        <Setter Property="Source" Value="img/loop.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="RemoveEvent">
-                                                        <Setter Property="Source" Value="trash.png"/>
+                                                        <Setter Property="Source" Value="img/remove.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Clean Draw">
-                                                        <Setter Property="Source" Value="clean.png"/>
+                                                        <Setter Property="Source" Value="img/clean.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Run .exe">
-                                                        <Setter Property="Source" Value="run.png"/>
+                                                        <Setter Property="Source" Value="img/run.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="PlaySound">
-                                                        <Setter Property="Source" Value="sound.png"/>
+                                                        <Setter Property="Source" Value="img/sound.png"/>
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -358,14 +358,14 @@
                             <DataGridTemplateColumn Header=" ">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <Image  Height="16" Width="16" Source="trash.png"/>
+                                        <Image  Height="16" Width="16" Source="img/trash.png"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="+">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <Image  Height="16" Width="16" Source="plus.png"/>
+                                        <Image  Height="16" Width="16" Source="img/plus.png"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
