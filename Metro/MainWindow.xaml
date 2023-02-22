@@ -397,6 +397,11 @@
                     <ScrollViewer>
                         <TextBlock ScrollViewer.CanContentScroll="True" Margin="5px" MinHeight="300">
                             
+                            <Button Margin="0,5,0,0" Click="Updates_Button_Click" Content="Check for Updates" MinWidth="25" 
+                                    Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                            <LineBreak/>
+                            <LineBreak/>
+                            
                             <Run FontSize="16" Foreground="Black">ON/OFF(default is " )</Run>
                             <LineBreak/> 
                             <TextBox x:Name="TextBox_OnOff_Hotkey" KeyDown="TextBox_OnOff_Hotkey_KeyDown" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="100" Margin="5px"/>
@@ -426,9 +431,6 @@
                                    <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
                             </Hyperlink>
                             
-                            <LineBreak/>
-                            <Button Margin="0,5,0,0" Click="Updates_Button_Click" Content="Check for Updates" MinWidth="25" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
-                            <LineBreak/>
                             <!--<Run FontSize="16" Foreground="Gray">Note: settings will apply after restart app</Run><LineBreak/>-->
 
                         </TextBlock>
