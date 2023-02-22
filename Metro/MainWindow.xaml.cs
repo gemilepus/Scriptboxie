@@ -393,8 +393,9 @@ namespace Metro
 
         private GameOverlay.Drawing.Graphics gfx;
 
-        // NotifyIcon 最小化
+        // NotifyIcon
         private static NotifyIcon mNotifyIcon = new NotifyIcon();
+
         //private void MenuItem_Click(object sender, RoutedEventArgs e)
         //{
         //    this.Show();
