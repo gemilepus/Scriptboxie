@@ -419,7 +419,7 @@ namespace Metro
             List<string> mList = new List<string>() {
                 "Move","Offset","Click", "Match","Match RGB","Match&Draw",
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","Delay",
-                "Jump","Goto","Loop","RemoveEvent","Clean Draw",
+                "Jump","Goto","Loop","RemoveEvent","Clear Screen",
                 "Run .exe","PlaySound"
                 //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
@@ -1388,7 +1388,7 @@ namespace Metro
 
                                 break;
 
-                            case "Clean Draw":
+                            case "Clear Screen":
 
                                 gfx.BeginScene(); // call before you start any drawing
                                 gfx.ClearScene();
@@ -1796,6 +1796,9 @@ namespace Metro
                             break;
                         case "RemoveKey":
                             mMode = "RemoveEvent";
+                            break;
+                        case "Clean Draw":
+                            mMode = "Clear Screen";
                             break;
                         default:
                             break;

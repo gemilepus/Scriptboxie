@@ -236,8 +236,8 @@
                                                     <Trigger Property="DataContext" Value="RemoveEvent">
                                                         <Setter Property="Source" Value="img/remove.png"/>
                                                     </Trigger>
-                                                    <Trigger Property="DataContext" Value="Clean Draw">
-                                                        <Setter Property="Source" Value="img/clean.png"/>
+                                                    <Trigger Property="DataContext" Value="Clear Screen">
+                                                        <Setter Property="Source" Value="img/clean2.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Run .exe">
                                                         <Setter Property="Source" Value="img/run.png"/>
@@ -315,9 +315,9 @@
                                                         <Setter Property="Foreground" Value="DarkRed"/>
                                                         <Setter Property="Text" Value="RemoveEvent" />
                                                     </Trigger>
-                                                    <Trigger Property="DataContext" Value="Clean Draw">
+                                                    <Trigger Property="DataContext" Value="Clear Screen">
                                                         <Setter Property="Foreground" Value="Black"/>
-                                                        <Setter Property="Text" Value="Clean Draw" />
+                                                        <Setter Property="Text" Value="Clear Screen" />
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Run .exe">
                                                         <Setter Property="Foreground" Value="Black"/>
