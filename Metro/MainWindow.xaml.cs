@@ -2146,6 +2146,13 @@ namespace Metro
             TextBox_Stop_Hotkey.Text = "";
         }
 
+        private void ClearScreen_Click(object sender, RoutedEventArgs e)
+        {
+            gfx.BeginScene(); // call before you start any drawing
+            gfx.ClearScene();
+            gfx.EndScene();
+        }
+
         private void TextBox_OnOff_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
             mSettingHelper.OnOff_Hotkey = TextBox_OnOff_Hotkey.Text.ToString();
