@@ -68,7 +68,7 @@
                         
                         <Run Foreground="Gold">⭐SendKeyDown,SendKeyUp : keyboard input</Run><LineBreak/>
                         <Run Foreground="Orange">-@Key</Run><LineBreak/>        
-                        Key: key value<LineBreak/>
+                        Key: key value , can use A~Z 0~9 F1~F12...<LineBreak/>
                         ex: A<LineBreak/>
                         ex: RIGHT<LineBreak/>
                         <LineBreak/>
@@ -104,6 +104,12 @@
                         <Run Foreground="Orange">-@Number</Run><LineBreak/>     
                         Number: Jump number of line<LineBreak/>
                         ex: -3<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐Goto</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Number</Run><LineBreak/>     
+                        Number: Go to number of line<LineBreak/>
+                        ex: 5<LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐Run .exe</Run><LineBreak/>
