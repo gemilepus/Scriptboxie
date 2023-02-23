@@ -371,6 +371,7 @@
                             </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Event" Binding="{Binding Path=mTable_Event}"/>
                             <DataGridTextColumn Header="Action" Binding="{Binding Path=mTable_Action}" MinWidth="250"/>
+                            <DataGridTextColumn Header="Note" Binding="{Binding Path=mTable_Note}" MinWidth="50" Foreground="ForestGreen"/>
                             <DataGridTemplateColumn Header=" ">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>

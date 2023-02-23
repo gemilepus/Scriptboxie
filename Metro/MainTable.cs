@@ -12,5 +12,6 @@ namespace Metro
         public string mTable_Mode { get; set; }
         public string mTable_Action { get; set; }
         public string mTable_Event { get; set; }
+        public string mTable_Note { get; set; }
     }
 }
