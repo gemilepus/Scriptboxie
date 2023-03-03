@@ -569,27 +569,28 @@ namespace Metro
                 TextBlock_Please.Visibility = Visibility.Visible;
             }
 
+            this.WindowState = WindowState.Minimized;
+            this.Show();
+            this.WindowState = WindowState.Normal;
+
+            // test
+
             ManagementObjectSearcher objvida = new ManagementObjectSearcher("select * from Win32_VideoController ");
             string VC = String.Empty, DI = String.Empty;
             foreach (ManagementObject obj in objvida.Get())
             {
                 if (obj["CurrentBitsPerPixel"] != null && obj["CurrentHorizontalResolution"] != null)
                 {
-                    if (((String)obj["DeviceID"]).IndexOf("VideoController1") !=-1 )
+                    if (((String)obj["DeviceID"]).IndexOf("VideoController1") != -1)
                     {
                         DI = obj["DeviceID"].ToString();
                         VC = obj["Description"].ToString();
 
-                        Console.WriteLine("DeviceID: " +DI + ",Description: " + VC);
+                        Console.WriteLine("DeviceID: " + DI + ",Description: " + VC);
                     }
                 }
             }
 
-            this.WindowState = WindowState.Minimized;
-            this.Show();
-            this.WindowState = WindowState.Normal;
-
-            // test
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
 
@@ -677,7 +678,6 @@ namespace Metro
             }
 
             mNotifyIcon.Visible = false;
-
         }
 
         #endregion
@@ -1838,9 +1838,9 @@ namespace Metro
                 bool fileExist = File.Exists(mfilePath);
                 if (fileExist)
                 {
-                    this.ShowMessageAsync("Load_Script_to_DataTable", "Error!");
+                    this.ShowMessageAsync("Error", "read error occurred!\n" +
+                        "File: "+ mfilePath);
                 }
-                //CreateMessage("2200");
             }
             return tempDataTable;
         }
@@ -1986,9 +1986,9 @@ namespace Metro
                 data["Def"]["Script"] = filePath;
                 parser.WriteFile("user.ini", data);
             }
-            catch
+            catch (Exception err)
             {
-                //this.ShowMessageAsync("", "ERROR!");
+                Console.WriteLine("{0} Exception caught.", err);
             }
 
         }
@@ -2038,10 +2038,6 @@ namespace Metro
                     + "\n";
             }
             System.IO.File.WriteAllText(result, out_string);
-
-            // Restart
-            //this.Close();
-            //Process.Start("Scriptboxie.exe", "");
         }
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {
