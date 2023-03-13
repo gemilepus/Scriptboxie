@@ -112,9 +112,18 @@
                         ex: 5<LineBreak/>
                         <LineBreak/>
                         
+                        <Run Foreground="Gold">⭐Clear Screen: clear marked on the screen</Run><LineBreak/> 
+                        <LineBreak/>
+                        
                         <Run Foreground="Gold">⭐Run .exe</Run><LineBreak/>
                         <Run Foreground="Orange">-@Path</Run><LineBreak/>     
                         Path: .exe Path<LineBreak/>
+                        ex: sound.wav<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐PlaySound</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Path</Run><LineBreak/>     
+                        Path: sound file path,use .wav format<LineBreak/>     
                         ex: C:\Users\Metro.exe<LineBreak/>
                         <LineBreak/>
                         
