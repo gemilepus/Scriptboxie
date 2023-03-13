@@ -47,4 +47,13 @@ If you like Scriptboxie, you can support it:
 -->
 
 
+<!--
+[f]: documentation.png
+
+| | |
+| ------------- | ----------- |
+|  | [![][f]][f] |
+-->
+
+
 
