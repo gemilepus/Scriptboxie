@@ -420,7 +420,7 @@ namespace Metro
                 "Move","Offset","Click", "Match","Match RGB","Match&Draw",
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","Delay",
                 "Jump","Goto","Loop","RemoveEvent","Clear Screen",
-                "Run .exe","PlaySound"
+                "Run .exe","PlaySound","WriteClipboard"
                 //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
             mComboBoxColumn.ItemsSource = mList;
@@ -940,7 +940,8 @@ namespace Metro
         // For resize x,y
         private float ScaleX, ScaleY;
         private int OffsetX, OffsetY;
-      
+        private string copy = "";
+
         private void Script(List<MainTable> minDataTable,string Mode)
         {
             InputSimulator mInputSimulator = new InputSimulator();
@@ -1419,6 +1420,16 @@ namespace Metro
 
                                 break;
 
+                            case "WriteClipboard":
+
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
+                                {
+                                    copy = CommandData;
+                                    CreateMessage("9486");
+                                }
+
+                                break;
+
                             case "Color Test":
 
                                 Mat mat_screen = new Mat();
@@ -1630,6 +1641,11 @@ namespace Metro
                     Ring.IsActive = false;
                 }
 
+                if (wParam.ToString().Equals("9486"))
+                {
+                    System.Windows.Clipboard.SetText(copy);
+                }
+               
                 // TestMode
                 if (wParam.ToString().Substring(0,1).Equals("8"))
                 {

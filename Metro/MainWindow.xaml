@@ -117,6 +117,12 @@
                         Path: .exe Path<LineBreak/>
                         ex: C:\Users\Metro.exe<LineBreak/>
                         <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐WriteClipboard</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Text</Run><LineBreak/>     
+                        Text: text data to clipboard<LineBreak/>
+                        ex: 123456<LineBreak/>
+                        <LineBreak/>
 
                     </TextBlock>
                 </ScrollViewer>
@@ -245,6 +251,9 @@
                                                     <Trigger Property="DataContext" Value="PlaySound">
                                                         <Setter Property="Source" Value="img/sound.png"/>
                                                     </Trigger>
+                                                    <Trigger Property="DataContext" Value="WriteClipboard">
+                                                        <Setter Property="Source" Value="img/clipboard.png"/>
+                                                    </Trigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Image.Style>
@@ -326,6 +335,10 @@
                                                     <Trigger Property="DataContext" Value="PlaySound">
                                                         <Setter Property="Foreground" Value="Black"/>
                                                         <Setter Property="Text" Value="PlaySound" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="WriteClipboard">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="WriteClipboard" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
