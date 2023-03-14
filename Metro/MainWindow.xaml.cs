@@ -1154,14 +1154,12 @@ namespace Metro
                                     {
                                         return_xy = RunTemplateMatch(matTarget, matTemplate, "RGB", threshold);
                                     }
-                                    //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
 
                                     if (!return_xy.Equals(""))
                                     {
                                         if (Command.Equals("Match&Draw"))
                                         {
                                             string[] xy = return_xy.Split(',');
-                                            //SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
 
                                             gfx.BeginScene();
                                             //gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
@@ -1199,17 +1197,8 @@ namespace Metro
 
                                 Mat matTarget_Sift = BitmapConverter.ToMat(makeScreenshot());
                                 Mat matTemplate_Sift = new Mat("s.png", ImreadModes.Color);
-                                //int temp_w = matTemplate.Width/2 , temp_h = matTemplate.Height/2; // center x y
-
-                                //System.Windows.Forms.MessageBox.Show(RunTemplateMatch(matTarget, matTemplate));
-                                //string return_xy = RunTemplateMatch(matTarget, matTemplate);
-                                //if (!return_xy.Equals("")) {
-                                //    string[] xy = return_xy.Split(',');
-                                //    SetCursorPos(int.Parse(xy[0]) + temp_w, int.Parse(xy[1]) + temp_h);
-                                //}
 
                                 MatchBySift(matTarget_Sift, matTemplate_Sift);
-
 
                                 break;
 
@@ -1473,10 +1462,7 @@ namespace Metro
                                     }
                                     else
                                     {
-                                        //System.Windows.MessageBox.Show(windowHandle.ToString());
-
                                         gfx.BeginScene(); // call before you start any drawing
-                                                          // Draw
                                         gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, windowHandle.ToString());
                                         gfx.EndScene();
                                     }
