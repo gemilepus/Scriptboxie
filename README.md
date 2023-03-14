@@ -30,7 +30,23 @@ If you like Scriptboxie, you can support it:
 
 <a href='https://ko-fi.com/R6R8IQ1MD' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
-<h1 align="center">Demo</h1>
+[f1]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s1.png
+[f2]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s2.png
+[f3]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s3.png
+[f4]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s4.png
+[f5]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s5.png
+
+<h1 align="center">Example</h1>
+
+| Automatically click the button |  |
+| ------------- | ----------- |
+| if you want to click the Submit button | [![][f1]][f1] |
+| take a screenshot and use [![][f2]][f2] save it , like this picture| [![][f4]][f4] |
+| then refer to this picture to set | [![][f5]][f5] |
+| done | :) | 
+
+
+<h1 align="center">Screenshots</h1>
 <p align="center">
  <img align="center" alt="Edit" src="test.gif" />
  <img align="center" alt="Edit" src="test2.gif" />
@@ -45,15 +61,4 @@ If you like Scriptboxie, you can support it:
  <img align="center" alt="Edit" src="cover2.png" />
 </p>
 -->
-
-
-<!--
-[f]: documentation.png
-
-| | |
-| ------------- | ----------- |
-|  | [![][f]][f] |
--->
-
-
 
