@@ -1750,6 +1750,8 @@ namespace Metro
                 });
             }
             eDataGrid.DataContext = eDataTable;
+
+            reader.Close();
         }
         private void Save_Script() // async
         {
@@ -1834,6 +1836,7 @@ namespace Metro
                     }
 
                 }
+                reader.Close();
             }
             catch
             {
@@ -2000,17 +2003,26 @@ namespace Metro
             var result = await this.ShowInputAsync("Save", "input filename:");
             if (result == null) { return; }
 
-            string out_string = "";
-            for (int i = 0; i < mDataTable.Count; i++)
+            try
             {
-                out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
-                    + mDataTable[i].mTable_Mode + ";"
-                    + mDataTable[i].mTable_Action + ";"
-                    + mDataTable[i].mTable_Event.ToString() + ";"
-                    + mDataTable[i].mTable_Note.ToString().Replace(";","") + ";"
-                    + "\n";
+                string out_string = "";
+                for (int i = 0; i < mDataTable.Count; i++)
+                {
+                    out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
+                        + mDataTable[i].mTable_Mode + ";"
+                        + mDataTable[i].mTable_Action + ";"
+                        + mDataTable[i].mTable_Event.ToString() + ";"
+                        + mDataTable[i].mTable_Note.ToString().Replace(";", "") + ";"
+                        + "\n";
+                }
+                System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
             }
-            System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
+            catch (Exception err)
+            {
+                Console.WriteLine("{0} Exception caught.", err);
+
+                await this.ShowMessageAsync("", "save could not be completed!");
+            }
         }
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
@@ -2025,7 +2037,7 @@ namespace Metro
                 result = data["Def"]["Script"];
             }
 
-            if (result == null) {
+            if (result == null || result == "") {
                 this.ShowMessageAsync("", "file does not exist!");
                 return;
             }
