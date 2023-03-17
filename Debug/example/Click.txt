@@ -1,4 +1,4 @@
-True;Move;500,500;;
-True;Click;Left_Down;;
-True;Delay;100;;
-True;Click;Left_Up;;
+True;Move;500,500;;;
+True;Click;Left_Down;;;
+True;Delay;100;;;
+True;Click;Left_Up;;;

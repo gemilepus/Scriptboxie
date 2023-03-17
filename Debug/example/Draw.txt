@@ -1,5 +1,5 @@
-True;Match&Draw;s.png;0;
-True;Delay;100;;
-True;RemoveEvent;;0;
-True;Clear Screen;;;
-True;Loop;;;
+True;Match&Draw;s.png;0;;
+True;Delay;100;;;
+True;RemoveEvent;;0;;
+True;Clear Screen;;;;
+True;Loop;;;;

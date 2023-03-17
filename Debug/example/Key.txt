@@ -1,3 +1,3 @@
-True;ModifierKey;MENU|TAB;;
-True;Delay;1000;;
-True;Loop;;;
+True;ModifierKey;MENU|TAB;;;
+True;Delay;1000;;;
+True;Loop;;;;
