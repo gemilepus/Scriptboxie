@@ -11,8 +11,8 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" Width="45" 
-                    ToolTip="When this display OFF,the hotkey will not work." />
+            <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" Width="45" FontWeight="Bold"
+                    ToolTip="When this display OFF,the hotkey will not work."/>
             <Button Name="Btn_About" Click="Btn_About_Click" Content="About"/>
             <ToggleButton Content="Help" IsChecked="{Binding ElementName=MahAppFlyout, Path=IsOpen}" Cursor="Hand" />
             <TextBox x:Name="TextBox_Title" Width="100" Margin="5px" TextChanged="TextBox_Title_TextChanged" 
@@ -145,7 +145,7 @@
             <TabItem Header="Main">
                 <Grid Background="White" Name="ScriptGrid">
                     <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" IsEnabled="False"
-                              Height="300" Margin="0,0,0,20"  VerticalAlignment="Center" HorizontalAlignment="Center" 
+                              Height="300" Margin="0,0,0,20"  VerticalAlignment="Center" HorizontalAlignment="Center" CanUserAddRows="False"
                               CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected"  KeyUp="eDataGrid_KeyUp">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="#"/>
@@ -195,9 +195,9 @@
             <TabItem Header="Edit">
                 <Grid Background="White" Name="EditGrid">
 
-                    <DataGrid CanUserSortColumns="False" AddingNewItem="mDataGrid_AddingNewItem" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Grid.Column="1"
+                    <DataGrid CanUserSortColumns="False" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Grid.Column="1"
                               MinHeight="300" MinWidth="500" Margin="0,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                              LoadingRow="mDataGrid_LoadingRow" 
+                              LoadingRow="mDataGrid_LoadingRow" CanUserAddRows="False"
                               MouseDoubleClick="mDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected" KeyUp="mDataGrid_KeyUp" BeginningEdit="mDataGrid_BeginningEdit">
                         <DataGrid.Resources>
                             <DataTemplate x:Key="template">

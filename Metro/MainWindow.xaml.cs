@@ -1923,6 +1923,7 @@ namespace Metro
 
         private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
         {
+            Save_Script();
             eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
             if (eDataGrid.IsEnabled)
             {
@@ -2083,17 +2084,6 @@ namespace Metro
             Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
         }
 
-        private void mDataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
-            e.NewItem = new MainTable
-            {
-                mTable_IsEnable = true,
-                mTable_Mode = "",
-                mTable_Action = "",
-                mTable_Event = "",
-                mTable_Note = ""
-            };
-        }
         private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
