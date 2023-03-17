@@ -11,15 +11,15 @@
 <h1 align="center">How to use</h1>
 <p align="center">edit script: just enter the keyboard and mouse actions to be use</p>
 <p align="center">
- <img align="center" alt="Main" src="doc2.png" />
+ <img align="center" alt="Main" src="Doc/doc2.png" />
 </p>
 <p align="center">setting script </p>
 <p align="center">
- <img align="center" alt="Main" src="doc1.png" />
+ <img align="center" alt="Main" src="Doc/doc1.png" />
 </p>
 <p align="center">more info</p>
 <p align="center">
- <img align="center" alt="Edit" src="documentation.png" />
+ <img align="center" alt="Edit" src="Doc/documentation.png" />
 </p>
 
 <h1 align="center">Download</h1>
@@ -48,17 +48,17 @@ If you like Scriptboxie, you can support it:
 
 <h1 align="center">Screenshots</h1>
 <p align="center">
- <img align="center" alt="Edit" src="test.gif" />
- <img align="center" alt="Edit" src="test2.gif" />
+ <img align="center" alt="Edit" src="Doc/test.gif" />
+ <img align="center" alt="Edit" src="Doc/test2.gif" />
 </p>
 
 <!--
 <h1 align="center">Screenshots</h1>
 <p align="center">
- <img align="center" alt="Main" src="cover.png" />
+ <img align="center" alt="Main" src="Doc/cover.png" />
 </p>
 <p align="center">
- <img align="center" alt="Edit" src="cover2.png" />
+ <img align="center" alt="Edit" src="Doc/cover2.png" />
 </p>
 -->
 
