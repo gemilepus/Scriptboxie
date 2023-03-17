@@ -2026,21 +2026,30 @@ namespace Metro
             }
 
             if (result == null) {
-                this.ShowMessageAsync("", "ERROR!");
+                this.ShowMessageAsync("", "file does not exist!");
                 return;
             }
 
-            string out_string = "";
-            for (int i = 0; i < mDataTable.Count; i++)
+            try
             {
-                out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
-                    + mDataTable[i].mTable_Mode + ";"
-                    + mDataTable[i].mTable_Action + ";"
-                    + mDataTable[i].mTable_Event.ToString() + ";"
-                    + mDataTable[i].mTable_Note.ToString().Replace(";","") + ";"
-                    + "\n";
+                string out_string = "";
+                for (int i = 0; i < mDataTable.Count; i++)
+                {
+                    out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
+                        + mDataTable[i].mTable_Mode + ";"
+                        + mDataTable[i].mTable_Action + ";"
+                        + mDataTable[i].mTable_Event.ToString() + ";"
+                        + mDataTable[i].mTable_Note.ToString().Replace(";", "") + ";"
+                        + "\n";
+                }
+                System.IO.File.WriteAllText(result, out_string);
             }
-            System.IO.File.WriteAllText(result, out_string);
+            catch (Exception err)
+            {
+                Console.WriteLine("{0} Exception caught.", err);
+
+                this.ShowMessageAsync("", "save could not be completed!");
+            }
         }
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
         {
