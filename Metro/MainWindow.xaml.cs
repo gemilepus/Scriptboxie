@@ -1123,7 +1123,7 @@ namespace Metro
 
                                         if (MatchArr.Length > 5)
                                         {
-                                            threshold = Convert.ToDouble(MatchArr[1]);
+                                            threshold = Convert.ToDouble(MatchArr[5]);
                                         }
                                     }
                                     else
@@ -1157,31 +1157,41 @@ namespace Metro
 
                                     if (!return_xy.Equals(""))
                                     {
+                                        // Screenshot clip offset
+                                        int x_offset = 0, y_offset = 0;
+                                        if (MatchArr.Length > 2)
+                                        {
+                                            x_offset = int.Parse(MatchArr[1]);
+                                            y_offset = int.Parse(MatchArr[2]);
+                                        }
+
+                                        string[] xy = return_xy.Split(',');
+                                        int x_point = int.Parse(xy[0]) + x_offset;
+                                        int y_point = int.Parse(xy[1]) + y_offset;
+
                                         if (Command.Equals("Match&Draw"))
                                         {
-                                            string[] xy = return_xy.Split(',');
-
                                             gfx.BeginScene();
                                             //gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
-                                            gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_w * 2, temp_h * 2, 6), 2);
+                                            gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(x_point,y_point, temp_w * 2, temp_h * 2, 6), 2);
                                             gfx.EndScene();
                                         }
                                     
                                         // Add Key
-                                        if (Event[0].Length > 0)
+                                        if (Event.Length != 0)
                                         {
                                             if (Event[0].IndexOf("-") == -1)
                                             {
                                                 if (V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                                 {
-                                                    mDoSortedList.Add(Event[0], return_xy);
+                                                    mDoSortedList.Add(Event[0], x_point.ToString() +','+ y_point.ToString());
                                                 }
                                             }
                                             else
                                             {
                                                 if (mDoSortedList.IndexOfKey(Event[0].Replace("-", "")) == -1)
                                                 {
-                                                    mDoSortedList.Add(Event[0].Replace("-", ""), return_xy);
+                                                    mDoSortedList.Add(Event[0].Replace("-", ""), x_point.ToString() + ',' + y_point.ToString());
                                                 }
                                             }
                                         }
