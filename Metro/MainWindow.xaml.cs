@@ -1992,6 +1992,17 @@ namespace Metro
 
             try
             {
+                // ScrollToTop
+                if (mDataGrid.Items.Count > 0)
+                {
+                    var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
+                    if (border != null)
+                    {
+                        var scroll = border.Child as ScrollViewer;
+                        if (scroll != null) scroll.ScrollToTop();
+                    }
+                }
+
                 //Get the path of specified file
                 filePath = openFileDialog.FileName;
                 Load_Script(filePath);
