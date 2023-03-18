@@ -1119,7 +1119,7 @@ namespace Metro
                                     {
                                         matTarget = BitmapConverter.ToMat(makeScreenshot_clip(
                                             int.Parse(MatchArr[1]), int.Parse(MatchArr[2]),
-                                            int.Parse(MatchArr[3]), int.Parse(MatchArr[4])));
+                                            int.Parse(MatchArr[4]), int.Parse(MatchArr[3])));
 
                                         if (MatchArr.Length > 5)
                                         {

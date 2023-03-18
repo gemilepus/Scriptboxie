@@ -38,9 +38,14 @@
                         <Run Foreground="Gold">⭐Match,Match&amp;Draw : match and get image point</Run><LineBreak/>
                         <Run Foreground="Orange">-@Path</Run><LineBreak/>
                         <Run Foreground="Orange">-@Path,@Threshold</Run><LineBreak/>
-                         Path: image file path,use .png format<LineBreak/>                  
+                        <Run Foreground="Orange">-@Path,@X,@Y,@Width,@Height</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Path,@X,@Y,@Width,@Height,@Threshold</Run><LineBreak/>
+                        Path: image file path,use .png format<LineBreak/>                  
                         Threshold: 0.8~1.0(def 0.8) <LineBreak/>
+                        X: start point x value<LineBreak/> 
+                        Y: start point y value<LineBreak/>
                         ex: apple.png <LineBreak/>
+                        ex: apple.png,500,500,1420,580 <LineBreak/>
                         <Run Foreground="OrangeRed">Match&amp;Draw will be marked on the screen,just for test</Run><LineBreak/>
                         <LineBreak/>
                         
