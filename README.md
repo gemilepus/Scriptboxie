@@ -62,3 +62,7 @@ If you like Scriptboxie, you can support it:
 </p>
 -->
 
+## Credits
+- MahApps.Metro - https://github.com/MahApps/MahApps.Metro
+- feather - https://github.com/feathericons/feather
+
