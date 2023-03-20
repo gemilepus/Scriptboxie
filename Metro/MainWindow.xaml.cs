@@ -594,94 +594,6 @@ namespace Metro
             //ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
 
-        #region APP
-
-        private void notifyIcon_DoubleClick(object Sender, EventArgs e)
-        {
-            if (this.WindowState == WindowState.Normal)
-            {
-                this.WindowState = WindowState.Minimized;
-                this.Hide();
-            }
-            else
-            {
-                this.Show();
-                this.WindowState = WindowState.Normal;
-
-                // Activate the form.
-                this.Activate();
-            }
-        }
-        private void AlertSound()
-        {
-            //try
-            //{
-            //    SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
-            //    mWaveFile.PlaySync();
-            //    mWaveFile.Dispose();
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e);
-            //}
-
-        }
-        private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // .ini
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-            data["Def"]["WindowTitle"] = TextBox_Title.Text;
-            parser.WriteFile("user.ini", data);
-        }
-        private void Btn_ON_Click(object sender, RoutedEventArgs e)
-        {
-            if (Btn_ON.Content.Equals("ON"))
-            {
-                Btn_ON.Content = "OFF";
-                Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
-            }
-            else
-            {
-                Btn_ON.Content = "ON";
-                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
-            }
-        }
-        private void Btn_About_Click(object sender, RoutedEventArgs e)
-        {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-            this.ShowMessageAsync("About",
-                "v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion + "\n"
-                + "Author: " + "gemilepus" + "\n"
-                + "Mail: " + "gemilepus@gmail.com" + "\n"
-                );
-        }
-        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-            mSettingHelper.End(this);
-
-            // Stop all thread
-            for (int i = 0; i < _workerThreads.Count; i++)
-            {
-                if (_workerThreads[i].IsAlive)
-                {
-                    _workerThreads[i].Abort();
-                }
-            }
-
-            if (Ring.IsActive)
-            {
-                mThread.Abort();
-            }
-
-            mNotifyIcon.Visible = false;
-        }
-
-        #endregion
-
         #region KListener
         private void KListener()
         {
@@ -923,19 +835,6 @@ namespace Metro
             KListener();
         }
         #endregion
-
-        private void ShowBalloon(string title,string msg) {
-            // Hide BalloonTip
-            if (mNotifyIcon.Visible)
-            {
-                mNotifyIcon.Visible = false;
-                mNotifyIcon.Visible = true;
-            }
-
-            if (mSettingHelper.ShowBalloon) { 
-                mNotifyIcon.ShowBalloonTip(500, title, msg, ToolTipIcon.None);
-            }
-        }
 
         // For resize x,y
         private float ScaleX, ScaleY;
@@ -1616,6 +1515,8 @@ namespace Metro
 
         }
 
+
+        #region APP
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern uint RegisterWindowMessage(string lpString);
         private uint MSG_SHOW;
@@ -1633,7 +1534,8 @@ namespace Metro
             //Console.WriteLine(lParam);
             if (msg == MSG_SHOW)
             {
-                if (wParam.ToString().Equals("9487")) {
+                if (wParam.ToString().Equals("9487"))
+                {
                     Ring.IsActive = false;
                 }
 
@@ -1641,9 +1543,9 @@ namespace Metro
                 {
                     System.Windows.Clipboard.SetText(copy);
                 }
-               
+
                 // TestMode
-                if (wParam.ToString().Substring(0,1).Equals("8"))
+                if (wParam.ToString().Substring(0, 1).Equals("8"))
                 {
                     DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(LastNumber);
                     if (row != null)
@@ -1705,7 +1607,7 @@ namespace Metro
                     TempThread.Start();
                 }
 
-                if (wParam.ToString().Substring(0,2).Equals("22"))
+                if (wParam.ToString().Substring(0, 2).Equals("22"))
                 {
                     switch (wParam.ToString())
                     {
@@ -1731,6 +1633,105 @@ namespace Metro
                 SendMessage((int)mPrt, (int)MSG_SHOW, wParam, "0x00000001");
             }
         }
+        private void ShowBalloon(string title, string msg)
+        {
+            // Hide BalloonTip
+            if (mNotifyIcon.Visible)
+            {
+                mNotifyIcon.Visible = false;
+                mNotifyIcon.Visible = true;
+            }
+
+            if (mSettingHelper.ShowBalloon)
+            {
+                mNotifyIcon.ShowBalloonTip(500, title, msg, ToolTipIcon.None);
+            }
+        }
+        private void notifyIcon_DoubleClick(object Sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Minimized;
+                this.Hide();
+            }
+            else
+            {
+                this.Show();
+                this.WindowState = WindowState.Normal;
+
+                // Activate the form.
+                this.Activate();
+            }
+        }
+        private void AlertSound()
+        {
+            //try
+            //{
+            //    SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
+            //    mWaveFile.PlaySync();
+            //    mWaveFile.Dispose();
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //}
+
+        }
+        private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // .ini
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+            data["Def"]["WindowTitle"] = TextBox_Title.Text;
+            parser.WriteFile("user.ini", data);
+        }
+        private void Btn_ON_Click(object sender, RoutedEventArgs e)
+        {
+            if (Btn_ON.Content.Equals("ON"))
+            {
+                Btn_ON.Content = "OFF";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+            }
+            else
+            {
+                Btn_ON.Content = "ON";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+            }
+        }
+        private void Btn_About_Click(object sender, RoutedEventArgs e)
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            this.ShowMessageAsync("About",
+                "v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion + "\n"
+                + "Author: " + "gemilepus" + "\n"
+                + "Mail: " + "gemilepus@gmail.com" + "\n"
+                );
+        }
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            mSettingHelper.End(this);
+
+            // Stop all thread
+            for (int i = 0; i < _workerThreads.Count; i++)
+            {
+                if (_workerThreads[i].IsAlive)
+                {
+                    _workerThreads[i].Abort();
+                }
+            }
+
+            if (Ring.IsActive)
+            {
+                mThread.Abort();
+            }
+
+            mNotifyIcon.Visible = false;
+        }
+
+        #endregion
 
         #region Script Panel
         private void Load_Script_ini()
@@ -2183,6 +2184,7 @@ namespace Metro
         }
         #endregion
 
+        #region Setting Panel
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start("https://github.com/gemilepus/Scriptboxie");
@@ -2261,6 +2263,7 @@ namespace Metro
                 Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
             }
         }
+        #endregion
 
     }
 }
