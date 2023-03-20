@@ -1782,6 +1782,9 @@ namespace Metro
 
         private void Load_Script(string filePath)
         {
+            string[] mPath = filePath.Split('\\');
+            ScriptName.Text = mPath[mPath.Length-1];
+            ScriptName.ToolTip = filePath;
             // Table Clear
             mDataGrid.DataContext = null;
             mDataTable.Clear();
@@ -2006,6 +2009,9 @@ namespace Metro
 
                 //Get the path of specified file
                 filePath = openFileDialog.FileName;
+                if (filePath.Equals(""))
+                    return;
+
                 Load_Script(filePath);
 
                 // .ini

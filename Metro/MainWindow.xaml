@@ -419,6 +419,7 @@
                     <Button Click="ClearScreen_Click" ToolTip="Clear screen" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Image  Height="15" Width="15" Source="img/clean2.png"/>
                     </Button>
+                    <TextBlock Name="ScriptName" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,30" ></TextBlock>
 
                     <Controls:ToggleSwitch Toggled="Btn_Toggle_Click" Name="Btn_Toggle" OffContent="Record Off" OnContent="Record ON" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
                     <Button Click="Btn_open_Click" Content="Open" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Grid.Column="1" />
