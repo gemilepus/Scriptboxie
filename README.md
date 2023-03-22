@@ -45,24 +45,14 @@ If you like Scriptboxie, you can support it:
 | then refer to this picture to set | [![][f5]][f5] |
 | done | :) | 
 
-
 <h1 align="center">Screenshots</h1>
 <p align="center">
  <img align="center" alt="Edit" src="Doc/test.gif" />
  <img align="center" alt="Edit" src="Doc/test2.gif" />
 </p>
 
-<!--
-<h1 align="center">Screenshots</h1>
-<p align="center">
- <img align="center" alt="Main" src="Doc/cover.png" />
-</p>
-<p align="center">
- <img align="center" alt="Edit" src="Doc/cover2.png" />
-</p>
--->
-
 ## Credits
 - MahApps.Metro - https://github.com/MahApps/MahApps.Metro
 - feather - https://github.com/feathericons/feather
+- opencvsharp - https://github.com/shimat/opencvsharp
 
