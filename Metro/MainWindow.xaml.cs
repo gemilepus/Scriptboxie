@@ -2261,7 +2261,7 @@ namespace Metro
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             if (tag_name.ToString().Equals("v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion)) {
-                await this.ShowMessageAsync("", "The latest version is used");
+                await this.ShowMessageAsync("", "The latest version("+ tag_name.ToString() + ") is used");
             }
             else
             {
