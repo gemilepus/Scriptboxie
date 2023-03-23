@@ -37,8 +37,9 @@ If you like Scriptboxie, you can support it:
 [f5]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s5.png
 
 <h1 align="center">Example</h1>
+<p align="center">Automatically click the button</p>
 
-| Automatically click the button |  |
+| | |
 | ------------- | ----------- |
 | if you want to click the Submit button | [![][f1]][f1] |
 | take a screenshot and use [![][f2]][f2] save it , like this picture| [![][f4]][f4] |
