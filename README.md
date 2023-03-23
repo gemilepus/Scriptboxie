@@ -35,6 +35,7 @@ If you like Scriptboxie, you can support it:
 [f3]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s3.png
 [f4]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s4.png
 [f5]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s5.png
+[f6]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s6.png
 
 <h1 align="center">Example</h1>
 <p align="center">Automatically click the button</p>
@@ -45,6 +46,12 @@ If you like Scriptboxie, you can support it:
 | take a screenshot and use [![][f2]][f2] save it , like this picture| [![][f4]][f4] |
 | then refer to this picture to set | [![][f5]][f5] |
 | done | :) | 
+
+<p align="center">Then let it alway running</p>
+
+| | |
+| ------------- | ----------- |
+| refer to this picture to set :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | [![][f6]][f6] |
 
 <h1 align="center">Screenshots</h1>
 <p align="center">
