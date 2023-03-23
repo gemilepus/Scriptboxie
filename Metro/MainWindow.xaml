@@ -12,11 +12,11 @@
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" Width="45" FontWeight="Bold"
-                    ToolTip="When this display OFF,the hotkey will not work."/>
+                    ToolTip="When this display OFF,the hotkey will not work." ToolTipService.InitialShowDelay="300"/>
             <Button Name="Btn_About" Click="Btn_About_Click" Content="About"/>
             <ToggleButton Content="Help" IsChecked="{Binding ElementName=MahAppFlyout, Path=IsOpen}" Cursor="Hand" />
             <TextBox x:Name="TextBox_Title" Width="100" Margin="5px" TextChanged="TextBox_Title_TextChanged" 
-                     ToolTip="You can enter the window title here, and then the hotkey will only work on the window match this."/>
+                     ToolTip="You can enter the window title here, and then the hotkey will only work on the window match this." ToolTipService.InitialShowDelay="300"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
 
@@ -153,7 +153,7 @@
                               Height="300" Margin="0,0,0,20"  VerticalAlignment="Center" HorizontalAlignment="Center" CanUserAddRows="False"
                               CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected"  KeyUp="eDataGrid_KeyUp">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="#"/>
+                            <DataGridTextColumn Header="#" IsReadOnly="True"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
                             <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}"/>
@@ -416,7 +416,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button Click="ClearScreen_Click" ToolTip="Clear screen" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Circle}">
+                    <Button Click="ClearScreen_Click" ToolTip="Clear screen" ToolTipService.InitialShowDelay="100" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Image  Height="15" Width="15" Source="img/clean2.png"/>
                     </Button>
                     <TextBlock Name="ScriptName" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="25,0,0,30" ></TextBlock>
