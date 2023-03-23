@@ -957,41 +957,39 @@ namespace Metro
 
                                 if (Event.Length == 0 || mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
-                                    if (CommandData.Equals("Left"))
+                                    CommandData = CommandData.Trim().ToUpper();
+                                    if (CommandData.Equals("LEFT"))
                                     {
                                         //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                                         //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                                        //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.LeftButton);
                                         mInputSimulator.Mouse.LeftButtonDown();
                                         Thread.Sleep(200);
                                         mInputSimulator.Mouse.LeftButtonUp();
                                     }
-                                    if (CommandData.Equals("Left_Down"))
+                                    if (CommandData.Equals("LEFT_DOWN"))
                                     {
                                         //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.LeftButtonDown();
                                     }
-                                    if (CommandData.Equals("Left_Up"))
+                                    if (CommandData.Equals("LEFT_UP"))
                                     {
                                         //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.LeftButtonUp();
                                     }
-                                    if (CommandData.Equals("Right"))
+                                    if (CommandData.Equals("RIGHT"))
                                     {
                                         //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
                                         //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                                        //mInputSimulator.Mouse.MouseButtonClick(WindowsInputLib.MouseButton.RightButton);
-
                                         mInputSimulator.Mouse.RightButtonDown();
                                         Thread.Sleep(200);
                                         mInputSimulator.Mouse.RightButtonUp();
                                     }
-                                    if (CommandData.Equals("Right_Down"))
+                                    if (CommandData.Equals("RIGHT_DOWN"))
                                     {
                                         //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.RightButtonDown();
                                     }
-                                    if (CommandData.Equals("Right_Up"))
+                                    if (CommandData.Equals("RIGHT_UP"))
                                     {
                                         //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.RightButtonUp();
