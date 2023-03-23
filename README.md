@@ -44,7 +44,7 @@ If you like Scriptboxie, you can support it:
 | ------------- | ----------- |
 | if you want to click the Submit button | [![][f1]][f1] |
 | take a screenshot and use [![][f2]][f2] save it , like this picture| [![][f4]][f4] |
-| then refer to this picture to set | [![][f5]][f5] |
+| then refer to this picture to set | [![][f5]][f5] event name can be named freely |
 | done | :) | 
 
 <p align="center">Then let it alway running</p>
