@@ -1,0 +1,13 @@
+True;Delay;300;;;
+True;SendKeyDown;A;;;
+True;Delay;100;;;
+True;SendKeyUp;A;;;
+True;Delay;100;;;
+True;SendKeyDown;B;;;
+True;Delay;100;;;
+True;SendKeyUp;B;;;
+True;Delay;100;;;
+True;SendKeyDown;C;;;
+True;Delay;100;;;
+True;SendKeyUp;C;;;
+True;Delay;100;;;
