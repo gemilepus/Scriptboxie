@@ -1,0 +1,8 @@
+True;Match;s.png;image;input image path;
+True;Move;;image;set Event,it can use image matching point;
+True;Click;Left_Down;image;;
+True;Delay;300;image;;
+True;Click;Left_Up;image;;
+True;Delay;1000;;;
+True;RemoveEvent;;image;remove Event;
+True;Loop;;;;
