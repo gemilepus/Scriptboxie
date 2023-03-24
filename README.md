@@ -44,14 +44,14 @@ If you like Scriptboxie, you can support it:
 | ------------- | ----------- |
 | if you want to click the Submit button | [![][f1]][f1] |
 | take a screenshot and use [![][f2]][f2] save it , like this picture| [![][f4]][f4] |
-| then refer to this picture to set | [![][f5]][f5] event name can be named freely |
+| then refer to this picture to set | [![][f5]][f5] Note:event name can be named freely |
 | done | :) | 
 
 <p align="center">Then let it alway running</p>
 
 | | |
 | ------------- | ----------- |
-| refer to this picture to set :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] note:After the Event is established, it will always exist.You can use RemoveEvent to remove |
+| refer to this picture to set :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:After the Event is established, it will always exist.You can use RemoveEvent to remove |
 
 <h1 align="center">Screenshots</h1>
 <p align="center">
