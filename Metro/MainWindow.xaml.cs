@@ -1157,10 +1157,20 @@ namespace Metro
                                     break;
                                 }
                                 else {
-                                    string SendKeyStr = CommandData.Trim();
+                                    string SendKeyStr = CommandData.Trim().ToUpper();
+                                    switch (SendKeyStr)
+                                    {
+                                        case "ESC":
+                                            SendKeyStr = "ESCAPE";
+                                            break;
+                                        case "ALT":
+                                            SendKeyStr = "MENU";
+                                            break;
+                                    }
+
                                     if (SendKeyStr.Length == 1)
                                     {
-                                        SendKeyStr = "KEY_" + SendKeyStr.ToUpper();
+                                        SendKeyStr = "KEY_" + SendKeyStr;
                                     }
 
                                     short value = 0;
@@ -1205,6 +1215,13 @@ namespace Metro
                                 VirtualKeyCode[] KeyCodeArr = new VirtualKeyCode[KeyArr.Length];
                                 for (int i = 0; i < ModifierKeyCodeArr.Length; i++)
                                 {
+                                    switch (ModifierKeyArr[i])
+                                    {
+                                        case "ALT":
+                                            ModifierKeyArr[i] = "MENU";
+                                            break;
+                                    }
+
                                     if (ModifierKeyArr[i].Length == 1) {
                                         ModifierKeyArr[i] = "VK_"+ModifierKeyArr[i];
                                     }

@@ -156,7 +156,13 @@
                             <DataGridTextColumn Header="#" IsReadOnly="True"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
-                            <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}"/>
+                            <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="ToolTip" Value="ex:Alt+C,F12......" />
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Header="State" IsReadOnly="True" Binding="{Binding Path=eTable_State}">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="{x:Type TextBlock}">
