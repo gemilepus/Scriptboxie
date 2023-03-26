@@ -404,6 +404,9 @@
   <ItemGroup>
     <Resource Include="img\clipboard.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="sound.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1680,16 +1680,18 @@ namespace Metro
         }
         private void AlertSound()
         {
-            //try
-            //{
-            //    SoundPlayer mWaveFile = new SoundPlayer("UI211.wav");
-            //    mWaveFile.PlaySync();
-            //    mWaveFile.Dispose();
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e);
-            //}
+            try
+            {
+                //SoundPlayer mWaveFile = new SoundPlayer("sound.wav");
+                //mWaveFile.PlaySync();
+                //mWaveFile.Dispose();
+                SoundPlayer audio = new SoundPlayer(Metro.Properties.Resources.sound);
+                audio.Play();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
         }
         private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
