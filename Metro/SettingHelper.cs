@@ -5,7 +5,7 @@ namespace Metro
 {
     public class SettingHelper
     {
-        public string OnOff_Hotkey, Run_Hotkey, Stop_Hotkey , TestMode , HideOnSatrt;
+        public string OnOff_Hotkey, OnOff_CrtlKey, Run_Hotkey, Run_CrtlKey , Stop_Hotkey ,Stop_CrtlKey, TestMode , HideOnSatrt;
         public bool ShowBalloon = false;
 
         public SettingHelper()
@@ -60,18 +60,30 @@ namespace Metro
             }
 
             //  ON_OFF Hotkey
+            if (data["Def"]["OnOff_CrtlKey"] == null)
+            {
+                data["Def"]["OnOff_CrtlKey"] = "0";
+            }
             if (data["Def"]["OnOff_Hotkey"] == null)
             {
                 data["Def"]["OnOff_Hotkey"] = "Oem7";// '
             }
 
             //  Run Hotkey
+            if (data["Def"]["Run_CrtlKey"] == null)
+            {
+                data["Def"]["Run_CrtlKey"] = "0";
+            }
             if (data["Def"]["Run_Hotkey"] == null)
             {
                 data["Def"]["Run_Hotkey"] = "OemOpenBrackets"; // [
             }
 
             //  Stop Hotkey
+            if (data["Def"]["Stop_CrtlKey"] == null)
+            {
+                data["Def"]["Stop_CrtlKey"] = "0";
+            }
             if (data["Def"]["Stop_Hotkey"] == null)
             {
                 data["Def"]["Stop_Hotkey"] = "Oem6"; // ]
@@ -95,8 +107,11 @@ namespace Metro
                 ShowBalloon = true;
             }
 
+            OnOff_CrtlKey = data["Def"]["OnOff_CrtlKey"];
             OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
+            Run_CrtlKey = data["Def"]["Run_CrtlKey"];
             Run_Hotkey = data["Def"]["Run_Hotkey"];
+            Stop_CrtlKey = data["Def"]["Stop_CrtlKey"];
             Stop_Hotkey = data["Def"]["Stop_Hotkey"];
 
             HideOnSatrt = data["Def"]["HideOnSatrt"];
@@ -111,10 +126,14 @@ namespace Metro
 
             data["Def"]["x"] = MainWindow.Left.ToString();
             data["Def"]["y"] = MainWindow.Top.ToString();
-            data["Def"]["OnOff_Hotkey"] = OnOff_Hotkey;
-            data["Def"]["Run_Hotkey"] = Run_Hotkey;
-            data["Def"]["Stop_Hotkey"] = Stop_Hotkey;
-            data["Def"]["Stop_Hotkey"] = Stop_Hotkey;
+
+            data["Def"]["OnOff_CrtlKey"] = OnOff_CrtlKey;
+            data["Def"]["OnOff_Hotkey"] =  OnOff_Hotkey;
+            data["Def"]["Run_CrtlKey"] = Run_CrtlKey;
+            data["Def"]["Run_Hotkey"] =  Run_Hotkey;
+            data["Def"]["Stop_CrtlKey"] = Stop_CrtlKey;
+            data["Def"]["Stop_Hotkey"] =  Stop_Hotkey;
+
             data["Def"]["HideOnSatrt"] = HideOnSatrt;
             data["Def"]["TestMode"] = TestMode;
 

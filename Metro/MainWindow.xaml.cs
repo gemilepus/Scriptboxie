@@ -504,6 +504,18 @@ namespace Metro
             }
 
             // Load setting
+            if (!mSettingHelper.OnOff_CrtlKey.Equals("0"))
+            {
+                OnOff_CrtlKey_Chk.IsChecked = true;
+            }
+            if (!mSettingHelper.Run_CrtlKey.Equals("0"))
+            {
+                Run_CrtlKey_Chk.IsChecked = true;
+            }
+            if (!mSettingHelper.Stop_CrtlKey.Equals("0"))
+            {
+                Stop_CrtlKey_Chk.IsChecked = true;
+            }
             TextBox_OnOff_Hotkey.Text = mSettingHelper.OnOff_Hotkey;
             TextBox_Run_Hotkey.Text = mSettingHelper.Run_Hotkey;
             TextBox_Stop_Hotkey.Text = mSettingHelper.Stop_Hotkey;
@@ -654,7 +666,7 @@ namespace Metro
             UnKListener();
 
             // ON / OFF
-            if (e.KeyCode.ToString().Equals(mSettingHelper.OnOff_Hotkey)) // "'"
+            if (e.KeyCode.ToString().Equals(mSettingHelper.OnOff_Hotkey) && !(OnOff_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "'"
             {
                 if (Btn_ON.Content.Equals("ON"))
                 {
@@ -706,13 +718,13 @@ namespace Metro
             Console.WriteLine(e.KeyCode.ToString());
 
 
-            if (e.KeyCode.ToString().Equals(mSettingHelper.Run_Hotkey)) //"["
+            if (e.KeyCode.ToString().Equals(mSettingHelper.Run_Hotkey) && !(Run_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "["
             {
                 AlertSound();
                 ShowBalloon("Run", "...");
                 Run_script();
             }
-            if (e.KeyCode.ToString().Equals(mSettingHelper.Stop_Hotkey)) //"]"
+            if (e.KeyCode.ToString().Equals(mSettingHelper.Stop_Hotkey) && !(Stop_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "]"
             {
                 AlertSound();
                 Stop_script();
@@ -2248,9 +2260,39 @@ namespace Metro
             gfx.EndScene();
         }
 
+        private void OnOff_CrtlKey_Chk_Checked(object sender, RoutedEventArgs e)
+        {
+            mSettingHelper.OnOff_CrtlKey = "1";
+        }
+
+        private void OnOff_CrtlKey_Chk_Unchecked(object sender, RoutedEventArgs e)
+        {
+            mSettingHelper.OnOff_CrtlKey = "0";
+        }
+
         private void TextBox_OnOff_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
             mSettingHelper.OnOff_Hotkey = TextBox_OnOff_Hotkey.Text.ToString();
+        }
+
+        private void Run_CrtlKey_Chk_Checked(object sender, RoutedEventArgs e)
+        {
+            mSettingHelper.Run_CrtlKey = "1";
+        }
+
+        private void Run_CrtlKey_Chk_Unchecked(object sender, RoutedEventArgs e)
+        {
+            mSettingHelper.Run_CrtlKey = "0";
+        }
+
+        private void Stop_CrtlKey_Chk_Checked(object sender, RoutedEventArgs e)
+        {
+            mSettingHelper.Stop_CrtlKey = "1";
+        }
+
+        private void Stop_CrtlKey_Chk_Unchecked(object sender, RoutedEventArgs e)
+        {
+            mSettingHelper.Stop_CrtlKey = "0";
         }
 
         private void TextBox_Run_Hotkey_TextChanged(object sender, TextChangedEventArgs e)

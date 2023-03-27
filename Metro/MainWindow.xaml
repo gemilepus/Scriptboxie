@@ -449,17 +449,20 @@
                             <LineBreak/>
                             
                             <Run FontSize="16" Foreground="Black">ON/OFF(default is " )</Run>
-                            <LineBreak/> 
+                            <LineBreak/>
+                            <CheckBox x:Name="OnOff_CrtlKey_Chk" Content="Ctrl  +" Margin="5,0,0,8" Checked="OnOff_CrtlKey_Chk_Checked" Unchecked="OnOff_CrtlKey_Chk_Unchecked"/>
                             <TextBox x:Name="TextBox_OnOff_Hotkey" KeyDown="TextBox_OnOff_Hotkey_KeyDown" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
 
                             <Run FontSize="16" Foreground="Black">Run Editing Script(default is [ ):</Run>
                             <LineBreak/> 
+                            <CheckBox x:Name="Run_CrtlKey_Chk" Content="Ctrl  +" Margin="5,0,0,8" Checked="Run_CrtlKey_Chk_Checked" Unchecked="Run_CrtlKey_Chk_Unchecked"/>
                             <TextBox x:Name="TextBox_Run_Hotkey" KeyDown="TextBox_Run_Hotkey_KeyDown"  TextChanged="TextBox_Run_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
                               
                             <Run FontSize="16" Foreground="Black">Stop Editing Script(default is ] ):</Run>
                             <LineBreak/> 
+                             <CheckBox x:Name="Stop_CrtlKey_Chk" Content="Ctrl  +" Margin="5,0,0,8" Checked="Stop_CrtlKey_Chk_Checked" Unchecked="Stop_CrtlKey_Chk_Unchecked"/>
                             <TextBox x:Name="TextBox_Stop_Hotkey" KeyDown="TextBox_Stop_Hotkey_KeyDown" TextChanged="TextBox_Stop_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
                             
