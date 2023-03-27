@@ -395,11 +395,12 @@ namespace Metro
 
         // NotifyIcon
         private static NotifyIcon mNotifyIcon = new NotifyIcon();
-
         //private void MenuItem_Click(object sender, RoutedEventArgs e)
         //{
         //    this.Show();
         //}
+
+        private SoundPlayer mAlertSound = new SoundPlayer(Metro.Properties.Resources.sound);
 
         private SettingHelper mSettingHelper = new SettingHelper();
         private bool TestMode = false;
@@ -574,7 +575,6 @@ namespace Metro
             this.WindowState = WindowState.Normal;
 
             // test
-
             ManagementObjectSearcher objvida = new ManagementObjectSearcher("select * from Win32_VideoController ");
             string VC = String.Empty, DI = String.Empty;
             foreach (ManagementObject obj in objvida.Get())
@@ -701,6 +701,7 @@ namespace Metro
             }
             if (e.KeyCode.ToString().Equals(mSettingHelper.Stop_Hotkey)) //"]"
             {
+                AlertSound();
                 Stop_script();
                 ShowBalloon("Stop", "...");
             }
@@ -1685,8 +1686,8 @@ namespace Metro
                 //SoundPlayer mWaveFile = new SoundPlayer("sound.wav");
                 //mWaveFile.PlaySync();
                 //mWaveFile.Dispose();
-                SoundPlayer audio = new SoundPlayer(Metro.Properties.Resources.sound);
-                audio.Play();
+
+                mAlertSound.Play();
             }
             catch (Exception e)
             {
