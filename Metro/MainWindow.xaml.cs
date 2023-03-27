@@ -324,6 +324,8 @@ namespace Metro
                 mDataGrid.DataContext = null;
                 mDataTable.RemoveAt(mDataTable.Count - 1);
                 mDataTable.RemoveAt(mDataTable.Count - 1);
+                mDataTable.RemoveAt(mDataTable.Count - 1);
+                mDataTable.RemoveAt(mDataTable.Count - 1);
                 mDataGrid.DataContext = mDataTable;
             }
         }
@@ -338,14 +340,15 @@ namespace Metro
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Btn_Toggle.IsOn == true)
-            {
-                mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "", mTable_Note = "" });
-                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "100", mTable_Event = "", mTable_Note = "" });
-                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "", mTable_Note = "" });
-                mDataGrid.DataContext = mDataTable;
-            }
+            //if (Btn_Toggle.IsOn == true)
+            //{
+            //    mDataGrid.DataContext = null;
+            //    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action ="500", mTable_Event = "", mTable_Note = "" });
+            //    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "", mTable_Note = "" });
+            //    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "200", mTable_Event = "", mTable_Note = "" });
+            //    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "", mTable_Note = "" });
+            //    mDataGrid.DataContext = mDataTable;
+            //}
             Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
         }
 
@@ -355,8 +358,10 @@ namespace Metro
             {
                 //if (e.Button.Equals("")) { }
                 mDataGrid.DataContext = null;
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "500", mTable_Event = "", mTable_Note = "" });
                 mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Move", mTable_Action = now_x.ToString() + "," + now_y.ToString(), mTable_Event = "", mTable_Note = "" });
-                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString(), mTable_Event = "", mTable_Note = "" });
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "500", mTable_Event = "", mTable_Note = "" });
+                mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Click", mTable_Action = e.Button.ToString() + "", mTable_Event = "", mTable_Note = "" });
                 mDataGrid.DataContext = mDataTable;
             }
             Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
@@ -648,6 +653,44 @@ namespace Metro
             {
                 TextBox_Stop_Hotkey.Text = e.KeyCode.ToString();
             }
+
+            if (Btn_Toggle.IsOn == true)
+            {
+                if (e.KeyCode.ToString().IndexOf("Oem") == -1 && !e.KeyCode.ToString().Equals(""))
+                {
+                    string mKeyCode = e.KeyCode.ToString();
+                    if (mKeyCode.Length == 2 && mKeyCode.IndexOf("D") != -1)
+                    {
+                        mKeyCode =  mKeyCode.Replace("D", "");
+                    }
+
+                    switch (mKeyCode)
+                    {
+                        case "Return":
+                            mKeyCode = "ENTER";
+                            break;
+                        case "Escape":
+                            mKeyCode = "ESC";
+                            break;
+                        case "LMenu":
+                        case "RMenu":
+                            mKeyCode = "ALT";
+                            break;
+                        case "LShiftKey":
+                        case "RShiftKey":
+                            mKeyCode = "SHIFT";
+                            break;
+                    }
+
+                    mDataGrid.DataContext = null;
+                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "500", mTable_Event = "", mTable_Note = "" });
+                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
+                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "200", mTable_Event = "", mTable_Note = "" });
+                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
+                    mDataGrid.DataContext = mDataTable;
+                }
+            }
+
         }
 
         private string PassCtrlKey = "";
