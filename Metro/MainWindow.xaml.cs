@@ -508,8 +508,14 @@ namespace Metro
             TextBox_Run_Hotkey.Text = mSettingHelper.Run_Hotkey;
             TextBox_Stop_Hotkey.Text = mSettingHelper.Stop_Hotkey;
 
+            // Load HideOnSatrt setting
+            if (!mSettingHelper.HideOnSatrt.Equals("0"))
+            {
+                HideOnSatrt_Toggle.IsOn = true;
+            }
+
             // Load TestMode setting
-            if (!data["Def"]["TestMode"].Equals("0"))
+            if (!mSettingHelper.TestMode.Equals("0"))
             {
                 TestMode = true;
                 TestMode_Toggle.IsOn = true;
@@ -518,6 +524,7 @@ namespace Metro
                 TestMode = false;
                 TestMode_Toggle.IsOn = false;
             }
+
 
             #region OverlayWindow
 
@@ -571,8 +578,14 @@ namespace Metro
             }
 
             this.WindowState = WindowState.Minimized;
-            this.Show();
-            this.WindowState = WindowState.Normal;
+            if (mSettingHelper.HideOnSatrt.Equals("0"))
+            {
+                this.Show();
+                this.WindowState = WindowState.Normal;
+            }
+            else {
+                this.Hide();
+            }
 
             // test
             ManagementObjectSearcher objvida = new ManagementObjectSearcher("select * from Win32_VideoController ");
@@ -2248,6 +2261,18 @@ namespace Metro
         private void TextBox_Stop_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
             mSettingHelper.Stop_Hotkey = TextBox_Stop_Hotkey.Text.ToString();
+        }
+
+        private void HideOnSatrt_Toggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (HideOnSatrt_Toggle.IsOn == true)
+            {
+                mSettingHelper.HideOnSatrt = "1";
+            }
+            else
+            {
+                mSettingHelper.HideOnSatrt = "0";
+            }
         }
 
         private void TestMode_Toggle_Toggled(object sender, RoutedEventArgs e)

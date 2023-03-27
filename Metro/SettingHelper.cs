@@ -5,7 +5,7 @@ namespace Metro
 {
     public class SettingHelper
     {
-        public string OnOff_Hotkey, Run_Hotkey, Stop_Hotkey , TestMode;
+        public string OnOff_Hotkey, Run_Hotkey, Stop_Hotkey , TestMode , HideOnSatrt;
         public bool ShowBalloon = false;
 
         public SettingHelper()
@@ -77,6 +77,12 @@ namespace Metro
                 data["Def"]["Stop_Hotkey"] = "Oem6"; // ]
             }
 
+            // HideOnSatrt
+            if (data["Def"]["HideOnSatrt"] == null)
+            {
+                data["Def"]["HideOnSatrt"] = "0";
+            }
+
             // TestMode
             if (data["Def"]["TestMode"] == null)
             {
@@ -93,6 +99,7 @@ namespace Metro
             Run_Hotkey = data["Def"]["Run_Hotkey"];
             Stop_Hotkey = data["Def"]["Stop_Hotkey"];
 
+            HideOnSatrt = data["Def"]["HideOnSatrt"];
             TestMode = data["Def"]["TestMode"];
         }
 
@@ -108,6 +115,7 @@ namespace Metro
             data["Def"]["Run_Hotkey"] = Run_Hotkey;
             data["Def"]["Stop_Hotkey"] = Stop_Hotkey;
             data["Def"]["Stop_Hotkey"] = Stop_Hotkey;
+            data["Def"]["HideOnSatrt"] = HideOnSatrt;
             data["Def"]["TestMode"] = TestMode;
 
             parser.WriteFile("user.ini", data);
