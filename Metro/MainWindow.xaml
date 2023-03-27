@@ -442,40 +442,39 @@
                 <Grid Background="White" Name="SettingGrid">
                     <ScrollViewer>
                         <TextBlock ScrollViewer.CanContentScroll="True" Margin="5px" MinHeight="300">
-                            
-                            <Button Margin="0,5,0,0" Click="Updates_Button_Click" Content="Check for Updates" MinWidth="25" 
+                            <Button Margin="0,5,0,0" Click="Updates_Button_Click" Content="{DynamicResource Check_for_Updates}" MinWidth="25" 
                                     Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
                             <LineBreak/>
                             <LineBreak/>
                             
-                            <Run FontSize="16" Foreground="Black">ON/OFF(default is " )</Run>
+                            <Run FontSize="16" Foreground="Black" Text="{DynamicResource ON_OFF_Option}"></Run>
                             <LineBreak/>
                             <CheckBox x:Name="OnOff_CrtlKey_Chk" Content="Ctrl  +" Margin="5,0,0,8" Checked="OnOff_CrtlKey_Chk_Checked" Unchecked="OnOff_CrtlKey_Chk_Unchecked"/>
                             <TextBox x:Name="TextBox_OnOff_Hotkey" KeyDown="TextBox_OnOff_Hotkey_KeyDown" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
 
-                            <Run FontSize="16" Foreground="Black">Run Editing Script(default is [ ):</Run>
+                            <Run FontSize="16" Foreground="Black" Text="{DynamicResource Run_Editing_Script_Option}"></Run>
                             <LineBreak/> 
                             <CheckBox x:Name="Run_CrtlKey_Chk" Content="Ctrl  +" Margin="5,0,0,8" Checked="Run_CrtlKey_Chk_Checked" Unchecked="Run_CrtlKey_Chk_Unchecked"/>
                             <TextBox x:Name="TextBox_Run_Hotkey" KeyDown="TextBox_Run_Hotkey_KeyDown"  TextChanged="TextBox_Run_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
                               
-                            <Run FontSize="16" Foreground="Black">Stop Editing Script(default is ] ):</Run>
+                            <Run FontSize="16" Foreground="Black" Text="{DynamicResource Stop_Editing_Script_Option}"></Run>
                             <LineBreak/> 
                              <CheckBox x:Name="Stop_CrtlKey_Chk" Content="Ctrl  +" Margin="5,0,0,8" Checked="Stop_CrtlKey_Chk_Checked" Unchecked="Stop_CrtlKey_Chk_Unchecked"/>
                             <TextBox x:Name="TextBox_Stop_Hotkey" KeyDown="TextBox_Stop_Hotkey_KeyDown" TextChanged="TextBox_Stop_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
                             
-                            <Run FontSize="16" Foreground="Black">Hide on start:</Run>
+                            <Run FontSize="16" Foreground="Black" Text="{DynamicResource Hide_on_start_Option}"></Run>
                             <Controls:ToggleSwitch Toggled="HideOnSatrt_Toggle_Toggled" Name="HideOnSatrt_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15,0,0,-5" Grid.Column="1"></Controls:ToggleSwitch>
                             <LineBreak/>
-                            <Run FontSize="16" Foreground="Black">Test Mode:</Run>
+                            <Run FontSize="16" Foreground="Black" Text="{DynamicResource Test_Mode_Option}"></Run>
                             <Controls:ToggleSwitch Toggled="TestMode_Toggle_Toggled" Name="TestMode_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="32,0,0,-5" Grid.Column="1"
-                                                   ToolTip="The script being edited will delayed by 1 second every step and mark the running step." ToolTipService.InitialShowDelay="300"></Controls:ToggleSwitch>
+                                                   ToolTip="{DynamicResource Test_Mode_Tooltip}" ToolTipService.InitialShowDelay="300"></Controls:ToggleSwitch>
                             <LineBreak/>
 
                             <LineBreak/> 
-                            <Run FontSize="16" Foreground="Black">Website(Github):</Run>
+                            <Run FontSize="16" Foreground="Black" Text="{DynamicResource Website}"></Run> <Run FontSize="16" Foreground="Black">(Github):</Run>
                             <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate"> 
                                    <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
                             </Hyperlink>

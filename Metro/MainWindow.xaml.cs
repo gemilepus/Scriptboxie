@@ -414,6 +414,22 @@ namespace Metro
         {
             InitializeComponent();
 
+            string language = "en";
+
+            ResourceDictionary dict = new ResourceDictionary();
+            switch (language.ToLower())
+            {
+                default:
+                case "en":
+                    dict.Source = new Uri(@"..\Resources\StringResources.xaml", UriKind.Relative);
+                    break;
+                case "zh-tw":
+                    dict.Source = new Uri(@"..\Resources\StringResources.zh-tw.xaml", UriKind.Relative);
+                    break;
+            }
+            System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
+            string Check_for_Updates = FindResource("Check_for_Updates").ToString();
+
             MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
 
             Timestamp = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;

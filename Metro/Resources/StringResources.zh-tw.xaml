@@ -1,0 +1,11 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+     xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="Check_for_Updates">檢查更新</system:String>
+    <system:String x:Key="ON_OFF_Option">ON/OFF(預設是 " )</system:String>
+    <system:String x:Key="Run_Editing_Script_Option">執行編輯中腳本(預設是 [ ):</system:String>
+    <system:String x:Key="Stop_Editing_Script_Option">停止編輯中腳本(預設是 ] ):</system:String>
+
+</ResourceDictionary>
