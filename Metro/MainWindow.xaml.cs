@@ -1289,6 +1289,9 @@ namespace Metro
                                         case "ALT":
                                             ModifierKeyArr[i] = "MENU";
                                             break;
+                                        case "CTRL":
+                                            ModifierKeyArr[i] = "CONTROL";
+                                            break;
                                     }
 
                                     if (ModifierKeyArr[i].Length == 1) {
