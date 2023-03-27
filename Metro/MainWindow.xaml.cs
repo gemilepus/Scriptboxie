@@ -696,6 +696,11 @@ namespace Metro
                         case "RShiftKey":
                             mKeyCode = "SHIFT";
                             break;
+                        case "LControlKey":
+                        case "RControlKey":
+                            mKeyCode = "CTRL";
+                            break;
+                            
                     }
 
                     mDataGrid.DataContext = null;
@@ -1251,6 +1256,9 @@ namespace Metro
                                         case "ALT":
                                             SendKeyStr = "MENU";
                                             break;
+                                        case "CTRL":
+                                            SendKeyStr = "CONTROL";
+                                            break;  
                                     }
 
                                     if (SendKeyStr.Length == 1)
