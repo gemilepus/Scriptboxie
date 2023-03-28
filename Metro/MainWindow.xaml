@@ -89,6 +89,7 @@
                         <Run Foreground="Orange">-@Key</Run><LineBreak/>        
                         Key: key in value<LineBreak/>
                         ex: 123abc<LineBreak/>
+                        ex: DOWN<LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐Delay</Run><LineBreak/>
