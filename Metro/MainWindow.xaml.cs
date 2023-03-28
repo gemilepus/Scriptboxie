@@ -1279,7 +1279,10 @@ namespace Metro
                                             break;
                                         case "CTRL":
                                             SendKeyStr = "CONTROL";
-                                            break;  
+                                            break;
+                                        case "ENTER":
+                                            SendKeyStr = "RETURN";
+                                            break;
                                     }
 
                                     if (SendKeyStr.Length == 1)
