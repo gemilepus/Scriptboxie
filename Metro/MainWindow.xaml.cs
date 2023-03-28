@@ -366,6 +366,17 @@ namespace Metro
             }
             Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
 
+            // ScrollToBottom
+            if (mDataGrid.Items.Count > 0)
+            {
+                var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
+                if (border != null)
+                {
+                    var scroll = border.Child as ScrollViewer;
+                    if (scroll != null) scroll.ScrollToBottom();
+                }
+            }
+
             // uncommenting the following line will suppress the middle mouse button click
             // if (e.Buttons == MouseButtons.Middle) { e.Handled = true; }
         }
@@ -709,6 +720,17 @@ namespace Metro
                     mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "200", mTable_Event = "", mTable_Note = "" });
                     mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
                     mDataGrid.DataContext = mDataTable;
+
+                    // ScrollToBottom
+                    if (mDataGrid.Items.Count > 0)
+                    {
+                        var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
+                        if (border != null)
+                        {
+                            var scroll = border.Child as ScrollViewer;
+                            if (scroll != null) scroll.ScrollToBottom();
+                        }
+                    }
                 }
             }
 
@@ -1904,6 +1926,12 @@ namespace Metro
 
             mDataTable = Load_Script_to_DataTable(filePath);
             mDataGrid.DataContext = mDataTable;
+
+            // .ini
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile("user.ini");
+            data["Def"]["Script"] = filePath;
+            parser.WriteFile("user.ini", data);
         }
 
         private List<MainTable> Load_Script_to_DataTable(string mfilePath)
@@ -2126,12 +2154,6 @@ namespace Metro
                     return;
 
                 Load_Script(filePath);
-
-                // .ini
-                var parser = new FileIniDataParser();
-                IniData data = parser.ReadFile("user.ini");
-                data["Def"]["Script"] = filePath;
-                parser.WriteFile("user.ini", data);
             }
             catch (Exception err)
             {
@@ -2157,6 +2179,8 @@ namespace Metro
                         + "\n";
                 }
                 System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
+
+                Load_Script(System.Windows.Forms.Application.StartupPath + "\\" + result + ".txt");
             }
             catch (Exception err)
             {
@@ -2238,6 +2262,12 @@ namespace Metro
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             }
+        }
+        private void mDataGrid_HeaderClick(object sender, RoutedEventArgs e)
+        {       
+            mDataGrid.DataContext = null;
+            mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "", mTable_Note = "" });
+            mDataGrid.DataContext = mDataTable;
         }
 
         private void mDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
