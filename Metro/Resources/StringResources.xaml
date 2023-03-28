@@ -8,6 +8,8 @@
 
     <system:String x:Key="Please_run_as_administrator">Please run as administrator</system:String>
 
+    <system:String x:Key="Clear_screen">Clear screen</system:String>
+    
     <system:String x:Key="Check_for_Updates">Check for Updates</system:String>
     <system:String x:Key="ON_OFF_Option">ON/OFF(default is " )</system:String>
     <system:String x:Key="Run_Editing_Script_Option">Run Editing Script(default is [ ):</system:String>

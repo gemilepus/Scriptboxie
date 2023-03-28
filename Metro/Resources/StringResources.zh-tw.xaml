@@ -3,16 +3,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
      xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <system:String x:Key="Btn_ON_Tooltip">When this display OFF,the hotkey will not work.</system:String>
-    <system:String x:Key="TextBox_Title_Tooltip">You can enter the window title here, and then the hotkey will only work on the window match this.</system:String>
+    <system:String x:Key="Btn_ON_Tooltip">當這個顯示OFF時，快捷鍵會失效</system:String>
+    <system:String x:Key="TextBox_Title_Tooltip">你可以在這輸入視窗的標題，然後快捷鍵就只會在當目前視窗標題與此對應的視窗下有作用。</system:String>
+
+    <system:String x:Key="Please_run_as_administrator">請用系統管理員身分執行</system:String>
+
+    <system:String x:Key="Clear_screen">清理畫面</system:String>
 
     <system:String x:Key="Check_for_Updates">檢查更新</system:String>
     <system:String x:Key="ON_OFF_Option">ON/OFF(預設是 " )</system:String>
     <system:String x:Key="Run_Editing_Script_Option">執行編輯中腳本(預設是 [ ):</system:String>
     <system:String x:Key="Stop_Editing_Script_Option">停止編輯中腳本(預設是 ] ):</system:String>
-    <system:String x:Key="Hide_on_start_Option">Hide on start:</system:String>
-    <system:String x:Key="Test_Mode_Option">Test Mode:</system:String>
-    <system:String x:Key="Test_Mode_Tooltip">The script being edited will delayed by 1 second every step and mark the running step.</system:String>
-    <system:String x:Key="Website">Website</system:String>
+    <system:String x:Key="Hide_on_start_Option">啟動時隱藏:</system:String>
+    <system:String x:Key="Test_Mode_Option">測試模式:</system:String>
+    <system:String x:Key="Test_Mode_Tooltip">當執行編輯中的腳本時，每一步都會延遲一秒並且會標示正在執行的那一步。</system:String>
+    <system:String x:Key="Website">網站</system:String>
+
+    <system:String x:Key="Save_could_not_be_completed">儲存失敗!</system:String>
+    <system:String x:Key="File_does_not_exist">檔案不存在!</system:String>
+    <system:String x:Key="Input_filename">輸入文件名:</system:String>
 
 </ResourceDictionary>
