@@ -439,7 +439,6 @@ namespace Metro
                     break;
             }
             System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
-            string Check_for_Updates = FindResource("Check_for_Updates").ToString();
 
             MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
 
@@ -1338,6 +1337,9 @@ namespace Metro
                                         case "CTRL":
                                             ModifierKeyArr[i] = "CONTROL";
                                             break;
+                                        case "WIN":
+                                            ModifierKeyArr[i] = "LWIN";
+                                            break;
                                     }
 
                                     if (ModifierKeyArr[i].Length == 1) {
@@ -2162,7 +2164,7 @@ namespace Metro
         }
         private async void Btn_Save_as_Click(object sender, RoutedEventArgs e) // async
         {
-            var result = await this.ShowInputAsync("Save", "input filename:");
+            var result = await this.ShowInputAsync("Save", FindResource("Input_filename").ToString());
             if (result == null) { return; }
 
             try
@@ -2185,7 +2187,7 @@ namespace Metro
             {
                 Console.WriteLine("{0} Exception caught.", err);
 
-                await this.ShowMessageAsync("", "save could not be completed!");
+                await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
             }
         }
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
@@ -2202,7 +2204,7 @@ namespace Metro
             }
 
             if (result == null || result == "") {
-                this.ShowMessageAsync("", "file does not exist!");
+                this.ShowMessageAsync("", FindResource("File_does_not_exist").ToString());
                 return;
             }
 
@@ -2224,7 +2226,7 @@ namespace Metro
             {
                 Console.WriteLine("{0} Exception caught.", err);
 
-                this.ShowMessageAsync("", "save could not be completed!");
+                this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
             }
         }
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)

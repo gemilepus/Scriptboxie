@@ -199,7 +199,7 @@
 
                     <Controls:ToggleSwitch Toggled="Script_Toggle_Toggled" Name="Script_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
                     <TextBlock x:Name="TextBlock_Please" Visibility="Hidden" Height="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0" Grid.Column="1">
-                         <Run Foreground="OrangeRed">Please run as administrator</Run>
+                         <Run Foreground="OrangeRed" Text="{DynamicResource Please_run_as_administrator}"></Run>
                     </TextBlock>
                 </Grid>
             </TabItem>
