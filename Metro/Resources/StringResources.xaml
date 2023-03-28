@@ -3,6 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
      xmlns:system="clr-namespace:System;assembly=mscorlib">
 
+    <system:String x:Key="Btn_ON_Tooltip">When this display OFF,the hotkey will not work.</system:String>
+    <system:String x:Key="TextBox_Title_Tooltip">You can enter the window title here, and then the hotkey will only work on the window match this.</system:String>
+    
     <system:String x:Key="Check_for_Updates">Check for Updates</system:String>
     <system:String x:Key="ON_OFF_Option">ON/OFF(default is " )</system:String>
     <system:String x:Key="Run_Editing_Script_Option">Run Editing Script(default is [ ):</system:String>
