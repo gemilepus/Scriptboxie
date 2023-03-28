@@ -1603,8 +1603,7 @@ namespace Metro
                     }
                     catch(Exception e)
                     {
-                        //Console.WriteLine("{0} Exception caught.", e);
-                        Console.WriteLine("Exception caught.");
+                        Console.WriteLine("{0} Exception caught.", e);
 
                         if (e.Message.ToString().IndexOf("Thread") == -1) {
                             if (Mode.Equals("Debug")) {
@@ -1800,10 +1799,6 @@ namespace Metro
         {
             try
             {
-                //SoundPlayer mWaveFile = new SoundPlayer("sound.wav");
-                //mWaveFile.PlaySync();
-                //mWaveFile.Dispose();
-
                 mAlertSound.Play();
             }
             catch (Exception e)
@@ -2004,11 +1999,30 @@ namespace Metro
             }
             return tempDataTable;
         }
+
+        private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            Save_Script();
+            eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
+            if (eDataGrid.IsEnabled)
+            {
+                Btn_ON.Content = "OFF";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+            }
+            else {
+                Btn_ON.Content = "ON";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+            }
+        }
+        #endregion
+
+        #region Script Panel DataGrid Event
         private void eDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             Save_Script();
 
-            if (e.Column.Header.Equals("Path")) {
+            if (e.Column.Header.Equals("Path"))
+            {
                 int RowIndex = e.Row.GetIndex();
             }
         }
@@ -2077,21 +2091,6 @@ namespace Metro
         private void eDataGrid_CurrentCellChanged(object sender, EventArgs e)
         {
             Save_Script();
-        }
-
-        private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
-        {
-            Save_Script();
-            eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
-            if (eDataGrid.IsEnabled)
-            {
-                Btn_ON.Content = "OFF";
-                Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
-            }
-            else {
-                Btn_ON.Content = "ON";
-                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
-            }
         }
         #endregion
 

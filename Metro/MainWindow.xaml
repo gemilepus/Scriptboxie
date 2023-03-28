@@ -81,8 +81,8 @@
                         <Run Foreground="Gold">⭐ModifierKey : modifier key</Run><LineBreak/>
                         <Run Foreground="Orange">-@Key</Run><LineBreak/>        
                         Key: input like modifier key|key,<LineBreak/>
-                        modifier key use CONTROL,MENU,SHIFT... <LineBreak/>
-                        ex: CONTROL|A<LineBreak/>
+                        modifier key use CTRL,ALT,SHIFT... <LineBreak/>
+                        ex: CTRL|V<LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐key : key in</Run><LineBreak/>
