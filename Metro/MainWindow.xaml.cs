@@ -1243,20 +1243,46 @@ namespace Metro
                                 //***************** SendKeys *****************
 
                                 //***************** InputSimulator *****************
-                                string str = CommandData;
-                                char[] arr = str.ToCharArray();
-
-                                foreach (char c in arr)
+                                string mCommandData= CommandData;
+                                switch (mCommandData)
                                 {
-                                    //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-
-                                    mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-                                    Thread.Sleep(100);
-                                    mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                    case "ESC":
+                                        mCommandData = "ESCAPE";
+                                        break;
+                                    case "ALT":
+                                        mCommandData = "MENU";
+                                        break;
+                                    case "CTRL":
+                                        mCommandData = "CONTROL";
+                                        break;
+                                    case "ENTER":
+                                        mCommandData = "RETURN";
+                                        break;
                                 }
+                                VirtualKeyCode mKey = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(mCommandData);
+                                if (mKey != 0)
+                                {
+                                    mInputSimulator.Keyboard.KeyDown(mKey);
+                                    Thread.Sleep(250);
+                                    mInputSimulator.Keyboard.KeyUp(mKey);
+                                }
+                                else {
+                                    string str = CommandData;
+                                    char[] arr = str.ToCharArray();
 
-                                //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
-                                //***************** InputSimulator *****************
+                                    foreach (char c in arr)
+                                    {
+                                        //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+
+                                        mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                        Thread.Sleep(100);
+                                        mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                    }
+
+                                    //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
+                                    //***************** InputSimulator *****************
+
+                                }
 
                                 break;
 
