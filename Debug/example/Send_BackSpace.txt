@@ -1,0 +1,7 @@
+True;Delay;300;;;
+True;Key;A;;;
+True;Key;B;;;
+True;Key;C;;;
+True;Key;BACK;;;
+True;Key;BACK;;;
+True;Key;BACK;;;
