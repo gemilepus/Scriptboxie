@@ -1243,13 +1243,29 @@ namespace Metro
                                 #endregion
 
                                 //***************** InputSimulator *****************
-
-                                VirtualKeyCode mKey = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(ConvertHelper.ConvertKeyString(CommandData));
-                                if (mKey != 0)
+                                string[] mKey = CommandData.ToUpper().Split(',');
+                                if (mKey[0].Length == 1)
                                 {
-                                    mInputSimulator.Keyboard.KeyDown(mKey);
-                                    Thread.Sleep(250);
-                                    mInputSimulator.Keyboard.KeyUp(mKey);
+                                    mKey[0] = "VK_" + mKey[0];
+                                }
+                                VirtualKeyCode mKeyCode = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(ConvertHelper.ConvertKeyString(mKey[0]));
+                                if (mKeyCode != 0)
+                                {
+                                    if (mKey.Length == 2)
+                                    {
+                                        if (mKey[1].Equals("DOWN"))
+                                        {
+                                            mInputSimulator.Keyboard.KeyDown(mKeyCode);
+                                        }
+                                        else {
+                                            mInputSimulator.Keyboard.KeyUp(mKeyCode);
+                                        }
+                                    }
+                                    else {
+                                        mInputSimulator.Keyboard.KeyDown(mKeyCode);
+                                        Thread.Sleep(250);
+                                        mInputSimulator.Keyboard.KeyUp(mKeyCode);
+                                    }
                                 }
                                 else {
                                     string str = CommandData;

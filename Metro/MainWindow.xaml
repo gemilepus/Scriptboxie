@@ -71,11 +71,21 @@
                         ex: Left_Down<LineBreak/>
                         <LineBreak/>
                         
-                        <Run Foreground="Gold">⭐SendKeyDown,SendKeyUp : keyboard input</Run><LineBreak/>
+                        <Run Foreground="Gold">⭐SendKeyDown,SendKeyUp : keyboard input(for Game)</Run><LineBreak/>
                         <Run Foreground="Orange">-@Key</Run><LineBreak/>        
                         Key: key value , can use A~Z 0~9 F1~F12...<LineBreak/>
                         ex: A<LineBreak/>
                         ex: RIGHT<LineBreak/>
+                        <LineBreak/>
+                        
+                        <Run Foreground="Gold">⭐key : keyboard input</Run><LineBreak/>
+                        <Run Foreground="Orange">-@Key</Run><LineBreak/>       
+                        <Run Foreground="Orange">-@Key,@Type</Run><LineBreak/>    
+                        Key: key in value , can use A~Z 0~9 F1~F12 WIN ......<LineBreak/>
+                        Type: Down or Up
+                        ex: A,Down<LineBreak/>
+                        ex: DOWN<LineBreak/>
+                        ex: 10000<LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐ModifierKey : modifier key</Run><LineBreak/>
@@ -83,13 +93,6 @@
                         Key: input like modifier key|key,<LineBreak/>
                         modifier key use CTRL,ALT,SHIFT... <LineBreak/>
                         ex: CTRL|V<LineBreak/>
-                        <LineBreak/>
-                        
-                        <Run Foreground="Gold">⭐key : key in</Run><LineBreak/>
-                        <Run Foreground="Orange">-@Key</Run><LineBreak/>        
-                        Key: key in value<LineBreak/>
-                        ex: 123abc<LineBreak/>
-                        ex: DOWN<LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐Delay</Run><LineBreak/>
