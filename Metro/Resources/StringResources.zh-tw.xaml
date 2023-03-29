@@ -5,6 +5,11 @@
 
     <system:String x:Key="Btn_ON_Tooltip">當這個顯示OFF時，快捷鍵會失效</system:String>
     <system:String x:Key="TextBox_Title_Tooltip">你可以在這輸入視窗的標題，然後快捷鍵就只會在當目前視窗標題與此對應的視窗下有作用。</system:String>
+    <system:String x:Key="About">關於</system:String>
+    <system:String x:Key="Help">幫助</system:String>
+    <system:String x:Key="Main">主頁</system:String>
+    <system:String x:Key="Edit">編輯</system:String>
+    <system:String x:Key="Setting">設定</system:String>
 
     <system:String x:Key="Please_run_as_administrator">請用系統管理員身分執行</system:String>
 

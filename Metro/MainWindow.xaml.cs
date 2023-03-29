@@ -1999,6 +1999,53 @@ namespace Metro
         {
             Save_Script();
             eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
+
+            // Load Script setting
+            try
+            {
+                Load_Script_ini();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0} Exception caught.", ex);
+
+                if (!File.Exists("Script.ini"))
+                {
+                    eDataGrid.DataContext = null;
+                    eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                    eDataGrid.DataContext = eDataTable;
+                }
+            }
+
+            _workerThreads = new List<Thread>();
+            for (int i = 0; i < eDataTable.Count; i++)
+            {
+                if (eDataTable[i].eTable_Path.Length > 0)
+                {
+                    Console.WriteLine(i + " " + eDataTable[i].eTable_Path);
+                    string mScript_Local = eDataTable[i].eTable_Path;
+                    Thread TempThread = new Thread(() =>
+                    {
+                        try
+                        {
+                            Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("{0} Exception caught.", ex);
+                        }
+                        finally
+                        {
+                            GC.Collect();
+                            GC.WaitForPendingFinalizers();
+
+                        }
+                    });
+
+                    _workerThreads.Add(TempThread);
+                }
+            }
+
             if (eDataGrid.IsEnabled)
             {
                 Btn_ON.Content = "OFF";

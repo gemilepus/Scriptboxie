@@ -5,6 +5,11 @@
 
     <system:String x:Key="Btn_ON_Tooltip">When this display OFF,the hotkey will not work.</system:String>
     <system:String x:Key="TextBox_Title_Tooltip">You can enter the window title here, and then the hotkey will only work on the window match this.</system:String>
+    <system:String x:Key="About">About</system:String>
+    <system:String x:Key="Help">Help</system:String>
+    <system:String x:Key="Main">Main</system:String>
+    <system:String x:Key="Edit">Edit</system:String>
+    <system:String x:Key="Setting">Setting</system:String>
 
     <system:String x:Key="Please_run_as_administrator">Please run as administrator</system:String>
 
