@@ -411,13 +411,8 @@ namespace Metro
 
         // NotifyIcon
         private static NotifyIcon mNotifyIcon = new NotifyIcon();
-        //private void MenuItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.Show();
-        //}
 
         private SoundPlayer mAlertSound = new SoundPlayer(Metro.Properties.Resources.sound);
-
         private SettingHelper mSettingHelper = new SettingHelper();
         private bool TestMode = false;
 
@@ -426,7 +421,6 @@ namespace Metro
             InitializeComponent();
 
             string language = "en";
-
             ResourceDictionary dict = new ResourceDictionary();
             switch (language.ToLower())
             {
@@ -567,7 +561,6 @@ namespace Metro
                 TestMode = false;
                 TestMode_Toggle.IsOn = false;
             }
-
 
             #region OverlayWindow
 
@@ -1649,7 +1642,6 @@ namespace Metro
             CreateMessage("1000");
 
         }
-
 
         #region APP
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]

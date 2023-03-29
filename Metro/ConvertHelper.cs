@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
 using WindowsInput.Native;
 using System.Collections;
 using System.Windows.Forms;

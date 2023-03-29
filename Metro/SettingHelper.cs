@@ -5,7 +5,8 @@ namespace Metro
 {
     public class SettingHelper
     {
-        public string OnOff_Hotkey, OnOff_CrtlKey, Run_Hotkey, Run_CrtlKey , Stop_Hotkey ,Stop_CrtlKey, TestMode , HideOnSatrt;
+        public string OnOff_Hotkey, OnOff_CrtlKey, Run_Hotkey, Run_CrtlKey , Stop_Hotkey ,Stop_CrtlKey,
+            TestMode , HideOnSatrt;
         public bool ShowBalloon = false;
 
         public SettingHelper()

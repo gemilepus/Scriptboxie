@@ -1,6 +1,5 @@
 ﻿using System.Runtime.InteropServices;
 using System;
-using static Keyboard;
 public class Keyboard
 {
     public void SendKeyDown(short a)
