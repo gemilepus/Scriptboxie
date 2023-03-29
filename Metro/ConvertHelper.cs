@@ -41,6 +41,29 @@ public class ConvertHelper
         }
         return value;
     }
+    public string ConvertKeyString(string KeyValue)
+    {
+        switch (KeyValue)
+        {
+            case "ESC":
+                KeyValue = "ESCAPE";
+                break;
+            case "ALT":
+                KeyValue = "MENU";
+                break;
+            case "CTRL":
+                KeyValue = "CONTROL";
+                break;
+            case "ENTER":
+                KeyValue = "RETURN";
+                break;
+            case "WIN":
+            case "WINDOWS":
+                KeyValue = "LWIN";
+                break;
+        }
+        return KeyValue;
+    }
     public void GetEnumVirtualKeyCodeValues()
     {
         Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));

@@ -124,13 +124,13 @@
                         <Run Foreground="Gold">⭐Run .exe</Run><LineBreak/>
                         <Run Foreground="Orange">-@Path</Run><LineBreak/>     
                         Path: .exe Path<LineBreak/>
-                        ex: sound.wav<LineBreak/>
+                        ex: C:\Users\Metro.exe<LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐PlaySound</Run><LineBreak/>
                         <Run Foreground="Orange">-@Path</Run><LineBreak/>     
                         Path: sound file path,use .wav format<LineBreak/>     
-                        ex: C:\Users\Metro.exe<LineBreak/>
+                         ex: sound.wav<LineBreak/>
                         <LineBreak/>
                         
                         <Run Foreground="Gold">⭐WriteClipboard</Run><LineBreak/>

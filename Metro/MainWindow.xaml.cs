@@ -1227,7 +1227,7 @@ namespace Metro
                                     break;
                                 }
 
-                                //***************** SendKeys *****************
+                                #region SendKeys
                                 //Char[] mChar = CommandData.ToCharArray();
                                 //for (int j = 0; j < mChar.Length; j++)
                                 //{
@@ -1240,26 +1240,11 @@ namespace Metro
 
                                 //KeysConverter kc = new KeysConverter();
                                 //string keyChar = kc.ConvertToString("A");
-                                //***************** SendKeys *****************
+                                #endregion
 
                                 //***************** InputSimulator *****************
-                                string mCommandData= CommandData;
-                                switch (mCommandData)
-                                {
-                                    case "ESC":
-                                        mCommandData = "ESCAPE";
-                                        break;
-                                    case "ALT":
-                                        mCommandData = "MENU";
-                                        break;
-                                    case "CTRL":
-                                        mCommandData = "CONTROL";
-                                        break;
-                                    case "ENTER":
-                                        mCommandData = "RETURN";
-                                        break;
-                                }
-                                VirtualKeyCode mKey = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(mCommandData);
+
+                                VirtualKeyCode mKey = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(ConvertHelper.ConvertKeyString(CommandData));
                                 if (mKey != 0)
                                 {
                                     mInputSimulator.Keyboard.KeyDown(mKey);
@@ -1272,17 +1257,14 @@ namespace Metro
 
                                     foreach (char c in arr)
                                     {
-                                        //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-
                                         mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                                         Thread.Sleep(100);
                                         mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                                     }
-
-                                    //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
-                                    //***************** InputSimulator *****************
-
                                 }
+                                //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
+                                //***************** InputSimulator *****************
 
                                 break;
 
@@ -1294,22 +1276,7 @@ namespace Metro
                                     break;
                                 }
                                 else {
-                                    string SendKeyStr = CommandData.Trim().ToUpper();
-                                    switch (SendKeyStr)
-                                    {
-                                        case "ESC":
-                                            SendKeyStr = "ESCAPE";
-                                            break;
-                                        case "ALT":
-                                            SendKeyStr = "MENU";
-                                            break;
-                                        case "CTRL":
-                                            SendKeyStr = "CONTROL";
-                                            break;
-                                        case "ENTER":
-                                            SendKeyStr = "RETURN";
-                                            break;
-                                    }
+                                    string SendKeyStr = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
 
                                     if (SendKeyStr.Length == 1)
                                     {
@@ -1358,18 +1325,7 @@ namespace Metro
                                 VirtualKeyCode[] KeyCodeArr = new VirtualKeyCode[KeyArr.Length];
                                 for (int i = 0; i < ModifierKeyCodeArr.Length; i++)
                                 {
-                                    switch (ModifierKeyArr[i])
-                                    {
-                                        case "ALT":
-                                            ModifierKeyArr[i] = "MENU";
-                                            break;
-                                        case "CTRL":
-                                            ModifierKeyArr[i] = "CONTROL";
-                                            break;
-                                        case "WIN":
-                                            ModifierKeyArr[i] = "LWIN";
-                                            break;
-                                    }
+                                    ModifierKeyArr[i] = ConvertHelper.ConvertKeyString(ModifierKeyArr[i]);
 
                                     if (ModifierKeyArr[i].Length == 1) {
                                         ModifierKeyArr[i] = "VK_"+ModifierKeyArr[i];
