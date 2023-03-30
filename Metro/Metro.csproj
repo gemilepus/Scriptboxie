@@ -314,6 +314,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Keyboard.cs" />
+    <Compile Include="Resources\ModeDocument_en.xaml.cs">
+      <DependentUpon>ModeDocument_en.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ModeDocument_zhtw.xaml.cs">
+      <DependentUpon>ModeDocument_zhtw.xaml</DependentUpon>
+    </Compile>
     <Compile Include="V.cs" />
     <Compile Include="EditTable.cs" />
     <Compile Include="MainTable.cs" />
@@ -322,6 +328,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\ModeDocument_en.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ModeDocument_zhtw.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\StringResources.zh-tw.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

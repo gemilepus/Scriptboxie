@@ -2474,6 +2474,8 @@ namespace Metro
             ResourceDictionary dict = new ResourceDictionary();
             dict.Source = new Uri(@"..\Resources\StringResources." + lang + ".xaml", UriKind.Relative);
             System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
+
+            mFrame.Navigate(new System.Uri(@"..\Resources\ModeDocument_"+ lang.Replace("-","") + ".xaml", UriKind.RelativeOrAbsolute));
         }
 
         private async void Updates_Button_Click(object sender, RoutedEventArgs e)
