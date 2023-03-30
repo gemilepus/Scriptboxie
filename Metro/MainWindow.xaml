@@ -484,9 +484,23 @@
                             </Hyperlink>
                             
                             <!--<Run FontSize="16" Foreground="Gray">Note: settings will apply after restart app</Run><LineBreak/>-->
-
+                            
+                         
+                            
                         </TextBlock>
+
+                    
                     </ScrollViewer>
+
+                    <Controls:SplitButton Name="LangSplitButton" HorizontalAlignment="Right" VerticalAlignment="Top" MinWidth="100" SelectionChanged="LangSplitButton_SelectionChanged">
+                        <Controls:SplitButton.Items>
+                            <Label Tag="en">English</Label>
+                            <Label Tag="zh-tw">繁體中文</Label>
+                        </Controls:SplitButton.Items>
+                        <Controls:SplitButton.Icon>
+                            <Image  Height="16" Width="16" Source="img/globe.png"/>
+                        </Controls:SplitButton.Icon>
+                    </Controls:SplitButton>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -6,7 +6,7 @@ namespace Metro
     public class SettingHelper
     {
         public string OnOff_Hotkey, OnOff_CrtlKey, Run_Hotkey, Run_CrtlKey , Stop_Hotkey ,Stop_CrtlKey,
-            TestMode , HideOnSatrt;
+            TestMode , HideOnSatrt , Language;
         public bool ShowBalloon = false;
 
         public SettingHelper()
@@ -102,6 +102,12 @@ namespace Metro
                 data["Def"]["TestMode"] = "0";
             }
 
+            // Language
+            if (data["Def"]["Language"] == null)
+            {
+                data["Def"]["Language"] = "en";
+            }
+            
             parser.WriteFile("user.ini", data);
 
             if (data["Def"]["ShowBalloon"].ToString().Equals("1")) {
@@ -117,6 +123,7 @@ namespace Metro
 
             HideOnSatrt = data["Def"]["HideOnSatrt"];
             TestMode = data["Def"]["TestMode"];
+            Language = data["Def"]["Language"];
         }
 
         public void End(MainWindow MainWindow)
@@ -137,6 +144,7 @@ namespace Metro
 
             data["Def"]["HideOnSatrt"] = HideOnSatrt;
             data["Def"]["TestMode"] = TestMode;
+            data["Def"]["Language"] = Language;
 
             parser.WriteFile("user.ini", data);
         }

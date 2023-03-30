@@ -38,6 +38,9 @@ using System.Windows.Media;
 using System.Net;
 using System.Text.Json;
 using System.Windows.Interop;
+using System.Data;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using System.Web.UI.WebControls;
 
 namespace Metro
 {
@@ -420,19 +423,12 @@ namespace Metro
         {
             InitializeComponent();
 
-            string language = "en";
-            ResourceDictionary dict = new ResourceDictionary();
-            switch (language.ToLower())
-            {
-                default:
-                case "en":
-                    dict.Source = new Uri(@"..\Resources\StringResources.xaml", UriKind.Relative);
-                    break;
-                case "zh-tw":
-                    dict.Source = new Uri(@"..\Resources\StringResources.zh-tw.xaml", UriKind.Relative);
-                    break;
+            for (int i=0; i< LangSplitButton.Items.Count; i++){
+                System.Windows.Controls.Label mLabel = (System.Windows.Controls.Label)LangSplitButton.Items[i];
+                if (mLabel.Tag.Equals(mSettingHelper.Language)) {
+                    LangSplitButton.SelectedIndex = i;
+                }
             }
-            System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
 
             MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
 
@@ -2464,6 +2460,23 @@ namespace Metro
                 TestMode = false;
                 mSettingHelper.TestMode = "0";
             }
+        }
+
+        private void LangSplitButton_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MahApps.Metro.Controls.SplitButton mSplitButton = (MahApps.Metro.Controls.SplitButton)sender;
+            System.Windows.Controls.Label ItemLabel = (System.Windows.Controls.Label)mSplitButton.SelectedItem;
+            string SelectVal = ItemLabel.Tag.ToString();
+
+            mSettingHelper.Language = SelectVal;
+            SetLang(SelectVal);
+        }
+
+        private void SetLang(string lang)
+        {
+            ResourceDictionary dict = new ResourceDictionary();
+            dict.Source = new Uri(@"..\Resources\StringResources." + lang + ".xaml", UriKind.Relative);
+            System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
         }
 
         private async void Updates_Button_Click(object sender, RoutedEventArgs e)
