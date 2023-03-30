@@ -16,14 +16,14 @@
         <LineBreak/>
 
         <Run Foreground="Gold">⭐RemoveEvent</Run>
+        <LineBreak/>     
+        <Run Foreground="Red">在 EVENT 欄位輸入你想刪除的事件名</Run>
+        <LineBreak/>
+        <Run Foreground="Red"></Run>
         <LineBreak/>
         <Run Foreground="OrangeRed">當事件(Event)成立後, 它會一直存在.</Run>
         <LineBreak/>
         <Run Foreground="OrangeRed">如果你不再使用它, 請使用這個.</Run>
-        <LineBreak/>
-        <Run Foreground="Red">在 EVENT 欄位輸入你想刪除的事件名</Run>
-        <LineBreak/>
-        <Run Foreground="Red"></Run>
         <LineBreak/>
         <LineBreak/>
 

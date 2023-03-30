@@ -17,13 +17,13 @@
 
         <Run Foreground="Gold">⭐RemoveEvent</Run>
         <LineBreak/>
-        <Run Foreground="OrangeRed">After the Event is established, it will always exist.</Run>
-        <LineBreak/>
-        <Run Foreground="OrangeRed">If you don't want use it, use this.</Run>
-        <LineBreak/>
-        <Run Foreground="Red">Input the name of the event you want to delete</Run>
+         <Run Foreground="Red">Input the name of the event you want to delete</Run>
         <LineBreak/>
         <Run Foreground="Red">in the EVENT column</Run>
+        <LineBreak/>
+        <Run Foreground="OrangeRed">After the Event is established, it will always exist.</Run>
+        <LineBreak/>
+        <Run Foreground="OrangeRed">If you don't want longer use it, use this.</Run>
         <LineBreak/>
         <LineBreak/>
 
