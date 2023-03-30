@@ -26,7 +26,7 @@
 
     <system:String x:Key="Save_could_not_be_completed">儲存失敗!</system:String>
     <system:String x:Key="File_does_not_exist">檔案不存在!</system:String>
-    <system:String x:Key="Input_filename">輸入文件名:</system:String>.
+    <system:String x:Key="Input_filename">輸入文件名:</system:String>
     <system:String x:Key="The_latest_version_is_used">已使用最新版本({0})</system:String>
     <system:String x:Key="The_current_version_is">目前的最新版本是 {0}, 你可以在 github 下載 :)</system:String>
 
