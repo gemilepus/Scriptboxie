@@ -38,9 +38,6 @@ using System.Windows.Media;
 using System.Net;
 using System.Text.Json;
 using System.Windows.Interop;
-using System.Data;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
-using System.Web.UI.WebControls;
 
 namespace Metro
 {
@@ -2194,7 +2191,7 @@ namespace Metro
         }
         private async void Btn_Save_as_Click(object sender, RoutedEventArgs e) // async
         {
-            var result = await this.ShowInputAsync("Save", FindResource("Input_filename").ToString());
+            var result = await this.ShowInputAsync(FindResource("Save").ToString(), FindResource("Input_filename").ToString());
             if (result == null) { return; }
 
             try
