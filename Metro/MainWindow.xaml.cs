@@ -484,49 +484,7 @@ namespace Metro
             #endregion
 
             // Load Script setting
-            try
-            {
-                Load_Script_ini();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("{0} Exception caught.", ex);
-
-                if (!File.Exists("Script.ini"))
-                {
-                    eDataGrid.DataContext = null;
-                    eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
-                    eDataGrid.DataContext = eDataTable;
-                }
-            }
-            
-            for (int i = 0; i < eDataTable.Count; i++)
-            {
-                if (eDataTable[i].eTable_Path.Length > 0)
-                {
-                    Console.WriteLine(i + " " + eDataTable[i].eTable_Path);
-                    string mScript_Local = eDataTable[i].eTable_Path;
-                    Thread TempThread = new Thread(() =>
-                    {
-                        try
-                        {
-                            Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("{0} Exception caught.", ex);
-                        }
-                        finally
-                        {
-                            GC.Collect();
-                            GC.WaitForPendingFinalizers();
-                           
-                        }
-                    });
-
-                    _workerThreads.Add(TempThread);
-                }
-            }
+            LoadScriptSetting();
 
             // Load setting
             if (!mSettingHelper.OnOff_CrtlKey.Equals("0"))
@@ -744,7 +702,7 @@ namespace Metro
             UnKListener();
 
             // ON / OFF
-            if (e.KeyCode.ToString().Equals(mSettingHelper.OnOff_Hotkey) && !(OnOff_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "'"
+            if (!Script_Toggle.IsOn && e.KeyCode.ToString().Equals(mSettingHelper.OnOff_Hotkey) && !(OnOff_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "'"
             {
                 if (Btn_ON.Content.Equals("ON"))
                 {
@@ -1813,6 +1771,9 @@ namespace Metro
         }
         private void Btn_ON_Click(object sender, RoutedEventArgs e)
         {
+            if (Script_Toggle.IsOn) {
+                return;
+            }
             if (Btn_ON.Content.Equals("ON"))
             {
                 Btn_ON.Content = "OFF";
@@ -1994,12 +1955,7 @@ namespace Metro
             }
             return tempDataTable;
         }
-
-        private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
-        {
-            Save_Script();
-            eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
-
+        private void LoadScriptSetting() {
             // Load Script setting
             try
             {
@@ -2045,6 +2001,14 @@ namespace Metro
                     _workerThreads.Add(TempThread);
                 }
             }
+        }
+
+        private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            Save_Script();
+            eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
+
+            LoadScriptSetting();
 
             if (eDataGrid.IsEnabled)
             {
