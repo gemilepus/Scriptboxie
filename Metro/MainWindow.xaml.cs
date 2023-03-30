@@ -2005,17 +2005,47 @@ namespace Metro
 
         private void Script_Toggle_Toggled(object sender, RoutedEventArgs e)
         {
-            Save_Script();
+           
             eDataGrid.IsEnabled = !eDataGrid.IsEnabled;
-
-            LoadScriptSetting();
 
             if (eDataGrid.IsEnabled)
             {
+                for (int i = 0; i < _workerThreads.Count; i++)
+                {
+                    if (_workerThreads[i].IsAlive)
+                    {
+                        _workerThreads[i].Abort();
+                        _workerThreads[i] = null;
+
+                        _workerThreads[i] = new Thread(() =>
+                        {
+                            try
+                            {
+                                Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("{0} Exception caught.", ex);
+                            }
+                            finally
+                            {
+                                GC.Collect();
+                                GC.WaitForPendingFinalizers();
+                            }
+                        });
+                    }
+                    eDataTable[i].eTable_State = "Stop";
+                }
+                eDataGrid.DataContext = null;
+                eDataGrid.DataContext = eDataTable;
+
                 Btn_ON.Content = "OFF";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
             }
             else {
+                Save_Script();
+                LoadScriptSetting();
+
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             }
@@ -2451,11 +2481,11 @@ namespace Metro
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             if (tag_name.ToString().Equals("v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion)) {
-                await this.ShowMessageAsync("", "The latest version("+ tag_name.ToString() + ") is used");
+                await this.ShowMessageAsync("", string.Format(FindResource("The_latest_version_is_used").ToString(), tag_name.ToString()));
             }
             else
             {
-                await this.ShowMessageAsync("", "The current latest version is " + tag_name.ToString() + ", you can download from github :)");
+                await this.ShowMessageAsync("", string.Format(FindResource("The_current_version_is").ToString(), tag_name.ToString()));
                 Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
             }
         }

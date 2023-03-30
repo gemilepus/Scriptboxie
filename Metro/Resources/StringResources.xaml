@@ -27,9 +27,7 @@
     <system:String x:Key="Save_could_not_be_completed">Save could not be completed!</system:String>
     <system:String x:Key="File_does_not_exist">File does not exist!</system:String>
     <system:String x:Key="Input_filename">Input filename:</system:String>
-    
-
-
-
+    <system:String x:Key="The_latest_version_is_used">The latest version({0}) is used</system:String>
+    <system:String x:Key="The_current_version_is">The current latest version is {0}, you can download from github :)</system:String>
 
 </ResourceDictionary>
