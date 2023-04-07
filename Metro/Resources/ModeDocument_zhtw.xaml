@@ -26,6 +26,7 @@
         <Run Foreground="OrangeRed">如果你不再使用它, 請使用這個.</Run>
         <LineBreak/>
         <LineBreak/>
+         <!--<Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>-->
 
         <Run Foreground="Gold">⭐Match,Match&amp;Draw : 比對並取得圖片位置</Run>
         <LineBreak/>
@@ -57,13 +58,13 @@
         <LineBreak/>
         <Run Foreground="Orange">-@X,@Y</Run>
         <LineBreak/>
-        <Run Foreground="Orange">-Empty</Run>
+        <Run Foreground="Orange">-空值</Run>
         <LineBreak/>
         X: 畫面的 x 值
         <LineBreak/>
         Y: 畫面的 y 值
         <LineBreak/>
-        Empty: 如果設定事件(Event),它可以使用取得的圖片位置
+        空值: 如果設定事件(Event),它可以使用取得的圖片位置
         <LineBreak/>
         ex: 500,600
         <LineBreak/>
@@ -147,11 +148,11 @@
         <LineBreak/>
         <Run Foreground="Orange">-@Times</Run>
         <LineBreak/>
-        <Run Foreground="Orange">-Empty</Run>
+        <Run Foreground="Orange">-空值</Run>
         <LineBreak/>
         Times: 執行幾次
         <LineBreak/>
-        Empty: 一直執行
+        空值: 一直執行
         <LineBreak/>
         ex: 5
         <LineBreak/>
