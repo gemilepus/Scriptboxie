@@ -565,17 +565,17 @@ namespace Metro
             }
 
             this.WindowState = WindowState.Minimized;
+            this.Show();
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            source.AddHook(WndProc);
+
             if (mSettingHelper.HideOnSatrt.Equals("0"))
             {
-                this.Show();
                 this.WindowState = WindowState.Normal;
             }
             else {
                 this.Hide();
             }
-
-            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-            source.AddHook(WndProc);
 
             // test
             ManagementObjectSearcher objvida = new ManagementObjectSearcher("select * from Win32_VideoController ");
