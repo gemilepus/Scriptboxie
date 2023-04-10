@@ -574,6 +574,9 @@ namespace Metro
                 this.Hide();
             }
 
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            source.AddHook(WndProc);
+
             // test
             ManagementObjectSearcher objvida = new ManagementObjectSearcher("select * from Win32_VideoController ");
             string VC = String.Empty, DI = String.Empty;
@@ -1602,8 +1605,6 @@ namespace Metro
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-            System.Windows.Interop.HwndSource source = PresentationSource.FromVisual(this) as System.Windows.Interop.HwndSource;
-            source.AddHook(WndProc);
         }
 
         int LastNumber = 0;
