@@ -5,6 +5,8 @@
 <h1 align="center">Scriptboxie</h1>
 <p align="center">This tool allows you to easily control and create scripts, similar to some mouse macros.</p>
 
+English | [中文](Doc/README.zh-tw.md)
+
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
 [![GitHub downloads](https://img.shields.io/github/downloads/gemilepus/Scriptboxie/total)](https://github.com/gemilepus/Scriptboxie/releases) 
 
