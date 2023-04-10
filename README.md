@@ -3,30 +3,30 @@
 </p>
 
 <h1 align="center">Scriptboxie</h1>
-<p align="center">這個工具可以讓你輕鬆控制和創建腳本，類似一些滑鼠的巨集。</p>
+<p align="center">This tool allows you to easily control and create scripts, similar to some mouse macros.</p>
 
 English | [中文](Doc/README.zh-tw.md)
 
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
 [![GitHub downloads](https://img.shields.io/github/downloads/gemilepus/Scriptboxie/total)](https://github.com/gemilepus/Scriptboxie/releases) 
 
-<h1 align="center">如何使用</h1>
-<p align="center">編輯腳本: 就是輸入你想使用的鍵盤滑鼠動作</p>
+<h1 align="center">How to use</h1>
+<p align="center">edit script: just enter the keyboard and mouse actions to be use</p>
 <p align="center">
  <img align="center" alt="Main" src="Doc/doc2.png" />
 </p>
-<p align="center">設定腳本</p>
+<p align="center">setting script </p>
 <p align="center">
  <img align="center" alt="Main" src="Doc/doc1.png" />
 </p>
-<p align="center">更多資訊</p>
+<p align="center">more info</p>
 <p align="center">
  <img align="center" alt="Edit" src="Doc/documentation.png" />
 </p>
 
-<h1 align="center">下載</h1>
+<h1 align="center">Download</h1>
 
-載點 <https://github.com/gemilepus/Scriptboxie/releases>.
+Download available at <https://github.com/gemilepus/Scriptboxie/releases>.
 
 If you like Scriptboxie, you can support it:
 
@@ -44,16 +44,16 @@ If you like Scriptboxie, you can support it:
 
 | | |
 | ------------- | ----------- |
-| 如果想點擊 Submit 這個按鈕 | [![][f1]][f1] |
-| 截圖並使用小畫家 [![][f2]][f2] 儲存起來 , 像這張圖片 | [![][f4]][f4] |
-| 然後按照這張圖設定 | [![][f5]][f5] Note:event name can be named freely |
-| 完成 | :) | 
+| if you want to click the Submit button | [![][f1]][f1] |
+| take a screenshot and use [![][f2]][f2] save it , like this picture| [![][f4]][f4] |
+| then refer to this picture to set | [![][f5]][f5] Note:event name can be named freely |
+| done | :) | 
 
-<p align="center">然後讓它一直執行</p>
+<p align="center">Then let it alway running</p>
 
 | | |
 | ------------- | ----------- |
-| 按照這張圖設定 :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:After the Event is established, it will always exist.You can use RemoveEvent to remove |
+| refer to this picture to set :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:After the Event is established, it will always exist.You can use RemoveEvent to remove |
 
 <h1 align="center">Screenshots</h1>
 <p align="center">
@@ -65,4 +65,3 @@ If you like Scriptboxie, you can support it:
 - MahApps.Metro - https://github.com/MahApps/MahApps.Metro
 - feather - https://github.com/feathericons/feather
 - opencvsharp - https://github.com/shimat/opencvsharp
-
