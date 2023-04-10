@@ -1,9 +1,11 @@
 <p align="center">
-<img align="center" src="Metro/package.ico" />
+<img align="center" src="../Metro/package.ico" />
 </p>
 
 <h1 align="center">Scriptboxie</h1>
 <p align="center">This tool allows you to easily control and create scripts, similar to some mouse macros.</p>
+
+[English](../README.md) | 中文
 
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
 [![GitHub downloads](https://img.shields.io/github/downloads/gemilepus/Scriptboxie/total)](https://github.com/gemilepus/Scriptboxie/releases) 
@@ -11,15 +13,15 @@
 <h1 align="center">How to use</h1>
 <p align="center">edit script: just enter the keyboard and mouse actions to be use</p>
 <p align="center">
- <img align="center" alt="Main" src="Doc/doc2.png" />
+ <img align="center" alt="Main" src="../Doc/doc2.png" />
 </p>
 <p align="center">setting script </p>
 <p align="center">
- <img align="center" alt="Main" src="Doc/doc1.png" />
+ <img align="center" alt="Main" src="../Doc/doc1.png" />
 </p>
 <p align="center">more info</p>
 <p align="center">
- <img align="center" alt="Edit" src="Doc/documentation.png" />
+ <img align="center" alt="Edit" src="../Doc/documentation.png" />
 </p>
 
 <h1 align="center">Download</h1>
@@ -55,8 +57,8 @@ If you like Scriptboxie, you can support it:
 
 <h1 align="center">Screenshots</h1>
 <p align="center">
- <img align="center" alt="Edit" src="Doc/test.gif" />
- <img align="center" alt="Edit" src="Doc/test2.gif" />
+ <img align="center" alt="Edit" src="../Doc/test.gif" />
+ <img align="center" alt="Edit" src="../Doc/test2.gif" />
 </p>
 
 ## Credits
