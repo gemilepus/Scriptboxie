@@ -46,16 +46,16 @@ If you like Scriptboxie, you can support it:
 | ------------- | ----------- |
 | 如果想點擊 Submit 這個按鈕 | [![][f1]][f1] |
 | 截圖並使用小畫家 [![][f2]][f2] 儲存起來 , 像這張圖片 | [![][f4]][f4] |
-| 然後按照這張圖設定 | [![][f5]][f5] Note:event name can be named freely |
+| 然後按照這張圖設定 | [![][f5]][f5] Note:事件(Event)的名稱可以自由命名 |
 | 完成 | :) | 
 
 <p align="center">然後讓它一直執行</p>
 
 | | |
 | ------------- | ----------- |
-| 按照這張圖設定 :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:After the Event is established, it will always exist.You can use RemoveEvent to remove |
+| 按照這張圖設定 :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:當事件成立後，它會一直存在。可以使用RemoveEvent移除它|
 
-<h1 align="center">Screenshots</h1>
+<h1 align="center">畫面</h1>
 <p align="center">
  <img align="center" alt="Edit" src="../Doc/test.gif" />
  <img align="center" alt="Edit" src="../Doc/test2.gif" />
