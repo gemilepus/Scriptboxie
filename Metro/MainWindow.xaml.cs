@@ -1063,7 +1063,7 @@ namespace Metro
                                 {
                                     // img,x,y,x-length,y-length,threshold
                                     string[] MatchArr = V.Get_Split(CommandData);
-                                    double threshold = 0.8;
+                                    double threshold = 0.9;
 
                                     if (MatchArr[0].Equals(""))
                                     {
@@ -1316,7 +1316,15 @@ namespace Metro
 
                                 if (mDoSortedList.IndexOfKey(Event[0]) != -1)
                                 {
+                                    string[] TempEvent_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
                                     mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(Event[0]));
+
+                                    if (CommandData.ToUpper().Equals("PUSH"))
+                                    {
+                                        if (TempEvent_Data.Length >= 4) {
+                                            mDoSortedList.Add(Event[0], string.Join(",", TempEvent_Data.Skip(2).ToArray()));
+                                        }
+                                    }
                                 }
 
                                 break;
