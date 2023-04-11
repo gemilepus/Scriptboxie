@@ -39,7 +39,7 @@
         <LineBreak/>
         Path: image file path,use .png format
         <LineBreak/>
-        Threshold: 0.8~1.0(def 0.8)
+        Threshold: 0.8~1.0(def 0.9)
         <LineBreak/>
         X: start point x value
         <LineBreak/>

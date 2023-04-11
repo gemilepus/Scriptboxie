@@ -1101,13 +1101,13 @@ namespace Metro
                                     int temp_w = matTemplate.Width / 2, temp_h = matTemplate.Height / 2; // center x y
                                    
                                     string return_xy;
-                                    if (Command.Equals("Match"))
+                                    if (Command.Equals("Match RGB"))
                                     {
-                                        return_xy = RunTemplateMatch(matTarget, matTemplate,"GRAY", threshold);
+                                        return_xy = RunTemplateMatch(matTarget, matTemplate, "RGB", threshold);
                                     }
                                     else
                                     {
-                                        return_xy = RunTemplateMatch(matTarget, matTemplate, "RGB", threshold);
+                                        return_xy = RunTemplateMatch(matTarget, matTemplate, "GRAY", threshold);
                                     }
 
                                     if (!return_xy.Equals(""))

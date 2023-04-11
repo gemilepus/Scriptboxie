@@ -40,7 +40,7 @@
         <LineBreak/>
         Path: 圖片的路徑,使用 .png 格式
         <LineBreak/>
-        Threshold: 容許值 0.8~1.0(預設 0.8)
+        Threshold: 容許值 0.8~1.0(預設 0.9)
         <LineBreak/>
         X: 起始點的 x 值
         <LineBreak/>
