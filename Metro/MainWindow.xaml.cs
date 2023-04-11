@@ -1121,14 +1121,16 @@ namespace Metro
                                         }
 
                                         string[] xy = return_xy.Split(',');
-                                        int x_point = int.Parse(xy[0]) + x_offset;
-                                        int y_point = int.Parse(xy[1]) + y_offset;
+                                        for (int j = 0; j < xy.Length-1; j += 2) {
+                                            xy[j] = (int.Parse(xy[j]) + x_offset).ToString();
+                                            xy[j+1] = (int.Parse(xy[j+1]) + y_offset).ToString();
+                                        }
 
                                         if (Command.Equals("Match&Draw"))
                                         {
                                             gfx.BeginScene();
                                             //gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, return_xyd.ToString());
-                                            gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(x_point,y_point, temp_w * 2, temp_h * 2, 6), 2);
+                                            gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(int.Parse(xy[0]), int.Parse(xy[1]), temp_w * 2, temp_h * 2, 6), 2);
                                             gfx.EndScene();
                                         }
                                     
@@ -1139,14 +1141,14 @@ namespace Metro
                                             {
                                                 if (V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                                 {
-                                                    mDoSortedList.Add(Event[0], x_point.ToString() +','+ y_point.ToString());
+                                                    mDoSortedList.Add(Event[0], string.Join(",", xy));
                                                 }
                                             }
                                             else
                                             {
                                                 if (mDoSortedList.IndexOfKey(Event[0].Replace("-", "")) == -1)
                                                 {
-                                                    mDoSortedList.Add(Event[0].Replace("-", ""), x_point.ToString() + ',' + y_point.ToString());
+                                                    mDoSortedList.Add(Event[0].Replace("-", ""), string.Join(",", xy));
                                                 }
                                             }
                                         }
