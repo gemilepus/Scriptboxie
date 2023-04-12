@@ -74,3 +74,4 @@ If you like Scriptboxie, you can support it:
 - MahApps.Metro - https://github.com/MahApps/MahApps.Metro
 - feather - https://github.com/feathericons/feather
 - opencvsharp - https://github.com/shimat/opencvsharp
+- globalmousekeyhook - https://github.com/gmamaladze/globalmousekeyhook
