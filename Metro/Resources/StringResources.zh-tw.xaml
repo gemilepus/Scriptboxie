@@ -14,6 +14,7 @@
     <system:String x:Key="Please_run_as_administrator">請用系統管理員身分執行</system:String>
 
     <system:String x:Key="Clear_screen">清理畫面</system:String>
+    <system:String x:Key="Record_Tooltip">這只是一個粗略的記錄。 錄製後請調整腳本</system:String>
 
     <system:String x:Key="Check_for_Updates">檢查更新</system:String>
     <system:String x:Key="ON_OFF_Option">ON/OFF(預設是 " )</system:String>
