@@ -48,11 +48,11 @@
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=eTable_Enable}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=eTable_Name}"/>
                             <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}">
-                                <!--<DataGridTextColumn.CellStyle>
+                                <DataGridTextColumn.CellStyle>
                                     <Style TargetType="DataGridCell">
-                                        <Setter Property="ToolTip" Value="ex:Alt+C,F12......" />
+                                        <Setter Property="ToolTip" Value="ex:F12,Alt+A,Shift+B,Ctrl+C......" />
                                     </Style>
-                                </DataGridTextColumn.CellStyle>-->
+                                </DataGridTextColumn.CellStyle>
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="State" IsReadOnly="True" Binding="{Binding Path=eTable_State}">
                                 <DataGridTextColumn.ElementStyle>
@@ -70,7 +70,13 @@
                             </DataGridTextColumn>
 
                             <DataGridTextColumn Header="Note" Binding="{Binding Path=eTable_Note}" MinWidth="150"/>
-                            <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" MinWidth="200"/>
+                            <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" MinWidth="200">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="ToolTip" Value="ex:MyScript.txt" />
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
                             <DataGridTemplateColumn Header=" ">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>

@@ -345,15 +345,10 @@ namespace Metro
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
         {
-            //if (Btn_Toggle.IsOn == true)
-            //{
-            //    mDataGrid.DataContext = null;
-            //    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action ="500", mTable_Event = "", mTable_Note = "" });
-            //    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "", mTable_Note = "" });
-            //    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "200", mTable_Event = "", mTable_Note = "" });
-            //    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = e.KeyChar.ToString().ToUpper(), mTable_Event = "", mTable_Note = "" });
-            //    mDataGrid.DataContext = mDataTable;
-            //}
+            if (Btn_Toggle.IsOn == true && Btn_Toggle.IsMouseOver == false)
+            {
+
+            }
             Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
         }
 
@@ -462,6 +457,7 @@ namespace Metro
                 }
             }
 
+            Console.WriteLine("KeyUp: \t{0}", e.KeyCode);
         }
         #endregion
 
