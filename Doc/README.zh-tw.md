@@ -20,6 +20,14 @@
 <p align="center">
  <img align="center" alt="Main" src="../Doc/doc1.png" />
 </p>
+
+<p align="center">注意</p>
+<p align="center">當這個顯示OFF時，快捷鍵會失效。點擊它後將變回ON。</p>
+<p align="center">這是為了確保腳本不會被誤執行。</p>
+<p align="center">
+ <img align="center" alt="Edit" src="../Doc/doc3.png" />
+</p>
+
 <p align="center">更多資訊</p>
 <p align="center">
  <img align="center" alt="Edit" src="../Doc/documentation.png" />
