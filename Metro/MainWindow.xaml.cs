@@ -86,8 +86,6 @@ namespace Metro
             return null;
         }
         #endregion
-        // End *********************************************************************************************
-
         // **************************************** Window Activate ******************************************
         #region Window Activate
         // Set Foreground Window                        
@@ -102,8 +100,6 @@ namespace Metro
         [DllImport("user32.dll")]
         private static extern byte VkKeyScan(char ch);
         #endregion
-        // End *********************************************************************************************
-
         // ******************************** PostMessage & SendMessage & FindWindows ********************************
         #region PostMessage & SendMessage & FindWindows 
         // FindWindows EX
@@ -125,8 +121,6 @@ namespace Metro
         [DllImport("user32.dll")]
         private static extern int SendMessage(int hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
         #endregion
-        // End *********************************************************************************************
-
         // **************************************** OpenCV & Media ******************************************
         #region OpenCV & Media
         private Bitmap makeScreenshot()
@@ -290,7 +284,6 @@ namespace Metro
             #endregion
         }
         #endregion
-        // End ***************************************************************************************
 
         private DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
         public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
