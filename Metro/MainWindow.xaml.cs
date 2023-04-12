@@ -2316,6 +2316,10 @@ namespace Metro
                         mDataGrid.DataContext = null;
                         mDataTable.RemoveAt(tableIndex);
                         mDataGrid.DataContext = mDataTable;
+
+                        // Automatically turned on
+                        Btn_ON.Content = "ON";
+                        Btn_ON.Foreground = System.Windows.Media.Brushes.White;
                     }
                 }
                 catch (Exception err)
