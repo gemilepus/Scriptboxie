@@ -20,6 +20,14 @@ English | [中文](Doc/README.zh-tw.md)
 <p align="center">
  <img align="center" alt="Main" src="Doc/doc1.png" />
 </p>
+
+<p align="center">Notice</p>
+<p align="center">When this display OFF,the hotkey will not work.It will change back to ON after clicking it. </p>
+<p align="center">This is to ensure that the script is not executed by mistake.</p>
+<p align="center">
+ <img align="center" alt="Edit" src="Doc/doc3.png" />
+</p>
+
 <p align="center">more info</p>
 <p align="center">
  <img align="center" alt="Edit" src="Doc/documentation.png" />
