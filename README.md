@@ -11,11 +11,12 @@ English | [中文](Doc/README.zh-tw.md)
 [![GitHub downloads](https://img.shields.io/github/downloads/gemilepus/Scriptboxie/total)](https://github.com/gemilepus/Scriptboxie/releases) 
 
 <h1 align="center">How to use</h1>
-<p align="center">edit script: just enter the keyboard and mouse actions to be use</p>
+<p align="center">edit script: just enter the keyboard and mouse actions to be use.</p>
+<p align="center">After completion, you can save it as a .txt file</p>
 <p align="center">
  <img align="center" alt="Main" src="Doc/doc2.png" />
 </p>
-<p align="center">setting script </p>
+<p align="center">setting script: set hotkey for your scripts</p>
 <p align="center">
  <img align="center" alt="Main" src="Doc/doc1.png" />
 </p>
