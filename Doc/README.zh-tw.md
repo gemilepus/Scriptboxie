@@ -12,10 +12,11 @@
 
 <h1 align="center">如何使用</h1>
 <p align="center">編輯腳本: 就是輸入你想使用的鍵盤滑鼠動作</p>
+<p align="center">完成之後,你可以將它保存成一個.txt檔案</p>
 <p align="center">
  <img align="center" alt="Main" src="../Doc/doc2.png" />
 </p>
-<p align="center">設定腳本</p>
+<p align="center">設定腳本: 為你的腳本設定快捷鍵</p>
 <p align="center">
  <img align="center" alt="Main" src="../Doc/doc1.png" />
 </p>
