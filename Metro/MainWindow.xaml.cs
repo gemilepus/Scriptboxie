@@ -312,6 +312,8 @@ namespace Metro
         private int now_x, now_y;
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
         {
+            ClearScreen_Btn.Focus();
+
             if (Btn_Toggle.IsOn == true)
             {
                 Subscribe();
@@ -319,14 +321,6 @@ namespace Metro
             else
             {
                 Unsubscribe();
-
-                // remove event
-                mDataGrid.DataContext = null;
-                mDataTable.RemoveAt(mDataTable.Count - 1);
-                mDataTable.RemoveAt(mDataTable.Count - 1);
-                mDataTable.RemoveAt(mDataTable.Count - 1);
-                mDataTable.RemoveAt(mDataTable.Count - 1);
-                mDataGrid.DataContext = mDataTable;
             }
         }
         private void Subscribe()
@@ -354,7 +348,7 @@ namespace Metro
 
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
         {
-            if (Btn_Toggle.IsOn == true)
+            if (Btn_Toggle.IsOn == true && Btn_Toggle.IsMouseOver==false)
             {
                 //if (e.Button.Equals("")) { }
                 mDataGrid.DataContext = null;

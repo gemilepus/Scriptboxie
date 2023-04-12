@@ -313,7 +313,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button Click="ClearScreen_Click" ToolTip="{DynamicResource Clear_screen}" ToolTipService.InitialShowDelay="100" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Circle}">
+                    <Button Name="ClearScreen_Btn" Click="ClearScreen_Click" ToolTip="{DynamicResource Clear_screen}" ToolTipService.InitialShowDelay="100" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Image  Height="15" Width="15" Source="img/clean2.png"/>
                     </Button>
 
