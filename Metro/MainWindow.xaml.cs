@@ -293,36 +293,37 @@ namespace Metro
         // End ***************************************************************************************
 
         private DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+        public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        
         private new bool IsActive
         {
             get { return (bool)this.GetValue(UnitIsCProperty); }
             set { this.SetValue(UnitIsCProperty, value); }
         }
 
+        // GameOverlay .Net
+        private OverlayWindow _window;
+        private GameOverlay.Drawing.Graphics _graphics;
+        private GameOverlay.Drawing.SolidBrush _red;
+        private GameOverlay.Drawing.Font _font;
+        private GameOverlay.Drawing.SolidBrush _black;
+        private GameOverlay.Drawing.Graphics gfx;
+        // NotifyIcon
+        private static NotifyIcon mNotifyIcon = new NotifyIcon();
         // DataGrid
         private List<MainTable> mDataTable = new List<MainTable>();
         private List<EditTable> eDataTable = new List<EditTable>();
 
         private List<Thread> _workerThreads = new List<Thread>();
+        private SoundPlayer mAlertSound = new SoundPlayer(Metro.Properties.Resources.sound);
+        private SettingHelper mSettingHelper = new SettingHelper();
+        private bool TestMode = false;
 
-        // Globalmousekeyhook for record
-        #region
+        #region Globalmousekeyhook
         private static IKeyboardMouseEvents m_GlobalHook, Main_GlobalHook, Main_GlobalKeyUpHook;
 
         private int now_x, now_y;
-        private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
-        {
-            ClearScreen_Btn.Focus();
 
-            if (Btn_Toggle.IsOn == true)
-            {
-                Subscribe();
-            }
-            else
-            {
-                Unsubscribe();
-            }
-        }
         private void Subscribe()
         {
             // Note: for the application hook, use the Hook.AppEvents() instead
@@ -330,6 +331,16 @@ namespace Metro
             m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
             m_GlobalHook.KeyPress += GlobalHookKeyPress;
             m_GlobalHook.MouseMove += HookManager_MouseMove;
+        }
+
+       
+        private void Unsubscribe()
+        {
+            m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
+            m_GlobalHook.KeyPress -= GlobalHookKeyPress;
+
+            //It is recommened to dispose it
+            m_GlobalHook.Dispose();
         }
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
@@ -348,7 +359,7 @@ namespace Metro
 
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
         {
-            if (Btn_Toggle.IsOn == true && Btn_Toggle.IsMouseOver==false)
+            if (Btn_Toggle.IsOn == true && Btn_Toggle.IsMouseOver == false)
             {
                 //if (e.Button.Equals("")) { }
                 mDataGrid.DataContext = null;
@@ -382,33 +393,77 @@ namespace Metro
             //Console.WriteLine("MouseMove: x={0:0000}; y={1:0000}", e.X, e.Y);
         }
 
-        public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        private void Unsubscribe()
+        private void Main_GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
-            m_GlobalHook.KeyPress -= GlobalHookKeyPress;
+            // for Hotkey setting
+            if (TextBox_OnOff_Hotkey.IsFocused)
+            {
+                TextBox_OnOff_Hotkey.Text = e.KeyCode.ToString();
+            }
+            else if (TextBox_Run_Hotkey.IsFocused)
+            {
+                TextBox_Run_Hotkey.Text = e.KeyCode.ToString();
+            }
+            else if (TextBox_Stop_Hotkey.IsFocused)
+            {
+                TextBox_Stop_Hotkey.Text = e.KeyCode.ToString();
+            }
 
-            //It is recommened to dispose it
-            m_GlobalHook.Dispose();
+            if (Btn_Toggle.IsOn == true)
+            {
+                if (e.KeyCode.ToString().IndexOf("Oem") == -1 && !e.KeyCode.ToString().Equals(""))
+                {
+                    string mKeyCode = e.KeyCode.ToString();
+                    if (mKeyCode.Length == 2 && mKeyCode.IndexOf("D") != -1)
+                    {
+                        mKeyCode = mKeyCode.Replace("D", "");
+                    }
+
+                    switch (mKeyCode)
+                    {
+                        case "Return":
+                            mKeyCode = "ENTER";
+                            break;
+                        case "Escape":
+                            mKeyCode = "ESC";
+                            break;
+                        case "LMenu":
+                        case "RMenu":
+                            mKeyCode = "ALT";
+                            break;
+                        case "LShiftKey":
+                        case "RShiftKey":
+                            mKeyCode = "SHIFT";
+                            break;
+                        case "LControlKey":
+                        case "RControlKey":
+                            mKeyCode = "CTRL";
+                            break;
+
+                    }
+
+                    mDataGrid.DataContext = null;
+                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "500", mTable_Event = "", mTable_Note = "" });
+                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
+                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "200", mTable_Event = "", mTable_Note = "" });
+                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
+                    mDataGrid.DataContext = mDataTable;
+
+                    // ScrollToBottom
+                    if (mDataGrid.Items.Count > 0)
+                    {
+                        var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
+                        if (border != null)
+                        {
+                            var scroll = border.Child as ScrollViewer;
+                            if (scroll != null) scroll.ScrollToBottom();
+                        }
+                    }
+                }
+            }
+
         }
         #endregion
-
-        // GameOverlay .Net
-        private OverlayWindow _window;
-        private GameOverlay.Drawing.Graphics _graphics;
-        // Brush
-        private GameOverlay.Drawing.SolidBrush _red;
-        private GameOverlay.Drawing.Font _font;
-        private GameOverlay.Drawing.SolidBrush _black;
-
-        private GameOverlay.Drawing.Graphics gfx;
-
-        // NotifyIcon
-        private static NotifyIcon mNotifyIcon = new NotifyIcon();
-
-        private SoundPlayer mAlertSound = new SoundPlayer(Metro.Properties.Resources.sound);
-        private SettingHelper mSettingHelper = new SettingHelper();
-        private bool TestMode = false;
 
         public MainWindow()
         {
@@ -603,77 +658,6 @@ namespace Metro
             Main_GlobalHook.KeyDown -= Main_GlobalHookKeyPress;
             //It is recommened to dispose it
             Main_GlobalHook.Dispose();
-        }
-
-        private void Main_GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-
-            if (TextBox_OnOff_Hotkey.IsFocused)
-            {
-                TextBox_OnOff_Hotkey.Text = e.KeyCode.ToString();
-            }
-            else if (TextBox_Run_Hotkey.IsFocused)
-            {
-                TextBox_Run_Hotkey.Text = e.KeyCode.ToString();
-            }
-            else if (TextBox_Stop_Hotkey.IsFocused)
-            {
-                TextBox_Stop_Hotkey.Text = e.KeyCode.ToString();
-            }
-
-            if (Btn_Toggle.IsOn == true)
-            {
-                if (e.KeyCode.ToString().IndexOf("Oem") == -1 && !e.KeyCode.ToString().Equals(""))
-                {
-                    string mKeyCode = e.KeyCode.ToString();
-                    if (mKeyCode.Length == 2 && mKeyCode.IndexOf("D") != -1)
-                    {
-                        mKeyCode =  mKeyCode.Replace("D", "");
-                    }
-
-                    switch (mKeyCode)
-                    {
-                        case "Return":
-                            mKeyCode = "ENTER";
-                            break;
-                        case "Escape":
-                            mKeyCode = "ESC";
-                            break;
-                        case "LMenu":
-                        case "RMenu":
-                            mKeyCode = "ALT";
-                            break;
-                        case "LShiftKey":
-                        case "RShiftKey":
-                            mKeyCode = "SHIFT";
-                            break;
-                        case "LControlKey":
-                        case "RControlKey":
-                            mKeyCode = "CTRL";
-                            break;
-                            
-                    }
-
-                    mDataGrid.DataContext = null;
-                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "500", mTable_Event = "", mTable_Note = "" });
-                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
-                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "200", mTable_Event = "", mTable_Note = "" });
-                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
-                    mDataGrid.DataContext = mDataTable;
-
-                    // ScrollToBottom
-                    if (mDataGrid.Items.Count > 0)
-                    {
-                        var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
-                        if (border != null)
-                        {
-                            var scroll = border.Child as ScrollViewer;
-                            if (scroll != null) scroll.ScrollToBottom();
-                        }
-                    }
-                }
-            }
-
         }
 
         private string PassCtrlKey = "";
@@ -2133,6 +2117,20 @@ namespace Metro
         private Thread mThread = null;
         // data
         private Bitmap TempBitmap;
+
+        private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
+        {
+            ClearScreen_Btn.Focus();
+
+            if (Btn_Toggle.IsOn == true)
+            {
+                Subscribe();
+            }
+            else
+            {
+                Unsubscribe();
+            }
+        }
         private void Run_script()
         {
             if (Ring.IsActive == true)
