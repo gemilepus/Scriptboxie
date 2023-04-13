@@ -25,8 +25,7 @@
         <LineBreak/>
         <Run Foreground="OrangeRed">如果你不再使用它, 請使用這個.</Run>
         <LineBreak/>
-        <LineBreak/>
-         <!--<Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>-->
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Match,Match&amp;Draw : 比對並取得圖片位置</Run>
         <LineBreak/>
@@ -54,7 +53,7 @@
         <Run Foreground="OrangeRed">使用這個效果會更好</Run><LineBreak/>
         <Run Foreground="OrangeRed">Match&amp;Draw 會在畫面上做標示,僅測試用</Run>
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Move</Run>
         <LineBreak/>
@@ -70,7 +69,7 @@
         <LineBreak/>
         ex: 500,600
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Offset</Run>
         <LineBreak/>
@@ -82,7 +81,7 @@
         <LineBreak/>
         ex:+10,-20
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Click : 滑鼠輸入</Run>
         <LineBreak/>
@@ -92,7 +91,7 @@
         <LineBreak/>
         ex: Left_Down
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐SendKeyDown,SendKeyUp : 鍵盤輸入(遊戲用)</Run>
         <LineBreak/>
@@ -104,7 +103,7 @@
         <LineBreak/>
         ex: RIGHT
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐key : 鍵盤輸入</Run>
         <LineBreak/>
@@ -122,7 +121,7 @@
         <LineBreak/>
         ex: 10000
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐ModifierKey : 組合建</Run>
         <LineBreak/>
@@ -134,7 +133,7 @@
         <LineBreak/>
         ex: CTRL|V
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Delay</Run>
         <LineBreak/>
@@ -144,7 +143,7 @@
         <LineBreak/>
         ex: 1000
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Loop</Run>
         <LineBreak/>
@@ -158,7 +157,7 @@
         <LineBreak/>
         ex: 5
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Jump</Run>
         <LineBreak/>
@@ -168,7 +167,7 @@
         <LineBreak/>
         ex: -3
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Goto</Run>
         <LineBreak/>
@@ -178,11 +177,11 @@
         <LineBreak/>
         ex: 5
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Clear Screen: 清除畫面上的標示</Run>
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Run .exe</Run>
         <LineBreak/>
@@ -192,7 +191,7 @@
         <LineBreak/>
         ex: C:\Users\Metro.exe
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐PlaySound</Run>
         <LineBreak/>
@@ -202,7 +201,7 @@
         <LineBreak/>
         ex: sound.wav
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐WriteClipboard</Run>
         <LineBreak/>
@@ -212,7 +211,7 @@
         <LineBreak/>
         ex: 123456
         <LineBreak/>
-        <LineBreak/>
+        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
 
         </TextBlock>
     </Grid>
