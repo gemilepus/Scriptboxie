@@ -50,6 +50,8 @@
         <LineBreak/>
         ex: apple.png,500,500,1420,580
         <LineBreak/>
+        <Run Foreground="OrangeRed">Match RGB:如果你的目標需要通過顏色來區分，</Run><LineBreak/>
+        <Run Foreground="OrangeRed">使用這個效果會更好</Run><LineBreak/>
         <Run Foreground="OrangeRed">Match&amp;Draw 會在畫面上做標示,僅測試用</Run>
         <LineBreak/>
         <LineBreak/>

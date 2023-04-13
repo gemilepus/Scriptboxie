@@ -49,6 +49,8 @@
         <LineBreak/>
         ex: apple.png,500,500,1420,580
         <LineBreak/>
+        <Run Foreground="OrangeRed">Match RGB:If your target needs to be distinguished by color,</Run><LineBreak/>
+        <Run Foreground="OrangeRed">using this will have a better effect</Run><LineBreak/>
         <Run Foreground="OrangeRed">Match&amp;Draw will be marked on the screen,just for test</Run>
         <LineBreak/>
         <LineBreak/>
