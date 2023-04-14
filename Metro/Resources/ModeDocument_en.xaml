@@ -25,7 +25,7 @@
         <LineBreak/>
         <Run Foreground="OrangeRed">If you don't want longer use it, use this.</Run>
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Match,Match&amp;Draw : match and get image point</Run>
         <LineBreak/>
@@ -53,7 +53,7 @@
         <Run Foreground="OrangeRed">using this will have a better effect</Run><LineBreak/>
         <Run Foreground="OrangeRed">Match&amp;Draw will be marked on the screen,just for test</Run>
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Move</Run>
         <LineBreak/>
@@ -69,7 +69,7 @@
         <LineBreak/>
         ex: 500,600
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Offset</Run>
         <LineBreak/>
@@ -81,7 +81,7 @@
         <LineBreak/>
         ex:+10,-20
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Click : mouse input</Run>
         <LineBreak/>
@@ -91,7 +91,7 @@
         <LineBreak/>
         ex: Left_Down
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐SendKeyDown,SendKeyUp : keyboard input(for Game)</Run>
         <LineBreak/>
@@ -103,7 +103,7 @@
         <LineBreak/>
         ex: RIGHT
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐key : keyboard input</Run>
         <LineBreak/>
@@ -121,7 +121,7 @@
         <LineBreak/>
         ex: 10000
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐ModifierKey : modifier key</Run>
         <LineBreak/>
@@ -133,7 +133,7 @@
         <LineBreak/>
         ex: CTRL|V
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Delay</Run>
         <LineBreak/>
@@ -143,7 +143,7 @@
         <LineBreak/>
         ex: 1000
         <LineBreak/>
-       <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+       <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Loop</Run>
         <LineBreak/>
@@ -157,7 +157,7 @@
         <LineBreak/>
         ex: 5
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Jump</Run>
         <LineBreak/>
@@ -167,7 +167,7 @@
         <LineBreak/>
         ex: -3
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Goto</Run>
         <LineBreak/>
@@ -177,12 +177,7 @@
         <LineBreak/>
         ex: 5
         <LineBreak/>
-
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
-
-        <Run Foreground="Gold">⭐Clear Screen: clear marked on the screen</Run>
-        <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Run .exe</Run>
         <LineBreak/>
@@ -192,7 +187,7 @@
         <LineBreak/>
         ex: C:\Users\Metro.exe
         <LineBreak/>
-       <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+       <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐PlaySound</Run>
         <LineBreak/>
@@ -202,7 +197,7 @@
         <LineBreak/>
         ex: sound.wav
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐WriteClipboard</Run>
         <LineBreak/>
@@ -212,7 +207,11 @@
         <LineBreak/>
         ex: 123456
         <LineBreak/>
-        <Line Stretch="Fill" Stroke="White" X2="1"/><LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
+                 
+            <Run Foreground="Gold">⭐Clear Screen: clear marked on the screen</Run>
+            <LineBreak/>
+            <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
          </TextBlock>
         </Grid>
