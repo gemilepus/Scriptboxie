@@ -1532,24 +1532,33 @@ namespace Metro
                     {
                         Console.WriteLine("{0} Exception caught.", e);
 
-                        if (e.Message.ToString().IndexOf("Thread") == -1) {
-                            if (Mode.Equals("Debug")) {
-                                System.Windows.MessageBox.Show("[Error] Line " + (n+1).ToString() + " \nMessage: " + e.Message);
+                        if (e.Message.ToString().IndexOf("Thread") == -1 && !e.Source.Equals("System.Drawing"))
+                        {
+                            if (Mode.Equals("Debug"))
+                            {
+                                System.Windows.MessageBox.Show("[Error] Line " + (n + 1).ToString() + " \nMessage: " + e.Message);
 
                                 // debug stop msg
                                 CreateMessage("9487");
 
                                 break;
-                            } 
+                            }
                         }
 
-                        mInputSimulator = null;
-                        ky = null;
-                        V = null;
-                        ConvertHelper = null;
-                        mDoSortedList.Clear();
+                        if (e.Source.Equals("System.Drawing"))
+                        {
+                            n--;
+                        }
+                        else
+                        {
+                            mInputSimulator = null;
+                            ky = null;
+                            V = null;
+                            ConvertHelper = null;
+                            mDoSortedList.Clear();
 
-                        err = true;
+                            err = true;
+                        }
                     }
                     finally
                     {
