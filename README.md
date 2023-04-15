@@ -55,7 +55,7 @@ If you like Scriptboxie, you can support it:
 | ------------- | ----------- |
 | if you want to click the Submit button | [![][f1]][f1] |
 | take a screenshot and use [![][f2]][f2] save it , like this picture| [![][f4]][f4] |
-| then refer to this picture to set | [![][f5]][f5] Note:<br>1.The concept is that a command can be bound to an event,<br> and the command will act according to whether the event is established or not.<br>The dark red command can generate event,and the others will receive the event<br>2.event name can be named freely |
+| then refer to this picture to set | [![][f5]][f5] Note:<br>1.The concept is that dark red command can generate events,and others receive events. <br>Command can bound to event and executed according to whether that  is established or not.<br>2.event name can be named freely |
 | done | :) | 
 
 <p align="center">Then let it alway running</p>
