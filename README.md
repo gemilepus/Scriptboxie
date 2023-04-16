@@ -65,7 +65,7 @@ If you like Scriptboxie, you can support it:
 | refer to this picture to set :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:After the Event is established, it will always exist.You can use RemoveEvent to remove |
 
 
-<h1 align="center">Scriptboxie WIKI(WIP)</h1>
+<h1 align="center">WIKI(WIP)</h1>
 
 - [Example](https://github.com/gemilepus/Scriptboxie/wiki/Example)
   - [Click all the button on the screen](https://github.com/gemilepus/Scriptboxie/wiki/Example#click-all-the-button-on-the-screen)
