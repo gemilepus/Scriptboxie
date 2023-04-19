@@ -651,8 +651,40 @@ namespace Metro
 
         private string PassCtrlKey = "";
         private double Timestamp;
+
+        SortedList KeyList = new SortedList();
+
+        DateTime StartTime = new DateTime(2001, 1, 1);
+
         private void Main_GlobalHookKeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
         {
+            V V = new V();
+
+            DateTime KeyTime = DateTime.Now;
+            TimeSpan KeyTimeSpan = new TimeSpan(KeyTime.Ticks - StartTime.Ticks);
+            
+            double KeyTimeValue = Math.Floor(KeyTimeSpan.TotalMilliseconds);
+            Console.WriteLine("{0} KeyTimeValue.", KeyTimeValue.ToString());
+
+            if (KeyList.IndexOfKey(e.KeyValue) != -1) {
+
+                double KeyListTimeValue = (double)KeyList.GetByIndex(KeyList.IndexOfKey(e.KeyValue));
+                Console.WriteLine("{0} KeyListTimeValue.", KeyListTimeValue);
+                Console.WriteLine("{0} KeyTimeValue- KeyListTimeValue.", KeyTimeValue- KeyListTimeValue);
+
+                if ((KeyTimeValue- KeyListTimeValue) > 200)
+                {
+                    KeyList.RemoveAt(KeyList.IndexOfKey(e.KeyValue));
+                }
+                else {
+
+                    return;
+                }
+                
+            }
+            else {
+                KeyList.Add(e.KeyValue, KeyTimeValue);
+            }
 
             if (!TextBox_Title.Text.Equals(""))
             {
@@ -662,7 +694,7 @@ namespace Metro
             }
 
             // stop KListener
-            UnKListener();
+            //UnKListener();
 
             // ON / OFF
             if (!Script_Toggle.IsOn && e.KeyCode.ToString().Equals(mSettingHelper.OnOff_Hotkey) && !(OnOff_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "'"
@@ -711,7 +743,7 @@ namespace Metro
                 eDataGrid.DataContext = eDataTable;
             }
             if (!Btn_ON.Content.Equals("ON")) {
-                KListener(); 
+                //KListener(); 
                 return; }
 
             Console.WriteLine(e.KeyCode.ToString());
@@ -857,7 +889,7 @@ namespace Metro
             }
            
             // Restart KListener
-            KListener();
+            //KListener();
         }
         #endregion
 
