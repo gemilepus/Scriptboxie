@@ -2422,9 +2422,9 @@ namespace Metro
             }
         }
 
-        private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            ((System.Windows.Controls.ComboBox)sender).DropDownClosed += new EventHandler(ComboBox_DropDownClosed); ;
         }
 
         private void ComboBox_DropDownClosed(object sender, EventArgs e)
@@ -2445,9 +2445,17 @@ namespace Metro
             Btn_ON.Foreground = System.Windows.Media.Brushes.White;
         }
 
-        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            ((System.Windows.Controls.ComboBox)sender).DropDownClosed += new EventHandler(ComboBox_DropDownClosed); ;
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        private void mDataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (e.VerticalChange > 5)
+            {
+                ToolBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)

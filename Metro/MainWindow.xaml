@@ -105,7 +105,7 @@
 
                     <DataGrid CanUserSortColumns="False" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Grid.Column="1"
                               MinHeight="300" MinWidth="500" Margin="0,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                              LoadingRow="mDataGrid_LoadingRow" CanUserAddRows="False"
+                              LoadingRow="mDataGrid_LoadingRow" CanUserAddRows="False" ScrollViewer.ScrollChanged="mDataGrid_ScrollChanged"
                               MouseDoubleClick="mDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected" KeyUp="mDataGrid_KeyUp" BeginningEdit="mDataGrid_BeginningEdit">
                         <DataGrid.Resources>
                             <DataTemplate x:Key="template">
