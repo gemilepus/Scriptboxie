@@ -881,15 +881,15 @@ namespace Metro
             //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
 
             int n = 0; int LoopCount = 0;
-            DateTime centuryBegin = new DateTime(2001, 1, 1);
-            DateTime currentDate = DateTime.Now;
-            int timer = 0;
+            //DateTime centuryBegin = new DateTime(2001, 1, 1);
+            //DateTime currentDate = DateTime.Now;
+            //int timer = 0;
             while (n < minDataTable.Count)
             {
                
-                long elapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
-                TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
-                Console.WriteLine(Math.Floor(elapsedSpan.TotalMinutes));
+                //long elapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
+                //TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
+                //Console.WriteLine(Math.Floor(elapsedSpan.TotalMinutes));
 
                 if (Mode.Equals("Debug") && TestMode)
                 {
@@ -2201,6 +2201,9 @@ namespace Metro
         }
         private async void Btn_Save_as_Click(object sender, RoutedEventArgs e) // async
         {
+            Btn_ON.Content = "OFF";
+            Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+
             var result = await this.ShowInputAsync(FindResource("Save").ToString(), FindResource("Input_filename").ToString());
             if (result == null) { return; }
 
@@ -2226,6 +2229,9 @@ namespace Metro
 
                 await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
             }
+
+            Btn_ON.Content = "ON";
+            Btn_ON.Foreground = System.Windows.Media.Brushes.White;
         }
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
