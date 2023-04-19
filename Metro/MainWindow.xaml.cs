@@ -2222,6 +2222,10 @@ namespace Metro
             Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
 
             var result = await this.ShowInputAsync(FindResource("Save").ToString(), FindResource("Input_filename").ToString());
+
+            Btn_ON.Content = "ON";
+            Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+
             if (result == null) { return; }
 
             try
@@ -2246,9 +2250,6 @@ namespace Metro
 
                 await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
             }
-
-            Btn_ON.Content = "ON";
-            Btn_ON.Foreground = System.Windows.Media.Brushes.White;
         }
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
