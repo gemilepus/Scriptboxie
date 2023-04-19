@@ -2300,6 +2300,8 @@ namespace Metro
         {
             Stop_script();
         }
+
+
         #endregion
 
         #region Edit Panel DataGrid Event
@@ -2317,6 +2319,8 @@ namespace Metro
         {
             if (e.Key.ToString().Equals("Return"))
             {
+                ToolBar.Visibility = Visibility.Collapsed;
+
                 // CommitEdit & Change Focus
                 mDataGrid.CommitEdit();
                 EditGrid.Focus();
@@ -2336,11 +2340,114 @@ namespace Metro
         {
             Btn_ON.Content = "OFF";
             Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+
+            // ToolBar
+            int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
+            if (columnIndex < 0) { return; }
+
+            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
+            {
+               MainTable row = (MainTable)mDataGrid.CurrentItem;
+                string[] btnlist = new string[] { };
+
+                switch (row.mTable_Mode)
+                {
+                    case "Click":
+                        btnlist = new string[] { "Left", "Right" , "Left_Up", "Left_Down", "Right_Up", "Right_Down" };
+                        break;
+                    case "RemoveEvent":
+                        btnlist = new string[] { "PUSH"};
+                        break;
+                }
+                if (btnlist.Length < 0) { return; }
+
+                ToolBar.Items.Clear();
+                for (int i = 0; i < btnlist.Length; i++)
+                {
+                    System.Windows.Controls.Button btn = new System.Windows.Controls.Button();
+                    btn.Height = 30;
+                    btn.Content = btnlist[i];
+                    btn.Background = new SolidColorBrush(Colors.LightGray);
+                    btn.Foreground = new SolidColorBrush(Colors.BlueViolet);
+                    btn.Click += new RoutedEventHandler(ToolbarBtn_Click);
+
+                    ToolBar.Items.Add(btn);
+                }
+
+                //System.Windows.Point relativePoint = ToolBar.TransformToAncestor(EditGrid).Transform(new System.Windows.Point(0, 0));
+                DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
+                FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+                if (cellContent != null)
+                {
+                    System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+                    if (cell != null)
+                    {
+                        System.Windows.Point screenCoordinates = cell.TransformToAncestor(EditGrid).Transform(new System.Windows.Point(0, 0));
+                        ToolBar.Margin = new Thickness(0, screenCoordinates.Y - 30, screenCoordinates.X, 0);
+                    }
+                }
+
+                ToolBar.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ToolbarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
+            if (columnIndex < 0) { return; }
+
+            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
+            {
+                int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
+                try
+                {
+                    if (tableIndex < mDataTable.Count())
+                    {
+                        DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
+                        FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+                        System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+                        System.Windows.Controls.Button mButton = (System.Windows.Controls.Button)sender;
+                        System.Windows.Controls.TextBox mTextBlock = (System.Windows.Controls.TextBox)cell.Content;
+
+                        mTextBlock.Text = mTextBlock.Text + mButton.Content;
+                    }
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine("{0} Exception caught.", err);
+                }
+                finally {
+                    ToolBar.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            Console.WriteLine("ComboBox_DropDownClosed");
+
+            DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
+            FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+            System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+
+            // CommitEdit & Change Focus
+            cell.IsEditing = false;
+
+            mDataGrid.CommitEdit();
+            EditGrid.Focus();
+
+            Btn_ON.Content = "ON";
+            Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+        }
+
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((System.Windows.Controls.ComboBox)sender).DropDownClosed += new EventHandler(ComboBox_DropDownClosed); ;
         }
 
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
