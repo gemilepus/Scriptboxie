@@ -2353,7 +2353,7 @@ namespace Metro
                 switch (row.mTable_Mode)
                 {
                     case "Click":
-                        btnlist = new string[] { "Left", "Right" , "Left_Up", "Left_Down", "Right_Up", "Right_Down" };
+                        btnlist = new string[] { "Left", "Right" , "Left_Down", "Left_Up", "Right_Down", "Right_Up" };
                         break;
                     case "RemoveEvent":
                         btnlist = new string[] { "PUSH"};
@@ -2452,7 +2452,7 @@ namespace Metro
 
         private void mDataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (e.VerticalChange > 5)
+            if (e.VerticalChange != 0)
             {
                 ToolBar.Visibility = Visibility.Collapsed;
             }
