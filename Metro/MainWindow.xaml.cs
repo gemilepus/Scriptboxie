@@ -2161,6 +2161,23 @@ namespace Metro
             }
             Ring.IsActive = false;
         }
+
+        private void Btn_New_Click(object sender, RoutedEventArgs e)
+        {
+            // Table Clear
+            mDataGrid.DataContext = null;
+            mDataTable.Clear();
+            mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "", mTable_Action = "", mTable_Event = "", mTable_Note = "" });
+            mDataGrid.DataContext = mDataTable;
+
+            ScriptName.Text = "";
+
+            // .ini
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile("user.ini");
+            data["Def"]["Script"] = "";
+            parser.WriteFile("user.ini", data);
+        }
         private void Btn_open_Click(object sender, RoutedEventArgs e)
         {
             string fileContent = string.Empty;
