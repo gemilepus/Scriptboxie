@@ -2351,6 +2351,7 @@ namespace Metro
         {
             if (e.Key.ToString().Equals("Return"))
             {
+                ToolBar.Items.Clear();
                 ToolBar.Visibility = Visibility.Collapsed;
 
                 // CommitEdit & Change Focus
@@ -2449,6 +2450,7 @@ namespace Metro
                     Console.WriteLine("{0} Exception caught.", err);
                 }
                 finally {
+                    ToolBar.Items.Clear();
                     ToolBar.Visibility = Visibility.Collapsed;
                 }
             }
@@ -2486,6 +2488,7 @@ namespace Metro
         {
             if (e.VerticalChange != 0)
             {
+                ToolBar.Items.Clear();
                 ToolBar.Visibility = Visibility.Collapsed;
             }
         }
