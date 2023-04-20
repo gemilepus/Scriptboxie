@@ -2500,6 +2500,18 @@ namespace Metro
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
             if (columnIndex < 0) { return; }
 
+            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals(" ") || mDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
+                DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
+                FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+                System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+
+                // CommitEdit & Change Focus
+                cell.IsEditing = false;
+
+                mDataGrid.CommitEdit();
+                EditGrid.Focus();
+            }
+
             if (mDataGrid.Columns[columnIndex].Header.ToString().Equals(" "))
             {
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
