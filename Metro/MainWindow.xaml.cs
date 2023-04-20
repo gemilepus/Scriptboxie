@@ -2351,9 +2351,7 @@ namespace Metro
         {
             if (e.Key.ToString().Equals("Return"))
             {
-                ToolBar.Items.Clear();
                 ToolBar.Visibility = Visibility.Collapsed;
-
                 // CommitEdit & Change Focus
                 mDataGrid.CommitEdit();
                 EditGrid.Focus();
@@ -2374,27 +2372,33 @@ namespace Metro
             Btn_ON.Content = "OFF";
             Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
 
+            ToolBar.Items.Clear();
+
             // ToolBar
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
             if (columnIndex < 0) { return; }
 
             if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
             {
-               MainTable row = (MainTable)mDataGrid.CurrentItem;
+                MainTable row = (MainTable)mDataGrid.CurrentItem;
                 string[] btnlist = new string[] { };
 
                 switch (row.mTable_Mode)
                 {
                     case "Click":
-                        btnlist = new string[] { "Left", "Right" , "Left_Down", "Left_Up", "Right_Down", "Right_Up" };
+                        btnlist = new string[] { "Left", "Right", "Left_Down", "Left_Up", "Right_Down", "Right_Up" };
                         break;
                     case "RemoveEvent":
-                        btnlist = new string[] { "PUSH"};
+                        btnlist = new string[] { "PUSH" };
                         break;
                 }
-                if (btnlist.Length < 0) { return; }
+                
+                if (btnlist.Length <= 0)
+                {
+                    ToolBar.Visibility = Visibility.Collapsed;
+                    return;
+                }
 
-                ToolBar.Items.Clear();
                 for (int i = 0; i < btnlist.Length; i++)
                 {
                     System.Windows.Controls.Button btn = new System.Windows.Controls.Button();
@@ -2450,7 +2454,6 @@ namespace Metro
                     Console.WriteLine("{0} Exception caught.", err);
                 }
                 finally {
-                    ToolBar.Items.Clear();
                     ToolBar.Visibility = Visibility.Collapsed;
                 }
             }
@@ -2488,7 +2491,6 @@ namespace Metro
         {
             if (e.VerticalChange != 0)
             {
-                ToolBar.Items.Clear();
                 ToolBar.Visibility = Visibility.Collapsed;
             }
         }
