@@ -2500,10 +2500,13 @@ namespace Metro
             if (mDataGrid.Columns[columnIndex].Header.ToString().Equals(" ") || mDataGrid.Columns[columnIndex].Header.ToString().Equals("+")){
                 DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
                 FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
-                System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+                if (cellContent != null)
+                {
+                    System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
 
-                // CommitEdit & Change Focus
-                cell.IsEditing = false;
+                    // CommitEdit & Change Focus
+                    cell.IsEditing = false;
+                }
 
                 mDataGrid.CommitEdit();
                 EditGrid.Focus();
