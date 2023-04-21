@@ -15,16 +15,24 @@
         <LineBreak/>
         <LineBreak/>
 
-        <Run Foreground="Gold">⭐RemoveEvent</Run>
+        <Run Foreground="Gold">⭐RemoveEvent: After the Event is established, </Run>
+        <LineBreak/>   
+        <Run Foreground="Gold">it will always exist.If you want invalidate it, use this.</Run>
         <LineBreak/>
-         <Run Foreground="Red">Input the name of the event you want to delete</Run>
+        <Run Foreground="Red">Input the name of the event you want to delete</Run>
         <LineBreak/>
-        <Run Foreground="Red">in the EVENT column</Run>
+        <Run Foreground="Red">in the "EVENT column"</Run>
         <LineBreak/>
-        <Run Foreground="OrangeRed">After the Event is established, it will always exist.</Run>
+        <Run Foreground="Orange">-Empty</Run>
         <LineBreak/>
-        <Run Foreground="OrangeRed">If you don't want longer use it, use this.</Run>
+        <Run Foreground="Orange">-@Type</Run>
         <LineBreak/>
+        Empty: direct invalidate it
+        <LineBreak/>
+        Type: can use PUSH,then remove the first data for event.
+         <LineBreak/>
+        The event will be invalidated if all the data is removed
+        <LineBreak/>  
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Match,Match&amp;Draw : match and get image point</Run>

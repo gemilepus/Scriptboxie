@@ -14,15 +14,23 @@
          <Run FontSize="16" Foreground="White">[Mode Document]</Run>
         <LineBreak/>
         <LineBreak/>
-
-        <Run Foreground="Gold">⭐RemoveEvent</Run>
-        <LineBreak/>     
-        <Run Foreground="Red">在 EVENT 欄位輸入你想刪除的事件名</Run>
+            
+        <Run Foreground="Gold">⭐RemoveEvent: 當事件(Event)成立後, </Run>
+        <LineBreak/>   
+        <Run Foreground="Gold"> 它會一直存在.如果你想讓它失效, 請使用這個.</Run>
         <LineBreak/>
-        <Run Foreground="OrangeRed">當事件(Event)成立後, 它會一直存在.</Run>
+        <Run Foreground="Red">在"EVENT 欄位"輸入你想刪除的事件名</Run>
         <LineBreak/>
-        <Run Foreground="OrangeRed">如果你不再使用它, 請使用這個.</Run>
+        <Run Foreground="Orange">-空值</Run>
         <LineBreak/>
+        <Run Foreground="Orange">-@Type</Run>
+        <LineBreak/>
+        空值: 直接使其失效
+        <LineBreak/>
+        Type: 可使用 PUSH,然後會刪除事件的第一筆數據.
+         <LineBreak/>
+        如果所有數據都被刪除,則該事件將失效
+        <LineBreak/>  
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Match,Match&amp;Draw : 比對並取得圖片位置</Run>
