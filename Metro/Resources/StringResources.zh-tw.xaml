@@ -24,6 +24,7 @@
     <system:String x:Key="Test_Mode_Option">測試模式:</system:String>
     <system:String x:Key="Test_Mode_Tooltip">當執行編輯中的腳本時，每一步都會延遲一秒並且會標示正在執行的那一步。</system:String>
     <system:String x:Key="Website">網站</system:String>
+    <system:String x:Key="Website_Note">如果您不知道怎麼使用這個，可以到這個網站看看</system:String>
 
     <system:String x:Key="Save_could_not_be_completed">儲存失敗!</system:String>
     <system:String x:Key="File_does_not_exist">檔案不存在!</system:String>

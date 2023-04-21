@@ -24,6 +24,7 @@
     <system:String x:Key="Test_Mode_Option">Test Mode:</system:String>
     <system:String x:Key="Test_Mode_Tooltip">The script being edited will delayed by 1 second every step and mark the running step.</system:String>
     <system:String x:Key="Website">Website</system:String>
+    <system:String x:Key="Website_Note">If you don't know how to use this, you can go to this website to have a look</system:String>
 
     <system:String x:Key="Save_could_not_be_completed">Save could not be completed!</system:String>
     <system:String x:Key="File_does_not_exist">File does not exist!</system:String>

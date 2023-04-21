@@ -361,7 +361,7 @@
                               
                             <Run FontSize="16" Foreground="Black" Text="{DynamicResource Stop_Editing_Script_Option}"></Run>
                             <LineBreak/> 
-                             <CheckBox x:Name="Stop_CrtlKey_Chk" Content="Ctrl  +" Margin="5,0,0,8" Checked="Stop_CrtlKey_Chk_Checked" Unchecked="Stop_CrtlKey_Chk_Unchecked"/>
+                            <CheckBox x:Name="Stop_CrtlKey_Chk" Content="Ctrl  +" Margin="5,0,0,8" Checked="Stop_CrtlKey_Chk_Checked" Unchecked="Stop_CrtlKey_Chk_Unchecked"/>
                             <TextBox x:Name="TextBox_Stop_Hotkey" KeyDown="TextBox_Stop_Hotkey_KeyDown" TextChanged="TextBox_Stop_Hotkey_TextChanged" Width="100" Margin="5px"/>
                             <LineBreak/>
                             
@@ -378,8 +378,8 @@
                             <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate"> 
                                    <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
                             </Hyperlink>
-                            
-                            <!--<Run FontSize="16" Foreground="Gray">Note: settings will apply after restart app</Run><LineBreak/>-->
+                            <LineBreak/> 
+                            <Run FontSize="10" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run><LineBreak/>
                         </TextBlock>
                     </ScrollViewer>
 
