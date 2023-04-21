@@ -69,6 +69,7 @@ If you like Scriptboxie, you can support it:
 
 - [Example](https://github.com/gemilepus/Scriptboxie/wiki/Example)
   - [Click all the button on the screen](https://github.com/gemilepus/Scriptboxie/wiki/Example#click-all-the-button-on-the-screen)
+  - [Mouse drag](https://github.com/gemilepus/Scriptboxie/wiki/Example#mouse-drag)
 
 
 <h1 align="center">Screenshots</h1>
