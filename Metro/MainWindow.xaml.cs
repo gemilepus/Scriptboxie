@@ -2376,8 +2376,6 @@ namespace Metro
 
             // ToolBar
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
-            if (columnIndex < 0) { return; }
-
             if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
             {
                 MainTable row = (MainTable)mDataGrid.CurrentItem;
@@ -2392,8 +2390,8 @@ namespace Metro
                         btnlist = new string[] { "PUSH" };
                         break;
                 }
-                
-                if (btnlist.Length <= 0)
+
+                if (btnlist.Length <= 0 || row.mTable_Action.Length > 0)
                 {
                     ToolBar.Visibility = Visibility.Collapsed;
                     return;
@@ -2411,7 +2409,6 @@ namespace Metro
                     ToolBar.Items.Add(btn);
                 }
 
-                //System.Windows.Point relativePoint = ToolBar.TransformToAncestor(EditGrid).Transform(new System.Windows.Point(0, 0));
                 DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
                 FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
                 if (cellContent != null)
