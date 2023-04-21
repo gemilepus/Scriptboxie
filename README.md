@@ -62,7 +62,7 @@ If you like Scriptboxie, you can support it:
 
 | | |
 | ------------- | ----------- |
-| refer to this picture to set :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:After the Event is established, it will always exist.You can use RemoveEvent to remove |
+| refer to this picture to set :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:After the Event is established, it will always exist.You can use RemoveEvent to invalidate it |
 
 
 <h1 align="center">WIKI(WIP)</h1>
