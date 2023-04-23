@@ -469,9 +469,6 @@ namespace Metro
 
             Timestamp = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
 
-            // Data Binding
-            //this.DataContext = this;
-
             // Combobox List
             List<string> mList = new List<string>() {
                 "Move","Offset","Click", "Match","Match RGB","Match&Draw",
@@ -783,7 +780,7 @@ namespace Metro
             {
                // PassCtrlKey = "";
             }
-           
+
             //switch (e.KeyCode.ToString())
             //{
             //    case "LControlKey":
@@ -802,10 +799,12 @@ namespace Metro
             //}
 
             // Select Script
+            bool IsRun = false;
             for (int i = 0; i < eDataTable.Count; i++)
             {
                 if (KeyCode.Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
                 {
+                    IsRun = true;
                     Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
 
                     //if (_workerThreads[i].ThreadState == System.Threading.ThreadState.WaitSleepJoin){
@@ -883,7 +882,7 @@ namespace Metro
             }
 
             // eDataGrid
-            if (!eDataGrid.IsKeyboardFocusWithin) {
+            if (!eDataGrid.IsKeyboardFocusWithin && IsRun) {
                 eDataGrid.DataContext = null;
                 eDataGrid.DataContext = eDataTable;
             }
@@ -2176,7 +2175,7 @@ namespace Metro
             {
                 mThread.Abort();
             }
-            //mThread.Abort();
+
             Ring.IsActive = true;
 
             mThread = new Thread(() =>
@@ -2463,8 +2462,6 @@ namespace Metro
 
         private void ComboBox_DropDownClosed(object sender, EventArgs e)
         {
-            Console.WriteLine("ComboBox_DropDownClosed");
-
             DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
             FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
             System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
