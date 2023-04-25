@@ -57,6 +57,8 @@ namespace Metro
         // Mouse move
         [DllImport("user32")]
         private static extern int SetCursorPos(int x, int y);
+        [DllImport("user32")]
+        private static extern bool GetCursorPos(ref System.Drawing.Point lpPoint);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
@@ -904,7 +906,12 @@ namespace Metro
             ConvertHelper ConvertHelper = new ConvertHelper();
             SortedList mDoSortedList = new SortedList();
             V V = new V();
-           
+
+            SortedList DefValueList = new SortedList();
+            System.Drawing.Point StartPoint = new System.Drawing.Point();
+            GetCursorPos(ref StartPoint);
+            DefValueList.Add("{StartPostion}", StartPoint.X.ToString() + "," + StartPoint.Y.ToString());
+
             // key || value ex:
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
@@ -917,7 +924,7 @@ namespace Metro
             //int timer = 0;
             while (n < minDataTable.Count)
             {
-               
+
                 //long elapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
                 //TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
                 //Console.WriteLine(Math.Floor(elapsedSpan.TotalMinutes));
@@ -933,6 +940,11 @@ namespace Metro
                 string Command = minDataTable[n].mTable_Mode;
                 string CommandData = minDataTable[n].mTable_Action;
                 bool CommandEnable = minDataTable[n].mTable_IsEnable;
+
+                if (DefValueList.IndexOfKey(CommandData) != -1)
+                {
+                    CommandData = DefValueList.GetByIndex(DefValueList.IndexOfKey(CommandData)).ToString();
+                }
 
                 string[] Event = minDataTable[n].mTable_Event.Split(',');
                 if (minDataTable[n].mTable_Event == "") { Event = new string[0]; }
