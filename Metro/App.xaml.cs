@@ -22,17 +22,7 @@ namespace Metro
 
             if (!createdNew)
             {
-                // Bring other instance to front and exit.
-                Process current = Process.GetCurrentProcess();
-                foreach (Process process in Process.GetProcessesByName(current.ProcessName))
-                {
-                    if (process.Id != current.Id)
-                    {
-                        SetForegroundWindow(process.MainWindowHandle);
-                        break;
-                    }
-                }
-                System.Windows.MessageBox.Show("Scriptboxie already started");
+                MessageBox.Show("Scriptboxie already started");
                 Application.Current.Shutdown();
             }
             else
