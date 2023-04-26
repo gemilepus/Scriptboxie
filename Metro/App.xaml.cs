@@ -10,10 +10,6 @@ namespace Metro
     {
         private Mutex _mutex;
 
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool SetForegroundWindow(IntPtr hWnd);
-
         public App()
         {
             // Try to grab mutex
