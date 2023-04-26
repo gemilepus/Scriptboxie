@@ -380,7 +380,6 @@ namespace Metro
         {
             now_x = e.X;
             now_y = e.Y;
-            //Console.WriteLine("MouseMove: x={0:0000}; y={1:0000}", e.X, e.Y);
         }
 
         private void Main_GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -1036,38 +1035,30 @@ namespace Metro
                                     CommandData = CommandData.Trim().ToUpper();
                                     if (CommandData.Equals("LEFT"))
                                     {
-                                        //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-                                        //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.LeftButtonDown();
                                         Thread.Sleep(200);
                                         mInputSimulator.Mouse.LeftButtonUp();
                                     }
                                     if (CommandData.Equals("LEFT_DOWN"))
                                     {
-                                        //mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.LeftButtonDown();
                                     }
                                     if (CommandData.Equals("LEFT_UP"))
                                     {
-                                        //mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.LeftButtonUp();
                                     }
                                     if (CommandData.Equals("RIGHT"))
                                     {
-                                        //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-                                        //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.RightButtonDown();
                                         Thread.Sleep(200);
                                         mInputSimulator.Mouse.RightButtonUp();
                                     }
                                     if (CommandData.Equals("RIGHT_DOWN"))
                                     {
-                                        //mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.RightButtonDown();
                                     }
                                     if (CommandData.Equals("RIGHT_UP"))
                                     {
-                                        //mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
                                         mInputSimulator.Mouse.RightButtonUp();
                                     }
                                 }
