@@ -2316,6 +2316,8 @@ namespace Metro
                         + "\n";
                 }
                 System.IO.File.WriteAllText(result, out_string);
+
+                this.ShowMessageAsync("", FindResource("Done").ToString());
             }
             catch (Exception err)
             {
