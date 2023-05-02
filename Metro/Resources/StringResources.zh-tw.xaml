@@ -33,6 +33,7 @@
     <system:String x:Key="The_current_version_is">目前的最新版本是 {0}, 你可以在 github 下載 :)</system:String>
     <system:String x:Key="Save">存檔</system:String>
     <system:String x:Key="Done">完成</system:String>
+    <system:String x:Key="Visit_Website">造訪網站</system:String>
     <system:String x:Key="HideShow">顯示/隱藏</system:String>
     <system:String x:Key="Exit">結束</system:String>
 

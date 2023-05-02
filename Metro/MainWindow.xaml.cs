@@ -593,6 +593,8 @@ namespace Metro
             // NotifyIcon
             mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             mNotifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Visit_Website").ToString(), null, this.notifyIcon_Visit_Click);
+            mNotifyIcon.ContextMenuStrip.Items.Add("-");
             mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("HideShow").ToString(), null, this.notifyIcon_DoubleClick);
             mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Exit").ToString(), null, this.notifyIcon_Exit_Click);
             mNotifyIcon.Visible = true;
@@ -1776,6 +1778,10 @@ namespace Metro
             }
         }
 
+        private void notifyIcon_Visit_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/gemilepus/Scriptboxie");
+        }
         private void notifyIcon_Exit_Click(object sender, EventArgs e)
         {
             this.Close();
