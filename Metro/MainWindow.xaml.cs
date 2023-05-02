@@ -592,8 +592,12 @@ namespace Metro
 
             // NotifyIcon
             mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            mNotifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("HideShow").ToString(), null, this.notifyIcon_DoubleClick);
+            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Exit").ToString(), null, this.notifyIcon_Exit_Click);
             mNotifyIcon.Visible = true;
             mNotifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+           
 
             if (!IsAdmin)
             {
@@ -1771,6 +1775,11 @@ namespace Metro
                 this.Activate();
             }
         }
+
+        private void notifyIcon_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         private void AlertSound()
         {
             try
@@ -2196,6 +2205,13 @@ namespace Metro
             Ring.IsActive = false;
         }
 
+        private void ClearScreen_Click(object sender, RoutedEventArgs e)
+        {
+            gfx.BeginScene(); // call before you start any drawing
+            gfx.ClearScene();
+            gfx.EndScene();
+        }
+
         private void Btn_New_Click(object sender, RoutedEventArgs e)
         {
             // Table Clear
@@ -2583,13 +2599,6 @@ namespace Metro
         private void TextBox_Stop_Hotkey_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             TextBox_Stop_Hotkey.Text = "";
-        }
-
-        private void ClearScreen_Click(object sender, RoutedEventArgs e)
-        {
-            gfx.BeginScene(); // call before you start any drawing
-            gfx.ClearScene();
-            gfx.EndScene();
         }
 
         private void OnOff_CrtlKey_Chk_Checked(object sender, RoutedEventArgs e)

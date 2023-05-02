@@ -33,5 +33,7 @@
     <system:String x:Key="The_current_version_is">The current latest version is {0}, you can download from github :)</system:String>
     <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Done">Done</system:String>
+    <system:String x:Key="HideShow">Hide/Show</system:String>
+    <system:String x:Key="Exit">Exit</system:String>
 
 </ResourceDictionary>
