@@ -1835,7 +1835,6 @@ namespace Metro
         }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
             mSettingHelper.End(this);
 
             // Stop all thread
@@ -2697,28 +2696,53 @@ namespace Metro
             mFrame.Navigate(new System.Uri(@"..\Resources\ModeDocument_"+ lang.Replace("-","") + ".xaml", UriKind.RelativeOrAbsolute));
         }
 
+        private string CheckUpdate()
+        {
+            try
+            {
+                const string GITHUB_API = "https://api.github.com/repos/{0}/{1}/releases/latest";
+                WebClient mWebClient = new WebClient();
+                mWebClient.Headers.Add("User-Agent", "Unity web player");
+                Uri uri = new Uri(string.Format(GITHUB_API, "gemilepus", "Scriptboxie"));
+                string releases = mWebClient.DownloadString(uri);
+                Console.WriteLine(releases);
+
+                var deserialize = JsonSerializer.Deserialize<Dictionary<string, object>>(releases);
+                deserialize.TryGetValue("tag_name", out var tag_name);
+
+                return tag_name.ToString();
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine("{0} Exception caught.", err);
+                return "";
+            }
+        }
+
         private async void Updates_Button_Click(object sender, RoutedEventArgs e)
         {
-            const string GITHUB_API = "https://api.github.com/repos/{0}/{1}/releases/latest";
-            WebClient mWebClient = new WebClient();
-            mWebClient.Headers.Add("User-Agent", "Unity web player");
-            Uri uri = new Uri(string.Format(GITHUB_API, "gemilepus", "Scriptboxie"));
-            string releases = mWebClient.DownloadString(uri);
-            Console.WriteLine(releases);
-
-            var deserialize = JsonSerializer.Deserialize<Dictionary<string, object>>(releases);
-            deserialize.TryGetValue("tag_name", out var tag_name);
-
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-            if (tag_name.ToString().Equals("v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion)) {
-                await this.ShowMessageAsync("", string.Format(FindResource("The_latest_version_is_used").ToString(), tag_name.ToString()));
-            }
-            else
+            try
             {
-                await this.ShowMessageAsync("", string.Format(FindResource("The_current_version_is").ToString(), tag_name.ToString()));
-                Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
+                string tag_name = CheckUpdate();
+
+                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                if (tag_name.ToString().Equals("v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion))
+                {
+                    await this.ShowMessageAsync("", string.Format(FindResource("The_latest_version_is_used").ToString(), tag_name.ToString()));
+                }
+                else
+                {
+                    if (!tag_name.ToString().Equals("")) {
+                        await this.ShowMessageAsync("", string.Format(FindResource("The_current_version_is").ToString(), tag_name.ToString()));
+                        Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
+                    }
+                }
             }
+            catch (Exception err)
+            {
+                Console.WriteLine("{0} Exception caught.", err);
+            }
+          
         }
         #endregion
 
