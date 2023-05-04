@@ -10,6 +10,7 @@
     <system:String x:Key="Main">Main</system:String>
     <system:String x:Key="Edit">Edit</system:String>
     <system:String x:Key="Setting">Setting</system:String>
+    <system:String x:Key="NewVersion">New version!</system:String>
 
     <system:String x:Key="Please_run_as_administrator">Please run as administrator</system:String>
 

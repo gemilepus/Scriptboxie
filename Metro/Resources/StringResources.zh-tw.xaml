@@ -10,6 +10,7 @@
     <system:String x:Key="Main">主頁</system:String>
     <system:String x:Key="Edit">編輯</system:String>
     <system:String x:Key="Setting">設定</system:String>
+    <system:String x:Key="NewVersion">新版本!</system:String>
 
     <system:String x:Key="Please_run_as_administrator">請用系統管理員身分執行</system:String>
 

@@ -1833,6 +1833,28 @@ namespace Metro
                 + "Mail: " + "gemilepus@gmail.com" + "\n"
                 );
         }
+
+        private void NewVersion_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            string tag_name = CheckUpdate();
+
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            if (!tag_name.ToString().Equals("v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion))
+            {
+                if (!tag_name.ToString().Equals(""))
+                {
+                    NewVersion.Text = NewVersion.Text + " " + tag_name;
+                    NewVersion.Visibility = Visibility.Visible;
+                }
+               
+            }
+        }
+
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             mSettingHelper.End(this);
