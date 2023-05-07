@@ -60,6 +60,9 @@ public class ConvertHelper
             case "WINDOWS":
                 KeyValue = "LWIN";
                 break;
+            case ":":
+                KeyValue = "OEM_1";
+                break;
             case "+":
                 KeyValue = "OEM_PLUS";
                 break;
@@ -72,6 +75,13 @@ public class ConvertHelper
             case ".":
                 KeyValue = "OEM_PERIOD";
                 break;
+            case "[":
+                KeyValue = "OEM_4";
+                break;
+            case "]":
+                KeyValue = "OEM_6";
+                break;
+
         }
         return KeyValue;
     }

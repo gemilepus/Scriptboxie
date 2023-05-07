@@ -430,6 +430,9 @@ namespace Metro
                         case "RControlKey":
                             mKeyCode = "CTRL";
                             break;
+                        case "Oem1":
+                            mKeyCode = ":";
+                            break;
                         case "Oemplus":
                             mKeyCode = "+";
                             break;
@@ -441,6 +444,12 @@ namespace Metro
                             break;
                         case "OemPeriod":
                             mKeyCode = ".";
+                            break;
+                        case "OemOpenBrackets":
+                            mKeyCode = "[";
+                            break;
+                        case "Oem6":
+                            mKeyCode = "]";
                             break;
                     }
 
