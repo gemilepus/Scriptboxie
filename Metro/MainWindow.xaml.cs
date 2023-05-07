@@ -1227,13 +1227,14 @@ namespace Metro
                                     CommandData = CommandData.Replace(",", "OEM_COMMA");
                                 }
                                 string[] mKey = CommandData.ToUpper().Split(',');
-                              
 
-                                mKey[0] = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
+                                // ConvertKeyString
+                                mKey[0] = ConvertHelper.ConvertKeyString(mKey[0].Trim().ToUpper());
                                 if (mKey[0].Length == 1)
                                 {
                                     mKey[0] = "VK_" + mKey[0];
                                 }
+
                                 VirtualKeyCode mKeyCode = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(mKey[0]);
                                 if (mKeyCode != 0)
                                 {
