@@ -400,9 +400,11 @@ namespace Metro
 
             if (Btn_Toggle.IsOn == true)
             {
-                if (e.KeyCode.ToString().IndexOf("Oem") == -1 && !e.KeyCode.ToString().Equals(""))
+                if (!e.KeyCode.ToString().Equals(""))
                 {
                     string mKeyCode = e.KeyCode.ToString();
+
+                    // Number
                     if (mKeyCode.Length == 2 && mKeyCode.IndexOf("D") != -1)
                     {
                         mKeyCode = mKeyCode.Replace("D", "");
@@ -428,24 +430,38 @@ namespace Metro
                         case "RControlKey":
                             mKeyCode = "CTRL";
                             break;
-
+                        case "Oemplus":
+                            mKeyCode = "+";
+                            break;
+                        case "Oemcomma":
+                            mKeyCode = ",";
+                            break;
+                        case "OemMinus":
+                            mKeyCode = "-";
+                            break;
+                        case "OemPeriod":
+                            mKeyCode = ".";
+                            break;
                     }
 
-                    mDataGrid.DataContext = null;
-                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "500", mTable_Event = "", mTable_Note = "" });
-                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
-                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "200", mTable_Event = "", mTable_Note = "" });
-                    mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
-                    mDataGrid.DataContext = mDataTable;
-
-                    // ScrollToBottom
-                    if (mDataGrid.Items.Count > 0)
+                    if (mKeyCode.IndexOf("Oem") == -1)
                     {
-                        var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
-                        if (border != null)
+                        mDataGrid.DataContext = null;
+                        mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "500", mTable_Event = "", mTable_Note = "" });
+                        mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyDown", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
+                        mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "Delay", mTable_Action = "200", mTable_Event = "", mTable_Note = "" });
+                        mDataTable.Add(new MainTable() { mTable_IsEnable = true, mTable_Mode = "SendKeyUp", mTable_Action = mKeyCode.ToUpper(), mTable_Event = "", mTable_Note = "" });
+                        mDataGrid.DataContext = mDataTable;
+
+                        // ScrollToBottom
+                        if (mDataGrid.Items.Count > 0)
                         {
-                            var scroll = border.Child as ScrollViewer;
-                            if (scroll != null) scroll.ScrollToBottom();
+                            var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
+                            if (border != null)
+                            {
+                                var scroll = border.Child as ScrollViewer;
+                                if (scroll != null) scroll.ScrollToBottom();
+                            }
                         }
                     }
                 }
@@ -1207,12 +1223,18 @@ namespace Metro
                                 #endregion
 
                                 //***************** InputSimulator *****************
+                                if (CommandData.Substring(0, 1).Equals(",")){
+                                    CommandData = CommandData.Replace(",", "OEM_COMMA");
+                                }
                                 string[] mKey = CommandData.ToUpper().Split(',');
+                              
+
+                                mKey[0] = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
                                 if (mKey[0].Length == 1)
                                 {
                                     mKey[0] = "VK_" + mKey[0];
                                 }
-                                VirtualKeyCode mKeyCode = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(ConvertHelper.ConvertKeyString(mKey[0]));
+                                VirtualKeyCode mKeyCode = (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode(mKey[0]);
                                 if (mKeyCode != 0)
                                 {
                                     if (mKey.Length == 2)
