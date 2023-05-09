@@ -1,6 +1,8 @@
-True;Match;s.png;0;;
-True;Move;;0;;
-True;Jump;+2;0;if finded s.png then jump to line 6;
-True;Match;s.png;1;;
-True;Move;;1;;
-True;Loop;;;;
+[
+{"Enable":true,"Mode":"Match","Action":"s.png","Event":"0","Note":""},
+{"Enable":true,"Mode":"Move","Action":"","Event":"0","Note":""},
+{"Enable":true,"Mode":"Jump","Action":"\u002B2","Event":"0","Note":"if finded s.png then jump to line 6"},
+{"Enable":true,"Mode":"Match","Action":"s.png","Event":"1","Note":""},
+{"Enable":true,"Mode":"Move","Action":"","Event":"1","Note":""},
+{"Enable":true,"Mode":"Loop","Action":"","Event":"","Note":""}
+]

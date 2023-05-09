@@ -1,4 +1,6 @@
-True;Move;500,500;;;
-True;Click;Left_Down;;;
-True;Delay;100;;;
-True;Click;Left_Up;;;
+[
+{"Enable":true,"Mode":"Move","Action":"500,500","Event":"","Note":""},
+{"Enable":true,"Mode":"Click","Action":"Left_Down","Event":"","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"100","Event":"","Note":""},
+{"Enable":true,"Mode":"Click","Action":"Left_Up","Event":"","Note":""}
+]

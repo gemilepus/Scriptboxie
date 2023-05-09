@@ -1,3 +1,5 @@
-True;ModifierKey;ALT|TAB;;;
-True;Delay;1000;;;
-True;Loop;;;;
+[
+{"Enable":true,"Mode":"ModifierKey","Action":"ALT|TAB","Event":"","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"1000","Event":"","Note":""},
+{"Enable":true,"Mode":"Loop","Action":"","Event":"","Note":""}
+]
