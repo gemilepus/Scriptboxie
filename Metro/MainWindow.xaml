@@ -349,7 +349,6 @@
                             <Button Margin="0,5,0,0" Click="Updates_Button_Click" Content="{DynamicResource Check_for_Updates}" MinWidth="25" 
                                     Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
                             <LineBreak/>
-                            <LineBreak/>
                             
                             <Run FontSize="16" Foreground="Black" Text="{DynamicResource ON_OFF_Option}"></Run>
                             <LineBreak/>
@@ -377,7 +376,6 @@
                                                    ToolTip="{DynamicResource Test_Mode_Tooltip}" ToolTipService.InitialShowDelay="300"></Controls:ToggleSwitch>
                             <LineBreak/>
 
-                            <LineBreak/> 
                             <Run FontSize="16" Foreground="Black" Text="{DynamicResource Website}"></Run> <Run FontSize="16" Foreground="Black">(Github):</Run>
                             <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate"> 
                                    <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
