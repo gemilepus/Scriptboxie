@@ -38,7 +38,18 @@
 
     
     <Grid>
-        <TextBlock  Text="{DynamicResource NewVersion}" PreviewMouseDown="NewVersion_PreviewMouseDown" Foreground="OrangeRed" Visibility="Hidden" Name="NewVersion" Height="14" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Grid.Column="1">
+        <TextBlock  Text="{DynamicResource NewVersion}" PreviewMouseDown="NewVersion_PreviewMouseDown" 
+                    Foreground="OrangeRed" Visibility="Hidden" Name="NewVersion" Height="14" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Grid.Column="1">
+        <TextBlock.Style>
+           <Style TargetType="TextBlock">
+               <Setter Property= "Background" Value="White"/>
+               <Style.Triggers>
+                   <Trigger Property ="IsMouseOver" Value="True">
+                            <Setter Property= "Background" Value="LightGray"/>
+                   </Trigger>
+               </Style.Triggers>
+            </Style>
+       </TextBlock.Style>
         </TextBlock>
         
         <TabControl VerticalAlignment="Top">
@@ -346,8 +357,9 @@
                 <Grid Background="White" Name="SettingGrid">
                     <ScrollViewer>
                         <TextBlock ScrollViewer.CanContentScroll="True" Margin="5px" MinHeight="300">
-                            <Button Margin="0,5,0,0" Click="Updates_Button_Click" Content="{DynamicResource Check_for_Updates}" MinWidth="25" 
+                            <Button Margin="0,0,0,0" Click="Updates_Button_Click" Content="{DynamicResource Check_for_Updates}" MinWidth="25" 
                                     Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                            <LineBreak/>
                             <LineBreak/>
                             
                             <Run FontSize="16" Foreground="Black" Text="{DynamicResource ON_OFF_Option}"></Run>
@@ -383,7 +395,7 @@
                             <LineBreak/> 
                             <Run FontSize="12" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run><LineBreak/>
                             
-                            <Run FontSize="16" Foreground="Black" Text="Donte"></Run> <Run FontSize="16" Foreground="Black">(ko-fi):</Run>
+                            <Run FontSize="16" Foreground="Black" Text="Donate"></Run> <Run FontSize="16" Foreground="Black">(ko-fi):</Run>
                             <Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate"> 
                                    <Run FontSize="16" Foreground="Black">https://ko-fi.com/gemilepus</Run>
                             </Hyperlink>

@@ -60,7 +60,7 @@ public class ConvertHelper
             case "WINDOWS":
                 KeyValue = "LWIN";
                 break;
-            case ":":
+            case ";":
                 KeyValue = "OEM_1";
                 break;
             case "+":
@@ -108,7 +108,7 @@ public class ConvertHelper
                 mKeyCode = "CTRL";
                 break;
             case "Oem1":
-                mKeyCode = ":";
+                mKeyCode = ";";
                 break;
             case "Oemplus":
                 mKeyCode = "+";
