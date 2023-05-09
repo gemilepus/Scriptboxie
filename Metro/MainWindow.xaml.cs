@@ -45,28 +45,17 @@ namespace Metro
     {
         // **************************************** Motion ******************************************
         #region Motion
-        // key actions
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
-        private const int KEYEVENTF_EXTENDEDKEY = 0x0001; //Key down flag
-        private const int KEYEVENTF_KEYUP = 0x0002; //Key up flag
-        private const int VK_LCONTROL = 0xA2; //Left Control key code
-        private const int A = 0x41; //A key code
-        private const int C = 0x43; //C key code
-
         // Mouse move
         [DllImport("user32")]
         private static extern int SetCursorPos(int x, int y);
         [DllImport("user32")]
         private static extern bool GetCursorPos(ref System.Drawing.Point lpPoint);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
-        // Mouse actions
-        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        private const int MOUSEEVENTF_LEFTUP = 0x04;
-        private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
-        private const int MOUSEEVENTF_RIGHTUP = 0x10;
+        // VkKeyScan Char to 0x00
+        [DllImport("user32.dll")]
+        private static extern byte VkKeyScan(char ch);
+        #endregion
+        // **************************************** Window ******************************************
+        #region Window
 
         // GetActiveWindowTitle
         [DllImport("user32.dll")]
@@ -87,24 +76,13 @@ namespace Metro
             }
             return null;
         }
-        #endregion
-        // **************************************** Window Activate ******************************************
-        #region Window Activate
-        // Set Foreground Window                        
-        // Get a handle to an application window.
-        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-        // Activate an application window.
+
         [DllImport("USER32.DLL")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        // VkKeyScan Char to 0x00
-        [DllImport("user32.dll")]
-        private static extern byte VkKeyScan(char ch);
-        #endregion
-        // ******************************** PostMessage & SendMessage & FindWindows ********************************
-        #region PostMessage & SendMessage & FindWindows 
-        // FindWindows EX
+        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
         [DllImport("user32.dll", SetLastError = true)]
         private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
@@ -122,9 +100,10 @@ namespace Metro
         // SendMessage
         [DllImport("user32.dll")]
         private static extern int SendMessage(int hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
+
         #endregion
-        // **************************************** OpenCV & Media ******************************************
-        #region OpenCV & Media
+        // **************************************** Image ******************************************
+        #region Image
         private Bitmap makeScreenshot()
         {
             Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
