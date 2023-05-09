@@ -1947,49 +1947,58 @@ namespace Metro
 
                 fileContent += reader.ReadToEnd();
                 fileContent.Replace(";", "%;");
+                //fileContent = fileContent.Replace(System.Environment.NewLine, "");
                 string[] SplitStr = fileContent.Split(';');
 
-                for (int i = 0; i < SplitStr.Length - col; i += col)
+                if (!fileContent.Substring(0, 2).Equals("[{"))
                 {
-                    string mMode = SplitStr[i + 1].Replace("%", "");
-                    switch (mMode)
+                    for (int i = 0; i < SplitStr.Length - col; i += col)
                     {
-                        case "Draw":
-                            mMode = "Match&Draw";
-                            break;
-                        case "RemoveKey":
-                            mMode = "RemoveEvent";
-                            break;
-                        case "Clean Draw":
-                            mMode = "Clear Screen";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    if (col == 5)
-                    {
-                        tempDataTable.Add(new MainTable()
+                        string mMode = SplitStr[i + 1].Replace("%", "");
+                        switch (mMode)
                         {
-                            mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
-                            mTable_Mode = mMode,
-                            mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                            mTable_Event = SplitStr[i + 3].Replace("%", ""),
-                            mTable_Note = SplitStr[i + 4].Replace("%", "")
-                        });
-                    }
-                    else {
-                        tempDataTable.Add(new MainTable()
-                        {
-                            mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
-                            mTable_Mode = mMode,
-                            mTable_Action = SplitStr[i + 2].Replace("%", ""),
-                            mTable_Event = SplitStr[i + 3].Replace("%", ""),
-                             mTable_Note = ""
-                        });
-                    }
+                            case "Draw":
+                                mMode = "Match&Draw";
+                                break;
+                            case "RemoveKey":
+                                mMode = "RemoveEvent";
+                                break;
+                            case "Clean Draw":
+                                mMode = "Clear Screen";
+                                break;
+                            default:
+                                break;
+                        }
 
+                        if (col == 5)
+                        {
+                            tempDataTable.Add(new MainTable()
+                            {
+                                mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
+                                mTable_Mode = mMode,
+                                mTable_Action = SplitStr[i + 2].Replace("%", ""),
+                                mTable_Event = SplitStr[i + 3].Replace("%", ""),
+                                mTable_Note = SplitStr[i + 4].Replace("%", "")
+                            });
+                        }
+                        else
+                        {
+                            tempDataTable.Add(new MainTable()
+                            {
+                                mTable_IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
+                                mTable_Mode = mMode,
+                                mTable_Action = SplitStr[i + 2].Replace("%", ""),
+                                mTable_Event = SplitStr[i + 3].Replace("%", ""),
+                                mTable_Note = ""
+                            });
+                        }
+
+                    }
                 }
+                else {
+                    tempDataTable = JsonSerializer.Deserialize<List<MainTable>>(fileContent);
+                }
+
                 reader.Close();
             }
             catch
@@ -2255,7 +2264,7 @@ namespace Metro
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
             openFileDialog.ShowDialog();
-
+           
             try
             {
                 // ScrollToTop
@@ -2296,17 +2305,19 @@ namespace Metro
 
             try
             {
-                string out_string = "";
-                for (int i = 0; i < mDataTable.Count; i++)
-                {
-                    out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
-                        + mDataTable[i].mTable_Mode + ";"
-                        + mDataTable[i].mTable_Action + ";"
-                        + mDataTable[i].mTable_Event.ToString() + ";"
-                        + mDataTable[i].mTable_Note.ToString().Replace(";", "") + ";"
-                        + "\n";
-                }
-                System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", out_string);
+                string JSON_String = JsonSerializer.Serialize(mDataTable);
+
+                //string out_string = "";
+                //for (int i = 0; i < mDataTable.Count; i++)
+                //{
+                //    out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
+                //        + mDataTable[i].mTable_Mode + ";"
+                //        + mDataTable[i].mTable_Action + ";"
+                //        + mDataTable[i].mTable_Event.ToString() + ";"
+                //        + mDataTable[i].mTable_Note.ToString().Replace(";", "") + ";"
+                //        + "\n";
+                //}
+                System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", JSON_String);
 
                 Load_Script(System.Windows.Forms.Application.StartupPath + "\\" + result + ".txt");
             }
@@ -2334,20 +2345,24 @@ namespace Metro
                 this.ShowMessageAsync("", FindResource("File_does_not_exist").ToString());
                 return;
             }
-
             try
             {
-                string out_string = "";
-                for (int i = 0; i < mDataTable.Count; i++)
-                {
-                    out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
-                        + mDataTable[i].mTable_Mode + ";"
-                        + mDataTable[i].mTable_Action + ";"
-                        + mDataTable[i].mTable_Event.ToString() + ";"
-                        + mDataTable[i].mTable_Note.ToString().Replace(";", "") + ";"
-                        + "\n";
-                }
-                System.IO.File.WriteAllText(result, out_string);
+                string JSON_String = JsonSerializer.Serialize(mDataTable);
+                JSON_String = JSON_String.Insert(1, "\n");
+                JSON_String = JSON_String.Insert(JSON_String.Length-1, "\n");
+                JSON_String = JSON_String.Replace("\"},", "\"},\n");
+
+                //string out_string = "";
+                //for (int i = 0; i < mDataTable.Count; i++)
+                //{
+                //    out_string += mDataTable[i].mTable_IsEnable.ToString() + ";"
+                //        + mDataTable[i].mTable_Mode + ";"
+                //        + mDataTable[i].mTable_Action + ";"
+                //        + mDataTable[i].mTable_Event.ToString() + ";"
+                //        + mDataTable[i].mTable_Note.ToString().Replace(";", "") + ";"
+                //        + "\n";
+                //}
+                System.IO.File.WriteAllText(result, JSON_String);
 
                 this.ShowMessageAsync("", FindResource("Done").ToString());
             }

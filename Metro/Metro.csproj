@@ -320,6 +320,7 @@
     <Compile Include="Resources\ModeDocument_zhtw.xaml.cs">
       <DependentUpon>ModeDocument_zhtw.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util.cs" />
     <Compile Include="V.cs" />
     <Compile Include="EditTable.cs" />
     <Compile Include="MainTable.cs" />
