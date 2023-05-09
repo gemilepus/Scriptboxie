@@ -85,6 +85,52 @@ public class ConvertHelper
         }
         return KeyValue;
     }
+    public static string ConvertKeyCode(string mKeyCode)
+    {
+        switch (mKeyCode)
+        {
+            case "Return":
+                mKeyCode = "ENTER";
+                break;
+            case "Escape":
+                mKeyCode = "ESC";
+                break;
+            case "LMenu":
+            case "RMenu":
+                mKeyCode = "ALT";
+                break;
+            case "LShiftKey":
+            case "RShiftKey":
+                mKeyCode = "SHIFT";
+                break;
+            case "LControlKey":
+            case "RControlKey":
+                mKeyCode = "CTRL";
+                break;
+            case "Oem1":
+                mKeyCode = ":";
+                break;
+            case "Oemplus":
+                mKeyCode = "+";
+                break;
+            case "Oemcomma":
+                mKeyCode = ",";
+                break;
+            case "OemMinus":
+                mKeyCode = "-";
+                break;
+            case "OemPeriod":
+                mKeyCode = ".";
+                break;
+            case "OemOpenBrackets":
+                mKeyCode = "[";
+                break;
+            case "Oem6":
+                mKeyCode = "]";
+                break;
+        }
+        return mKeyCode;
+    }
     public void GetEnumVirtualKeyCodeValues()
     {
         Array enumValueArray = Enum.GetValues(typeof(VirtualKeyCode));

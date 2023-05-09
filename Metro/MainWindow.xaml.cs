@@ -409,49 +409,7 @@ namespace Metro
                     {
                         mKeyCode = mKeyCode.Replace("D", "");
                     }
-
-                    switch (mKeyCode)
-                    {
-                        case "Return":
-                            mKeyCode = "ENTER";
-                            break;
-                        case "Escape":
-                            mKeyCode = "ESC";
-                            break;
-                        case "LMenu":
-                        case "RMenu":
-                            mKeyCode = "ALT";
-                            break;
-                        case "LShiftKey":
-                        case "RShiftKey":
-                            mKeyCode = "SHIFT";
-                            break;
-                        case "LControlKey":
-                        case "RControlKey":
-                            mKeyCode = "CTRL";
-                            break;
-                        case "Oem1":
-                            mKeyCode = ":";
-                            break;
-                        case "Oemplus":
-                            mKeyCode = "+";
-                            break;
-                        case "Oemcomma":
-                            mKeyCode = ",";
-                            break;
-                        case "OemMinus":
-                            mKeyCode = "-";
-                            break;
-                        case "OemPeriod":
-                            mKeyCode = ".";
-                            break;
-                        case "OemOpenBrackets":
-                            mKeyCode = "[";
-                            break;
-                        case "Oem6":
-                            mKeyCode = "]";
-                            break;
-                    }
+                    mKeyCode = ConvertHelper.ConvertKeyCode(mKeyCode);
 
                     if (mKeyCode.IndexOf("Oem") == -1)
                     {
@@ -661,7 +619,6 @@ namespace Metro
                 }
             }
 
-            //ConvertHelper.GetEnumVirtualKeyCodeValues();
         }
 
         #region KListener
