@@ -384,6 +384,12 @@
                             </Hyperlink>
                             <LineBreak/> 
                             <Run FontSize="10" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run><LineBreak/>
+                            
+                            <Run FontSize="16" Foreground="Black" Text="Donte"></Run> <Run FontSize="16" Foreground="Black">(ko-fi):</Run>
+                            <Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate"> 
+                                   <Run FontSize="16" Foreground="Black">https://ko-fi.com/gemilepus</Run>
+                            </Hyperlink>
+                            <LineBreak/>
                         </TextBlock>
                     </ScrollViewer>
 

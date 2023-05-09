@@ -2615,7 +2615,8 @@ namespace Metro
         #region Setting Panel
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start("https://github.com/gemilepus/Scriptboxie");
+            System.Windows.Documents.Hyperlink mHyperlink = (System.Windows.Documents.Hyperlink)sender;
+            Process.Start(mHyperlink.NavigateUri.ToString());
         }
         private void TextBox_OnOff_Hotkey_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
