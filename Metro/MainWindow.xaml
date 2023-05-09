@@ -274,7 +274,7 @@
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
-                            <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=IsEnable}"/>
+                            <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=Enable}"/>
 
                             <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=Mode}" MinWidth="100">
                                 <DataGridComboBoxColumn.ElementStyle>
@@ -383,7 +383,7 @@
                                    <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
                             </Hyperlink>
                             <LineBreak/> 
-                            <Run FontSize="10" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run><LineBreak/>
+                            <Run FontSize="12" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run><LineBreak/>
                             
                             <Run FontSize="16" Foreground="Black" Text="Donte"></Run> <Run FontSize="16" Foreground="Black">(ko-fi):</Run>
                             <Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate"> 

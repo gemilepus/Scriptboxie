@@ -332,10 +332,10 @@ namespace Metro
             {
                 //if (e.Button.Equals("")) { }
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { IsEnable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
-                mDataTable.Add(new MainTable() { IsEnable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
-                mDataTable.Add(new MainTable() { IsEnable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
-                mDataTable.Add(new MainTable() { IsEnable = true, Mode = "Click", Action = e.Button.ToString() + "", Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Click", Action = e.Button.ToString() + "", Event = "", Note = "" });
                 mDataGrid.DataContext = mDataTable;
             }
             Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
@@ -393,10 +393,10 @@ namespace Metro
                     if (mKeyCode.IndexOf("Oem") == -1)
                     {
                         mDataGrid.DataContext = null;
-                        mDataTable.Add(new MainTable() { IsEnable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
-                        mDataTable.Add(new MainTable() { IsEnable = true, Mode = "SendKeyDown", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
-                        mDataTable.Add(new MainTable() { IsEnable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
-                        mDataTable.Add(new MainTable() { IsEnable = true, Mode = "SendKeyUp", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyDown", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyUp", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
                         mDataGrid.DataContext = mDataTable;
 
                         // ScrollToBottom
@@ -468,7 +468,7 @@ namespace Metro
             }
             else {
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { IsEnable = true, Mode = "", Action = "", Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "", Action = "", Event = "", Note = "" });
                 mDataGrid.DataContext = mDataTable;
             }
 
@@ -905,7 +905,7 @@ namespace Metro
 
                 string Command = minDataTable[n].Mode;
                 string CommandData = minDataTable[n].Action;
-                bool CommandEnable = minDataTable[n].IsEnable;
+                bool CommandEnable = minDataTable[n].Enable;
 
                 if (DefValueList.IndexOfKey(CommandData) != -1)
                 {
@@ -1953,7 +1953,7 @@ namespace Metro
                         {
                             tempDataTable.Add(new MainTable()
                             {
-                                IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
+                                Enable = bool.Parse(SplitStr[i].Replace("%", "")),
                                 Mode = mMode,
                                 Action = SplitStr[i + 2].Replace("%", ""),
                                 Event = SplitStr[i + 3].Replace("%", ""),
@@ -1964,7 +1964,7 @@ namespace Metro
                         {
                             tempDataTable.Add(new MainTable()
                             {
-                                IsEnable = bool.Parse(SplitStr[i].Replace("%", "")),
+                                Enable = bool.Parse(SplitStr[i].Replace("%", "")),
                                 Mode = mMode,
                                 Action = SplitStr[i + 2].Replace("%", ""),
                                 Event = SplitStr[i + 3].Replace("%", ""),
@@ -2221,7 +2221,7 @@ namespace Metro
             // Table Clear
             mDataGrid.DataContext = null;
             mDataTable.Clear();
-            mDataTable.Add(new MainTable() { IsEnable = true, Mode = "", Action = "", Event = "", Note = "" });
+            mDataTable.Add(new MainTable() { Enable = true, Mode = "", Action = "", Event = "", Note = "" });
             mDataGrid.DataContext = mDataTable;
 
             ScriptName.Text = "";
@@ -2292,7 +2292,7 @@ namespace Metro
                 //string out_string = "";
                 //for (int i = 0; i < mDataTable.Count; i++)
                 //{
-                //    out_string += mDataTable[i].IsEnable.ToString() + ";"
+                //    out_string += mDataTable[i].Enable.ToString() + ";"
                 //        + mDataTable[i].Mode + ";"
                 //        + mDataTable[i].Action + ";"
                 //        + mDataTable[i].Event.ToString() + ";"
@@ -2337,7 +2337,7 @@ namespace Metro
                 //string out_string = "";
                 //for (int i = 0; i < mDataTable.Count; i++)
                 //{
-                //    out_string += mDataTable[i].IsEnable.ToString() + ";"
+                //    out_string += mDataTable[i].Enable.ToString() + ";"
                 //        + mDataTable[i].Mode + ";"
                 //        + mDataTable[i].Action + ";"
                 //        + mDataTable[i].Event.ToString() + ";"
@@ -2396,7 +2396,7 @@ namespace Metro
         private void mDataGrid_HeaderClick(object sender, RoutedEventArgs e)
         {       
             mDataGrid.DataContext = null;
-            mDataTable.Add(new MainTable() { IsEnable = true, Mode = "", Action = "", Event = "", Note = "" });
+            mDataTable.Add(new MainTable() { Enable = true, Mode = "", Action = "", Event = "", Note = "" });
             mDataGrid.DataContext = mDataTable;
         }
 
@@ -2576,13 +2576,13 @@ namespace Metro
                     {
                         // Insert Item
                         mDataGrid.DataContext = null;
-                        mDataTable.Insert(tableIndex + 1, new MainTable() { IsEnable = true, Mode = "", Action = "", Event = "" , Note = "" });
+                        mDataTable.Insert(tableIndex + 1, new MainTable() { Enable = true, Mode = "", Action = "", Event = "" , Note = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
                     else
                     {
                         mDataGrid.DataContext = null;
-                        mDataTable.Add(new MainTable() { IsEnable = true, Mode = "", Action = "", Event = "", Note = "" });
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "", Action = "", Event = "", Note = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
                 }
