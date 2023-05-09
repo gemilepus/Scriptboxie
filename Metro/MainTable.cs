@@ -8,10 +8,10 @@ namespace Metro
 {
     public class MainTable
     {
-        public bool mTable_IsEnable { get; set; }
-        public string mTable_Mode { get; set; }
-        public string mTable_Action { get; set; }
-        public string mTable_Event { get; set; }
-        public string mTable_Note { get; set; }
+        public bool IsEnable { get; set; }
+        public string Mode { get; set; }
+        public string Action { get; set; }
+        public string Event { get; set; }
+        public string Note { get; set; }
     }
 }

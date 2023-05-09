@@ -184,7 +184,7 @@
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock" >
                                                 
-                                                <!--<Setter Property="Text" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=DataContext.mTable_Mode}" />-->
+                                                <!--<Setter Property="Text" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=DataContext.Mode}" />-->
                                                 <Style.Triggers>
                                                     <Trigger Property="DataContext" Value="Move">
                                                         <Setter Property="Foreground" Value="Black"/>
@@ -274,9 +274,9 @@
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}"/>
-                            <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=mTable_IsEnable}"/>
+                            <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=IsEnable}"/>
 
-                            <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=mTable_Mode}" MinWidth="100">
+                            <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=Mode}" MinWidth="100">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
                                         <Setter Property="ItemTemplate" Value="{StaticResource template}" />
@@ -305,9 +305,9 @@
                                 </DataGridComboBoxColumn.ElementStyle>-->
                                 
                             </DataGridComboBoxColumn>
-                            <DataGridTextColumn Header="Event" Binding="{Binding Path=mTable_Event}"/>
-                            <DataGridTextColumn Header="Action" Binding="{Binding Path=mTable_Action}" MinWidth="200"/>
-                            <DataGridTextColumn Header="Note" Binding="{Binding Path=mTable_Note}" MinWidth="50" Foreground="ForestGreen"/>
+                            <DataGridTextColumn Header="Event" Binding="{Binding Path=Event}"/>
+                            <DataGridTextColumn Header="Action" Binding="{Binding Path=Action}" MinWidth="200"/>
+                            <DataGridTextColumn Header="Note" Binding="{Binding Path=Note}" MinWidth="50" Foreground="ForestGreen"/>
                             <DataGridTemplateColumn Header=" ">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
