@@ -393,10 +393,19 @@ namespace Metro
                     if (mKeyCode.IndexOf("Oem") == -1)
                     {
                         mDataGrid.DataContext = null;
-                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
-                        mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyDown", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
-                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
-                        mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyUp", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
+                        
+                        if (mKeyCode.Equals("WIN") || mKeyCode.Equals("Apps") || mKeyCode.Equals("SNAPSHOT") || mKeyCode.Equals("Scroll") || mKeyCode.Equals("Pause"))
+                        {
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Key", Action = mKeyCode, Event = "", Note = "" });
+                        }
+                        else {
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyDown", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyUp", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
+                        }
+                        
                         mDataGrid.DataContext = mDataTable;
 
                         // ScrollToBottom

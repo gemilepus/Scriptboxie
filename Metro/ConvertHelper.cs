@@ -63,7 +63,7 @@ public class ConvertHelper
             case ";":
                 KeyValue = "OEM_1";
                 break;
-            case "+":
+            case "=":
                 KeyValue = "OEM_PLUS";
                 break;
             case ",":
@@ -75,11 +75,23 @@ public class ConvertHelper
             case ".":
                 KeyValue = "OEM_PERIOD";
                 break;
+            case "/":
+                KeyValue = "OEM_2";
+                break;
+            case "`":
+                KeyValue = "OEM_3";
+                break;
+            case "\\":
+                KeyValue = "OEM_5";
+                break;
             case "[":
                 KeyValue = "OEM_4";
                 break;
             case "]":
                 KeyValue = "OEM_6";
+                break;
+            case "'":
+                KeyValue = "OEM_7";
                 break;
 
         }
@@ -107,11 +119,15 @@ public class ConvertHelper
             case "RControlKey":
                 mKeyCode = "CTRL";
                 break;
+            case "LWin":
+            case "RWin":
+                mKeyCode = "WIN";
+                break;
             case "Oem1":
                 mKeyCode = ";";
                 break;
             case "Oemplus":
-                mKeyCode = "+";
+                mKeyCode = "=";
                 break;
             case "Oemcomma":
                 mKeyCode = ",";
@@ -122,12 +138,29 @@ public class ConvertHelper
             case "OemPeriod":
                 mKeyCode = ".";
                 break;
+            case "OemQuestion":
+                mKeyCode = "/";
+                break;
+            case "Oemtilde":
+                mKeyCode = "`";
+                break;
+            case "Oem5":
+                mKeyCode = "\\";
+                break;
             case "OemOpenBrackets":
                 mKeyCode = "[";
                 break;
             case "Oem6":
                 mKeyCode = "]";
                 break;
+            case "Oem7":
+                mKeyCode = "'";
+                break;
+
+                //
+            case "PrintScreen":
+                mKeyCode = "SNAPSHOT";
+                break; 
         }
         return mKeyCode;
     }
