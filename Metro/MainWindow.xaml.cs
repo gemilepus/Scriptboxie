@@ -568,9 +568,9 @@ namespace Metro
             mNotifyIcon.ContextMenuStrip.Items.Add("-");
             mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("HideShow").ToString(), null, this.notifyIcon_DoubleClick);
             mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Exit").ToString(), null, this.notifyIcon_Exit_Click);
-            mNotifyIcon.Visible = true;
+            mNotifyIcon.MouseUp += MouseUp;
             mNotifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
-           
+            mNotifyIcon.Visible = true;
 
             if (!IsAdmin)
             {
@@ -607,6 +607,18 @@ namespace Metro
                 }
             }
 
+        }
+
+        private void MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int BarHeight = Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
+                if (BarHeight < 0) BarHeight = 0;
+                NotifyIcon mNotifyIcon = (NotifyIcon)sender;
+                int Bottom = mNotifyIcon.ContextMenuStrip.Top;
+                mNotifyIcon.ContextMenuStrip.Top = (int)(Bottom - BarHeight/2);
+            }
         }
 
         #region KListener
@@ -1740,6 +1752,19 @@ namespace Metro
         }
         private void notifyIcon_DoubleClick(object Sender, EventArgs e)
         {
+            try
+            {
+                System.Windows.Forms.MouseEventArgs mMouseEventArgs = (System.Windows.Forms.MouseEventArgs)e;
+                if (mMouseEventArgs.Button == MouseButtons.Right)
+                {
+                    return;
+                }
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err);
+            }
+
             if (this.WindowState == WindowState.Normal)
             {
                 this.WindowState = WindowState.Minimized;
