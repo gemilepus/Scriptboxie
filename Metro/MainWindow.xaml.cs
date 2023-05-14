@@ -2546,7 +2546,7 @@ namespace Metro
 
         private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            e.Row.Tag = (e.Row.GetIndex() + 1).ToString();
         }
 
         private void mDataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
