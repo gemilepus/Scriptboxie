@@ -563,7 +563,9 @@ namespace Metro
 
             // NotifyIcon
             mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            mNotifyIcon.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            mNotifyIcon.ContextMenuStrip = new ContextMenuStrip();
+            ToolStripItem mToolStripItem = mNotifyIcon.ContextMenuStrip.Items.Add("", null, this.notifyIcon_Close_Click);
+            mToolStripItem.Image = Properties.Resources.x;
             mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Visit_Website").ToString(), null, this.notifyIcon_Visit_Click);
             mNotifyIcon.ContextMenuStrip.Items.Add("-");
             mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("HideShow").ToString(), null, this.notifyIcon_DoubleClick);
@@ -607,18 +609,6 @@ namespace Metro
                 }
             }
 
-        }
-
-        private void MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                int BarHeight = Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
-                if (BarHeight < 0) BarHeight = 0;
-                NotifyIcon mNotifyIcon = (NotifyIcon)sender;
-                int Bottom = mNotifyIcon.ContextMenuStrip.Top;
-                mNotifyIcon.ContextMenuStrip.Top = (int)(Bottom - BarHeight/2);
-            }
         }
 
         #region KListener
@@ -1750,6 +1740,7 @@ namespace Metro
                 mNotifyIcon.ShowBalloonTip(500, title, msg, ToolTipIcon.None);
             }
         }
+
         private void notifyIcon_DoubleClick(object Sender, EventArgs e)
         {
             try
@@ -1780,6 +1771,18 @@ namespace Metro
             }
         }
 
+        private void MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int BarHeight = Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
+                if (BarHeight < 0) BarHeight = 0;
+                NotifyIcon mNotifyIcon = (NotifyIcon)sender;
+                int Bottom = mNotifyIcon.ContextMenuStrip.Top;
+                mNotifyIcon.ContextMenuStrip.Top = (int)(Bottom - BarHeight / 2);
+            }
+        }
+
         private void notifyIcon_Visit_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/gemilepus/Scriptboxie");
@@ -1787,6 +1790,10 @@ namespace Metro
         private void notifyIcon_Exit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void notifyIcon_Close_Click(object sender, EventArgs e)
+        {
+            mNotifyIcon.ContextMenuStrip.Close();
         }
         private void AlertSound()
         {
