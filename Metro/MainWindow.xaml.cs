@@ -2330,16 +2330,6 @@ namespace Metro
                 JSON_String = JSON_String.Insert(JSON_String.Length - 1, "\n");
                 JSON_String = JSON_String.Replace("\"},", "\"},\n");
 
-                //string out_string = "";
-                //for (int i = 0; i < mDataTable.Count; i++)
-                //{
-                //    out_string += mDataTable[i].Enable.ToString() + ";"
-                //        + mDataTable[i].Mode + ";"
-                //        + mDataTable[i].Action + ";"
-                //        + mDataTable[i].Event.ToString() + ";"
-                //        + mDataTable[i].Note.ToString().Replace(";", "") + ";"
-                //        + "\n";
-                //}
                 System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", JSON_String);
 
                 Load_Script(System.Windows.Forms.Application.StartupPath + "\\" + result + ".txt");
@@ -2375,16 +2365,6 @@ namespace Metro
                 JSON_String = JSON_String.Insert(JSON_String.Length-1, "\n");
                 JSON_String = JSON_String.Replace("\"},", "\"},\n");
 
-                //string out_string = "";
-                //for (int i = 0; i < mDataTable.Count; i++)
-                //{
-                //    out_string += mDataTable[i].Enable.ToString() + ";"
-                //        + mDataTable[i].Mode + ";"
-                //        + mDataTable[i].Action + ";"
-                //        + mDataTable[i].Event.ToString() + ";"
-                //        + mDataTable[i].Note.ToString().Replace(";", "") + ";"
-                //        + "\n";
-                //}
                 System.IO.File.WriteAllText(result, JSON_String);
 
                 this.ShowMessageAsync("", FindResource("Done").ToString());
