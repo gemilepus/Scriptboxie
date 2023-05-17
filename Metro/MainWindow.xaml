@@ -89,7 +89,7 @@
                             <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" MinWidth="200">
                                 <DataGridTextColumn.CellStyle>
                                     <Style TargetType="DataGridCell">
-                                        <Setter Property="ToolTip" Value="ex:MyScript.txt" />
+                                        <Setter Property="ToolTip" Value="{DynamicResource Double_click_to_select_script_file}"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
                                     </Style>
                                 </DataGridTextColumn.CellStyle>

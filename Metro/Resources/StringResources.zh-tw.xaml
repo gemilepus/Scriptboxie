@@ -13,6 +13,7 @@
     <system:String x:Key="NewVersion">新版本!</system:String>
 
     <system:String x:Key="Please_run_as_administrator">請用系統管理員身分執行</system:String>
+    <system:String x:Key="Double_click_to_select_script_file">EX:myscript.txt. 雙擊選擇腳本文件</system:String>
 
     <system:String x:Key="Clear_screen">清理畫面</system:String>
     <system:String x:Key="Record_Tooltip">這只是一個粗略的記錄。 錄製後請調整腳本</system:String>

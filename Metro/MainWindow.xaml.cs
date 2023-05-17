@@ -1918,7 +1918,7 @@ namespace Metro
 
             reader.Close();
         }
-        private void Save_Script() // async
+        private void Save_Script()
         {
             string out_string = "";
             for (int i = 0; i < eDataTable.Count; i++)
@@ -2192,6 +2192,42 @@ namespace Metro
                         eDataGrid.DataContext = null;
                         eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
                         eDataGrid.DataContext = eDataTable;
+                    }
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine("{0} Exception caught.", err);
+                }
+            }
+            else if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("Path"))
+            {
+                int tableIndex = eDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
+                try
+                {
+                    if (tableIndex < eDataTable.Count())
+                    {
+                        string filePath = string.Empty;
+
+                        System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+                        openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
+                        openFileDialog.Filter = "txt files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+                        openFileDialog.FilterIndex = 2;
+                        openFileDialog.RestoreDirectory = true;
+                        openFileDialog.ShowDialog();
+
+                        //Get the path of specified file
+                        filePath = openFileDialog.FileName;
+                        if (filePath.Equals("")) { return; }
+
+                        DataGridCellInfo cellInfo = eDataGrid.CurrentCell;
+                        FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+                        System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+                        System.Windows.Controls.TextBox mTextBlock = (System.Windows.Controls.TextBox)cell.Content;
+                        
+                        mTextBlock.Text = filePath.Replace(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)+"\\", "");
+
+                        cell.IsEditing = false;
+                        eDataGrid.CommitEdit();
                     }
                 }
                 catch (Exception err)
@@ -2597,13 +2633,13 @@ namespace Metro
                     {
                         // Insert Item
                         mDataGrid.DataContext = null;
-                        mDataTable.Insert(tableIndex + 1, new MainTable() { Enable = true, Mode = "", Action = "", Event = "" , Note = "" });
+                        mDataTable.Insert(tableIndex + 1, new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "" , Note = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
                     else
                     {
                         mDataGrid.DataContext = null;
-                        mDataTable.Add(new MainTable() { Enable = true, Mode = "", Action = "", Event = "", Note = "" });
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
                 }
