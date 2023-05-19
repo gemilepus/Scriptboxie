@@ -2480,6 +2480,9 @@ namespace Metro
                     case "RemoveEvent":
                         btnlist = new string[] { "PUSH" };
                         break;
+                    case "Match":
+                    case "Match RGB":
+                    case "Match&Draw":
                     case "Run .exe":
                     case "PlaySound":
                         txtlist = new string[] { "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()) };
@@ -2673,13 +2676,18 @@ namespace Metro
                     {
                         MainTable row = (MainTable)mDataGrid.CurrentItem;
 
-                        if (row.Mode.Equals("Run .exe") || row.Mode.Equals("PlaySound")) {
+                        if (row.Mode.Equals("Match") || row.Mode.Equals("Match RGB") || row.Mode.Equals("Match&Draw") || row.Mode.Equals("Run .exe") || row.Mode.Equals("PlaySound")) {
                             string filePath = string.Empty;
 
                             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
                             openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
                             switch (row.Mode)
                             {
+                                case "Match":
+                                case "Match RGB":
+                                case "Match&Draw":
+                                    openFileDialog.Filter = "txt files (*.png)|*.png";
+                                    break;
                                 case "Run .exe":
                                     openFileDialog.Filter = "txt files (*.exe)|*.exe";
                                     break;
