@@ -13,7 +13,7 @@
     <system:String x:Key="NewVersion">New version!</system:String>
 
     <system:String x:Key="Please_run_as_administrator">Please run as administrator</system:String>
-    <system:String x:Key="Double_click_to_select_script_file">EX:myscript.txt. Double click to select script file</system:String>
+    <system:String x:Key="Double_click_to_select_file">Double click to select file</system:String>
 
     <system:String x:Key="Clear_screen">Clear screen</system:String>
     <system:String x:Key="Record_Tooltip">This is just a rough record. Please adjust the script after recording</system:String>

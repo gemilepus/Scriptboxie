@@ -2470,6 +2470,7 @@ namespace Metro
             {
                 MainTable row = (MainTable)mDataGrid.CurrentItem;
                 string[] btnlist = new string[] { };
+                string[] txtlist = new string[] { };
 
                 switch (row.Mode)
                 {
@@ -2479,12 +2480,26 @@ namespace Metro
                     case "RemoveEvent":
                         btnlist = new string[] { "PUSH" };
                         break;
+                    case "Run .exe":
+                    case "PlaySound":
+                        txtlist = new string[] { "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()) };
+                        break;
                 }
 
-                if (btnlist.Length <= 0 || row.Action.Length > 0)
+                if ((btnlist.Length <= 0 && txtlist.Length <= 0) || row.Action.Length > 0)
                 {
                     ToolBar.Visibility = Visibility.Collapsed;
                     return;
+                }
+
+                for (int i = 0; i < txtlist.Length; i++)
+                {
+                    System.Windows.Controls.Label label = new System.Windows.Controls.Label();
+                    label.Height = 30;
+                    label.Content = txtlist[i];
+                    label.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(240, 240, 240, 240));
+                    label.Foreground = new SolidColorBrush(Colors.Red);
+                    ToolBar.Items.Add(label);
                 }
 
                 for (int i = 0; i < btnlist.Length; i++)
@@ -2641,6 +2656,56 @@ namespace Metro
                         mDataGrid.DataContext = null;
                         mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
                         mDataGrid.DataContext = mDataTable;
+                    }
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine("{0} Exception caught.", err);
+                }
+            }
+            else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
+            {
+                int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
+  
+                try
+                {
+                    if (tableIndex < mDataTable.Count())
+                    {
+                        MainTable row = (MainTable)mDataGrid.CurrentItem;
+
+                        if (row.Mode.Equals("Run .exe") || row.Mode.Equals("PlaySound")) {
+                            string filePath = string.Empty;
+
+                            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+                            openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
+                            switch (row.Mode)
+                            {
+                                case "Run .exe":
+                                    openFileDialog.Filter = "txt files (*.exe)|*.exe";
+                                    break;
+                                case "PlaySound":
+                                    openFileDialog.Filter = "txt files (*.wav)|*.wav";
+                                    break;
+                            }
+                            openFileDialog.FilterIndex = 2;
+                            openFileDialog.RestoreDirectory = true;
+                            openFileDialog.ShowDialog();
+
+                            //Get the path of specified file
+                            filePath = openFileDialog.FileName;
+                            if (filePath.Equals("")) { return; }
+
+                            DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
+                            FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+                            System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+                            System.Windows.Controls.TextBox mTextBlock = (System.Windows.Controls.TextBox)cell.Content;
+
+                            mTextBlock.Text = filePath.Replace(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\", "");
+
+                            cell.IsEditing = false;
+                            mDataGrid.CommitEdit();
+                        }
+                      
                     }
                 }
                 catch (Exception err)
