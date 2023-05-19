@@ -1,6 +1,6 @@
 [
 {"Enable":true,"Mode":"Delay","Action":"300","Event":"","Note":""},
-{"Enable":true,"Mode":"SendKeyDown","Action":"A","Event":"","Note":""},
+{"Enable":true,"Mode":"SendKeyDown","Action":"A","Event":"","Note":"This is game input, please use Key if it is not used in the game"},
 {"Enable":true,"Mode":"Delay","Action":"100","Event":"","Note":""},
 {"Enable":true,"Mode":"SendKeyUp","Action":"A","Event":"","Note":""},
 {"Enable":true,"Mode":"Delay","Action":"100","Event":"","Note":""},
