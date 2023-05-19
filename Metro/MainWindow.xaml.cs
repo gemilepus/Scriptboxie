@@ -477,7 +477,7 @@ namespace Metro
             }
             else {
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "", Action = "", Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
                 mDataGrid.DataContext = mDataTable;
             }
 
@@ -2045,7 +2045,7 @@ namespace Metro
                 if (!File.Exists("Script.ini"))
                 {
                     eDataGrid.DataContext = null;
-                    eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                    eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "Delay", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
                     eDataGrid.DataContext = eDataTable;
                 }
             }
@@ -2184,13 +2184,13 @@ namespace Metro
                     {
                         // Insert Item
                         eDataGrid.DataContext = null;
-                        eDataTable.Insert(tableIndex + 1, new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                        eDataTable.Insert(tableIndex + 1, new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
                         eDataGrid.DataContext = eDataTable;
                     }
                     else
                     {
                         eDataGrid.DataContext = null;
-                        eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                        eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
                         eDataGrid.DataContext = eDataTable;
                     }
                 }
@@ -2298,7 +2298,7 @@ namespace Metro
             // Table Clear
             mDataGrid.DataContext = null;
             mDataTable.Clear();
-            mDataTable.Add(new MainTable() { Enable = true, Mode = "", Action = "", Event = "", Note = "" });
+            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
             mDataGrid.DataContext = mDataTable;
 
             ScriptName.Text = "";
@@ -2453,7 +2453,7 @@ namespace Metro
         private void mDataGrid_HeaderClick(object sender, RoutedEventArgs e)
         {       
             mDataGrid.DataContext = null;
-            mDataTable.Add(new MainTable() { Enable = true, Mode = "", Action = "", Event = "", Note = "" });
+            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
             mDataGrid.DataContext = mDataTable;
         }
 
