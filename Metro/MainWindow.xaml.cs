@@ -2045,7 +2045,7 @@ namespace Metro
                 if (!File.Exists("Script.ini"))
                 {
                     eDataGrid.DataContext = null;
-                    eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "Delay", eTable_Name = "", eTable_Note = "", eTable_Path = "", eTable_State = "" });
+                    eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
                     eDataGrid.DataContext = eDataTable;
                 }
             }
