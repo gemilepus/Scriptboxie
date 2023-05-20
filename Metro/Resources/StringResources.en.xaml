@@ -19,9 +19,9 @@
     <system:String x:Key="Record_Tooltip">This is just a rough record. Please adjust the script after recording</system:String>
 
     <system:String x:Key="Check_for_Updates">Check for Updates</system:String>
-    <system:String x:Key="ON_OFF_Option">ON/OFF(default is " ):</system:String>
-    <system:String x:Key="Run_Editing_Script_Option">Run Editing Script(default is [ ):</system:String>
-    <system:String x:Key="Stop_Editing_Script_Option">Stop Editing Script(default is ] ):</system:String>
+    <system:String x:Key="ON_OFF_Option">ON/OFF :</system:String>
+    <system:String x:Key="Run_Editing_Script_Option">Run Editing Script :</system:String>
+    <system:String x:Key="Stop_Editing_Script_Option">Stop Editing Script :</system:String>
     <system:String x:Key="Hide_on_start_Option">Hide on start:</system:String>
     <system:String x:Key="Test_Mode_Option">Test Mode:</system:String>
     <system:String x:Key="Test_Mode_Tooltip">The script being edited will delayed by 1 second every step and mark the running step.</system:String>

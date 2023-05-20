@@ -366,15 +366,18 @@ namespace Metro
             // for Hotkey setting
             if (TextBox_OnOff_Hotkey.IsFocused)
             {
-                TextBox_OnOff_Hotkey.Text = e.KeyCode.ToString();
+                TextBox_OnOff_Hotkey.Text = ConvertHelper.ConvertKeyCode(e.KeyCode.ToString());
+                OnOff_CrtlKey_Chk.Focus();
             }
             else if (TextBox_Run_Hotkey.IsFocused)
             {
-                TextBox_Run_Hotkey.Text = e.KeyCode.ToString();
+                TextBox_Run_Hotkey.Text = ConvertHelper.ConvertKeyCode(e.KeyCode.ToString());
+                Run_CrtlKey_Chk.Focus();
             }
             else if (TextBox_Stop_Hotkey.IsFocused)
             {
-                TextBox_Stop_Hotkey.Text = e.KeyCode.ToString();
+                TextBox_Stop_Hotkey.Text = ConvertHelper.ConvertKeyCode(e.KeyCode.ToString());
+                Stop_CrtlKey_Chk.Focus();
             }
 
             if (Btn_Toggle.IsOn == true)
@@ -383,11 +386,6 @@ namespace Metro
                 {
                     string mKeyCode = e.KeyCode.ToString();
 
-                    // Number
-                    if (mKeyCode.Length == 2 && mKeyCode.IndexOf("D") != -1)
-                    {
-                        mKeyCode = mKeyCode.Replace("D", "");
-                    }
                     mKeyCode = ConvertHelper.ConvertKeyCode(mKeyCode);
 
                     if (mKeyCode.IndexOf("Oem") == -1)
@@ -673,7 +671,7 @@ namespace Metro
             //UnKListener();
 
             // ON / OFF
-            if (!Script_Toggle.IsOn && e.KeyCode.ToString().Equals(mSettingHelper.OnOff_Hotkey) && !(OnOff_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "'"
+            if (!Script_Toggle.IsOn && ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.OnOff_Hotkey) && !(OnOff_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "'"
             {
                 if (Btn_ON.Content.Equals("ON"))
                 {
@@ -725,13 +723,13 @@ namespace Metro
             Console.WriteLine(e.KeyCode.ToString());
 
 
-            if (e.KeyCode.ToString().Equals(mSettingHelper.Run_Hotkey) && !(Run_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "["
+            if (ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.Run_Hotkey) && !(Run_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "["
             {
                 AlertSound();
                 ShowBalloon("Run", "...");
                 Run_script();
             }
-            if (e.KeyCode.ToString().Equals(mSettingHelper.Stop_Hotkey) && !(Stop_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "]"
+            if (ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.Stop_Hotkey) && !(Stop_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "]"
             {
                 AlertSound();
                 Stop_script();
@@ -2755,11 +2753,6 @@ namespace Metro
             mSettingHelper.OnOff_CrtlKey = "0";
         }
 
-        private void TextBox_OnOff_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            mSettingHelper.OnOff_Hotkey = TextBox_OnOff_Hotkey.Text.ToString();
-        }
-
         private void Run_CrtlKey_Chk_Checked(object sender, RoutedEventArgs e)
         {
             mSettingHelper.Run_CrtlKey = "1";
@@ -2780,14 +2773,20 @@ namespace Metro
             mSettingHelper.Stop_CrtlKey = "0";
         }
 
+        private void TextBox_OnOff_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
+        {
+          
+            mSettingHelper.OnOff_Hotkey = ConvertHelper.ConvertKeyCode(TextBox_OnOff_Hotkey.Text.ToString());
+        }
+
         private void TextBox_Run_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
-            mSettingHelper.Run_Hotkey = TextBox_Run_Hotkey.Text.ToString();
+            mSettingHelper.Run_Hotkey = ConvertHelper.ConvertKeyCode(TextBox_Run_Hotkey.Text.ToString());
         }
 
         private void TextBox_Stop_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
         {
-            mSettingHelper.Stop_Hotkey = TextBox_Stop_Hotkey.Text.ToString();
+            mSettingHelper.Stop_Hotkey = ConvertHelper.ConvertKeyCode(TextBox_Stop_Hotkey.Text.ToString());
         }
 
         private void HideOnSatrt_Toggle_Toggled(object sender, RoutedEventArgs e)

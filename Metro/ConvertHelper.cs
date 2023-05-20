@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using WindowsInput.Native;
 using System.Collections;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 public class ConvertHelper
 {
@@ -99,6 +100,11 @@ public class ConvertHelper
     }
     public static string ConvertKeyCode(string mKeyCode)
     {
+        // Number
+        if (Regex.IsMatch(mKeyCode, @"^D[0-9]{1}")) {
+            return mKeyCode.Replace("D","");
+        }
+
         switch (mKeyCode)
         {
             case "Return":

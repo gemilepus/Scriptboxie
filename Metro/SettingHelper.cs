@@ -63,7 +63,7 @@ namespace Metro
             //  ON_OFF Hotkey
             if (data["Def"]["OnOff_CrtlKey"] == null)
             {
-                data["Def"]["OnOff_CrtlKey"] = "0";
+                data["Def"]["OnOff_CrtlKey"] = "1";
             }
             if (data["Def"]["OnOff_Hotkey"] == null)
             {
@@ -73,7 +73,7 @@ namespace Metro
             //  Run Hotkey
             if (data["Def"]["Run_CrtlKey"] == null)
             {
-                data["Def"]["Run_CrtlKey"] = "0";
+                data["Def"]["Run_CrtlKey"] = "1";
             }
             if (data["Def"]["Run_Hotkey"] == null)
             {
@@ -83,7 +83,7 @@ namespace Metro
             //  Stop Hotkey
             if (data["Def"]["Stop_CrtlKey"] == null)
             {
-                data["Def"]["Stop_CrtlKey"] = "0";
+                data["Def"]["Stop_CrtlKey"] = "1";
             }
             if (data["Def"]["Stop_Hotkey"] == null)
             {
@@ -115,11 +115,13 @@ namespace Metro
             }
 
             OnOff_CrtlKey = data["Def"]["OnOff_CrtlKey"];
-            OnOff_Hotkey = data["Def"]["OnOff_Hotkey"];
+            OnOff_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["OnOff_Hotkey"]);
+
             Run_CrtlKey = data["Def"]["Run_CrtlKey"];
-            Run_Hotkey = data["Def"]["Run_Hotkey"];
+            Run_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["Run_Hotkey"]);
+
             Stop_CrtlKey = data["Def"]["Stop_CrtlKey"];
-            Stop_Hotkey = data["Def"]["Stop_Hotkey"];
+            Stop_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["Stop_Hotkey"]);
 
             HideOnSatrt = data["Def"]["HideOnSatrt"];
             TestMode = data["Def"]["TestMode"];
