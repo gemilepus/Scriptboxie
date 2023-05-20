@@ -2439,13 +2439,7 @@ namespace Metro
         {
             if (e.Key.ToString().Equals("Return"))
             {
-                ToolBar.Visibility = Visibility.Collapsed;
-                // CommitEdit & Change Focus
-                mDataGrid.CommitEdit();
-                EditGrid.Focus();
-                
-                Btn_ON.Content = "ON";
-                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+                CellEditComplete();
             }
         }
         private void mDataGrid_HeaderClick(object sender, RoutedEventArgs e)
@@ -2575,12 +2569,7 @@ namespace Metro
 
             // CommitEdit & Change Focus
             cell.IsEditing = false;
-
-            mDataGrid.CommitEdit();
-            EditGrid.Focus();
-
-            Btn_ON.Content = "ON";
-            Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+            CellEditComplete();
         }
 
         private void mDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -2709,7 +2698,7 @@ namespace Metro
                             mTextBlock.Text = filePath.Replace(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\", "");
 
                             cell.IsEditing = false;
-                            mDataGrid.CommitEdit();
+                            CellEditComplete();
                         }
                       
                     }
@@ -2719,6 +2708,16 @@ namespace Metro
                     Console.WriteLine("{0} Exception caught.", err);
                 }
             }
+        }
+
+        private void CellEditComplete() {
+            ToolBar.Visibility = Visibility.Collapsed;
+            // CommitEdit & Change Focus
+            mDataGrid.CommitEdit();
+            EditGrid.Focus();
+
+            Btn_ON.Content = "ON";
+            Btn_ON.Foreground = System.Windows.Media.Brushes.White;
         }
         #endregion
 
