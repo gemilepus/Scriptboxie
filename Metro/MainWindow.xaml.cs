@@ -731,12 +731,14 @@ namespace Metro
 
             if (ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.Run_Hotkey) && !(Run_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "["
             {
+                ClearScreen_Btn.Focus();
                 AlertSound();
                 ShowBalloon("Run", "...");
                 Run_script();
             }
             if (ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.Stop_Hotkey) && !(Stop_CrtlKey_Chk.IsChecked == true && e.Control == false)) // def "]"
             {
+                ClearScreen_Btn.Focus();
                 AlertSound();
                 Stop_script();
                 ShowBalloon("Stop", "...");
@@ -2739,7 +2741,7 @@ namespace Metro
             ToolBar.Visibility = Visibility.Collapsed;
             // CommitEdit & Change Focus
             mDataGrid.CommitEdit();
-            ClearScreen_Btn.Focus();
+            //ClearScreen_Btn.Focus();
 
             Btn_ON.Content = "ON";
             Btn_ON.Foreground = System.Windows.Media.Brushes.White;
@@ -2915,6 +2917,7 @@ namespace Metro
             else
             {
                 mSettingHelper.Topmost = false;
+                System.Windows.Application.Current.MainWindow.Topmost = false;
             }
         }
 
