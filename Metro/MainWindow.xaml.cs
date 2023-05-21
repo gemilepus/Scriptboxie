@@ -38,6 +38,7 @@ using System.Windows.Media;
 using System.Net;
 using System.Text.Json;
 using System.Windows.Interop;
+using System.Text.RegularExpressions;
 
 namespace Metro
 {
@@ -1186,7 +1187,8 @@ namespace Metro
 
                                 //***************** InputSimulator *****************
                                 if (CommandData.Substring(0, 1).Equals(",")){
-                                    CommandData = CommandData.Replace(",", "OEM_COMMA");
+                                    Regex regex = new Regex(Regex.Escape(","));
+                                    CommandData = regex.Replace(CommandData, "OEM_COMMA", 1);
                                 }
                                 string[] mKey = CommandData.ToUpper().Split(',');
 
@@ -1206,7 +1208,13 @@ namespace Metro
                                         {
                                             mInputSimulator.Keyboard.KeyDown(mKeyCode);
                                         }
+                                        else if (mKey[1].Equals("UP"))
+                                        {
+                                            mInputSimulator.Keyboard.KeyUp(mKeyCode);
+                                        }
                                         else {
+                                            mInputSimulator.Keyboard.KeyDown(mKeyCode);
+                                            Thread.Sleep(int.Parse(mKey[1])); ;
                                             mInputSimulator.Keyboard.KeyUp(mKeyCode);
                                         }
                                     }

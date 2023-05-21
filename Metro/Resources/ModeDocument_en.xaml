@@ -119,9 +119,13 @@
         <LineBreak/>
         <Run Foreground="Orange">-@Key,@Type</Run>
         <LineBreak/>
+        <Run Foreground="Orange">-@Key,@Time</Run>
+        <LineBreak/>
         Key: key in value , can use A~Z 0~9 F1~F12 WIN ......
         <LineBreak/>
         Type: Down or Up
+        <LineBreak/>
+        Time: ms,1000 ms=1 second , the time keydown to keyup
         <LineBreak/>
          ex: A,Down
         <LineBreak/>
