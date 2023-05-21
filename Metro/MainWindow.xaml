@@ -7,7 +7,7 @@
                       Height="400"
                       Width="800"             
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-                      Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded">
+                      Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" Deactivated="MetroWindow_Deactivated">
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -334,7 +334,9 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button Name="ClearScreen_Btn" Click="ClearScreen_Click" ToolTip="{DynamicResource Clear_screen}" ToolTipService.InitialShowDelay="100" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Circle}">
+                    <Button PreviewGotKeyboardFocus="ClearScreen_Btn_PreviewGotKeyboardFocus" PreviewMouseMove="ClearScreen_Btn_PreviewMouseMove" PreviewKeyDown="ClearScreen_Btn_PreviewKeyDown" 
+                            Name="ClearScreen_Btn" FocusVisualStyle="{x:Null}"
+                            Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Circle}"  Click="ClearScreen_Click" >
                         <Image  Height="15" Width="15" Source="img/clean2.png"/>
                     </Button>
                     <ToolBar Name="ToolBar" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Blue"  Margin="0,0,0,0"/>
@@ -392,17 +394,18 @@
         <CheckBox Grid.Column="1" Grid.Row="2" x:Name="Stop_CrtlKey_Chk" Content="Ctrl  +" Checked="Stop_CrtlKey_Chk_Checked" Unchecked="Stop_CrtlKey_Chk_Unchecked"/>
         <TextBox Grid.Column="2" Grid.Row="2" x:Name="TextBox_Stop_Hotkey" KeyDown="TextBox_Stop_Hotkey_KeyDown" TextChanged="TextBox_Stop_Hotkey_TextChanged" Width="70"/>
     </Grid>
-                          
                             <LineBreak/>
                             
                             <Run FontSize="16" Foreground="Black" Text="{DynamicResource Hide_on_start_Option}"></Run>
-                            <Controls:ToggleSwitch Toggled="HideOnSatrt_Toggle_Toggled" Name="HideOnSatrt_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15,0,0,-5" Grid.Column="1"></Controls:ToggleSwitch>
+                            <Controls:ToggleSwitch Toggled="HideOnSatrt_Toggle_Toggled" Name="HideOnSatrt_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="15,0,0,-5"></Controls:ToggleSwitch>
                             <LineBreak/>
                             <Run FontSize="16" Foreground="Black" Text="{DynamicResource Test_Mode_Option}"></Run>
-                            <Controls:ToggleSwitch Toggled="TestMode_Toggle_Toggled" Name="TestMode_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="32,0,0,-5" Grid.Column="1"
-                                                   ToolTip="{DynamicResource Test_Mode_Tooltip}" ToolTipService.InitialShowDelay="300"></Controls:ToggleSwitch>
+                            <Controls:ToggleSwitch Toggled="TestMode_Toggle_Toggled" Name="TestMode_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="32,0,0,-5" ToolTip="{DynamicResource Test_Mode_Tooltip}" ToolTipService.InitialShowDelay="300"></Controls:ToggleSwitch>
                             <LineBreak/>
-
+                             <Run FontSize="16" Foreground="Black" Text="{DynamicResource Topmost_Option}"></Run>
+                             <Controls:ToggleSwitch Name="Top_Toggle" Toggled="Top_Toggle_Toggled" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="44,0,0,-5"></Controls:ToggleSwitch>
+                            <LineBreak/>
+                            
                         </TextBlock>
                     </ScrollViewer>
 
@@ -423,6 +426,7 @@
                             <Run FontSize="16" Foreground="Black">Feedback</Run>
                         </Hyperlink>
                     </TextBlock>
+
                 </Grid>
             </TabItem>
         </TabControl>

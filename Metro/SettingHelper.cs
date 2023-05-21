@@ -1,5 +1,6 @@
 ﻿using IniParser;
 using IniParser.Model;
+using System.Windows;
 
 namespace Metro
 {
@@ -7,7 +8,7 @@ namespace Metro
     {
         public string OnOff_Hotkey, OnOff_CrtlKey, Run_Hotkey, Run_CrtlKey , Stop_Hotkey ,Stop_CrtlKey,
             TestMode , HideOnSatrt , Language;
-        public bool ShowBalloon = false;
+        public bool ShowBalloon = false, Topmost;
 
         public SettingHelper()
         {
@@ -102,6 +103,12 @@ namespace Metro
                 data["Def"]["TestMode"] = "0";
             }
 
+            // Topmost
+            if (data["Def"]["Topmost"] == null)
+            {
+                data["Def"]["Topmost"] = "0";
+            }
+
             // Language
             if (data["Def"]["Language"] == null)
             {
@@ -125,6 +132,7 @@ namespace Metro
 
             HideOnSatrt = data["Def"]["HideOnSatrt"];
             TestMode = data["Def"]["TestMode"];
+            Topmost = data["Def"]["Topmost"].Equals("1") ? true : false;
             Language = data["Def"]["Language"];
         }
 
@@ -146,6 +154,7 @@ namespace Metro
 
             data["Def"]["HideOnSatrt"] = HideOnSatrt;
             data["Def"]["TestMode"] = TestMode;
+            data["Def"]["Topmost"] = Topmost ? "1" : "0";
             data["Def"]["Language"] = Language;
 
             parser.WriteFile("user.ini", data);

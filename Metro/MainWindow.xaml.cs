@@ -268,7 +268,7 @@ namespace Metro
 
         private DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
         public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        
+
         private new bool IsActive
         {
             get { return (bool)this.GetValue(UnitIsCProperty); }
@@ -516,6 +516,12 @@ namespace Metro
             else {
                 TestMode = false;
                 TestMode_Toggle.IsOn = false;
+            }
+
+            // Load Topmost setting
+            if (mSettingHelper.Topmost)
+            {
+                Top_Toggle.IsOn = true;
             }
 
             #region OverlayWindow
@@ -1614,6 +1620,12 @@ namespace Metro
         private static extern uint RegisterWindowMessage(string lpString);
         private uint MSG_SHOW;
 
+        private void MetroWindow_Deactivated(object sender, EventArgs e)
+        {
+            System.Windows.Window window = (System.Windows.Window)sender;
+            window.Topmost = mSettingHelper.Topmost;
+        }
+
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
@@ -2290,6 +2302,19 @@ namespace Metro
             gfx.ClearScene();
             gfx.EndScene();
         }
+        private void ClearScreen_Btn_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+             e.Handled = true;
+        }
+
+        private void ClearScreen_Btn_PreviewMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ClearScreen_Btn.ToolTip = FindResource("Clear_screen");
+        }
+        private void ClearScreen_Btn_PreviewGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            ClearScreen_Btn.ToolTip = null;
+        }
 
         private void Btn_New_Click(object sender, RoutedEventArgs e)
         {
@@ -2714,7 +2739,7 @@ namespace Metro
             ToolBar.Visibility = Visibility.Collapsed;
             // CommitEdit & Change Focus
             mDataGrid.CommitEdit();
-            EditGrid.Focus();
+            ClearScreen_Btn.Focus();
 
             Btn_ON.Content = "ON";
             Btn_ON.Foreground = System.Windows.Media.Brushes.White;
@@ -2879,8 +2904,20 @@ namespace Metro
             {
                 Console.WriteLine("{0} Exception caught.", err);
             }
-          
         }
+
+        private void Top_Toggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (Top_Toggle.IsOn == true)
+            {
+                mSettingHelper.Topmost = true;
+            }
+            else
+            {
+                mSettingHelper.Topmost = false;
+            }
+        }
+
         #endregion
 
     }
