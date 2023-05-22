@@ -384,18 +384,18 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <TextBlock><Run FontSize="16" Foreground="Black" Text="{DynamicResource ON_OFF_Option}"></Run></TextBlock>
-        <CheckBox Grid.Column="1" x:Name="OnOff_CrtlKey_Chk" Content="Ctrl  +" Checked="OnOff_CrtlKey_Chk_Checked" Unchecked="OnOff_CrtlKey_Chk_Unchecked"/>
-        <CheckBox Grid.Column="2" x:Name="OnOff_AltKey_Chk" Content="Alt  +" Checked="OnOff_AltKey_Chk_Checked" Unchecked="OnOff_AltKey_Chk_Unchecked"/>
+        <CheckBox Grid.Column="1" x:Name="OnOff_CrtlKey_Chk" Content="Ctrl  +" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+        <CheckBox Grid.Column="2" x:Name="OnOff_AltKey_Chk" Content="Alt  +" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
         <TextBox Grid.Column="3" x:Name="TextBox_OnOff_Hotkey" KeyDown="TextBox_OnOff_Hotkey_KeyDown" TextChanged="TextBox_OnOff_Hotkey_TextChanged" Width="70"/>
 
         <TextBlock Grid.Row="1"><Run FontSize="16" Foreground="Black" Text="{DynamicResource Run_Editing_Script_Option}"></Run></TextBlock>
-        <CheckBox Grid.Column="1" Grid.Row="1" x:Name="Run_CrtlKey_Chk" Content="Ctrl  +" Checked="Run_CrtlKey_Chk_Checked" Unchecked="Run_CrtlKey_Chk_Unchecked"/>
-        <CheckBox Grid.Column="2" Grid.Row="1" x:Name="Run_AltKey_Chk" Content="Alt  +" Checked="Run_AltKey_Chk_Checked" Unchecked="Run_AltKey_Chk_Unchecked"/>
+        <CheckBox Grid.Column="1" Grid.Row="1" x:Name="Run_CrtlKey_Chk" Content="Ctrl  +" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+        <CheckBox Grid.Column="2" Grid.Row="1" x:Name="Run_AltKey_Chk" Content="Alt  +" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
         <TextBox Grid.Column="3" Grid.Row="1" x:Name="TextBox_Run_Hotkey" KeyDown="TextBox_Run_Hotkey_KeyDown"  TextChanged="TextBox_Run_Hotkey_TextChanged" Width="70"/>
 
         <TextBlock Margin="0,0,5,0" Grid.Row="2"><Run FontSize="16" Foreground="Black" Text="{DynamicResource Stop_Editing_Script_Option}"></Run></TextBlock>
-        <CheckBox Grid.Column="1" Grid.Row="2" x:Name="Stop_CrtlKey_Chk" Content="Ctrl  +" Checked="Stop_CrtlKey_Chk_Checked" Unchecked="Stop_CrtlKey_Chk_Unchecked"/>
-        <CheckBox Grid.Column="2" Grid.Row="2" x:Name="Stop_AltKey_Chk" Content="Alt  +" Checked="Stop_AltKey_Chk_Checked" Unchecked="Stop_AltKey_Chk_Unchecked"/>
+        <CheckBox Grid.Column="1" Grid.Row="2" x:Name="Stop_CrtlKey_Chk" Content="Ctrl  +" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+        <CheckBox Grid.Column="2" Grid.Row="2" x:Name="Stop_AltKey_Chk" Content="Alt  +" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
         <TextBox Grid.Column="3" Grid.Row="2" x:Name="TextBox_Stop_Hotkey" KeyDown="TextBox_Stop_Hotkey_KeyDown" TextChanged="TextBox_Stop_Hotkey_TextChanged" Width="70"/>
     </Grid>
                             <LineBreak/><LineBreak/>

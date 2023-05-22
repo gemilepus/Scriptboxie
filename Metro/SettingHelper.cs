@@ -5,12 +5,12 @@ namespace Metro
 {
     public class SettingHelper
     {
-        public string TestMode, HideOnSatrt, Language,
-            OnOff_Hotkey, OnOff_CrtlKey, 
-            Run_Hotkey, Run_CrtlKey , 
-            Stop_Hotkey ,Stop_CrtlKey;
+        public string TestMode, Language,
+            OnOff_Hotkey,Run_Hotkey,Stop_Hotkey ;
 
-        public bool ShowBalloon = false, Topmost , OnOff_AltKey, Run_AltKey, Stop_AltKey;
+        public bool ShowBalloon = false, Topmost, HideOnSatrt,
+            OnOff_AltKey, Run_AltKey, Stop_AltKey,
+            OnOff_CrtlKey, Run_CrtlKey, Stop_CrtlKey;
 
         public SettingHelper()
         {
@@ -54,7 +54,6 @@ namespace Metro
                 data["Def"]["ScaleY"] = "1";
                 data["Def"]["OffsetX"] = "0";
                 data["Def"]["OffsetY"] = "0";
-              
             }
 
             //  ShowBalloon
@@ -131,20 +130,20 @@ namespace Metro
             
             parser.WriteFile("user.ini", data);
 
-            OnOff_AltKey = data["Def"]["OnOff_AltKey"].Equals("1") ? true : false;
-            OnOff_CrtlKey = data["Def"]["OnOff_CrtlKey"];
-            OnOff_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["OnOff_Hotkey"]);
+            OnOff_AltKey  = data["Def"]["OnOff_AltKey"].Equals("1") ? true : false;
+            OnOff_CrtlKey = data["Def"]["OnOff_CrtlKey"].Equals("1") ? true : false;
+            OnOff_Hotkey  = ConvertHelper.ConvertKeyCode(data["Def"]["OnOff_Hotkey"]);
 
-            Run_AltKey = data["Def"]["Run_AltKey"].Equals("1") ? true : false;
-            Run_CrtlKey = data["Def"]["Run_CrtlKey"];
-            Run_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["Run_Hotkey"]);
+            Run_AltKey  = data["Def"]["Run_AltKey"].Equals("1") ? true : false;
+            Run_CrtlKey = data["Def"]["Run_CrtlKey"].Equals("1") ? true : false;
+            Run_Hotkey  = ConvertHelper.ConvertKeyCode(data["Def"]["Run_Hotkey"]);
 
-            Stop_AltKey = data["Def"]["Stop_AltKey"].Equals("1") ? true : false;
-            Stop_CrtlKey = data["Def"]["Stop_CrtlKey"];
-            Stop_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["Stop_Hotkey"]);
+            Stop_AltKey  = data["Def"]["Stop_AltKey"].Equals("1") ? true : false;
+            Stop_CrtlKey = data["Def"]["Stop_CrtlKey"].Equals("1") ? true : false;
+            Stop_Hotkey  = ConvertHelper.ConvertKeyCode(data["Def"]["Stop_Hotkey"]);
 
             ShowBalloon = data["Def"]["ShowBalloon"].Equals("1") ? true : false;
-            HideOnSatrt = data["Def"]["HideOnSatrt"];
+            HideOnSatrt = data["Def"]["HideOnSatrt"].Equals("1") ? true : false;
             TestMode = data["Def"]["TestMode"];
             Topmost = data["Def"]["Topmost"].Equals("1") ? true : false;
             Language = data["Def"]["Language"];
@@ -159,19 +158,19 @@ namespace Metro
             data["Def"]["x"] = MainWindow.Left.ToString();
             data["Def"]["y"] = MainWindow.Top.ToString();
 
-            data["Def"]["OnOff_AltKey"] = OnOff_AltKey ? "1" : "0";
-            data["Def"]["OnOff_CrtlKey"] = OnOff_CrtlKey;
-            data["Def"]["OnOff_Hotkey"] =  OnOff_Hotkey;
+            data["Def"]["OnOff_AltKey"]  = OnOff_AltKey ? "1" : "0";
+            data["Def"]["OnOff_CrtlKey"] = OnOff_CrtlKey ? "1" : "0";
+            data["Def"]["OnOff_Hotkey"]  =  OnOff_Hotkey;
 
-            data["Def"]["Run_AltKey"] = Run_AltKey ? "1" : "0";
-            data["Def"]["Run_CrtlKey"] = Run_CrtlKey;
-            data["Def"]["Run_Hotkey"] =  Run_Hotkey;
+            data["Def"]["Run_AltKey"]  = Run_AltKey ? "1" : "0";
+            data["Def"]["Run_CrtlKey"] = Run_CrtlKey ? "1" : "0";
+            data["Def"]["Run_Hotkey"]  =  Run_Hotkey;
 
-            data["Def"]["Stop_AltKey"] = Stop_AltKey ? "1" : "0";
-            data["Def"]["Stop_CrtlKey"] = Stop_CrtlKey;
-            data["Def"]["Stop_Hotkey"] =  Stop_Hotkey;
+            data["Def"]["Stop_AltKey"]  = Stop_AltKey ? "1" : "0";
+            data["Def"]["Stop_CrtlKey"] = Stop_CrtlKey ? "1" : "0";
+            data["Def"]["Stop_Hotkey"]  =  Stop_Hotkey;
 
-            data["Def"]["HideOnSatrt"] = HideOnSatrt;
+            data["Def"]["HideOnSatrt"] = HideOnSatrt ? "1" : "0";
             data["Def"]["TestMode"] = TestMode;
             data["Def"]["Topmost"] = Topmost ? "1" : "0";
             data["Def"]["Language"] = Language;

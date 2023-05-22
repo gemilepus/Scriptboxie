@@ -486,18 +486,9 @@ namespace Metro
             LoadScriptSetting();
 
             // Load setting
-            if (!mSettingHelper.OnOff_CrtlKey.Equals("0"))
-            {
-                OnOff_CrtlKey_Chk.IsChecked = true;
-            }
-            if (!mSettingHelper.Run_CrtlKey.Equals("0"))
-            {
-                Run_CrtlKey_Chk.IsChecked = true;
-            }
-            if (!mSettingHelper.Stop_CrtlKey.Equals("0"))
-            {
-                Stop_CrtlKey_Chk.IsChecked = true;
-            }
+            OnOff_CrtlKey_Chk.IsChecked = mSettingHelper.OnOff_CrtlKey;
+            Run_CrtlKey_Chk.IsChecked = mSettingHelper.Run_CrtlKey;
+            Stop_CrtlKey_Chk.IsChecked = mSettingHelper.Stop_CrtlKey;
 
             OnOff_AltKey_Chk.IsChecked = mSettingHelper.OnOff_AltKey;
             Run_AltKey_Chk.IsChecked = mSettingHelper.Run_AltKey;
@@ -508,10 +499,7 @@ namespace Metro
             TextBox_Stop_Hotkey.Text = mSettingHelper.Stop_Hotkey;
 
             // Load HideOnSatrt setting
-            if (!mSettingHelper.HideOnSatrt.Equals("0"))
-            {
-                HideOnSatrt_Toggle.IsOn = true;
-            }
+            HideOnSatrt_Toggle.IsOn = mSettingHelper.HideOnSatrt;
 
             // Load TestMode setting
             if (!mSettingHelper.TestMode.Equals("0"))
@@ -525,10 +513,7 @@ namespace Metro
             }
 
             // Load Topmost setting
-            if (mSettingHelper.Topmost)
-            {
-                Top_Toggle.IsOn = true;
-            }
+            Top_Toggle.IsOn = mSettingHelper.Topmost;
 
             #region OverlayWindow
 
@@ -594,7 +579,7 @@ namespace Metro
             HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
             source.AddHook(WndProc);
 
-            if (mSettingHelper.HideOnSatrt.Equals("0"))
+            if (!mSettingHelper.HideOnSatrt)
             {
                 this.WindowState = WindowState.Normal;
             }
@@ -684,9 +669,7 @@ namespace Metro
 
             // ON / OFF
             if (!Script_Toggle.IsOn && ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.OnOff_Hotkey)
-                && !(OnOff_CrtlKey_Chk.IsChecked == true && e.Control == false)
-                && !(OnOff_AltKey_Chk.IsChecked == true && e.Alt == false)) // def "'"
-            {
+                && !(mSettingHelper.OnOff_CrtlKey && e.Control == false) && !(mSettingHelper.OnOff_AltKey && e.Alt == false)){
                 if (Btn_ON.Content.Equals("ON"))
                 {
                     Btn_ON.Content = "OFF";
@@ -738,18 +721,14 @@ namespace Metro
 
 
             if (ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.Run_Hotkey) 
-                && !(Run_CrtlKey_Chk.IsChecked == true && e.Control == false)
-                 && !(Run_AltKey_Chk.IsChecked == true && e.Alt == false)) // def "["
-            {
+                && !(mSettingHelper.Run_CrtlKey && e.Control == false) && !(mSettingHelper.Run_AltKey && e.Alt == false)){
                 ClearScreen_Btn.Focus();
                 AlertSound();
                 ShowBalloon("Run", "...");
                 Run_script();
             }
             if (ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.Stop_Hotkey) 
-                && !(Stop_CrtlKey_Chk.IsChecked == true && e.Control == false)
-                 && !(Stop_AltKey_Chk.IsChecked == true && e.Alt == false)) // def "]"
-            {
+                && !(mSettingHelper.Stop_CrtlKey && e.Control == false) && !(mSettingHelper.Stop_AltKey && e.Alt == false)){
                 ClearScreen_Btn.Focus();
                 AlertSound();
                 Stop_script();
@@ -2788,64 +2767,32 @@ namespace Metro
             TextBox_Stop_Hotkey.Text = "";
         }
 
-        private void OnOff_CrtlKey_Chk_Checked(object sender, RoutedEventArgs e)
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            mSettingHelper.OnOff_CrtlKey = "1";
-        }
+            System.Windows.Controls.CheckBox mCheckBox = (System.Windows.Controls.CheckBox)sender;
+            bool IsChecked = (bool)mCheckBox.IsChecked;
 
-        private void OnOff_CrtlKey_Chk_Unchecked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.OnOff_CrtlKey = "0";
-        }
-
-        private void Run_CrtlKey_Chk_Checked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.Run_CrtlKey = "1";
-        }
-
-        private void Run_CrtlKey_Chk_Unchecked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.Run_CrtlKey = "0";
-        }
-
-        private void Stop_CrtlKey_Chk_Checked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.Stop_CrtlKey = "1";
-        }
-
-        private void Stop_CrtlKey_Chk_Unchecked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.Stop_CrtlKey = "0";
-        }
-
-        private void OnOff_AltKey_Chk_Checked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.OnOff_AltKey = true;
-        }
-
-        private void OnOff_AltKey_Chk_Unchecked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.OnOff_AltKey = false;
-        }
-
-        private void Run_AltKey_Chk_Checked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.Run_AltKey = true;
-        }
-
-        private void Run_AltKey_Chk_Unchecked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.Run_AltKey = false;
-        }
-
-        private void Stop_AltKey_Chk_Checked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.Stop_AltKey = true;
-        }
-
-        private void Stop_AltKey_Chk_Unchecked(object sender, RoutedEventArgs e)
-        {
-            mSettingHelper.Stop_AltKey = false;
+            switch (mCheckBox.Name)
+            {
+                case "OnOff_CrtlKey_Chk":
+                    mSettingHelper.OnOff_CrtlKey = IsChecked;
+                    break;
+                case "OnOff_AltKey_Chk":
+                    mSettingHelper.OnOff_AltKey = IsChecked;
+                    break;
+                case "Run_CrtlKey_Chk":
+                    mSettingHelper.Run_CrtlKey = IsChecked;
+                    break;
+                case "Run_AltKey_Chk":
+                    mSettingHelper.Run_AltKey = IsChecked;
+                    break;
+                case "Stop_CrtlKey_Chk":
+                    mSettingHelper.Stop_CrtlKey = IsChecked;
+                    break;
+                case "Stop_AltKey_Chk":
+                    mSettingHelper.Stop_AltKey = IsChecked;
+                    break;
+            }
         }
 
         private void TextBox_OnOff_Hotkey_TextChanged(object sender, TextChangedEventArgs e)
@@ -2866,14 +2813,7 @@ namespace Metro
 
         private void HideOnSatrt_Toggle_Toggled(object sender, RoutedEventArgs e)
         {
-            if (HideOnSatrt_Toggle.IsOn == true)
-            {
-                mSettingHelper.HideOnSatrt = "1";
-            }
-            else
-            {
-                mSettingHelper.HideOnSatrt = "0";
-            }
+            mSettingHelper.HideOnSatrt = HideOnSatrt_Toggle.IsOn;
         }
 
         private void TestMode_Toggle_Toggled(object sender, RoutedEventArgs e)
