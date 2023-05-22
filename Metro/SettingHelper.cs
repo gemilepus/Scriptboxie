@@ -1,14 +1,16 @@
 ﻿using IniParser;
 using IniParser.Model;
-using System.Windows;
 
 namespace Metro
 {
     public class SettingHelper
     {
-        public string OnOff_Hotkey, OnOff_CrtlKey, Run_Hotkey, Run_CrtlKey , Stop_Hotkey ,Stop_CrtlKey,
-            TestMode , HideOnSatrt , Language;
-        public bool ShowBalloon = false, Topmost;
+        public string TestMode, HideOnSatrt, Language,
+            OnOff_Hotkey, OnOff_CrtlKey, 
+            Run_Hotkey, Run_CrtlKey , 
+            Stop_Hotkey ,Stop_CrtlKey;
+
+        public bool ShowBalloon = false, Topmost , OnOff_AltKey, Run_AltKey, Stop_AltKey;
 
         public SettingHelper()
         {
@@ -62,9 +64,13 @@ namespace Metro
             }
 
             //  ON_OFF Hotkey
+            if (data["Def"]["OnOff_AltKey"] == null)
+            {
+                data["Def"]["OnOff_AltKey"] = data["Def"]["OnOff_CrtlKey"] == null ? "1" : "0";
+            }
             if (data["Def"]["OnOff_CrtlKey"] == null)
             {
-                data["Def"]["OnOff_CrtlKey"] = "1";
+                data["Def"]["OnOff_CrtlKey"] = "0";
             }
             if (data["Def"]["OnOff_Hotkey"] == null)
             {
@@ -72,9 +78,13 @@ namespace Metro
             }
 
             //  Run Hotkey
+            if (data["Def"]["Run_AltKey"] == null)
+            {
+                data["Def"]["Run_AltKey"] = data["Def"]["Run_CrtlKey"] == null ? "1" : "0";
+            }
             if (data["Def"]["Run_CrtlKey"] == null)
             {
-                data["Def"]["Run_CrtlKey"] = "1";
+                data["Def"]["Run_CrtlKey"] = "0";
             }
             if (data["Def"]["Run_Hotkey"] == null)
             {
@@ -82,9 +92,13 @@ namespace Metro
             }
 
             //  Stop Hotkey
+            if (data["Def"]["Stop_AltKey"] == null)
+            {
+                data["Def"]["Stop_AltKey"] = data["Def"]["Stop_CrtlKey"] == null ? "1" : "0";
+            }
             if (data["Def"]["Stop_CrtlKey"] == null)
             {
-                data["Def"]["Stop_CrtlKey"] = "1";
+                data["Def"]["Stop_CrtlKey"] = "0";
             }
             if (data["Def"]["Stop_Hotkey"] == null)
             {
@@ -117,19 +131,19 @@ namespace Metro
             
             parser.WriteFile("user.ini", data);
 
-            if (data["Def"]["ShowBalloon"].ToString().Equals("1")) {
-                ShowBalloon = true;
-            }
-
+            OnOff_AltKey = data["Def"]["OnOff_AltKey"].Equals("1") ? true : false;
             OnOff_CrtlKey = data["Def"]["OnOff_CrtlKey"];
             OnOff_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["OnOff_Hotkey"]);
 
+            Run_AltKey = data["Def"]["Run_AltKey"].Equals("1") ? true : false;
             Run_CrtlKey = data["Def"]["Run_CrtlKey"];
             Run_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["Run_Hotkey"]);
 
+            Stop_AltKey = data["Def"]["Stop_AltKey"].Equals("1") ? true : false;
             Stop_CrtlKey = data["Def"]["Stop_CrtlKey"];
             Stop_Hotkey = ConvertHelper.ConvertKeyCode(data["Def"]["Stop_Hotkey"]);
 
+            ShowBalloon = data["Def"]["ShowBalloon"].Equals("1") ? true : false;
             HideOnSatrt = data["Def"]["HideOnSatrt"];
             TestMode = data["Def"]["TestMode"];
             Topmost = data["Def"]["Topmost"].Equals("1") ? true : false;
@@ -145,10 +159,15 @@ namespace Metro
             data["Def"]["x"] = MainWindow.Left.ToString();
             data["Def"]["y"] = MainWindow.Top.ToString();
 
+            data["Def"]["OnOff_AltKey"] = OnOff_AltKey ? "1" : "0";
             data["Def"]["OnOff_CrtlKey"] = OnOff_CrtlKey;
             data["Def"]["OnOff_Hotkey"] =  OnOff_Hotkey;
+
+            data["Def"]["Run_AltKey"] = Run_AltKey ? "1" : "0";
             data["Def"]["Run_CrtlKey"] = Run_CrtlKey;
             data["Def"]["Run_Hotkey"] =  Run_Hotkey;
+
+            data["Def"]["Stop_AltKey"] = Stop_AltKey ? "1" : "0";
             data["Def"]["Stop_CrtlKey"] = Stop_CrtlKey;
             data["Def"]["Stop_Hotkey"] =  Stop_Hotkey;
 
