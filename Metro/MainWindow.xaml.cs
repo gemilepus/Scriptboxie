@@ -39,7 +39,6 @@ using System.Net;
 using System.Text.Json;
 using System.Windows.Interop;
 using System.Text.RegularExpressions;
-using System.Web.UI.WebControls;
 
 namespace Metro
 {
@@ -477,7 +476,7 @@ namespace Metro
             }
             else {
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
                 mDataGrid.DataContext = mDataTable;
             }
 
@@ -1571,11 +1570,11 @@ namespace Metro
                         {
                             if (Mode.Equals("Debug"))
                             {
-                                System.Windows.MessageBox.Show("[Error] Line " + (n + 1).ToString() + " \nMessage: " + e.Message);
-
                                 // debug stop msg
+                                SystemSounds.Hand.Play();
                                 CreateMessage("9487");
 
+                                System.Windows.MessageBox.Show("[Error] Line " + (n + 1).ToString() + " \nMessage: " + e.Message);
                                 break;
                             }
                         }
@@ -2269,10 +2268,14 @@ namespace Metro
 
             if (Btn_Toggle.IsOn == true)
             {
+                Btn_ON.Content = "OFF";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
                 Subscribe();
             }
             else
             {
+                Btn_ON.Content = "ON";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
                 Unsubscribe();
             }
         }
@@ -2287,7 +2290,20 @@ namespace Metro
 
             mThread = new Thread(() =>
             {
-                Script(mDataTable, "Debug");
+                try
+                {
+                    Script(mDataTable, "Debug");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("{0} Exception caught.", ex);
+                }
+                finally
+                {
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    Console.WriteLine("WaitForPendingFinalizers");
+                }
             });
             mThread.Start();
         }
