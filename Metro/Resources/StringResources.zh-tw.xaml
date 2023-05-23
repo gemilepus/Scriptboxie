@@ -22,6 +22,9 @@
     <system:String x:Key="ON_OFF_Option">ON/OFF :</system:String>
     <system:String x:Key="Run_Editing_Script_Option">執行編輯中腳本 :</system:String>
     <system:String x:Key="Stop_Editing_Script_Option">停止編輯中腳本 :</system:String>
+    <system:String x:Key="Type_Of_Keyboard_Input">鍵盤輸入的類型(錄製) :</system:String>
+    <system:String x:Key="Game">遊戲</system:String>
+    <system:String x:Key="Normal">一般</system:String>
     <system:String x:Key="Hide_on_start_Option">啟動時隱藏 :</system:String>
     <system:String x:Key="Test_Mode_Option">測試模式 :</system:String>
     <system:String x:Key="Test_Mode_Tooltip">當執行編輯中的腳本時，每一步都會延遲一秒並且會標示正在執行的那一步。</system:String>

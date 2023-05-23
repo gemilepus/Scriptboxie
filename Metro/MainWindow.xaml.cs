@@ -39,6 +39,7 @@ using System.Net;
 using System.Text.Json;
 using System.Windows.Interop;
 using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 
 namespace Metro
 {
@@ -393,7 +394,7 @@ namespace Metro
                     {
                         mDataGrid.DataContext = null;
                         
-                        if (mKeyCode.Equals("WIN") || mKeyCode.Equals("Apps") || mKeyCode.Equals("SNAPSHOT") || mKeyCode.Equals("Scroll") || mKeyCode.Equals("Pause"))
+                        if (mSettingHelper.TypeOfKeyboardInput.Equals("Normal") || mKeyCode.Equals("WIN") || mKeyCode.Equals("Apps") || mKeyCode.Equals("SNAPSHOT") || mKeyCode.Equals("Scroll") || mKeyCode.Equals("Pause"))
                         {
                             mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
                             mDataTable.Add(new MainTable() { Enable = true, Mode = "Key", Action = mKeyCode, Event = "", Note = "" });
@@ -497,6 +498,9 @@ namespace Metro
             TextBox_OnOff_Hotkey.Text = mSettingHelper.OnOff_Hotkey;
             TextBox_Run_Hotkey.Text = mSettingHelper.Run_Hotkey;
             TextBox_Stop_Hotkey.Text = mSettingHelper.Stop_Hotkey;
+
+            TypeOfKeyboardInput0.IsChecked = mSettingHelper.TypeOfKeyboardInput.Equals("Game") ? true : false;
+            TypeOfKeyboardInput1.IsChecked = !mSettingHelper.TypeOfKeyboardInput.Equals("Game") ? true : false;
 
             // Load HideOnSatrt setting
             HideOnSatrt_Toggle.IsOn = mSettingHelper.HideOnSatrt;
@@ -2828,6 +2832,12 @@ namespace Metro
                 TestMode = false;
                 mSettingHelper.TestMode = "0";
             }
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.RadioButton mRadioButton = (System.Windows.Controls.RadioButton)sender;
+            mSettingHelper.TypeOfKeyboardInput = mRadioButton.Tag.ToString();
         }
 
         private void LangSplitButton_SelectionChanged(object sender, SelectionChangedEventArgs e)

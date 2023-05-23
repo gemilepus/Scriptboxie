@@ -6,7 +6,8 @@ namespace Metro
     public class SettingHelper
     {
         public string TestMode, Language,
-            OnOff_Hotkey,Run_Hotkey,Stop_Hotkey ;
+            OnOff_Hotkey,Run_Hotkey,Stop_Hotkey,
+            TypeOfKeyboardInput;
 
         public bool ShowBalloon = false, Topmost, HideOnSatrt,
             OnOff_AltKey, Run_AltKey, Stop_AltKey,
@@ -104,6 +105,11 @@ namespace Metro
                 data["Def"]["Stop_Hotkey"] = "Oem6"; // ]
             }
 
+            if (data["Def"]["TypeOfKeyboardInput"] == null)
+            {
+                data["Def"]["TypeOfKeyboardInput"] = "Game";
+            }
+
             // HideOnSatrt
             if (data["Def"]["HideOnSatrt"] == null)
             {
@@ -142,6 +148,7 @@ namespace Metro
             Stop_CrtlKey = data["Def"]["Stop_CrtlKey"].Equals("1") ? true : false;
             Stop_Hotkey  = ConvertHelper.ConvertKeyCode(data["Def"]["Stop_Hotkey"]);
 
+            TypeOfKeyboardInput = data["Def"]["TypeOfKeyboardInput"];
             ShowBalloon = data["Def"]["ShowBalloon"].Equals("1") ? true : false;
             HideOnSatrt = data["Def"]["HideOnSatrt"].Equals("1") ? true : false;
             TestMode = data["Def"]["TestMode"];
@@ -170,6 +177,7 @@ namespace Metro
             data["Def"]["Stop_CrtlKey"] = Stop_CrtlKey ? "1" : "0";
             data["Def"]["Stop_Hotkey"]  =  Stop_Hotkey;
 
+            data["Def"]["TypeOfKeyboardInput"] = TypeOfKeyboardInput;
             data["Def"]["HideOnSatrt"] = HideOnSatrt ? "1" : "0";
             data["Def"]["TestMode"] = TestMode;
             data["Def"]["Topmost"] = Topmost ? "1" : "0";
