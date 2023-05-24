@@ -10,6 +10,10 @@ English | [中文](Doc/README.zh-tw.md)
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
 [![GitHub downloads](https://img.shields.io/github/downloads/gemilepus/Scriptboxie/total)](https://github.com/gemilepus/Scriptboxie/releases) 
 
+## Features
+- easy create and manage scripts 
+- image search
+
 <h1 align="center">How to use</h1>
 <p align="center">edit script: just enter the keyboard and mouse actions to be use.</p>
 <p align="center">After completion, you can save it as a .txt file</p>
