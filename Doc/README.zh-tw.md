@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Scriptboxie</h1>
-<p align="center">這個工具可以讓你輕鬆控制和創建腳本，類似一些滑鼠的巨集。</p>
+<p align="center">這個工具可以讓你輕鬆控制和創建腳本。</p>
 
 [English](../README.md) | 中文
 
