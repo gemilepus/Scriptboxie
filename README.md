@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Scriptboxie</h1>
-<p align="center">This tool allows you to easily control and create scripts, similar to some mouse macros.</p>
+<p align="center">This tool allows you to easily control and create scripts.</p>
 
 English | [中文](Doc/README.zh-tw.md)
 
@@ -11,7 +11,7 @@ English | [中文](Doc/README.zh-tw.md)
 [![GitHub downloads](https://img.shields.io/github/downloads/gemilepus/Scriptboxie/total)](https://github.com/gemilepus/Scriptboxie/releases) 
 
 ## Features
-- easy create and manage scripts 
+- easily create and manage scripts 
 - image search
 
 <h1 align="center">How to use</h1>
