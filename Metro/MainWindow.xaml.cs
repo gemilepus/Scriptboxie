@@ -438,8 +438,6 @@ namespace Metro
 
             MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
 
-            Timestamp = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
-
             // Combobox List
             List<string> mList = new List<string>() {
                 "Move","Offset","Click", "Match","Match RGB","Match&Draw",
@@ -623,16 +621,16 @@ namespace Metro
             Main_GlobalHook.Dispose();
         }
 
-        private string PassCtrlKey = "";
-        private double Timestamp;
-
         SortedList KeyList = new SortedList();
-
         DateTime StartTime = new DateTime(2001, 1, 1);
+
+        private string PassCtrlKey = "";
 
         private void Main_GlobalHookKeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             V V = new V();
+            string KeyString = ConvertHelper.ConvertKeyCode(e.KeyCode.ToString());
+            Console.WriteLine("KeyCode: {0} KeyString: {1}",e.KeyCode.ToString(),KeyString);
 
             DateTime KeyTime = DateTime.Now;
             TimeSpan KeyTimeSpan = new TimeSpan(KeyTime.Ticks - StartTime.Ticks);
@@ -667,11 +665,8 @@ namespace Metro
                 if (ActiveTitle.Length == ActiveTitle.Replace(TextBox_Title.Text, "").Length) { return; }
             }
 
-            // stop KListener
-            //UnKListener();
-
             // ON / OFF
-            if (!Script_Toggle.IsOn && ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.OnOff_Hotkey)
+            if (!Script_Toggle.IsOn && KeyString.Equals(mSettingHelper.OnOff_Hotkey)
                 && !(mSettingHelper.OnOff_CrtlKey && e.Control == false) && !(mSettingHelper.OnOff_AltKey && e.Alt == false)){
                 if (Btn_ON.Content.Equals("ON"))
                 {
@@ -716,21 +711,15 @@ namespace Metro
                 eDataGrid.DataContext = null;
                 eDataGrid.DataContext = eDataTable;
             }
-            if (!Btn_ON.Content.Equals("ON")) {
-                //KListener(); 
-                return; }
 
-            Console.WriteLine(e.KeyCode.ToString());
-
-
-            if (ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.Run_Hotkey) 
+            if (KeyString.Equals(mSettingHelper.Run_Hotkey) 
                 && !(mSettingHelper.Run_CrtlKey && e.Control == false) && !(mSettingHelper.Run_AltKey && e.Alt == false)){
                 ClearScreen_Btn.Focus();
                 AlertSound();
                 ShowBalloon("Run", "...");
                 Run_script();
             }
-            if (ConvertHelper.ConvertKeyCode(e.KeyCode.ToString()).Equals(mSettingHelper.Stop_Hotkey) 
+            if (KeyString.Equals(mSettingHelper.Stop_Hotkey) 
                 && !(mSettingHelper.Stop_CrtlKey && e.Control == false) && !(mSettingHelper.Stop_AltKey && e.Alt == false)){
                 ClearScreen_Btn.Focus();
                 AlertSound();
@@ -751,37 +740,13 @@ namespace Metro
             {
                 PassCtrlKey = "Shift+";
             }
-
-            string KeyCode = PassCtrlKey + e.KeyCode.ToString();
-
-            double TimestampNow = (double)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
-            if (TimestampNow - Timestamp > 2000)
-            {
-               // PassCtrlKey = "";
-            }
-
-            //switch (e.KeyCode.ToString())
-            //{
-            //    case "LControlKey":
-            //        PassCtrlKey = "Ctrl+";
-            //        Timestamp = TimestampNow;
-            //        break;
-            //    case "LMenu":
-            //        PassCtrlKey = "Alt+";
-            //        break;
-            //    case "LShiftKey":
-            //    case "RShiftKey":
-            //        PassCtrlKey = "Shift+";
-            //        break;
-            //    default:
-            //        break;
-            //}
+            KeyString = PassCtrlKey + KeyString;
 
             // Select Script
             bool IsRun = false;
             for (int i = 0; i < eDataTable.Count; i++)
             {
-                if (KeyCode.Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
+                if (KeyString.Equals(eDataTable[i].eTable_Key) && eDataTable[i].eTable_Enable == true)
                 {
                     IsRun = true;
                     Console.WriteLine("START " + _workerThreads[i].ThreadState.ToString());
@@ -865,9 +830,6 @@ namespace Metro
                 eDataGrid.DataContext = null;
                 eDataGrid.DataContext = eDataTable;
             }
-           
-            // Restart KListener
-            //KListener();
         }
         #endregion
 
