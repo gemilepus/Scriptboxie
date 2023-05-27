@@ -171,7 +171,7 @@
                                                         <Setter Property="Source" Value="img/loop.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="RemoveEvent">
-                                                        <Setter Property="Source" Value="img/remove.png"/>
+                                                        <Setter Property="Source" Value="img/x.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Clear Screen">
                                                         <Setter Property="Source" Value="img/clean2.png"/>
@@ -184,6 +184,9 @@
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="WriteClipboard">
                                                         <Setter Property="Source" Value="img/clipboard.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="RandomTrigger">
+                                                        <Setter Property="Source" Value="img/random.png"/>
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -270,6 +273,10 @@
                                                     <Trigger Property="DataContext" Value="WriteClipboard">
                                                         <Setter Property="Foreground" Value="Black"/>
                                                         <Setter Property="Text" Value="WriteClipboard" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="RandomTrigger">
+                                                        <Setter Property="Foreground" Value="DarkRed"/>
+                                                        <Setter Property="Text" Value="RandomTrigger" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>

@@ -313,6 +313,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Util\Overlay.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="Resources\ModeDocument_en.xaml.cs">
       <DependentUpon>ModeDocument_en.xaml</DependentUpon>
@@ -324,7 +325,7 @@
     <Compile Include="V.cs" />
     <Compile Include="EditTable.cs" />
     <Compile Include="MainTable.cs" />
-    <Compile Include="SettingHelper.cs" />
+    <Compile Include="Util\SettingHelper.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -432,6 +433,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\x.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\random.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
