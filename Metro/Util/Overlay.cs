@@ -55,10 +55,11 @@ namespace Metro
             gfx.ClearScene();
             gfx.EndScene();
         }
-        public void DrawRectangle(int x, int y, int w, int h)
+        public void DrawRectangle(int x, int y, int w, int h,string text)
         {
             gfx.BeginScene();
             gfx.DrawRoundedRectangle(_red, RoundedRectangle.Create(x, y, w, h , 6), 2);
+            //gfx.DrawText(_font, 20,_red,x,y+h, text);
             gfx.EndScene();
         }
 

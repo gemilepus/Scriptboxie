@@ -20,9 +20,6 @@ using OpenCvSharp.Extensions;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
-using GameOverlay.Drawing;
-using GameOverlay.Windows;
-
 using Gma.System.MouseKeyHook;
 
 using IniParser;
@@ -1035,7 +1032,7 @@ namespace Metro
 
                                         if (Command.Equals("Match&Draw"))
                                         {
-                                            overlay.DrawRectangle(int.Parse(xy[0]), int.Parse(xy[1]), temp_w * 2, temp_h * 2);
+                                            overlay.DrawRectangle(int.Parse(xy[0]), int.Parse(xy[1]), temp_w * 2, temp_h * 2, MatchArr[0]);
                                         }
                                     
                                         // Add Key

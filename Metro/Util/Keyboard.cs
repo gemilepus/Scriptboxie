@@ -838,7 +838,7 @@ public class Keyboard
         ACCEPT = 0,
         MODECHANGE = 0,
         SPACE = 57,
-        //PRIOR = 73,
+        PRIOR = 0xC9,
         NEXT = 0xD1,
         END = 0xCF,
         HOME = 0xC7,

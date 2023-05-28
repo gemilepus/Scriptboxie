@@ -314,7 +314,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Util\Overlay.cs" />
-    <Compile Include="Keyboard.cs" />
+    <Compile Include="Util\Keyboard.cs" />
     <Compile Include="Resources\ModeDocument_en.xaml.cs">
       <DependentUpon>ModeDocument_en.xaml</DependentUpon>
     </Compile>
