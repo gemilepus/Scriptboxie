@@ -36,6 +36,8 @@ using System.Net;
 using System.Text.Json;
 using System.Windows.Interop;
 using System.Text.RegularExpressions;
+using DynamicExpresso;
+using NUnit.Framework;
 
 namespace Metro
 {
@@ -435,6 +437,7 @@ namespace Metro
                 "Match","Match RGB","Match&Draw","RandomTrigger",
                 "RemoveEvent","Jump","Goto","Loop",
                 "Run .exe","PlaySound","WriteClipboard","Clear Screen",
+                "Calc","Check Calc",
                 //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
             mComboBoxColumn.ItemsSource = mList;
@@ -807,6 +810,9 @@ namespace Metro
             DefValueList.Add("{StartPostion}", StartPoint.X.ToString() + "," + StartPoint.Y.ToString());
 
             SortedList KeyActionList = new SortedList();
+
+            var interpreter = new Interpreter();
+           
 
             // key || value ex:
             //mDoSortedList.Add("Point", "0,0");
@@ -1474,7 +1480,43 @@ namespace Metro
                                 }
 
                                 break;
-                                
+
+                            case "Calc":
+
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
+                                {
+                                    if (Regex.IsMatch(CommandData,@"(?<!=)=(?!=)"))
+                                    {
+                                        string Variable = CommandData.Substring(0, CommandData.IndexOf("=")).Trim();
+                                        CommandData = CommandData.Replace(CommandData.Substring(0, CommandData.IndexOf("=") + 1), "");
+
+                                        if (interpreter.DetectIdentifiers(Variable).UnknownIdentifiers.ToArray().Length > 0) 
+                                            interpreter = interpreter.SetVariable(Variable, 0);
+
+                                        interpreter = interpreter.SetVariable(Variable, interpreter.Eval(CommandData));
+                                    }
+                                }
+
+                                break;
+
+
+                            case "Check Calc":
+
+                                // Add Key
+                                if (Event.Length != 0)
+                                {
+                                    if (V.Get_EventValue(mDoSortedList, Event[0]) == null)
+                                    {
+                                        Random mRandom = new Random();
+                                        if ((bool)interpreter.Eval(CommandData))
+                                        {
+                                            mDoSortedList.Add(Event[0], "");
+                                        }
+                                    }
+                                }
+
+                                break;
+
                             case "Loop":
                                 do
                                 {
@@ -1562,7 +1604,6 @@ namespace Metro
             CreateMessage("1000");
 
         }
-
         #region APP
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern uint RegisterWindowMessage(string lpString);

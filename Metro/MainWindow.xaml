@@ -188,6 +188,14 @@
                                                     <Trigger Property="DataContext" Value="RandomTrigger">
                                                         <Setter Property="Source" Value="img/random.png"/>
                                                     </Trigger>
+
+                                                    <Trigger Property="DataContext" Value="Calc">
+                                                        <Setter Property="Source" Value="img/edit.png"/>
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Check Calc">
+                                                        <Setter Property="Source" Value="img/check.png"/>
+                                                    </Trigger>
+
                                                 </Style.Triggers>
                                             </Style>
                                         </Image.Style>
@@ -277,6 +285,15 @@
                                                     <Trigger Property="DataContext" Value="RandomTrigger">
                                                         <Setter Property="Foreground" Value="DarkRed"/>
                                                         <Setter Property="Text" Value="RandomTrigger" />
+                                                    </Trigger>
+
+                                                    <Trigger Property="DataContext" Value="Calc">
+                                                        <Setter Property="Foreground" Value="Black"/>
+                                                        <Setter Property="Text" Value="Calc" />
+                                                    </Trigger>
+                                                    <Trigger Property="DataContext" Value="Check Calc">
+                                                        <Setter Property="Foreground" Value="DarkRed"/>
+                                                        <Setter Property="Text" Value="Check Calc" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
