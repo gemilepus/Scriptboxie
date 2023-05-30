@@ -62,6 +62,16 @@
         <Run Foreground="OrangeRed">Match&amp;Draw will be marked on the screen,just for test</Run>
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
+            
+        <Run Foreground="Gold">⭐RandomTrigger : random trigger Event</Run>
+        <LineBreak/>
+        <Run Foreground="Orange">-@Percentage</Run>
+        <LineBreak/>
+        Percentage: 1~100 %,1 = 1% chance trigger Event
+        <LineBreak/>
+        ex: 33
+        <LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
 
         <Run Foreground="Gold">⭐Move</Run>
         <LineBreak/>

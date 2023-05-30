@@ -60,6 +60,16 @@
         <Run Foreground="OrangeRed">Match&amp;Draw 會在畫面上做標示,僅測試用</Run>
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
+            
+        <Run Foreground="Gold">⭐RandomTrigger : 機率觸發事件(Event)</Run>
+        <LineBreak/>
+        <Run Foreground="Orange">-@Percentage</Run>
+        <LineBreak/>
+        Percentage: 1~100 %,1 = 1% 的機率觸發事件
+        <LineBreak/>
+        ex: 33
+        <LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
 
         <Run Foreground="Gold">⭐Move</Run>
         <LineBreak/>
