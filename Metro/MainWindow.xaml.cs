@@ -806,6 +806,8 @@ namespace Metro
             GetCursorPos(ref StartPoint);
             DefValueList.Add("{StartPostion}", StartPoint.X.ToString() + "," + StartPoint.Y.ToString());
 
+            SortedList KeyActionList = new SortedList();
+
             // key || value ex:
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
@@ -1114,21 +1116,31 @@ namespace Metro
                                         if (mKey[1].Equals("DOWN"))
                                         {
                                             mInputSimulator.Keyboard.KeyDown(mKeyCode);
+                                            if (KeyActionList.IndexOfKey(mKeyCode) == -1) KeyActionList.Add(mKeyCode, "Key");
+                                           
                                         }
                                         else if (mKey[1].Equals("UP"))
                                         {
                                             mInputSimulator.Keyboard.KeyUp(mKeyCode);
+
+                                            if (KeyActionList.IndexOfKey(mKeyCode) != -1)KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
                                         }
                                         else {
                                             mInputSimulator.Keyboard.KeyDown(mKeyCode);
+                                            KeyActionList.Add(mKeyCode, "Key");
                                             Thread.Sleep(int.Parse(mKey[1])); ;
                                             mInputSimulator.Keyboard.KeyUp(mKeyCode);
+
+                                            if (KeyActionList.IndexOfKey(mKeyCode) != -1)KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
                                         }
                                     }
                                     else {
                                         mInputSimulator.Keyboard.KeyDown(mKeyCode);
+                                        KeyActionList.Add(mKeyCode, "Key");
                                         Thread.Sleep(250);
                                         mInputSimulator.Keyboard.KeyUp(mKeyCode);
+
+                                        if (KeyActionList.IndexOfKey(mKeyCode) != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
                                     }
                                 }
                                 else {
@@ -1137,9 +1149,7 @@ namespace Metro
 
                                     foreach (char c in arr)
                                     {
-                                        mInputSimulator.Keyboard.KeyDown((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-                                        Thread.Sleep(100);
-                                        mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
+                                        mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                                     }
                                 }
                                 //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
@@ -1174,9 +1184,12 @@ namespace Metro
                                             if (Command.Equals("SendKeyDown"))
                                             {
                                                 ky.SendKeyDown(value);
+                                                if (KeyActionList.IndexOfKey(value) == -1) KeyActionList.Add(value, "SendKeyDown");
+
                                             }
                                             else {
                                                 ky.SendKeyUp(value);
+                                                if (KeyActionList.IndexOfKey(value) != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey(value));
                                             }
                                         }
                                     }
@@ -1512,6 +1525,12 @@ namespace Metro
                         }
                         else
                         {
+                            foreach (DictionaryEntry list in KeyActionList)
+                            {
+                                if(list.Value.Equals("SendKeyDown")) ky.SendKeyUp((short)list.Key);
+                                if (list.Value.Equals("Key")) mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)list.Key);
+                            }
+
                             mInputSimulator = null;
                             ky = null;
                             V = null;
