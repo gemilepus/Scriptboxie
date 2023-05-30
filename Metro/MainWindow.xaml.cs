@@ -437,7 +437,7 @@ namespace Metro
                 "Match","Match RGB","Match&Draw","RandomTrigger",
                 "RemoveEvent","Jump","Goto","Loop",
                 "Run .exe","PlaySound","WriteClipboard","Clear Screen",
-                "Calc","Check Calc",
+                //"Calc","Check Calc",
                 //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
             mComboBoxColumn.ItemsSource = mList;
