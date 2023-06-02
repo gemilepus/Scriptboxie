@@ -388,6 +388,11 @@
                             <LineBreak/> 
                             <Run FontSize="12" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run>
                             <LineBreak/>
+                            <Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(Paypal):</Run>
+                            <Hyperlink NavigateUri="https://paypal.me/gemilepus" RequestNavigate="Hyperlink_RequestNavigate"> 
+                                   <Run FontSize="16" Foreground="Black">https://paypal.me/gemilepus</Run>
+                            </Hyperlink>
+                            <LineBreak/>
                             <Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(ko-fi):</Run>
                             <Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate"> 
                                    <Run FontSize="16" Foreground="Black">https://ko-fi.com/gemilepus</Run>

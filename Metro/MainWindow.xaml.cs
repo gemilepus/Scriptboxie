@@ -857,10 +857,11 @@ namespace Metro
                         string Temp_CommandData = CommandData;
                         foreach (Match match in Regex.Matches(CommandData, @"\{.*?\}"))
                         {
-                            if (interpreter.DetectIdentifiers(CommandData).UnknownIdentifiers.ToArray().Length == 0)
+                            string val = match.Value.Substring(1, match.Value.Length - 2);
+                            if (interpreter.DetectIdentifiers(val).UnknownIdentifiers.ToArray().Length == 0)
                             {
                                 Temp_CommandData = Temp_CommandData.Replace(match.Value, 
-                                    interpreter.Eval(match.Value.Substring(1, match.Value.Length - 2)).ToString());
+                                    interpreter.Eval(val).ToString());
                             }
                         }
                         CommandData = Temp_CommandData;
