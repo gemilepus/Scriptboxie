@@ -192,7 +192,7 @@
                                                     <Trigger Property="DataContext" Value="Calc">
                                                         <Setter Property="Source" Value="img/Calc.png"/>
                                                     </Trigger>
-                                                    <Trigger Property="DataContext" Value="Check Calc">
+                                                    <Trigger Property="DataContext" Value="Calc-Check">
                                                         <Setter Property="Source" Value="img/Calc.png"/>
                                                     </Trigger>
 
@@ -291,9 +291,9 @@
                                                         <Setter Property="Foreground" Value="Black"/>
                                                         <Setter Property="Text" Value="Calc" />
                                                     </Trigger>
-                                                    <Trigger Property="DataContext" Value="Check Calc">
+                                                    <Trigger Property="DataContext" Value="Calc-Check">
                                                         <Setter Property="Foreground" Value="DarkRed"/>
-                                                        <Setter Property="Text" Value="Check Calc" />
+                                                        <Setter Property="Text" Value="Calc-Check" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>

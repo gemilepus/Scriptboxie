@@ -434,7 +434,7 @@ namespace Metro
             List<string> mList = new List<string>() {
                 "Move","Offset","Click", 
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard","Delay",
-                "Calc","Check Calc",
+                "Calc","Calc-Check",
                 "Match","Match RGB","Match&Draw","RandomTrigger",
                 "RemoveEvent","Jump","Goto","Loop",
                 "Run .exe","PlaySound","Clear Screen"
@@ -1513,7 +1513,7 @@ namespace Metro
                                 break;
 
 
-                            case "Check Calc":
+                            case "Calc-Check":
 
                                 // Add Key
                                 if (Event.Length != 0)
