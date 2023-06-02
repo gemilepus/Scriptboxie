@@ -1258,15 +1258,19 @@ namespace Metro
 
                             case "RemoveEvent":
 
-                                if (mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                for (int i = 0; i < Event.Length; i++)
                                 {
-                                    string[] TempEvent_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
-                                    mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(Event[0]));
-
-                                    if (CommandData.ToUpper().Equals("PUSH"))
+                                    if (mDoSortedList.IndexOfKey(Event[i]) != -1)
                                     {
-                                        if (TempEvent_Data.Length >= 4) {
-                                            mDoSortedList.Add(Event[0], string.Join(",", TempEvent_Data.Skip(2).ToArray()));
+                                        string[] TempEvent_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[i])).ToString().Split(',');
+                                        mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey(Event[i]));
+
+                                        if (CommandData.ToUpper().Equals("PUSH"))
+                                        {
+                                            if (TempEvent_Data.Length >= 4)
+                                            {
+                                                mDoSortedList.Add(Event[i], string.Join(",", TempEvent_Data.Skip(2).ToArray()));
+                                            }
                                         }
                                     }
                                 }
