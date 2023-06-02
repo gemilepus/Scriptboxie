@@ -433,10 +433,10 @@ namespace Metro
             // Combobox List
             List<string> mList = new List<string>() {
                 "Move","Offset","Click", 
-                "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard",
+                "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard","Delay",
                 "Calc","Check Calc",
                 "Match","Match RGB","Match&Draw","RandomTrigger",
-                "RemoveEvent","Jump","Goto","Loop","Delay",
+                "RemoveEvent","Jump","Goto","Loop",
                 "Run .exe","PlaySound","Clear Screen"
                 //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
@@ -805,10 +805,6 @@ namespace Metro
 
             SortedList mDoSortedList = new SortedList();
             SortedList KeyActionList = new SortedList();
-            SortedList DefValueList = new SortedList();
-            System.Drawing.Point StartPoint = new System.Drawing.Point();
-            GetCursorPos(ref StartPoint);
-            DefValueList.Add("{StartPostion}", StartPoint.X.ToString() + "," + StartPoint.Y.ToString());
             // key || value ex:
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
@@ -816,8 +812,11 @@ namespace Metro
             //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
 
             Interpreter interpreter = new Interpreter();
-            interpreter = interpreter.SetVariable("StartPostion-X", (int)StartPoint.X);
-            interpreter = interpreter.SetVariable("StartPostion-Y", (int)StartPoint.Y);
+            // StartPostion
+            System.Drawing.Point StartPoint = new System.Drawing.Point();
+            GetCursorPos(ref StartPoint);
+            interpreter = interpreter.SetVariable("StartPostion_X", (int)StartPoint.X);
+            interpreter = interpreter.SetVariable("StartPostion_Y", (int)StartPoint.Y);
             Random RM = new Random();
             Func<int, int, int> random = (s, e) => RM.Next(s, e + 1);
             interpreter = interpreter.SetFunction("random", random);
@@ -844,11 +843,6 @@ namespace Metro
                 string Command = minDataTable[n].Mode;
                 string CommandData = minDataTable[n].Action;
                 bool CommandEnable = minDataTable[n].Enable;
-
-                if (DefValueList.IndexOfKey(CommandData) != -1)
-                {
-                    CommandData = DefValueList.GetByIndex(DefValueList.IndexOfKey(CommandData)).ToString();
-                }
 
                 string[] Event = minDataTable[n].Event.Split(',');
                 if (minDataTable[n].Event == "") { Event = new string[0]; }
