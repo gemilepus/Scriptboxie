@@ -94,13 +94,13 @@
         <LineBreak/>
         <Run Foreground="Orange">-@Formulas</Run>
         <LineBreak/>
-        Formulas: 像是 x = 0
+        Formulas: 像是 x = 0,x = x + 1,運算子可使用 + - * /
         <LineBreak/>
         ex: x = 0
         <LineBreak/>
         ex: y = 0
         <LineBreak/>
-        ex: x = x + y + 1
+        ex: x = x + y*2 + 1
         <LineBreak/>
         ex: text = "DOC" + x
         <LineBreak/>
@@ -136,7 +136,7 @@
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
             
-        <Run Foreground="Gold">⭐Check Calc: 檢查數值.如果為真則Event成立,</Run>
+        <Run Foreground="Gold">⭐Calc-Check: 檢查數值.如果為真則Event成立,</Run>
         <LineBreak/>
         <Run Foreground="Gold">&#160;反之則不成立</Run>
         <LineBreak/>

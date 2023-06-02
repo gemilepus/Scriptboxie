@@ -98,13 +98,13 @@
         <LineBreak/>
         <Run Foreground="Orange">-@Formulas</Run>
         <LineBreak/>
-        Formulas: like x = 0
+        Formulas: like x = 0,x = x + 1,operators can use + - * /
         <LineBreak/>
         ex: x = 0
         <LineBreak/>
         ex: y = 0
         <LineBreak/>
-        ex: x = x + y + 1
+        ex: x = x + y*2 + 1
         <LineBreak/>
         ex: text = "DOC" + x
         <LineBreak/>
@@ -140,7 +140,7 @@
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
             
-        <Run Foreground="Gold">⭐Check Calc: check values.If it is true, the Event establish,</Run>
+        <Run Foreground="Gold">⭐Calc-Check: check values.If it is true, the Event establish,</Run>
         <LineBreak/>
         <Run Foreground="Gold">&#160;otherwise is not</Run>
         <LineBreak/>
