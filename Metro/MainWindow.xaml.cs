@@ -818,6 +818,9 @@ namespace Metro
             Interpreter interpreter = new Interpreter();
             interpreter = interpreter.SetVariable("StartPostion-X", (int)StartPoint.X);
             interpreter = interpreter.SetVariable("StartPostion-Y", (int)StartPoint.Y);
+            Random RM = new Random();
+            Func<int, int, int> random = (s, e) => RM.Next(s, e + 1);
+            interpreter = interpreter.SetFunction("random", random);
 
             int n = 0; int LoopCount = 0;
             //DateTime centuryBegin = new DateTime(2001, 1, 1);
@@ -1227,7 +1230,7 @@ namespace Metro
                                 //  new[] { VirtualKeyCode.CONTROL, VirtualKeyCode.MENU, VirtualKeyCode.SHIFT },
                                 //  new[] { VirtualKeyCode.ESCAPE, VirtualKeyCode.VK_K });
 
-                                String[] KeyStr = CommandData.Split('|');
+                                String[] KeyStr = CommandData.ToUpper().Split('|');
                                 String[] ModifierKeyArr = KeyStr[0].Split(',');
                                 String[] KeyArr = KeyStr[1].Split(',');
 

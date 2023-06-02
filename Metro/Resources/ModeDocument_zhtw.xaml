@@ -85,6 +85,8 @@
         <LineBreak/>
         ex: text = "DOC" + x
         <LineBreak/>
+        ex: y = y + random(0,10)
+        <LineBreak/>
         <Run Foreground="OrangeRed">你可以在Calc之外使用這些數值.</Run>
         <LineBreak/>
         <Run Foreground="OrangeRed">,使用方式是輸入成{value}.ex:</Run>
