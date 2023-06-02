@@ -44,6 +44,9 @@ Download available at <https://github.com/gemilepus/Scriptboxie/releases>.
 If you like Scriptboxie, you can support it:
 
 <a href='https://ko-fi.com/R6R8IQ1MD' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<br>
+<br>
+[![Donate](https://img.shields.io/badge/Donate-PayPal-yellow.svg)](https://www.paypal.me/gemilepus)
 
 [f1]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s1.png
 [f2]: https://github.com/gemilepus/Scriptboxie/blob/master/Doc/s2.png
