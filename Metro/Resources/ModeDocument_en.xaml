@@ -33,6 +33,27 @@
          <LineBreak/>
         The event will be invalidated if all the data is removed
         <LineBreak/>  
+        ex:
+        <LineBreak/>  
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="3">EVENT</TextBlock>
+            <Border Grid.Row="0" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="3">ACTION</TextBlock>
+            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="3">EventName</TextBlock>          
+            <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="3"></TextBlock>    
+        </Grid>
+        <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Match,Match&amp;Draw : match and get image point</Run>
@@ -93,12 +114,30 @@
         <LineBreak/>
         <Run Foreground="OrangeRed">by entering them like {value}.ex:</Run>
         <LineBreak/>
-        MODE | ACTION
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="3">MODE</TextBlock>
+            <Border Grid.Row="0" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="3">ACTION</TextBlock>
+            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="3">Move</TextBlock>          
+            <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="3">{x},{y}</TextBlock>    
+            <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="3">WriteClipboard</TextBlock>          
+            <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="3">{text}  </TextBlock>    
+        </Grid>
         <LineBreak/>
-        MOVE {x},{y}
-        <LineBreak/>
-        WriteClipboard {text}  
-        <LineBreak/>   
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
             
         <Run Foreground="Gold">⭐Check Calc: check values.If it is true, the Event establish,</Run>
