@@ -57,8 +57,8 @@
         <LineBreak/>
         ex: apple.png,500,500,1420,580
         <LineBreak/>
-        <Run Foreground="OrangeRed">Match RGB:If your target needs to be distinguished by color,</Run><LineBreak/>
-        <Run Foreground="OrangeRed">using this will have a better effect</Run><LineBreak/>
+        <Run Foreground="OrangeRed">Match RGB:If your target needs to be distinguished</Run><LineBreak/>
+        <Run Foreground="OrangeRed">&#160;by color,using this will have a better effect</Run><LineBreak/>
         <Run Foreground="OrangeRed">Match&amp;Draw will be marked on the screen,just for test</Run>
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
@@ -73,6 +73,50 @@
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
 
+        <Run Foreground="Gold">⭐Calc(Calculator): to do the math</Run>
+        <LineBreak/>
+        <Run Foreground="Orange">-@Formulas</Run>
+        <LineBreak/>
+        Formulas: like x = 0
+        <LineBreak/>
+        ex: x = 0
+        <LineBreak/>
+        ex: y = 0
+        <LineBreak/>
+        ex: x = x + y + 1
+        <LineBreak/>
+        ex: text = "DOC" + x
+        <LineBreak/>
+        <Run Foreground="OrangeRed">You can use these values outside of Calc</Run>
+        <LineBreak/>
+        <Run Foreground="OrangeRed">by entering them like {value}.ex:</Run>
+        <LineBreak/>
+        MODE | ACTION
+        <LineBreak/>
+        MOVE {x},{y}
+        <LineBreak/>
+        WriteClipboard {text}  
+        <LineBreak/>   
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
+            
+        <Run Foreground="Gold">⭐Check Calc: check values.If it is true, the Event establish,</Run>
+        <LineBreak/>
+        <Run Foreground="Gold">&#160;otherwise is not</Run>
+        <LineBreak/>
+        <Run Foreground="Orange">-@Formulas</Run>
+        <LineBreak/>
+         Formulas: like x > 1.operators can use ==&#160;&#160;!=,(equality),
+        <LineBreak/>
+         &#160;&lt;&#160;&#160;&gt;&#160;&#160;&gt;= &lt;=(relational),&#160;&amp;&amp;(conditional AND),
+        <LineBreak/>   
+         &#160;||(conditional OR)
+        <LineBreak/>
+        ex: x == 0
+        <LineBreak/>
+        ex: y > 5 || x > 5
+        <LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>  
+            
         <Run Foreground="Gold">⭐Move</Run>
         <LineBreak/>
         <Run Foreground="Orange">-@X,@Y</Run>
@@ -156,6 +200,16 @@
         ex: CTRL|V
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
+            
+        <Run Foreground="Gold">⭐WriteClipboard</Run>
+        <LineBreak/>
+        <Run Foreground="Orange">-@Text</Run>
+        <LineBreak/>
+        Text: text data to clipboard
+        <LineBreak/>
+        ex: 123456
+        <LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Delay</Run>
         <LineBreak/>
@@ -220,20 +274,10 @@
         ex: sound.wav
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
-
-        <Run Foreground="Gold">⭐WriteClipboard</Run>
-        <LineBreak/>
-        <Run Foreground="Orange">-@Text</Run>
-        <LineBreak/>
-        Text: text data to clipboard
-        <LineBreak/>
-        ex: 123456
-        <LineBreak/>
-        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
                  
-            <Run Foreground="Gold">⭐Clear Screen: clear marked on the screen</Run>
-            <LineBreak/>
-            <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
+         <Run Foreground="Gold">⭐Clear Screen: clear marked on the screen</Run>
+         <LineBreak/>
+         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
          </TextBlock>
         </Grid>

@@ -1,0 +1,11 @@
+[
+{"Enable":true,"Mode":"Calc","Action":"x=0","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc","Action":"y=0","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc","Action":"x=x\u002B1","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc","Action":"y=y\u002B1","Event":"","Note":""},
+{"Enable":true,"Mode":"WriteClipboard","Action":"{x},{y}","Event":"","Note":""},
+{"Enable":false,"Mode":"Move","Action":"{x},{y}","Event":"","Note":""},
+{"Enable":true,"Mode":"Check Calc","Action":"x==10","Event":"x=10","Note":""},
+{"Enable":true,"Mode":"Jump","Action":"2","Event":"x=10","Note":"END"},
+{"Enable":true,"Mode":"Goto","Action":"3","Event":"","Note":""}
+]

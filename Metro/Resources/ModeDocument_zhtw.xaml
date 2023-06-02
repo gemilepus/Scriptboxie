@@ -56,7 +56,7 @@
         ex: apple.png,500,500,1420,580
         <LineBreak/>
         <Run Foreground="OrangeRed">Match RGB:如果你的目標需要通過顏色來區分，</Run><LineBreak/>
-        <Run Foreground="OrangeRed">使用這個效果會更好</Run><LineBreak/>
+        <Run Foreground="OrangeRed">&#160;使用這個效果會更好</Run><LineBreak/>
         <Run Foreground="OrangeRed">Match&amp;Draw 會在畫面上做標示,僅測試用</Run>
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
@@ -71,6 +71,48 @@
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
 
+        <Run Foreground="Gold">⭐Calc(Calculator): 做運算</Run>
+        <LineBreak/>
+        <Run Foreground="Orange">-@Formulas</Run>
+        <LineBreak/>
+        Formulas: 像是 x = 0
+        <LineBreak/>
+        ex: x = 0
+        <LineBreak/>
+        ex: y = 0
+        <LineBreak/>
+        ex: x = x + y + 1
+        <LineBreak/>
+        ex: text = "DOC" + x
+        <LineBreak/>
+        <Run Foreground="OrangeRed">你可以在Calc之外使用這些數值.</Run>
+        <LineBreak/>
+        <Run Foreground="OrangeRed">,使用方式是輸入成{value}.ex:</Run>
+        <LineBreak/>
+        MODE | ACTION
+        <LineBreak/>
+        MOVE {x},{y}
+        <LineBreak/>
+        WriteClipboard {text}  
+        <LineBreak/>   
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>   
+            
+        <Run Foreground="Gold">⭐Check Calc: 檢查數值.如果為真則Event成立,</Run>
+        <LineBreak/>
+        <Run Foreground="Gold">&#160;反之則不成立</Run>
+        <LineBreak/>
+        <Run Foreground="Orange">-@Formulas</Run>
+        <LineBreak/>
+         Formulas: 像是 x > 1.運算子可使用 ==&#160;&#160;!=,
+        <LineBreak/>
+        &#160;&lt;&#160;&#160;&gt;&#160;&#160;&gt;= &lt;=,&#160;&amp;&amp;(AND),&#160;||(OR)
+        <LineBreak/>
+        ex: x == 0
+        <LineBreak/>
+        ex: y > 5 || x > 5
+        <LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>  
+            
         <Run Foreground="Gold">⭐Move</Run>
         <LineBreak/>
         <Run Foreground="Orange">-@X,@Y</Run>
@@ -154,6 +196,16 @@
         ex: CTRL|V
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
+            
+        <Run Foreground="Gold">⭐WriteClipboard</Run>
+        <LineBreak/>
+        <Run Foreground="Orange">-@Text</Run>
+        <LineBreak/>
+        Text: 貼到剪貼簿上的文字
+        <LineBreak/>
+        ex: 123456
+        <LineBreak/>
+        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         <Run Foreground="Gold">⭐Delay</Run>
         <LineBreak/>
@@ -219,19 +271,9 @@
         <LineBreak/>
         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
-        <Run Foreground="Gold">⭐WriteClipboard</Run>
-        <LineBreak/>
-        <Run Foreground="Orange">-@Text</Run>
-        <LineBreak/>
-        Text: 貼到剪貼簿上的文字
-        <LineBreak/>
-        ex: 123456
-        <LineBreak/>
-        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
-            
-            <Run Foreground="Gold">⭐Clear Screen: 清除畫面上的標示</Run>
-            <LineBreak/>
-            <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
+         <Run Foreground="Gold">⭐Clear Screen: 清除畫面上的標示</Run>
+         <LineBreak/>
+         <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
         </TextBlock>
     </Grid>

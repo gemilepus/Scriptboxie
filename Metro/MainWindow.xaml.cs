@@ -433,11 +433,11 @@ namespace Metro
             // Combobox List
             List<string> mList = new List<string>() {
                 "Move","Offset","Click", 
-                "Key","ModifierKey","SendKeyDown","SendKeyUp","Delay",
+                "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard",
+                "Calc","Check Calc",
                 "Match","Match RGB","Match&Draw","RandomTrigger",
-                "RemoveEvent","Jump","Goto","Loop",
-                "Run .exe","PlaySound","WriteClipboard","Clear Screen",
-                //"Calc","Check Calc",
+                "RemoveEvent","Jump","Goto","Loop","Delay",
+                "Run .exe","PlaySound","Clear Screen"
                 //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
             mComboBoxColumn.ItemsSource = mList;
@@ -801,24 +801,23 @@ namespace Metro
             InputSimulator mInputSimulator = new InputSimulator();
             Keyboard ky = new Keyboard();
             ConvertHelper ConvertHelper = new ConvertHelper();
-            SortedList mDoSortedList = new SortedList();
             V V = new V();
 
+            SortedList mDoSortedList = new SortedList();
+            SortedList KeyActionList = new SortedList();
             SortedList DefValueList = new SortedList();
             System.Drawing.Point StartPoint = new System.Drawing.Point();
             GetCursorPos(ref StartPoint);
             DefValueList.Add("{StartPostion}", StartPoint.X.ToString() + "," + StartPoint.Y.ToString());
-
-            SortedList KeyActionList = new SortedList();
-
-            var interpreter = new Interpreter();
-           
-
             // key || value ex:
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
             //mDoSortedList.Add("Draw", "");
             //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
+
+            Interpreter interpreter = new Interpreter();
+            interpreter = interpreter.SetVariable("StartPostion-X", (int)StartPoint.X);
+            interpreter = interpreter.SetVariable("StartPostion-Y", (int)StartPoint.Y);
 
             int n = 0; int LoopCount = 0;
             //DateTime centuryBegin = new DateTime(2001, 1, 1);
@@ -858,7 +857,19 @@ namespace Metro
                     Boolean err = false;
                     try
                     {
+                        string Temp_CommandData = CommandData;
+                        foreach (Match match in Regex.Matches(CommandData, @"\{.*?\}"))
+                        {
+                            if (interpreter.DetectIdentifiers(CommandData).UnknownIdentifiers.ToArray().Length == 0)
+                            {
+                                Temp_CommandData = Temp_CommandData.Replace(match.Value, 
+                                    interpreter.Eval(match.Value.Substring(1, match.Value.Length - 2)).ToString());
+                            }
+                        }
+                        CommandData = Temp_CommandData;
+
                         #region Switch Command
+
                         switch (Command)
                         {
                             case "Move":
@@ -1507,7 +1518,6 @@ namespace Metro
                                 {
                                     if (V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                     {
-                                        Random mRandom = new Random();
                                         if ((bool)interpreter.Eval(CommandData))
                                         {
                                             mDoSortedList.Add(Event[0], "");
