@@ -4,8 +4,8 @@
 {"Enable":true,"Mode":"Calc","Action":"x=x\u002B1","Event":"","Note":""},
 {"Enable":true,"Mode":"Calc","Action":"y=y\u002B1","Event":"","Note":""},
 {"Enable":true,"Mode":"WriteClipboard","Action":"{x},{y}","Event":"","Note":"You can press CTRL\u002BV,then you will see the result"},
-{"Enable":false,"Mode":"Move","Action":"{x},{y}","Event":"","Note":""},
-{"Enable":true,"Mode":"Calc-Check","Action":"x==10","Event":"x=10","Note":""},
-{"Enable":true,"Mode":"Jump","Action":"2","Event":"x=10","Note":"END"},
+{"Enable":true,"Mode":"Move","Action":"{x},{y}","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc-Check","Action":"x==100","Event":"x=100","Note":"stop at x=100"},
+{"Enable":true,"Mode":"Jump","Action":"2","Event":"x=100","Note":""},
 {"Enable":true,"Mode":"Goto","Action":"3","Event":"","Note":""}
 ]
