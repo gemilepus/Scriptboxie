@@ -1559,19 +1559,6 @@ namespace Metro
                     {
                         Console.WriteLine("{0} Exception caught.", e);
 
-                        if (e.Message.ToString().IndexOf("Thread") == -1 && !e.Source.Equals("System.Drawing"))
-                        {
-                            if (Mode.Equals("Debug"))
-                            {
-                                // debug stop msg
-                                SystemSounds.Hand.Play();
-                                CreateMessage("9487");
-
-                                System.Windows.MessageBox.Show("[Error] Line " + (n + 1).ToString() + " \nMessage: " + e.Message);
-                                break;
-                            }
-                        }
-
                         if (e.Source.Equals("System.Drawing"))
                         {
                             Thread.Sleep(1000);
@@ -1592,6 +1579,24 @@ namespace Metro
                             mDoSortedList.Clear();
 
                             err = true;
+
+                            if (e.Message.ToString().IndexOf("Thread") == -1)
+                            {
+                                if (Mode.Equals("Debug"))
+                                {
+                                    // debug stop msg
+                                    SystemSounds.Hand.Play();
+                                    CreateMessage("9487");
+
+                                    //System.Windows.MessageBox.Show("[Error] Line " + (n + 1).ToString() + " \nMessage: " + e.Message);
+                                    System.Windows.Forms.MessageBox.Show("[Error] Line " + (n + 1).ToString() + "\nMessage: " + e.Message, "Scriptboxie", 
+                                        System.Windows.Forms.MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, 
+                                        System.Windows.Forms.MessageBoxOptions.DefaultDesktopOnly);
+
+                                    break;
+                                }
+                            }
                         }
                     }
                     finally

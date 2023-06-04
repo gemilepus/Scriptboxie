@@ -49,6 +49,11 @@ namespace Metro
             gfx = _graphics; // little shortcut
         }
 
+        public void Recreate()
+        {
+            gfx.Recreate();
+        }
+
         public void Clear()
         {
             gfx.BeginScene(); // call before you start any drawing
