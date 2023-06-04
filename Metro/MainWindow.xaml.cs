@@ -669,6 +669,10 @@ namespace Metro
                 eDataGrid.DataContext = null;
                 eDataGrid.DataContext = eDataTable;
             }
+            if (!Btn_ON.Content.Equals("ON"))
+            {
+                return;
+            }
 
             if (KeyString.Equals(mSettingHelper.Run_Hotkey) 
                 && !(mSettingHelper.Run_CrtlKey && e.Control == false) && !(mSettingHelper.Run_AltKey && e.Alt == false)){
