@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows;
+using System.Windows.Forms;
 
 namespace Metro
 {
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private Mutex _mutex;
 
@@ -18,8 +16,10 @@ namespace Metro
 
             if (!createdNew)
             {
-                MessageBox.Show("Scriptboxie already started");
-                Application.Current.Shutdown();
+                MessageBox.Show("Scriptboxie already started", "Scriptboxie", MessageBoxButtons.OK,
+                    MessageBoxIcon.None, MessageBoxDefaultButton.Button1,MessageBoxOptions.DefaultDesktopOnly);
+
+                System.Windows.Application.Current.Shutdown();
             }
             else
             {
