@@ -1831,8 +1831,8 @@ namespace Metro
         private void MetroWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.NewSize.Height > 400) {
-                eDataGrid.MinHeight = e.NewSize.Height - 120;
-                mDataGrid.MinHeight = e.NewSize.Height - 120;
+                eDataGrid.MinHeight = e.NewSize.Height - 110;
+                mDataGrid.MinHeight = e.NewSize.Height - 110;
             }
         }
 
