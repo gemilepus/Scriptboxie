@@ -7,7 +7,8 @@
                       Height="400"
                       Width="800"             
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-                      Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" Deactivated="MetroWindow_Deactivated">
+                      Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" Deactivated="MetroWindow_Deactivated"
+                      SizeChanged="MetroWindow_SizeChanged">
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -53,7 +54,7 @@
             <TabItem Header="{DynamicResource Main}">
                 <Grid Background="White" Name="ScriptGrid">
                     <DataGrid CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" IsEnabled="False"
-                              Height="300" Margin="0,0,0,20"  VerticalAlignment="Center" HorizontalAlignment="Center" CanUserAddRows="False"
+                              Height="300" Margin="0,0,0,20" HorizontalAlignment="Center" CanUserAddRows="False"
                               CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected"  KeyUp="eDataGrid_KeyUp">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="#" IsReadOnly="True"/>
@@ -118,7 +119,7 @@
                 <Grid Background="White" Name="EditGrid">
 
                     <DataGrid CanUserSortColumns="False" Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Grid.Column="1"
-                              MinHeight="300" MinWidth="500" Margin="0,0,0,20" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                              MinHeight="300" MinWidth="500" Margin="0,0,0,20"  HorizontalAlignment="Center" 
                               LoadingRow="mDataGrid_LoadingRow" CanUserAddRows="False" ScrollViewer.ScrollChanged="mDataGrid_ScrollChanged"
                               MouseDoubleClick="mDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected" KeyUp="mDataGrid_KeyUp" BeginningEdit="mDataGrid_BeginningEdit">
                         <DataGrid.Resources>
