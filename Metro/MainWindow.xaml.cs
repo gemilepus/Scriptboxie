@@ -1832,7 +1832,7 @@ namespace Metro
         {
             if (e.NewSize.Height > 300) {
                 eDataGrid.MinHeight = e.NewSize.Height - 130;
-                mDataGrid.MinHeight = e.NewSize.Height - 110;
+                mDataGrid.MinHeight = e.NewSize.Height - 100;
             }
         }
 
