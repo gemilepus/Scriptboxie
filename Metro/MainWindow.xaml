@@ -64,7 +64,7 @@
                                 <DataGridTextColumn Header="Key" Binding="{Binding Path=eTable_Key}">
                                     <DataGridTextColumn.CellStyle>
                                         <Style TargetType="DataGridCell">
-                                            <Setter Property="ToolTip" Value="ex:F12,Alt+A,Shift+B,Ctrl+C......" />
+                                            <Setter Property="ToolTip" Value="ex:F12,Alt+A,Shift+B,Ctrl+C......If script has press certain key, should avoid using it as hotkey" />
                                             <Setter Property="VerticalAlignment" Value="Center"/>
                                         </Style>
                                     </DataGridTextColumn.CellStyle>
