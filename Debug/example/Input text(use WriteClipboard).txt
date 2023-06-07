@@ -1,0 +1,5 @@
+[
+{"Enable":true,"Mode":"Delay","Action":"200","Event":"","Note":""},
+{"Enable":true,"Mode":"WriteClipboard","Action":"Apple","Event":"","Note":"your text"},
+{"Enable":true,"Mode":"ModifierKey","Action":"CTRL|V","Event":"","Note":""}
+]
