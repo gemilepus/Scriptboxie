@@ -1263,6 +1263,16 @@ namespace Metro
 
                             case "RemoveEvent":
 
+                                if (Event.Length == 0)
+                                {
+                                    IList mlist = mDoSortedList.GetKeyList();
+                                    Event = new string[mlist.Count];
+                                    for (int i = 0; i < mlist.Count; i++)
+                                    {
+                                        Event[i] = mlist[i].ToString();
+                                    }
+                                }
+
                                 for (int i = 0; i < Event.Length; i++)
                                 {
                                     if (mDoSortedList.IndexOfKey(Event[i]) != -1)
