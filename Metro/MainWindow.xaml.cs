@@ -2166,6 +2166,14 @@ namespace Metro
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             }
         }
+
+        private void ScriptGridScroll_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer mScrollViewer = sender as ScrollViewer;
+            if (mScrollViewer == null) return;
+            mScrollViewer.ScrollToVerticalOffset(mScrollViewer.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
         #endregion
 
         #region Script Panel DataGrid Event
