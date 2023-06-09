@@ -383,23 +383,37 @@
                 <Grid Background="White" Name="SettingGrid">
                     <ScrollViewer>
                         <TextBlock ScrollViewer.CanContentScroll="True" Margin="5px" MinHeight="300">
-                                              
-                            <Run FontSize="16" Foreground="Black" Text="{DynamicResource Website}"></Run> <Run FontSize="16" Foreground="Black">(Github):</Run>
-                            <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate"> 
-                                   <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>
-                            </Hyperlink>
-                            <LineBreak/> 
-                            <Run FontSize="12" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run>
-                            <LineBreak/>
-                            <Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(Paypal):</Run>
-                            <Hyperlink NavigateUri="https://paypal.me/gemilepus" RequestNavigate="Hyperlink_RequestNavigate"> 
-                                   <Run FontSize="16" Foreground="Black">https://paypal.me/gemilepus</Run>
-                            </Hyperlink>
-                            <LineBreak/>
-                            <Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(ko-fi):</Run>
-                            <Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate"> 
-                                   <Run FontSize="16" Foreground="Black">https://ko-fi.com/gemilepus</Run>
-                            </Hyperlink>
+                                     
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        
+        <TextBlock><Run FontSize="16" Foreground="Black" Text="{DynamicResource Website}"></Run> <Run FontSize="16" Foreground="Black">(Github)</Run></TextBlock>
+        <TextBlock Grid.Column="1"><Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie" RequestNavigate="Hyperlink_RequestNavigate">                    
+            <Run FontSize="16" Foreground="Black">https://github.com/gemilepus/Scriptboxie</Run>          
+        </Hyperlink></TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="1"><Run FontSize="12" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run></TextBlock>
+        
+        <TextBlock Grid.Row="2"><Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(Paypal)</Run></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1"><Hyperlink NavigateUri="https://paypal.me/gemilepus" RequestNavigate="Hyperlink_RequestNavigate">                     
+            <Run FontSize="16" Foreground="Black">https://paypal.me/gemilepus</Run>            
+        </Hyperlink></TextBlock>
+        
+        <TextBlock  Grid.Row="3">  <Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(ko-fi)</Run></TextBlock>
+        <TextBlock  Grid.Row="3" Grid.Column="1">   <Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate">                        
+            <Run FontSize="16" Foreground="Black">https://ko-fi.com/gemilepus</Run>          
+        </Hyperlink></TextBlock>
+    </Grid>
+                            
                             <LineBreak/>
                             <LineBreak/>
                             
