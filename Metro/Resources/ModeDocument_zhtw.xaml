@@ -11,28 +11,41 @@
 
         <TextBlock Width = "350" Margin = "5px" ScrollViewer.CanContentScroll="True">
 
-         <Run FontSize="16" Foreground="White">[Mode Document]</Run>
+        <Run FontSize="16" Foreground="White">[How to use EVENT?]</Run>
         <LineBreak/>
         <LineBreak/>
             
-        <Run Foreground="Gold">⭐RemoveEvent: 當事件(Event)成立後, </Run>
+        <Run Foreground="Gold">1.概念是暗紅色的指令可以產生事件</Run>
+        <LineBreak/>
+        <Run Foreground="Gold">&#160;(你可以在MODE下拉清單看到顏色區別)，</Run>
         <LineBreak/>   
-        <Run Foreground="Gold"> 它會一直存在.如果你想讓它失效, 請使用這個.</Run>
-        <LineBreak/>
-        <Run Foreground="Red">在"EVENT 欄位"輸入你想刪除的事件名</Run>
-        <LineBreak/>
+        <Run Foreground="Gold">&#160;其他的接收事件。</Run>
+        <LineBreak/>   
+        <Run Foreground="Gold">&#160;指令可以綁定事件並根據其成立是否來執行</Run>
+        <LineBreak/>   
+        <LineBreak/>   
+        <Run Foreground="Gold">2.當事件成立後，它會一直存在。</Run>
+        <LineBreak/>   
+        <Run Foreground="Gold">&#160;你可以使用RemoveEvent移除它</Run>
+        <LineBreak/>   
+        <LineBreak/>   
+        <Run Foreground="Gold">3.事件(EVENT)的名稱可以自由命名 </Run>
+        <LineBreak/>     
+            
         ex:
         <LineBreak/>  
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
@@ -46,33 +59,62 @@
             <TextBlock Grid.Row="0" Grid.Column="3" Margin="3">NOTE</TextBlock>
             
             <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="3">RemoveEvent</TextBlock>          
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="3"><Run Foreground="Red">Match</Run></TextBlock>
             <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="3">Event1</TextBlock>          
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="3">Event1</TextBlock>
             <Border Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" Margin="3"></TextBlock>    
-             <Border Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="3" Margin="3"></TextBlock>    
+            <TextBlock Grid.Row="1" Grid.Column="2" Margin="3">s.png</TextBlock>
+            <Border Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" Margin="3"></TextBlock>
             
             <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="3">RemoveEvent</TextBlock>          
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="3">Click</TextBlock>
             <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="3">E1,E2</TextBlock>          
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="3">Event1</TextBlock>
             <Border Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="2" Margin="3"></TextBlock>    
-             <Border Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="3" Margin="3">可以多個</TextBlock>    
+            <TextBlock Grid.Row="2" Grid.Column="2" Margin="3">Left</TextBlock>
+            <Border Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" Margin="3"></TextBlock>
             
             <Border Grid.Row="3" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="3" Grid.Column="0" Margin="3">RemoveEvent</TextBlock>          
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="3"><Run Foreground="Red">RemoveEvent</Run></TextBlock>          
             <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="3"></TextBlock>          
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="3">Event1</TextBlock>          
             <Border Grid.Row="3" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
             <TextBlock Grid.Row="3" Grid.Column="2" Margin="3"></TextBlock>    
              <Border Grid.Row="3" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="3" Grid.Column="3" Margin="3">空值代表全部</TextBlock>   
+            <TextBlock Grid.Row="3" Grid.Column="3" Margin="3"></TextBlock>    
+            
+            <Border Grid.Row="4" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="3"><Run Foreground="Red">RemoveEvent</Run></TextBlock>          
+            <Border Grid.Row="4" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="3">Event1,Event2</TextBlock>          
+            <Border Grid.Row="4" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" Margin="3"></TextBlock>    
+             <Border Grid.Row="4" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="4" Grid.Column="3" Margin="3">可多個</TextBlock>    
+            
+            <Border Grid.Row="5" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="3"><Run Foreground="Red">RemoveEvent</Run></TextBlock>          
+            <Border Grid.Row="5" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="3"></TextBlock>          
+            <Border Grid.Row="5" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="5" Grid.Column="2" Margin="3"></TextBlock>    
+             <Border Grid.Row="5" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="5" Grid.Column="3" Margin="3">空值代表全部</TextBlock>   
         </Grid>
         <LineBreak/>
+            
+        <LineBreak/>
+            
+        <Run FontSize="16" Foreground="White">[Mode Document]</Run>
+        <LineBreak/>
+        <Run Foreground="White">說明ACTION欄位輸入什麼</Run> 
+        <LineBreak/>
+        <LineBreak/>
+            
+        <Run Foreground="Gold">⭐RemoveEvent: 如果你想要使事件失效,使用這個.</Run>
+        <LineBreak/>   
         <Run Foreground="Orange">-空值</Run>
         <LineBreak/>
         <Run Foreground="Orange">-@Type</Run>

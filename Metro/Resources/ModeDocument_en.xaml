@@ -11,30 +11,43 @@
             
         <TextBlock Width = "350" Margin = "5px" ScrollViewer.CanContentScroll="True">
 
-         <Run FontSize="16" Foreground="White">[Mode Document]</Run>
+        <Run FontSize="16" Foreground="White">[How to use EVENT?]</Run>
         <LineBreak/>
         <LineBreak/>
-
-        <Run Foreground="Gold">⭐RemoveEvent: After the Event is established, </Run>
+            
+        <Run Foreground="Gold">1.The concept is that dark red command(You can see</Run>
+        <LineBreak/>
+        <Run Foreground="Gold">&#160;the color distinction in the drop-down list of MODE)</Run>
         <LineBreak/>   
-        <Run Foreground="Gold">it will always exist.If you want invalidate it, use this.</Run>
-        <LineBreak/>
-        <Run Foreground="Red">Input the name of the event you want to delete</Run>
-        <LineBreak/>
-        <Run Foreground="Red">in the "EVENT column"</Run>
-        <LineBreak/>
+        <Run Foreground="Gold">&#160;can generate events,and others receive events.</Run>
+        <LineBreak/>   
+        <Run Foreground="Gold">&#160;Command can bound to event and executed according</Run>
+        <LineBreak/>   
+        <Run Foreground="Gold">&#160;to whether that is established or not.</Run>
+        <LineBreak/>   
+        <LineBreak/>   
+        <Run Foreground="Gold">2.After the Event is established, it will always exist.</Run>
+        <LineBreak/>   
+        <Run Foreground="Gold">&#160;You can use RemoveEvent to invalidate it</Run>
+        <LineBreak/>   
+        <LineBreak/>   
+        <Run Foreground="Gold">3.Event name can be named freely   </Run>
+        <LineBreak/>     
+            
         ex:
         <LineBreak/>  
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
@@ -48,33 +61,61 @@
             <TextBlock Grid.Row="0" Grid.Column="3" Margin="3">NOTE</TextBlock>
             
             <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="3">RemoveEvent</TextBlock>          
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="3"><Run Foreground="Red">Match</Run></TextBlock>
             <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="3">Event1</TextBlock>          
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="3">Event1</TextBlock>
             <Border Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" Margin="3"></TextBlock>    
-             <Border Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="1" Grid.Column="3" Margin="3"></TextBlock>    
+            <TextBlock Grid.Row="1" Grid.Column="2" Margin="3">s.png</TextBlock>
+            <Border Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" Margin="3"></TextBlock>
             
             <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="3">RemoveEvent</TextBlock>          
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="3">Click</TextBlock>
             <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="3">E1,E2</TextBlock>          
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="3">Event1</TextBlock>
             <Border Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="2" Margin="3"></TextBlock>    
-             <Border Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="2" Grid.Column="3" Margin="3">can multiple</TextBlock>    
+            <TextBlock Grid.Row="2" Grid.Column="2" Margin="3">Left</TextBlock>
+            <Border Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" Margin="3"></TextBlock>
             
             <Border Grid.Row="3" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="3" Grid.Column="0" Margin="3">RemoveEvent</TextBlock>          
+            <TextBlock Grid.Row="3" Grid.Column="0" Margin="3"><Run Foreground="Red">RemoveEvent</Run></TextBlock>          
             <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="3"></TextBlock>          
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="3">Event1</TextBlock>          
             <Border Grid.Row="3" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
             <TextBlock Grid.Row="3" Grid.Column="2" Margin="3"></TextBlock>    
              <Border Grid.Row="3" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
-            <TextBlock Grid.Row="3" Grid.Column="3" Margin="3">empty means all</TextBlock>   
+            <TextBlock Grid.Row="3" Grid.Column="3" Margin="3"></TextBlock>    
+            
+            <Border Grid.Row="4" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Margin="3"><Run Foreground="Red">RemoveEvent</Run></TextBlock>          
+            <Border Grid.Row="4" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="3">Event1,Event2</TextBlock>          
+            <Border Grid.Row="4" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" Margin="3"></TextBlock>    
+             <Border Grid.Row="4" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="4" Grid.Column="3" Margin="3">can multiple</TextBlock>    
+            
+            <Border Grid.Row="5" Grid.Column="0" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Margin="3"><Run Foreground="Red">RemoveEvent</Run></TextBlock>          
+            <Border Grid.Row="5" Grid.Column="1" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="3"></TextBlock>          
+            <Border Grid.Row="5" Grid.Column="2" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="5" Grid.Column="2" Margin="3"></TextBlock>    
+             <Border Grid.Row="5" Grid.Column="3" BorderThickness="1" BorderBrush="White"/>
+            <TextBlock Grid.Row="5" Grid.Column="3" Margin="3">empty means all</TextBlock>   
         </Grid>
         <LineBreak/>
+            
+        <LineBreak/>
+        <Run FontSize="16" Foreground="White">[Mode Document]</Run>
+        <LineBreak/>
+        <Run Foreground="White">Explain what to input in the ACTION column</Run> 
+        <LineBreak/>
+        <LineBreak/>
+
+        <Run Foreground="Gold">⭐RemoveEvent: If you want invalidate Event, use this.</Run>
+        <LineBreak/>   
         <Run Foreground="Orange">-Empty</Run>
         <LineBreak/>
         <Run Foreground="Orange">-@Type</Run>
