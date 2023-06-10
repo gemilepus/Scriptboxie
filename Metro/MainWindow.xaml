@@ -55,7 +55,7 @@
                 <Grid Background="White" Name="ScriptGrid" >
                     <ScrollViewer Name="ScriptGridScroll" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" Margin="0,0,0,25" PreviewMouseWheel="ScriptGridScroll_PreviewMouseWheel">
                         <DataGrid ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Disabled" CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" IsEnabled="False"
-                              MinHeight="300" Margin="0,0,0,20" HorizontalAlignment="Center" CanUserAddRows="False"
+                              HorizontalAlignment="Center" CanUserAddRows="False"
                               CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected"  KeyUp="eDataGrid_KeyUp">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="#" IsReadOnly="True"/>
