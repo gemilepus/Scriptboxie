@@ -16,6 +16,13 @@
 <p align="center">
  <img align="center" alt="Main" src="../Doc/doc2.png" />
 </p>
+
+<p align="center">還有圖像搜尋, 計算... 其他的功能,</p>
+<p align="center">可以搭配事件做出不同的變化</p>
+<p align="center">
+ <img align="center" alt="Main" src="../Doc/doc4.png" />
+</p>
+
 <p align="center">設定腳本: 為你的腳本設定快捷鍵</p>
 <p align="center">
  <img align="center" alt="Main" src="../Doc/doc1.png" />
