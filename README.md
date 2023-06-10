@@ -20,6 +20,13 @@ English | [中文](Doc/README.zh-tw.md)
 <p align="center">
  <img align="center" alt="Main" src="Doc/doc2.png" />
 </p>
+
+<p align="center">There are also image search, calculation... and other functions,</p>
+<p align="center">which can be used with events to make some different changes</p>
+<p align="center">
+ <img align="center" alt="Main" src="Doc/doc4.png" />
+</p>
+
 <p align="center">setting script: set hotkey for your scripts</p>
 <p align="center">
  <img align="center" alt="Main" src="Doc/doc1.png" />
