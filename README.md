@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Scriptboxie</h1>
-<p align="center">This tool allows you to easily control and create scripts.</p>
+<p align="center">This tool allows you to effortlessly manage and craft scripts. Can be used to streamline repetitive and time-consuming tasks.</p>
 
 English | [中文](Doc/README.zh-tw.md)
 
