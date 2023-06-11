@@ -11,7 +11,7 @@ English | [中文](Doc/README.zh-tw.md)
 [![GitHub downloads](https://img.shields.io/github/downloads/gemilepus/Scriptboxie/total)](https://github.com/gemilepus/Scriptboxie/releases) 
 
 ## Features
-- easily create and manage scripts 
+- effortlessly manage and craft scripts
 - image search
 
 <h1 align="center">How to use</h1>
@@ -22,7 +22,7 @@ English | [中文](Doc/README.zh-tw.md)
 </p>
 
 <p align="center">There are also image search, calculation... and other functions,</p>
-<p align="center">which can be used with events to make some different changes</p>
+<p align="center">which can be used with events to make some variety of actions.</p>
 <p align="center">
  <img align="center" alt="Main" src="Doc/doc4.png" />
 </p>
