@@ -3,12 +3,16 @@
 </p>
 
 <h1 align="center">Scriptboxie</h1>
-<p align="center">這個工具可以讓你輕鬆控制和創建腳本。</p>
+<p align="center">這個工具可以讓你輕鬆管理和創建腳本。可以用來簡化重複及耗時的任務。</p>
 
 [English](../README.md) | 中文
 
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
 [![GitHub downloads](https://img.shields.io/github/downloads/gemilepus/Scriptboxie/total)](https://github.com/gemilepus/Scriptboxie/releases) 
+
+## 特點
+- 輕鬆管理和創建腳本
+- 圖片搜尋
 
 <h1 align="center">如何使用</h1>
 <p align="center">編輯腳本: 就是輸入你想使用的鍵盤滑鼠動作</p>
