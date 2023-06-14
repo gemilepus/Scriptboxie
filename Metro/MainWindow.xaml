@@ -366,6 +366,16 @@
                             Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource MahApps.Styles.Button.Circle}"  Click="ClearScreen_Click" >
                         <Image  Height="15" Width="15" Source="img/clean2.png"/>
                     </Button>
+
+                    <ToggleButton Name="button" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0,30,0,0" Style="{DynamicResource MahApps.Styles.Button.Circle}">
+                        <Image  Height="15" Width="15" Source="img/info.png"/>
+                    </ToggleButton>
+                    <Popup IsOpen="{Binding IsChecked, ElementName=button}" StaysOpen="True" Placement="Custom" >
+                        <Border Background="White">
+                            <TextBlock Name="PopupText"></TextBlock>
+                        </Border>
+                    </Popup>
+                    
                     <ToolBar Name="ToolBar" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Blue"  Margin="0,0,0,0"/>
                     <Controls:ToggleSwitch Toggled="Btn_Toggle_Click" ToolTip="{DynamicResource Record_Tooltip}" ToolTipService.InitialShowDelay="300" Name="Btn_Toggle" OffContent="Record Off" OnContent="Record ON" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
                     <TextBlock Name="ScriptName" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150,0,0,3" ></TextBlock>

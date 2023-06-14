@@ -297,7 +297,6 @@ namespace Metro
             m_GlobalHook = Hook.GlobalEvents();
             m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
             m_GlobalHook.KeyPress += GlobalHookKeyPress;
-            m_GlobalHook.MouseMove += HookManager_MouseMove;
         }
 
        
@@ -352,6 +351,8 @@ namespace Metro
         {
             now_x = e.X;
             now_y = e.Y;
+
+            PopupText.Text = "X: " + e.X + " Y: " + e.Y;
         }
 
         private void Main_GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -571,6 +572,7 @@ namespace Metro
             // Note: for the application hook, use the Hook.AppEvents() instead
             Main_GlobalHook = Hook.GlobalEvents();
             Main_GlobalHook.KeyDown += Main_GlobalHookKeyPress;
+            Main_GlobalHook.MouseMove += HookManager_MouseMove;
         }
         private void UnKListener()
         {
