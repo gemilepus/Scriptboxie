@@ -38,6 +38,8 @@ using System.Windows.Interop;
 using System.Text.RegularExpressions;
 using DynamicExpresso;
 using NUnit.Framework;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 
 namespace Metro
 {
@@ -353,6 +355,13 @@ namespace Metro
             now_y = e.Y;
 
             PopupText.Text = "X: " + e.X + " Y: " + e.Y;
+
+            if (IsInfoToggleButtonChecked && Is_LostKeyboardFocus) {
+                ToggleButtonAutomationPeer peer = new ToggleButtonAutomationPeer(InfoToggleButton);
+                IToggleProvider toggleProvider = peer.GetPattern(PatternInterface.Toggle) as IToggleProvider;
+                toggleProvider.Toggle();
+                Is_LostKeyboardFocus = false;
+            }
         }
 
         private void Main_GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -2888,6 +2897,25 @@ namespace Metro
         {
             System.Windows.Controls.RadioButton mRadioButton = (System.Windows.Controls.RadioButton)sender;
             mSettingHelper.TypeOfKeyboardInput = mRadioButton.Tag.ToString();
+        }
+
+        private bool Is_LostKeyboardFocus = false , IsInfoToggleButtonChecked =false;
+        private void MetroWindow_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            Console.WriteLine("MetroWindow_LostKeyboardFocus");
+            Console.WriteLine(this.WindowState);
+            
+            if (IsInfoToggleButtonChecked && !Is_LostKeyboardFocus) {
+                ToggleButtonAutomationPeer peer = new ToggleButtonAutomationPeer(InfoToggleButton);
+                IToggleProvider toggleProvider = peer.GetPattern(PatternInterface.Toggle) as IToggleProvider;
+                Is_LostKeyboardFocus = true;
+
+                toggleProvider.Toggle();
+            }
+        }
+        private void InfoToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            IsInfoToggleButtonChecked = !IsInfoToggleButtonChecked;
         }
 
         private void LangSplitButton_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -8,7 +8,7 @@
                       Width="800"             
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" Deactivated="MetroWindow_Deactivated"
-                      SizeChanged="MetroWindow_SizeChanged">
+                      SizeChanged="MetroWindow_SizeChanged" LostKeyboardFocus="MetroWindow_LostKeyboardFocus">
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -367,10 +367,10 @@
                         <Image  Height="15" Width="15" Source="img/clean2.png"/>
                     </Button>
 
-                    <ToggleButton Name="button" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0,30,0,0" Style="{DynamicResource MahApps.Styles.Button.Circle}">
+                    <ToggleButton Click="InfoToggleButton_Checked" Name="InfoToggleButton" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0,30,0,0" Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Image  Height="15" Width="15" Source="img/info.png"/>
                     </ToggleButton>
-                    <Popup IsOpen="{Binding IsChecked, ElementName=button}" StaysOpen="True" Placement="Custom" >
+                    <Popup Name="InfoPopup" IsOpen="{Binding IsChecked, ElementName=InfoToggleButton}" StaysOpen="True" Placement="Custom" >
                         <Border Background="White">
                             <TextBlock Name="PopupText"></TextBlock>
                         </Border>
