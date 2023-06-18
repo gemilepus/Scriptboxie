@@ -576,12 +576,12 @@ namespace Metro
         }
 
         #region KListener
+        private bool IsHookManager_MouseMove = false;
         private void KListener()
         {
             // Note: for the application hook, use the Hook.AppEvents() instead
             Main_GlobalHook = Hook.GlobalEvents();
             Main_GlobalHook.KeyDown += Main_GlobalHookKeyPress;
-            Main_GlobalHook.MouseMove += HookManager_MouseMove;
         }
         private void UnKListener()
         {
@@ -2311,6 +2311,12 @@ namespace Metro
         {
             ClearScreen_Btn.Focus();
 
+            if (!IsHookManager_MouseMove)
+            {
+                IsHookManager_MouseMove = true;
+                Main_GlobalHook.MouseMove += HookManager_MouseMove;
+            }
+
             if (Btn_Toggle.IsOn == true)
             {
                 Btn_ON.Content = "OFF";
@@ -2913,8 +2919,15 @@ namespace Metro
                 toggleProvider.Toggle();
             }
         }
+
         private void InfoToggleButton_Checked(object sender, RoutedEventArgs e)
         {
+            if (!IsHookManager_MouseMove)
+            {
+                IsHookManager_MouseMove = true;
+                Main_GlobalHook.MouseMove += HookManager_MouseMove;
+            }
+
             IsInfoToggleButtonChecked = !IsInfoToggleButtonChecked;
         }
 
@@ -2926,6 +2939,18 @@ namespace Metro
 
             mSettingHelper.Language = SelectVal;
             SetLang(SelectVal);
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int TabIndex = ((System.Windows.Controls.TabControl)sender).SelectedIndex;
+            switch (TabIndex)
+            {
+                case 0:
+                case 2:
+                    IsInfoToggleButtonChecked = false;
+                    break;
+            }
         }
 
         private void SetLang(string lang)

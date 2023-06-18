@@ -50,7 +50,7 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <TabControl VerticalAlignment="Top">
+        <TabControl VerticalAlignment="Top" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="{DynamicResource Main}">
                 <Grid Background="White" Name="ScriptGrid" >
                     <ScrollViewer Name="ScriptGridScroll" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" Margin="0,0,0,25" PreviewMouseWheel="ScriptGridScroll_PreviewMouseWheel">
@@ -367,7 +367,7 @@
                         <Image  Height="15" Width="15" Source="img/clean2.png"/>
                     </Button>
 
-                    <ToggleButton Click="InfoToggleButton_Checked" Name="InfoToggleButton" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0,30,0,0" Style="{DynamicResource MahApps.Styles.Button.Circle}">
+                    <ToggleButton ToolTip="display mouse position" Click="InfoToggleButton_Checked" Name="InfoToggleButton" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0,30,0,0" Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Image  Height="15" Width="15" Source="img/info.png"/>
                     </ToggleButton>
                     <Popup Name="InfoPopup" IsOpen="{Binding IsChecked, ElementName=InfoToggleButton}" StaysOpen="True" Placement="Custom" >
