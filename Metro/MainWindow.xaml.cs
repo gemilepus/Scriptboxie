@@ -40,6 +40,7 @@ using DynamicExpresso;
 using NUnit.Framework;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
+using System.Windows.Controls.Primitives;
 
 namespace Metro
 {
@@ -2928,7 +2929,8 @@ namespace Metro
                 Main_GlobalHook.MouseMove += HookManager_MouseMove;
             }
 
-            IsInfoToggleButtonChecked = !IsInfoToggleButtonChecked;
+            ToggleButton mToggleButton = (ToggleButton)sender;
+            IsInfoToggleButtonChecked = mToggleButton.IsChecked.Value;
         }
 
         private void LangSplitButton_SelectionChanged(object sender, SelectionChangedEventArgs e)
