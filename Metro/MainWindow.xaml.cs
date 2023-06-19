@@ -449,7 +449,7 @@ namespace Metro
                 "Match","Match RGB","Match&Draw","RandomTrigger",
                 "RemoveEvent","Jump","Goto","Loop",
                 "Run .exe","PlaySound","Clear Screen"
-                //"ScreenClip", "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
+                //, "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
             };
             mComboBoxColumn.ItemsSource = mList;
 
@@ -824,8 +824,6 @@ namespace Metro
             // key || value ex:
             //mDoSortedList.Add("Point", "0,0");
             //mDoSortedList.Add("Point Array", "0,0,0,0");
-            //mDoSortedList.Add("Draw", "");
-            //mDoSortedList.RemoveAt(mDoSortedList.IndexOfKey("Draw"));
 
             Interpreter interpreter = new Interpreter();
             // StartPostion
@@ -1348,13 +1346,6 @@ namespace Metro
 
                                 break;
 
-                            case "ScreenClip":
-
-                                string[] str_clip = CommandData.Split(',');
-                                TempBitmap = makeScreenshot_clip(int.Parse(str_clip[0]), int.Parse(str_clip[1]), int.Parse(str_clip[2]), int.Parse(str_clip[3]));
-
-                                break;
-
                             case "Clear Screen":
 
                                 overlay.Clear();
@@ -1614,7 +1605,6 @@ namespace Metro
                                     SystemSounds.Hand.Play();
                                     CreateMessage("9487");
 
-                                    //System.Windows.MessageBox.Show("[Error] Line " + (n + 1).ToString() + " \nMessage: " + e.Message);
                                     System.Windows.Forms.MessageBox.Show("[Error] Line " + (n + 1).ToString() + "\nMessage: " + e.Message, "Scriptboxie", 
                                         System.Windows.Forms.MessageBoxButtons.OK,
                                         MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, 
@@ -2305,8 +2295,45 @@ namespace Metro
         #region Edit Panel
 
         private Thread mThread = null;
-        // data
-        private Bitmap TempBitmap;
+        private bool Is_LostKeyboardFocus = false, IsInfoToggleButtonChecked = false;
+        private void MetroWindow_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            Console.WriteLine("MetroWindow_LostKeyboardFocus");
+            Console.WriteLine(this.WindowState);
+
+            if (IsInfoToggleButtonChecked && !Is_LostKeyboardFocus)
+            {
+                ToggleButtonAutomationPeer peer = new ToggleButtonAutomationPeer(InfoToggleButton);
+                IToggleProvider toggleProvider = peer.GetPattern(PatternInterface.Toggle) as IToggleProvider;
+                Is_LostKeyboardFocus = true;
+
+                toggleProvider.Toggle();
+            }
+        }
+
+        private void InfoToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!IsHookManager_MouseMove)
+            {
+                IsHookManager_MouseMove = true;
+                Main_GlobalHook.MouseMove += HookManager_MouseMove;
+            }
+
+            ToggleButton mToggleButton = (ToggleButton)sender;
+            IsInfoToggleButtonChecked = mToggleButton.IsChecked.Value;
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int TabIndex = ((System.Windows.Controls.TabControl)sender).SelectedIndex;
+            switch (TabIndex)
+            {
+                case 0:
+                case 2:
+                    IsInfoToggleButtonChecked = false;
+                    break;
+            }
+        }
 
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
         {
@@ -2906,33 +2933,6 @@ namespace Metro
             mSettingHelper.TypeOfKeyboardInput = mRadioButton.Tag.ToString();
         }
 
-        private bool Is_LostKeyboardFocus = false , IsInfoToggleButtonChecked =false;
-        private void MetroWindow_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            Console.WriteLine("MetroWindow_LostKeyboardFocus");
-            Console.WriteLine(this.WindowState);
-            
-            if (IsInfoToggleButtonChecked && !Is_LostKeyboardFocus) {
-                ToggleButtonAutomationPeer peer = new ToggleButtonAutomationPeer(InfoToggleButton);
-                IToggleProvider toggleProvider = peer.GetPattern(PatternInterface.Toggle) as IToggleProvider;
-                Is_LostKeyboardFocus = true;
-
-                toggleProvider.Toggle();
-            }
-        }
-
-        private void InfoToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-            if (!IsHookManager_MouseMove)
-            {
-                IsHookManager_MouseMove = true;
-                Main_GlobalHook.MouseMove += HookManager_MouseMove;
-            }
-
-            ToggleButton mToggleButton = (ToggleButton)sender;
-            IsInfoToggleButtonChecked = mToggleButton.IsChecked.Value;
-        }
-
         private void LangSplitButton_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MahApps.Metro.Controls.SplitButton mSplitButton = (MahApps.Metro.Controls.SplitButton)sender;
@@ -2943,17 +2943,6 @@ namespace Metro
             SetLang(SelectVal);
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int TabIndex = ((System.Windows.Controls.TabControl)sender).SelectedIndex;
-            switch (TabIndex)
-            {
-                case 0:
-                case 2:
-                    IsInfoToggleButtonChecked = false;
-                    break;
-            }
-        }
 
         private void SetLang(string lang)
         {
