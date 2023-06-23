@@ -13,6 +13,9 @@ English | [中文](Doc/README.zh-tw.md)
 ## Features
 - effortlessly manage and craft scripts
 - image search
+## Prerequisite
+- Windows 10 / 11
+
 
 <h1 align="center">How to use</h1>
 <p align="center">edit script: just enter the keyboard and mouse actions to be use.</p>
