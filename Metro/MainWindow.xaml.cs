@@ -1267,19 +1267,12 @@ namespace Metro
 
                             case "FindWindow":
 
-                                // and window name were obtained using the Spy++ tool.
-                                IntPtr calculatorHandle = FindWindow(null, CommandData);
+                                IntPtr hwnd = FindWindow(null, CommandData);
+                                if (hwnd == IntPtr.Zero)
+                                    hwnd = FindWindow(CommandData, null);
 
-                                // Verify that Calculator is a running process.
-                                if (calculatorHandle == IntPtr.Zero)
-                                {
-                                    //System.Windows.MessageBox.Show("is not running...");
-                                    //return;
-                                }
-
-                                // Make Calculator the foreground application and send it 
-                                // a set of calculations.
-                                SetForegroundWindow(calculatorHandle);
+                                if (hwnd != IntPtr.Zero)
+                                    SetForegroundWindow(hwnd);
 
                                 break;
 
