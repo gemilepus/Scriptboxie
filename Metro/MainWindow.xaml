@@ -311,7 +311,6 @@
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->
                             <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Tag}"/>
                             <DataGridCheckBoxColumn Header="Enable" Binding="{Binding Path=Enable}"/>
-
                             <DataGridComboBoxColumn Header="Mode" x:Name="mComboBoxColumn" SelectedItemBinding="{Binding Path=Mode}" MinWidth="100">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
@@ -324,22 +323,6 @@
                                         <EventSetter Event="Loaded" Handler="ComboBox_Loaded" />
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
-
-                                <!--<DataGridComboBoxColumn.ElementStyle>
-                                    <Style TargetType="{x:Type ComboBox}">
-                                        <Style.Triggers>
-                                            <Trigger Property="Text" Value="Match">
-                                                <Setter Property="Foreground" Value="Gray"/>
-                                                <Setter Property="ItemTemplate" Value="{StaticResource template}" />
-                                            </Trigger>
-                                            <Trigger Property="Text" Value="Running">
-                                                <Setter Property="Foreground" Value="OrangeRed"/>
-                                                <Setter Property="ItemTemplate" Value="{StaticResource template}" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataGridComboBoxColumn.ElementStyle>-->
-
                             </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Event" Binding="{Binding Path=Event}"/>
                             <DataGridTextColumn Header="Action" Binding="{Binding Path=Action}" MinWidth="200"/>

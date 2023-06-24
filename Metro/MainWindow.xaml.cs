@@ -165,12 +165,6 @@ namespace Metro
 
                     if (maxval >= threshold)
                     {
-                        //Setup the rectangle to draw
-                        //OpenCvSharp.Rect r = new OpenCvSharp.Rect(new OpenCvSharp.Point(maxloc.X, maxloc.Y), new OpenCvSharp.Size(tplMat.Width, tplMat.Height));
-
-                        //Draw a rectangle of the matching area
-                        //Cv2.Rectangle(refMat, r, Scalar.LimeGreen, 2);
-
                         //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
                         OpenCvSharp.Rect outRect;
                         Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
@@ -230,43 +224,6 @@ namespace Metro
             return result;
         }
 
-        private void MatchBySift(Mat src1, Mat src2)
-        {
-            #region MatchBySift
-            var gray1 = new Mat();
-            var gray2 = new Mat();
-
-            Cv2.CvtColor(src1, gray1, ColorConversionCodes.BGR2GRAY);
-            Cv2.CvtColor(src2, gray2, ColorConversionCodes.BGR2GRAY);
-
-            //var sift = SIFT.Create();
-
-            // Detect the keypoints and generate their descriptors using SIFT
-            //KeyPoint[] keypoints1, keypoints2;
-            //var descriptors1 = new MatOfFloat();
-            //var descriptors2 = new MatOfFloat();
-            //sift.DetectAndCompute(gray1, null, out keypoints1, descriptors1);
-            //sift.DetectAndCompute(gray2, null, out keypoints2, descriptors2);
-
-            //// Match descriptor vectors
-            //var bfMatcher = new BFMatcher(NormTypes.L2, false);
-            //var flannMatcher = new FlannBasedMatcher();
-            //DMatch[] bfMatches = bfMatcher.Match(descriptors1, descriptors2);
-            //DMatch[] flannMatches = flannMatcher.Match(descriptors1, descriptors2);
-
-            //// Draw matches
-            //var bfView = new Mat();
-            //Cv2.DrawMatches(gray1, keypoints1, gray2, keypoints2, bfMatches, bfView);
-            //var flannView = new Mat();
-            //Cv2.DrawMatches(gray1, keypoints1, gray2, keypoints2, flannMatches, flannView);
-
-            //using (new OpenCvSharp.Window("SIFT matching (by BFMather)", WindowMode.AutoSize, bfView))
-            //using (new OpenCvSharp.Window("SIFT matching (by FlannBasedMatcher)", WindowMode.AutoSize, flannView))
-            //{
-            //    Cv2.WaitKey();
-            //}
-            #endregion
-        }
         #endregion
 
         private DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
@@ -449,7 +406,7 @@ namespace Metro
                 "Match","Match RGB","Match&Draw","RandomTrigger",
                 "RemoveEvent","Jump","Goto","Loop",
                 "Run .exe","PlaySound","Clear Screen"
-                //, "Sift Match", "GetPoint","PostMessage","Color Test","FindWindow",
+                //"PostMessage","FindWindow",
             };
             mComboBoxColumn.ItemsSource = mList;
 
@@ -1092,15 +1049,6 @@ namespace Metro
 
                                 break;
 
-                            case "Sift Match":
-
-                                Mat matTarget_Sift = BitmapConverter.ToMat(makeScreenshot());
-                                Mat matTemplate_Sift = new Mat("s.png", ImreadModes.Color);
-
-                                MatchBySift(matTarget_Sift, matTemplate_Sift);
-
-                                break;
-
                             case "Key":
 
                                 if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
@@ -1302,17 +1250,6 @@ namespace Metro
 
                                 break;
 
-                            case "GetPoint":
-
-                                // Add Key
-                                if (Event[0].Length > 0)
-                                {
-                                    System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
-                                    mDoSortedList.Add(Event[0], point.X.ToString() + "," + point.Y.ToString());
-                                }
-
-                                break;
-
                             case "Run .exe":
 
                                 if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
@@ -1380,24 +1317,6 @@ namespace Metro
                                     copy = CommandData;
                                     CreateMessage("9486");
                                 }
-
-                                break;
-
-                            case "Color Test":
-
-                                Mat mat_screen = new Mat();
-
-                                Bitmap mscreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-                                System.Drawing.Graphics mgfxScreenshot = System.Drawing.Graphics.FromImage(mscreenshot);
-                                mgfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-                                mat_screen = BitmapConverter.ToMat(mscreenshot);
-
-                                Mat mask = new Mat();
-                                Scalar low_value = new Scalar(100, 100, 100);
-                                Scalar high_value = new Scalar(255, 255, 255);
-                                Cv2.InRange(mat_screen, low_value, high_value, mask);
-                                Cv2.ImShow("a", mask);
-                                Cv2.WaitKey();
 
                                 break;
 
