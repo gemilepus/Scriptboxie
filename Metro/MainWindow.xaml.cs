@@ -40,7 +40,7 @@ using DynamicExpresso;
 using NUnit.Framework;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
-using System.Windows.Controls.Primitives;
+using System.Windows.Controls.Primitives;   
 
 namespace Metro
 {
@@ -256,14 +256,18 @@ namespace Metro
             // Note: for the application hook, use the Hook.AppEvents() instead
             m_GlobalHook = Hook.GlobalEvents();
             m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
+            m_GlobalHook.MouseUpExt += GlobalHookMouseUpExt;
             m_GlobalHook.KeyPress += GlobalHookKeyPress;
+            m_GlobalHook.KeyDown += GlobalHookKeyDown;
         }
 
        
         private void Unsubscribe()
         {
             m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
+            m_GlobalHook.MouseUpExt -= GlobalHookMouseUpExt;
             m_GlobalHook.KeyPress -= GlobalHookKeyPress;
+            m_GlobalHook.KeyDown -= GlobalHookKeyDown;
 
             //It is recommened to dispose it
             m_GlobalHook.Dispose();
@@ -278,16 +282,50 @@ namespace Metro
             Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
         }
 
+        private void GlobalHookKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (Btn_Toggle.IsOn == true)
+            {
+                KeyRecord(e, "KeyDown");
+            }
+        }
+
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
+        {
+            MouseRecord(e, "Down");
+        }
+
+        private void GlobalHookMouseUpExt(object sender, MouseEventExtArgs e)
+        {
+            MouseRecord(e,"Up");
+        }
+
+        private double getTimeToMilliseconds() {
+            TimeSpan KeyTimeSpan = new TimeSpan(DateTime.Now.Ticks - StartTime.Ticks);
+
+            return Math.Floor(KeyTimeSpan.TotalMilliseconds);
+        }
+        private void MouseRecord(MouseEventExtArgs e,string type)
         {
             if (Btn_Toggle.IsOn == true && Btn_Toggle.IsMouseOver == false)
             {
-                //if (e.Button.Equals("")) { }
+                double KeyTimeValue = getTimeToMilliseconds();
+                double DelayTime = getTimeToMilliseconds() - LKeyListTimeValue;
+                LKeyListTimeValue = KeyTimeValue;
+
+
+                if (MKeyList.IndexOfKey(e.Button.ToString() + "_" + "Down") != -1)
+                {
+                    MKeyList.RemoveAt(MKeyList.IndexOfKey(e.Button.ToString() + "_" + "Down"));
+                }
+                else
+                    MKeyList.Add(e.Button.ToString() + "_" + "Down", "");
+
                 mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime/2).ToString(), Event = "", Note = "" });
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "Click", Action = e.Button.ToString() + "", Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime/2).ToString(), Event = "", Note = "" });
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Click", Action = e.Button.ToString() + "_" + type, Event = "", Note = "" });
                 mDataGrid.DataContext = mDataTable;
             }
             Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
@@ -311,6 +349,24 @@ namespace Metro
         {
             now_x = e.X;
             now_y = e.Y;
+
+            if (Btn_Toggle.IsOn == true && Btn_Toggle.IsMouseOver == false)
+            {
+                if ((MKeyList.IndexOfKey("Left_Down") != -1) || (MKeyList.IndexOfKey("Right_Down") != -1))
+                {
+                    double KeyTimeValue = getTimeToMilliseconds();
+                    double DelayTime = getTimeToMilliseconds() - LKeyListTimeValue;
+                    if (DelayTime > 1000) {
+                        LKeyListTimeValue = KeyTimeValue;
+
+                        mDataGrid.DataContext = null;
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
+                        mDataGrid.DataContext = mDataTable;
+                    }
+                }
+            }
 
             PopupText.Text = "X: " + e.X + " Y: " + e.Y;
 
@@ -343,48 +399,82 @@ namespace Metro
 
             if (Btn_Toggle.IsOn == true)
             {
-                if (!e.KeyCode.ToString().Equals(""))
-                {
-                    string mKeyCode = e.KeyCode.ToString();
-
-                    mKeyCode = ConvertHelper.ConvertKeyCode(mKeyCode);
-
-                    if (mKeyCode.IndexOf("Oem") == -1)
-                    {
-                        mDataGrid.DataContext = null;
-                        
-                        if (mSettingHelper.TypeOfKeyboardInput.Equals("Normal") || mKeyCode.Equals("WIN") || mKeyCode.Equals("Apps") || mKeyCode.Equals("SNAPSHOT") || mKeyCode.Equals("Scroll") || mKeyCode.Equals("Pause"))
-                        {
-                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
-                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Key", Action = mKeyCode, Event = "", Note = "" });
-                        }
-                        else {
-                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "500", Event = "", Note = "" });
-                            mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyDown", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
-                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
-                            mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyUp", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
-                        }
-                        
-                        mDataGrid.DataContext = mDataTable;
-
-                        // ScrollToBottom
-                        if (mDataGrid.Items.Count > 0)
-                        {
-                            var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
-                            if (border != null)
-                            {
-                                var scroll = border.Child as ScrollViewer;
-                                if (scroll != null) scroll.ScrollToBottom();
-                            }
-                        }
-                    }
-                }
+                KeyRecord(e, "KeyUp");
             }
 
             Console.WriteLine("KeyUp: \t{0}", e.KeyCode);
         }
-        #endregion
-        Overlay overlay = new Overlay();
+
+        SortedList MKeyList = new SortedList();
+        SortedList LKeyList = new SortedList();
+        private double LKeyListTimeValue = 0;
+        private void KeyRecord(System.Windows.Forms.KeyEventArgs e, string type)
+        {
+            if (!e.KeyCode.ToString().Equals(""))
+            {
+                string mKeyCode = e.KeyCode.ToString();
+                mKeyCode = ConvertHelper.ConvertKeyCode(mKeyCode);
+
+                if (LKeyList.IndexOfKey(e.KeyValue) != -1)
+                {
+                    if (!((string)LKeyList.GetByIndex(LKeyList.IndexOfKey(e.KeyValue))).Equals(type))
+                    {
+                        LKeyList.RemoveAt(LKeyList.IndexOfKey(e.KeyValue));
+                    }
+                    else
+                        return;
+                }
+                else
+                    LKeyList.Add(e.KeyValue, type);
+
+                double KeyTimeValue = getTimeToMilliseconds();
+                double DelayTime = getTimeToMilliseconds() - LKeyListTimeValue;
+                LKeyListTimeValue = KeyTimeValue;
+
+                if (mKeyCode.IndexOf("Oem") == -1)
+                {
+                    mDataGrid.DataContext = null;
+
+                    mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime).ToString(), Event = "", Note = "" });
+
+                    if (mSettingHelper.TypeOfKeyboardInput.Equals("Normal") || mKeyCode.Equals("WIN") || mKeyCode.Equals("Apps") || mKeyCode.Equals("SNAPSHOT") || mKeyCode.Equals("Scroll") || mKeyCode.Equals("Pause"))
+                    {
+                        if (type.Equals("KeyDown")){
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Key", Action = mKeyCode +",Down", Event = "", Note = "" });
+                        }
+                        else {
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Key", Action = mKeyCode + ",Up", Event = "", Note = "" });
+                        }
+                    }
+                    else
+                    {
+                        if (type.Equals("KeyDown"))
+                        {
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyDown", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
+                        }
+                        else
+                        {
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyUp", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
+                        }
+                    }
+
+                    mDataGrid.DataContext = mDataTable;
+
+                    // ScrollToBottom
+                    if (mDataGrid.Items.Count > 0)
+                    {
+                        var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
+                        if (border != null)
+                        {
+                            var scroll = border.Child as ScrollViewer;
+                            if (scroll != null) scroll.ScrollToBottom();
+                        }
+                    }
+                }
+            }
+        }
+            #endregion
+            Overlay overlay = new Overlay();
         public MainWindow()
         {
             InitializeComponent();
@@ -2249,6 +2339,11 @@ namespace Metro
 
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
         {
+            DateTime KeyTime = DateTime.Now;
+            TimeSpan KeyTimeSpan = new TimeSpan(KeyTime.Ticks - StartTime.Ticks);
+            double KeyTimeValue = Math.Floor(KeyTimeSpan.TotalMilliseconds);
+            LKeyListTimeValue = KeyTimeValue;
+
             ClearScreen_Btn.Focus();
 
             if (!IsHookManager_MouseMove)
@@ -2330,7 +2425,7 @@ namespace Metro
             // Table Clear
             mDataGrid.DataContext = null;
             mDataTable.Clear();
-            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
+            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
             mDataGrid.DataContext = mDataTable;
 
             ScriptName.Text = "";
