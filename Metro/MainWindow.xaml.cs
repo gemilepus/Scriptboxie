@@ -321,25 +321,13 @@ namespace Metro
                 else
                     MKeyList.Add(e.Button.ToString() + "_" + "Down", "");
 
-                mDataGrid.DataContext = null;
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime/2).ToString(), Event = "", Note = "" });
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime/2).ToString(), Event = "", Note = "" });
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Click", Action = e.Button.ToString() + "_" + type, Event = "", Note = "" });
-                mDataGrid.DataContext = mDataTable;
+              
             }
             Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
-
-            // ScrollToBottom
-            if (mDataGrid.Items.Count > 0)
-            {
-                var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
-                if (border != null)
-                {
-                    var scroll = border.Child as ScrollViewer;
-                    if (scroll != null) scroll.ScrollToBottom();
-                }
-            }
 
             // uncommenting the following line will suppress the middle mouse button click
             // if (e.Buttons == MouseButtons.Middle) { e.Handled = true; }
@@ -356,14 +344,12 @@ namespace Metro
                 {
                     double KeyTimeValue = getTimeToMilliseconds();
                     double DelayTime = getTimeToMilliseconds() - LKeyListTimeValue;
-                    if (DelayTime > 1000) {
+                    if (DelayTime > 200) {
                         LKeyListTimeValue = KeyTimeValue;
 
-                        mDataGrid.DataContext = null;
                         mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
                         mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
                         mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
-                        mDataGrid.DataContext = mDataTable;
                     }
                 }
             }
@@ -433,8 +419,6 @@ namespace Metro
 
                 if (mKeyCode.IndexOf("Oem") == -1)
                 {
-                    mDataGrid.DataContext = null;
-
                     mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime).ToString(), Event = "", Note = "" });
 
                     if (mSettingHelper.TypeOfKeyboardInput.Equals("Normal") || mKeyCode.Equals("WIN") || mKeyCode.Equals("Apps") || mKeyCode.Equals("SNAPSHOT") || mKeyCode.Equals("Scroll") || mKeyCode.Equals("Pause"))
@@ -455,19 +439,6 @@ namespace Metro
                         else
                         {
                             mDataTable.Add(new MainTable() { Enable = true, Mode = "SendKeyUp", Action = mKeyCode.ToUpper(), Event = "", Note = "" });
-                        }
-                    }
-
-                    mDataGrid.DataContext = mDataTable;
-
-                    // ScrollToBottom
-                    if (mDataGrid.Items.Count > 0)
-                    {
-                        var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
-                        if (border != null)
-                        {
-                            var scroll = border.Child as ScrollViewer;
-                            if (scroll != null) scroll.ScrollToBottom();
                         }
                     }
                 }
@@ -2354,12 +2325,29 @@ namespace Metro
 
             if (Btn_Toggle.IsOn == true)
             {
+                Ring.IsActive = true;
+
                 Btn_ON.Content = "OFF";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
                 Subscribe();
             }
             else
             {
+                Ring.IsActive = false;
+
+                mDataGrid.DataContext = null;
+                mDataGrid.DataContext = mDataTable;
+                // ScrollToBottom
+                if (mDataGrid.Items.Count > 0)
+                {
+                    var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
+                    if (border != null)
+                    {
+                        var scroll = border.Child as ScrollViewer;
+                        if (scroll != null) scroll.ScrollToBottom();
+                    }
+                }
+
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
                 Unsubscribe();
