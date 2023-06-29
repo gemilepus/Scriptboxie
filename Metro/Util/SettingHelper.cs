@@ -107,7 +107,7 @@ namespace Metro
 
             if (data["Def"]["TypeOfKeyboardInput"] == null)
             {
-                data["Def"]["TypeOfKeyboardInput"] = "Game";
+                data["Def"]["TypeOfKeyboardInput"] = "Normal";
             }
 
             // HideOnSatrt
