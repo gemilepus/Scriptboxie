@@ -226,10 +226,9 @@ namespace Metro
 
         #endregion
 
-        private DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
         public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-
-        private new bool IsActive
+        private static readonly DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsRecord", typeof(bool), typeof(MainWindow), new PropertyMetadata(true));
+        private bool IsRecord
         {
             get { return (bool)this.GetValue(UnitIsCProperty); }
             set { this.SetValue(UnitIsCProperty, value); }
@@ -1880,6 +1879,7 @@ namespace Metro
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            UnKListener();
             mSettingHelper.End(this);
 
             // Stop all thread
@@ -2325,7 +2325,7 @@ namespace Metro
 
             if (Btn_Toggle.IsOn == true)
             {
-                Ring.IsActive = true;
+                this.IsRecord = false;
 
                 Btn_ON.Content = "OFF";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
@@ -2333,7 +2333,7 @@ namespace Metro
             }
             else
             {
-                Ring.IsActive = false;
+                this.IsRecord = true;
 
                 mDataGrid.DataContext = null;
                 mDataGrid.DataContext = mDataTable;
