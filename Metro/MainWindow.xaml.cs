@@ -312,15 +312,16 @@ namespace Metro
                 double DelayTime = getTimeToMilliseconds() - LKeyListTimeValue;
                 LKeyListTimeValue = KeyTimeValue;
 
-
                 if (MKeyList.IndexOfKey(e.Button.ToString() + "_" + "Down") != -1)
-                {
                     MKeyList.RemoveAt(MKeyList.IndexOfKey(e.Button.ToString() + "_" + "Down"));
-                }
                 else
                     MKeyList.Add(e.Button.ToString() + "_" + "Down", "");
 
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime/2).ToString(), Event = "", Note = "" });
+                if (mDataTable[mDataTable.Count() - 1].Mode.Equals("Delay"))
+                    mDataTable[mDataTable.Count() - 1].Action = (int.Parse(mDataTable[mDataTable.Count() - 1].Action) + (int)DelayTime / 2).ToString();
+                else
+                    mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
+
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime/2).ToString(), Event = "", Note = "" });
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Click", Action = e.Button.ToString() + "_" + type, Event = "", Note = "" });
@@ -343,10 +344,14 @@ namespace Metro
                 {
                     double KeyTimeValue = getTimeToMilliseconds();
                     double DelayTime = getTimeToMilliseconds() - LKeyListTimeValue;
-                    if (DelayTime > 200) {
+                    if (DelayTime > 100) {
                         LKeyListTimeValue = KeyTimeValue;
 
-                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
+                        if (mDataTable[mDataTable.Count() - 1].Mode.Equals("Delay"))
+                            mDataTable[mDataTable.Count() - 1].Action = (int.Parse(mDataTable[mDataTable.Count() - 1].Action) + (int)DelayTime / 2).ToString();
+                        else
+                            mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
+
                         mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
                         mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
                     }
@@ -418,7 +423,11 @@ namespace Metro
 
                 if (mKeyCode.IndexOf("Oem") == -1)
                 {
-                    mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime).ToString(), Event = "", Note = "" });
+                   
+                    if (mDataTable[mDataTable.Count() - 1].Mode.Equals("Delay"))
+                        mDataTable[mDataTable.Count() - 1].Action = (int.Parse(mDataTable[mDataTable.Count() - 1].Action) + (int)DelayTime).ToString();
+                    else
+                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime).ToString(), Event = "", Note = "" });
 
                     if (mSettingHelper.TypeOfKeyboardInput.Equals("Normal") || mKeyCode.Equals("WIN") || mKeyCode.Equals("Apps") || mKeyCode.Equals("SNAPSHOT") || mKeyCode.Equals("Scroll") || mKeyCode.Equals("Pause"))
                     {
