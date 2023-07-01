@@ -227,11 +227,11 @@ namespace Metro
         #endregion
 
         public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-        private static readonly DependencyProperty UnitIsCProperty = DependencyProperty.Register("IsRecord", typeof(bool), typeof(MainWindow), new PropertyMetadata(true));
+        private static readonly DependencyProperty IsRecordProperty = DependencyProperty.Register("IsRecord", typeof(bool), typeof(MainWindow), new PropertyMetadata(true));
         private bool IsRecord
         {
-            get { return (bool)this.GetValue(UnitIsCProperty); }
-            set { this.SetValue(UnitIsCProperty, value); }
+            get { return (bool)this.GetValue(IsRecordProperty); }
+            set { this.SetValue(IsRecordProperty, value); }
         }
 
         // NotifyIcon
@@ -250,13 +250,19 @@ namespace Metro
 
         private int now_x, now_y;
 
+        private double getTimeToMilliseconds()
+        {
+            TimeSpan KeyTimeSpan = new TimeSpan(DateTime.Now.Ticks - StartTime.Ticks);
+            return Math.Floor(KeyTimeSpan.TotalMilliseconds);
+        }
+
         private void Subscribe()
         {
             // Note: for the application hook, use the Hook.AppEvents() instead
             m_GlobalHook = Hook.GlobalEvents();
             m_GlobalHook.MouseDownExt += GlobalHookMouseDownExt;
             m_GlobalHook.MouseUpExt += GlobalHookMouseUpExt;
-            m_GlobalHook.KeyPress += GlobalHookKeyPress;
+            //m_GlobalHook.KeyPress += GlobalHookKeyPress;
             m_GlobalHook.KeyDown += GlobalHookKeyDown;
         }
 
@@ -265,7 +271,7 @@ namespace Metro
         {
             m_GlobalHook.MouseDownExt -= GlobalHookMouseDownExt;
             m_GlobalHook.MouseUpExt -= GlobalHookMouseUpExt;
-            m_GlobalHook.KeyPress -= GlobalHookKeyPress;
+            //m_GlobalHook.KeyPress -= GlobalHookKeyPress;
             m_GlobalHook.KeyDown -= GlobalHookKeyDown;
 
             //It is recommened to dispose it
@@ -281,14 +287,6 @@ namespace Metro
             Console.WriteLine("KeyPress: \t{0}", e.KeyChar);
         }
 
-        private void GlobalHookKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            if (Btn_Toggle.IsOn == true)
-            {
-                KeyRecord(e, "KeyDown");
-            }
-        }
-
         private void GlobalHookMouseDownExt(object sender, MouseEventExtArgs e)
         {
             MouseRecord(e, "Down");
@@ -299,11 +297,6 @@ namespace Metro
             MouseRecord(e,"Up");
         }
 
-        private double getTimeToMilliseconds() {
-            TimeSpan KeyTimeSpan = new TimeSpan(DateTime.Now.Ticks - StartTime.Ticks);
-
-            return Math.Floor(KeyTimeSpan.TotalMilliseconds);
-        }
         private void MouseRecord(MouseEventExtArgs e,string type)
         {
             if (Btn_Toggle.IsOn == true && Btn_Toggle.IsMouseOver == false)
@@ -327,8 +320,6 @@ namespace Metro
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Click", Action = e.Button.ToString() + "_" + type, Event = "", Note = "" });
               
             }
-            Console.WriteLine("MouseDown: \t{0}; \t System Timestamp: \t{1}", e.Button, e.Timestamp);
-
             // uncommenting the following line will suppress the middle mouse button click
             // if (e.Buttons == MouseButtons.Middle) { e.Handled = true; }
         }
@@ -368,6 +359,14 @@ namespace Metro
             }
         }
 
+        private void GlobalHookKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (Btn_Toggle.IsOn == true)
+            {
+                KeyRecord(e, "KeyDown");
+            }
+        }
+
         private void Main_GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             // for Hotkey setting
@@ -391,8 +390,6 @@ namespace Metro
             {
                 KeyRecord(e, "KeyUp");
             }
-
-            Console.WriteLine("KeyUp: \t{0}", e.KeyCode);
         }
 
         SortedList MKeyList = new SortedList();
@@ -431,10 +428,12 @@ namespace Metro
 
                     if (mSettingHelper.TypeOfKeyboardInput.Equals("Normal") || mKeyCode.Equals("WIN") || mKeyCode.Equals("Apps") || mKeyCode.Equals("SNAPSHOT") || mKeyCode.Equals("Scroll") || mKeyCode.Equals("Pause"))
                     {
-                        if (type.Equals("KeyDown")){
+                        if (type.Equals("KeyDown"))
+                        {
                             mDataTable.Add(new MainTable() { Enable = true, Mode = "Key", Action = mKeyCode +",Down", Event = "", Note = "" });
                         }
-                        else {
+                        else 
+                        {
                             mDataTable.Add(new MainTable() { Enable = true, Mode = "Key", Action = mKeyCode + ",Up", Event = "", Note = "" });
                         }
                     }
