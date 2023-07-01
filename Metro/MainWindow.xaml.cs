@@ -2333,6 +2333,8 @@ namespace Metro
 
             if (Btn_Toggle.IsOn == true)
             {
+                Stop_script();
+
                 this.IsRecord = false;
 
                 Btn_ON.Content = "OFF";
