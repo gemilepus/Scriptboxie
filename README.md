@@ -14,7 +14,7 @@ English | [中文](Doc/README.zh-tw.md)
 - effortlessly manage and craft scripts
 - image search
 ## Prerequisite
-- Windows 10 / 11
+- Windows 10 | 11
 
 
 <h1 align="center">How to use</h1>
