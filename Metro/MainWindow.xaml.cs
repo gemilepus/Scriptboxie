@@ -1324,7 +1324,17 @@ namespace Metro
                                 {
                                     try
                                     {
-                                        Process.Start(CommandData);
+                                        if (CommandData.Substring(CommandData.Length - 4, 3).ToUpper().Equals("EXE"))
+                                        {
+                                            Process.Start(CommandData);
+                                        }
+                                        else {
+                                            int SplitIndex = CommandData.ToUpper().IndexOf(".EXE") + 4;
+                                            string mPrg  = CommandData.Substring(0, SplitIndex);
+                                            string mAarg = CommandData.Substring(SplitIndex + 1, CommandData.Length - SplitIndex);
+                                            Process.Start(mPrg, mAarg);
+                                        }
+                                       
                                     }
                                     catch {
 
