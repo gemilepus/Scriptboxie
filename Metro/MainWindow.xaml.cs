@@ -1324,15 +1324,15 @@ namespace Metro
                                 {
                                     try
                                     {
-                                        if (CommandData.Substring(CommandData.Length - 4, 3).ToUpper().Equals("EXE"))
+                                        if (CommandData.ToUpper().EndsWith(".EXE"))
                                         {
                                             Process.Start(CommandData);
                                         }
                                         else {
                                             int SplitIndex = CommandData.ToUpper().IndexOf(".EXE") + 4;
                                             string mPrg  = CommandData.Substring(0, SplitIndex);
-                                            string mAarg = CommandData.Substring(SplitIndex+1, CommandData.Length - SplitIndex-1);
-                                            Process.Start(mPrg, mAarg);
+                                            string mArg = CommandData.Substring(SplitIndex+1, CommandData.Length - SplitIndex-1);
+                                            Process.Start(mPrg, mArg);
                                         }
                                        
                                     }
