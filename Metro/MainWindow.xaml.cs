@@ -1331,7 +1331,7 @@ namespace Metro
                                         else {
                                             int SplitIndex = CommandData.ToUpper().IndexOf(".EXE") + 4;
                                             string mPrg  = CommandData.Substring(0, SplitIndex);
-                                            string mAarg = CommandData.Substring(SplitIndex + 1, CommandData.Length - SplitIndex);
+                                            string mAarg = CommandData.Substring(SplitIndex+1, CommandData.Length - SplitIndex-1);
                                             Process.Start(mPrg, mAarg);
                                         }
                                        
