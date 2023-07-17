@@ -375,6 +375,10 @@
         Path: .exe Path
         <LineBreak/>
         ex: C:\Users\Metro.exe
+         <LineBreak/>
+        ex: C:\Program Files (x86)\......\chrome.exe -incognito
+         <LineBreak/>
+        ex: CMD.exe /c C:\test.bat
         <LineBreak/>
        <Line Stretch="Fill" Stroke="AntiqueWhite" X2="1"/><LineBreak/>
 
