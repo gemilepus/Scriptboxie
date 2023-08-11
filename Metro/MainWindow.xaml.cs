@@ -846,9 +846,6 @@ namespace Metro
 
             SortedList mDoSortedList = new SortedList();
             SortedList KeyActionList = new SortedList();
-            // key || value ex:
-            //mDoSortedList.Add("Point", "0,0");
-            //mDoSortedList.Add("Point Array", "0,0,0,0");
 
             Interpreter interpreter = new Interpreter();
             // StartPostion
@@ -959,7 +956,6 @@ namespace Metro
                                         }
                                         else
                                         {
-                                            // TODO: ?
                                             // Get SortedList Value by Key
                                             Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
                                         }
@@ -1016,7 +1012,7 @@ namespace Metro
 
                                 break;
 
-                            case "Match&Draw": // get
+                            case "Match&Draw":
                             case "Match":
                             case "Match RGB":
                                 do
@@ -1370,9 +1366,9 @@ namespace Metro
                                         mWaveFile = new SoundPlayer(CommandData);
                                         mWaveFile.PlaySync();
                                     }
-                                    catch
+                                    catch (Exception e)
                                     {
-
+                                        Console.WriteLine("{0} Exception caught.", e);
                                     }
                                     finally {
                                         mWaveFile?.Dispose();
@@ -1393,6 +1389,7 @@ namespace Metro
 
                             case "PostMessage":
 
+                                #region PostMessage
                                 if (Event.Length == 0)
                                 {
                                     string[] send = CommandData.Split(',');
@@ -1442,9 +1439,6 @@ namespace Metro
                                     //}
 
                                     ////System.Windows.MessageBox.Show(titleText);
-                                    //string out_string = titleText;
-
-                                    //System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "out" + ".txt", out_string);
                                 }
                                 else
                                 {
@@ -1464,6 +1458,7 @@ namespace Metro
                                         }
                                     }
                                 }
+                                #endregion
 
                                 break;
 
