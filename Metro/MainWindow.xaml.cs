@@ -2583,14 +2583,17 @@ namespace Metro
 
         private void mDataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            Btn_ON.Content = "OFF";
-            Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+            int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
+            string head = mDataGrid.Columns[columnIndex].Header.ToString();
 
-            ToolBar.Items.Clear();
+            if (!head.Equals("Enable") && !head.Equals(" ") && !head.Equals("+") ){
+                Btn_ON.Content = "OFF";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+            }
 
             // ToolBar
-            int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
-            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
+            ToolBar.Items.Clear();
+            if (head.Equals("Action"))
             {
                 MainTable row = (MainTable)mDataGrid.CurrentItem;
                 string[] btnlist = new string[] { };
@@ -2770,7 +2773,7 @@ namespace Metro
                     {
                         // Insert Item
                         mDataGrid.DataContext = null;
-                        mDataTable.Insert(tableIndex + 1, new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "" , Note = "" });
+                        mDataTable.Insert(tableIndex + 1, new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
                         mDataGrid.DataContext = mDataTable;
                     }
                     else
@@ -2788,14 +2791,15 @@ namespace Metro
             else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
             {
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
-  
+
                 try
                 {
                     if (tableIndex < mDataTable.Count())
                     {
                         MainTable row = (MainTable)mDataGrid.CurrentItem;
 
-                        if (row.Mode.Equals("Match") || row.Mode.Equals("Match RGB") || row.Mode.Equals("Match&Draw") || row.Mode.Equals("Run .exe") || row.Mode.Equals("PlaySound")) {
+                        if (row.Mode.Equals("Match") || row.Mode.Equals("Match RGB") || row.Mode.Equals("Match&Draw") || row.Mode.Equals("Run .exe") || row.Mode.Equals("PlaySound"))
+                        {
                             string filePath = string.Empty;
 
                             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -2832,13 +2836,18 @@ namespace Metro
                             cell.IsEditing = false;
                             CellEditComplete();
                         }
-                      
+
                     }
                 }
                 catch (Exception err)
                 {
                     Console.WriteLine("{0} Exception caught.", err);
                 }
+            }
+            else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Enable")) {
+                // Automatically turned on
+                Btn_ON.Content = "ON";
+                Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             }
         }
 
