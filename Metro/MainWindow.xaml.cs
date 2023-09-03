@@ -982,31 +982,39 @@ namespace Metro
                                     CommandData = CommandData.Trim().ToUpper();
                                     if (CommandData.Equals("LEFT"))
                                     {
+                                        if (KeyActionList.IndexOfKey("LEFT_DOWN") == -1) KeyActionList.Add("LEFT_DOWN", "");
                                         mInputSimulator.Mouse.LeftButtonDown();
                                         Thread.Sleep(200);
                                         mInputSimulator.Mouse.LeftButtonUp();
+                                        if (KeyActionList.IndexOfKey("LEFT_DOWN") != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey("LEFT_DOWN"));
                                     }
                                     if (CommandData.Equals("LEFT_DOWN"))
                                     {
+                                        if (KeyActionList.IndexOfKey("LEFT_DOWN") == -1) KeyActionList.Add("LEFT_DOWN", "");
                                         mInputSimulator.Mouse.LeftButtonDown();
                                     }
                                     if (CommandData.Equals("LEFT_UP"))
                                     {
                                         mInputSimulator.Mouse.LeftButtonUp();
+                                        if (KeyActionList.IndexOfKey("LEFT_DOWN") != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey("LEFT_DOWN"));
                                     }
                                     if (CommandData.Equals("RIGHT"))
                                     {
+                                        if (KeyActionList.IndexOfKey("RIGHT_DOWN") == -1) KeyActionList.Add("RIGHT_DOWN", "");
                                         mInputSimulator.Mouse.RightButtonDown();
                                         Thread.Sleep(200);
                                         mInputSimulator.Mouse.RightButtonUp();
+                                        if (KeyActionList.IndexOfKey("RIGHT_DOWN") != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey("RIGHT_DOWN"));
                                     }
                                     if (CommandData.Equals("RIGHT_DOWN"))
                                     {
+                                        if (KeyActionList.IndexOfKey("RIGHT_DOWN") == -1) KeyActionList.Add("RIGHT_DOWN", "");
                                         mInputSimulator.Mouse.RightButtonDown();
                                     }
                                     if (CommandData.Equals("RIGHT_UP"))
                                     {
                                         mInputSimulator.Mouse.RightButtonUp();
+                                        if (KeyActionList.IndexOfKey("RIGHT_DOWN") != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey("RIGHT_DOWN"));
                                     }
                                 }
 
@@ -1572,6 +1580,8 @@ namespace Metro
                             {
                                 if(list.Value.Equals("SendKeyDown")) ky.SendKeyUp((short)list.Key);
                                 if (list.Value.Equals("Key")) mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)list.Key);
+                                if (list.Key.Equals("LEFT_DOWN")) mInputSimulator.Mouse.LeftButtonUp();
+                                if (list.Key.Equals("RIGHT_DOWN")) mInputSimulator.Mouse.RightButtonUp();
                             }
 
                             mInputSimulator = null;
