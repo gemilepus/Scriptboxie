@@ -17,7 +17,7 @@ namespace Metro
             if (!createdNew)
             {
                 MessageBox.Show("Scriptboxie already started", "Scriptboxie", MessageBoxButtons.OK,
-                    MessageBoxIcon.None, MessageBoxDefaultButton.Button1,MessageBoxOptions.DefaultDesktopOnly);
+                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1,MessageBoxOptions.DefaultDesktopOnly);
 
                 System.Windows.Application.Current.Shutdown();
             }
