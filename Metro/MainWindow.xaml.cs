@@ -552,6 +552,20 @@ namespace Metro
             Main_GlobalKeyUpHook.KeyUp += Main_GlobalHookKeyUp;
 
             // NotifyIcon
+            //System.Drawing.Bitmap bitmap = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location).ToBitmap();
+            //for (var y = 0; y < bitmap.Height; y++)
+            //{
+            //    for (var x = 0; x < bitmap.Width; x++)
+            //    {
+            //        if (bitmap.GetPixel(x, y).R > 240)
+            //        {
+            //            bitmap.SetPixel(x, y, System.Drawing.Color.OrangeRed);
+            //        }
+            //    }
+            //}
+            //IntPtr Hicon = bitmap.GetHicon();
+            //NotifyIcon.Icon = System.Drawing.Icon.FromHandle(Hicon);
+
             mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
             mNotifyIcon.ContextMenuStrip = new ContextMenuStrip();
             ToolStripItem mToolStripItem = mNotifyIcon.ContextMenuStrip.Items.Add("", null, this.notifyIcon_Close_Click);
