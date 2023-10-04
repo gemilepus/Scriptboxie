@@ -560,7 +560,7 @@ namespace Metro
                 {
                     if (bitmap.GetPixel(x, y).R > 240)
                     {
-                        bitmap.SetPixel(x, y, System.Drawing.Color.OrangeRed);
+                        bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(255, 141, 60)); 
                     }
                 }
             }
