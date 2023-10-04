@@ -236,6 +236,7 @@ namespace Metro
 
         // NotifyIcon
         private static NotifyIcon mNotifyIcon = new NotifyIcon();
+        private static Icon OnIcon, OffIcon;
         // DataGrid
         private List<MainTable> mDataTable = new List<MainTable>();
         private List<EditTable> eDataTable = new List<EditTable>();
@@ -552,21 +553,22 @@ namespace Metro
             Main_GlobalKeyUpHook.KeyUp += Main_GlobalHookKeyUp;
 
             // NotifyIcon
-            //System.Drawing.Bitmap bitmap = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location).ToBitmap();
-            //for (var y = 0; y < bitmap.Height; y++)
-            //{
-            //    for (var x = 0; x < bitmap.Width; x++)
-            //    {
-            //        if (bitmap.GetPixel(x, y).R > 240)
-            //        {
-            //            bitmap.SetPixel(x, y, System.Drawing.Color.OrangeRed);
-            //        }
-            //    }
-            //}
-            //IntPtr Hicon = bitmap.GetHicon();
-            //NotifyIcon.Icon = System.Drawing.Icon.FromHandle(Hicon);
+            System.Drawing.Bitmap bitmap = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location).ToBitmap();
+            for (var y = 0; y < bitmap.Height; y++)
+            {
+                for (var x = 0; x < bitmap.Width; x++)
+                {
+                    if (bitmap.GetPixel(x, y).R > 240)
+                    {
+                        bitmap.SetPixel(x, y, System.Drawing.Color.OrangeRed);
+                    }
+                }
+            }
+            IntPtr Hicon =bitmap.GetHicon();
+            OffIcon = System.Drawing.Icon.FromHandle(Hicon);
+            OnIcon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            mNotifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            mNotifyIcon.Icon = OnIcon;
             mNotifyIcon.ContextMenuStrip = new ContextMenuStrip();
             ToolStripItem mToolStripItem = mNotifyIcon.ContextMenuStrip.Items.Add("", null, this.notifyIcon_Close_Click);
             mToolStripItem.Image = Properties.Resources.x;
@@ -681,6 +683,7 @@ namespace Metro
                 {
                     Btn_ON.Content = "OFF";
                     Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+                    mNotifyIcon.Icon = OffIcon;
 
                     for (int i = 0; i < _workerThreads.Count; i++)
                     {
@@ -716,6 +719,7 @@ namespace Metro
                 {
                     Btn_ON.Content = "ON";
                     Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+                    mNotifyIcon.Icon = OnIcon;
                 }
                 eDataGrid.DataContext = null;
                 eDataGrid.DataContext = eDataTable;
@@ -1875,11 +1879,13 @@ namespace Metro
             {
                 Btn_ON.Content = "OFF";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+                mNotifyIcon.Icon = OffIcon;
             }
             else
             {
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+                mNotifyIcon.Icon = OnIcon;
             }
         }
         private void Btn_About_Click(object sender, RoutedEventArgs e)
@@ -2169,6 +2175,7 @@ namespace Metro
 
                 Btn_ON.Content = "OFF";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+                mNotifyIcon.Icon = OffIcon;
             }
             else {
                 Save_Script();
@@ -2176,6 +2183,7 @@ namespace Metro
 
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+                mNotifyIcon.Icon = OnIcon;
             }
         }
 
@@ -2368,6 +2376,7 @@ namespace Metro
 
                 Btn_ON.Content = "OFF";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+                mNotifyIcon.Icon = OffIcon;
                 Subscribe();
             }
             else
@@ -2389,6 +2398,7 @@ namespace Metro
 
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+                mNotifyIcon.Icon = OnIcon;
                 Unsubscribe();
             }
         }
@@ -2505,11 +2515,13 @@ namespace Metro
         {
             Btn_ON.Content = "OFF";
             Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+            mNotifyIcon.Icon = OffIcon;
 
             var result = await this.ShowInputAsync(FindResource("Save").ToString(), FindResource("Input_filename").ToString());
 
             Btn_ON.Content = "ON";
             Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+            mNotifyIcon.Icon = OnIcon;
 
             if (result == null) { return; }
 
@@ -2570,6 +2582,7 @@ namespace Metro
         {
             Btn_ON.Content = "ON";
             Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+            mNotifyIcon.Icon = OnIcon;
             Run_script();
         }
         private void Btn_Stop_Click(object sender, RoutedEventArgs ee)
@@ -2613,6 +2626,7 @@ namespace Metro
             if (!head.Equals("Enable") && !head.Equals(" ") && !head.Equals("+") ){
                 Btn_ON.Content = "OFF";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
+                mNotifyIcon.Icon = OffIcon;
             }
 
             // ToolBar
@@ -2778,6 +2792,7 @@ namespace Metro
                         // Automatically turned on
                         Btn_ON.Content = "ON";
                         Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+                        mNotifyIcon.Icon = OnIcon;
                     }
                 }
                 catch (Exception err)
@@ -2872,6 +2887,7 @@ namespace Metro
                 // Automatically turned on
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+                mNotifyIcon.Icon = OnIcon;
             }
         }
 
@@ -2883,6 +2899,7 @@ namespace Metro
 
             Btn_ON.Content = "ON";
             Btn_ON.Foreground = System.Windows.Media.Brushes.White;
+            mNotifyIcon.Icon = OnIcon;
         }
         #endregion
 
