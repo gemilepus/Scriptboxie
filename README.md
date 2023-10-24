@@ -12,6 +12,7 @@ English | [中文](Doc/README.zh-tw.md)
 
 ## Features
 - effortlessly manage and craft scripts
+- script recorder
 - image search
 ## Prerequisite
 - Windows 10 | 11
