@@ -46,186 +46,6 @@ namespace Metro
 {
     public partial class MainWindow : MetroWindow
     {
-        // **************************************** Motion ******************************************
-        #region Motion
-        // Mouse move
-        [DllImport("user32")]
-        private static extern int SetCursorPos(int x, int y);
-        [DllImport("user32")]
-        private static extern bool GetCursorPos(ref System.Drawing.Point lpPoint);
-        // VkKeyScan Char to 0x00
-        [DllImport("user32.dll")]
-        private static extern byte VkKeyScan(char ch);
-        #endregion
-        // **************************************** Window ******************************************
-        #region Window
-
-        // GetActiveWindowTitle
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
-
-        private string GetActiveWindowTitle()
-        {
-            const int nChars = 256;
-            StringBuilder Buff = new StringBuilder(nChars);
-            IntPtr handle = GetForegroundWindow();
-
-            if (GetWindowText(handle, Buff, nChars) > 0)
-            {
-                return Buff.ToString();
-            }
-            return null;
-        }
-
-        [DllImport("USER32.DLL")]
-        private static extern bool SetForegroundWindow(IntPtr hWnd);
-
-        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
-
-        // PostMessageA
-        [DllImport("User32.Dll", EntryPoint = "PostMessageA")]
-        private static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
-
-        private const int WM_KEYDOWN = 0x100;
-        private const int WM_KEYUP = 0x101;
-        private const int WM_CHAR = 0x0102;
-
-        //const int WM_LBUTTONDOWN = 0x201;
-        //const int WM_LBUTTONUP = 0x202;
-
-        // SendMessage
-        [DllImport("user32.dll")]
-        private static extern int SendMessage(int hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
-
-        #endregion
-        // **************************************** Image ******************************************
-        #region Image
-        private Bitmap makeScreenshot()
-        {
-            Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-
-            System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
-
-            gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-
-            gfxScreenshot.Dispose();
-
-            return screenshot;
-        }
-
-        private Bitmap makeScreenshot_clip(int x, int y, int height, int width)
-        {
-            Bitmap screenshot = new Bitmap(width, height);
-
-            System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
-
-            gfxScreenshot.CopyFromScreen(x, y, 0, 0, screenshot.Size);
-
-            gfxScreenshot.Dispose();
-
-            return screenshot;
-        }
-
-        private String RunTemplateMatch(Mat rec, Mat template,string Mode,double mThreshold)
-        {
-            string ResponseStr = "";
-
-            using (Mat refMat = rec)
-            using (Mat tplMat = template)
-            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
-            {
-                Mat gref, gtpl;
-                if (Mode.Equals("RGB"))
-                {
-                    gref = refMat.CvtColor(ColorConversionCodes.BGR2HLS);
-                    gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2HLS);
-                }
-                else
-                {
-                    gref = refMat.CvtColor(ColorConversionCodes.BGR2GRAY);
-                    gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2GRAY);
-                }
-
-                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
-                //Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.SqDiffNormed);
-                Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
-
-                while (true)
-                {
-                    double minval, maxval, threshold = mThreshold;
-                    OpenCvSharp.Point minloc, maxloc;
-                    Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
-
-                    if (maxval >= threshold)
-                    {
-                        //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
-                        OpenCvSharp.Rect outRect;
-                        Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
-
-                        ResponseStr = ResponseStr + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    gref.Dispose();
-                    gtpl.Dispose();
-                }
-
-                refMat.Dispose();
-                tplMat.Dispose();
-
-                gref.Dispose();
-                gtpl.Dispose();
-
-                res.Dispose();
-
-                rec.Dispose();
-                template.Dispose();
-
-                return ResponseStr;
-            }
-        }
-
-        private Mat DetectFace_Mat(CascadeClassifier cascade, Mat src) // input Mat 
-        {
-            Mat result;
-            using (var gray = new Mat())
-            {
-                result = src.Clone();
-                Cv2.CvtColor(src, gray, ColorConversionCodes.BGR2GRAY);
-                // Detect faces
-                OpenCvSharp.Rect[] faces = cascade.DetectMultiScale(gray, 1.08, 2, HaarDetectionTypes.ScaleImage, new OpenCvSharp.Size(30, 30));
-                //Render all detected faces
-                foreach (OpenCvSharp.Rect face in faces)
-                {
-                    var center = new OpenCvSharp.Point // get x,y
-                    {
-                        X = (int)(face.X + face.Width * 0.5),
-                        Y = (int)(face.Y + face.Height * 0.5)
-                    };
-                    var axes = new OpenCvSharp.Size
-                    {
-                        Width = (int)(face.Width * 0.5),
-                        Height = (int)(face.Height * 0.5)
-                    };
-                    Cv2.Ellipse(result, center, axes, 0, 0, 360, new Scalar(255, 0, 255), 4);
-
-                }
-            }
-            return result;
-        }
-
-        #endregion
-
         public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         private static readonly DependencyProperty IsRecordProperty = DependencyProperty.Register("IsRecord", typeof(bool), typeof(MainWindow), new PropertyMetadata(true));
         private bool IsRecord
@@ -3076,5 +2896,184 @@ namespace Metro
 
         #endregion
 
+        // **************************************** Motion ******************************************
+        #region Motion
+        // Mouse move
+        [DllImport("user32")]
+        private static extern int SetCursorPos(int x, int y);
+        [DllImport("user32")]
+        private static extern bool GetCursorPos(ref System.Drawing.Point lpPoint);
+        // VkKeyScan Char to 0x00
+        [DllImport("user32.dll")]
+        private static extern byte VkKeyScan(char ch);
+        #endregion
+        // **************************************** Window ******************************************
+        #region Window
+
+        // GetActiveWindowTitle
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+        private string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            StringBuilder Buff = new StringBuilder(nChars);
+            IntPtr handle = GetForegroundWindow();
+
+            if (GetWindowText(handle, Buff, nChars) > 0)
+            {
+                return Buff.ToString();
+            }
+            return null;
+        }
+
+        [DllImport("USER32.DLL")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
+        // PostMessageA
+        [DllImport("User32.Dll", EntryPoint = "PostMessageA")]
+        private static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
+
+        private const int WM_KEYDOWN = 0x100;
+        private const int WM_KEYUP = 0x101;
+        private const int WM_CHAR = 0x0102;
+
+        //const int WM_LBUTTONDOWN = 0x201;
+        //const int WM_LBUTTONUP = 0x202;
+
+        // SendMessage
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(int hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
+
+        #endregion
+        // **************************************** Image ******************************************
+        #region Image
+        private Bitmap makeScreenshot()
+        {
+            Bitmap screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+
+            System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
+
+            gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+
+            gfxScreenshot.Dispose();
+
+            return screenshot;
+        }
+
+        private Bitmap makeScreenshot_clip(int x, int y, int height, int width)
+        {
+            Bitmap screenshot = new Bitmap(width, height);
+
+            System.Drawing.Graphics gfxScreenshot = System.Drawing.Graphics.FromImage(screenshot);
+
+            gfxScreenshot.CopyFromScreen(x, y, 0, 0, screenshot.Size);
+
+            gfxScreenshot.Dispose();
+
+            return screenshot;
+        }
+
+        private String RunTemplateMatch(Mat rec, Mat template, string Mode, double mThreshold)
+        {
+            string ResponseStr = "";
+
+            using (Mat refMat = rec)
+            using (Mat tplMat = template)
+            using (Mat res = new Mat(refMat.Rows - tplMat.Rows + 1, refMat.Cols - tplMat.Cols + 1, MatType.CV_32FC1))
+            {
+                Mat gref, gtpl;
+                if (Mode.Equals("RGB"))
+                {
+                    gref = refMat.CvtColor(ColorConversionCodes.BGR2HLS);
+                    gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2HLS);
+                }
+                else
+                {
+                    gref = refMat.CvtColor(ColorConversionCodes.BGR2GRAY);
+                    gtpl = tplMat.CvtColor(ColorConversionCodes.BGR2GRAY);
+                }
+
+                Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.CCoeffNormed);
+                //Cv2.MatchTemplate(gref, gtpl, res, TemplateMatchModes.SqDiffNormed);
+                Cv2.Threshold(res, res, 0.8, 1.0, ThresholdTypes.Tozero);
+
+                while (true)
+                {
+                    double minval, maxval, threshold = mThreshold;
+                    OpenCvSharp.Point minloc, maxloc;
+                    Cv2.MinMaxLoc(res, out minval, out maxval, out minloc, out maxloc);
+
+                    if (maxval >= threshold)
+                    {
+                        //Fill in the res Mat so you don't find the same area again in the MinMaxLoc
+                        OpenCvSharp.Rect outRect;
+                        Cv2.FloodFill(res, maxloc, new Scalar(0), out outRect, new Scalar(0.1), new Scalar(1.0), FloodFillFlags.Link4);
+
+                        ResponseStr = ResponseStr + maxloc.X.ToString() + "," + maxloc.Y.ToString() + ",";
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    gref.Dispose();
+                    gtpl.Dispose();
+                }
+
+                refMat.Dispose();
+                tplMat.Dispose();
+
+                gref.Dispose();
+                gtpl.Dispose();
+
+                res.Dispose();
+
+                rec.Dispose();
+                template.Dispose();
+
+                return ResponseStr;
+            }
+        }
+
+        private Mat DetectFace_Mat(CascadeClassifier cascade, Mat src) // input Mat 
+        {
+            Mat result;
+            using (var gray = new Mat())
+            {
+                result = src.Clone();
+                Cv2.CvtColor(src, gray, ColorConversionCodes.BGR2GRAY);
+                // Detect faces
+                OpenCvSharp.Rect[] faces = cascade.DetectMultiScale(gray, 1.08, 2, HaarDetectionTypes.ScaleImage, new OpenCvSharp.Size(30, 30));
+                //Render all detected faces
+                foreach (OpenCvSharp.Rect face in faces)
+                {
+                    var center = new OpenCvSharp.Point // get x,y
+                    {
+                        X = (int)(face.X + face.Width * 0.5),
+                        Y = (int)(face.Y + face.Height * 0.5)
+                    };
+                    var axes = new OpenCvSharp.Size
+                    {
+                        Width = (int)(face.Width * 0.5),
+                        Height = (int)(face.Height * 0.5)
+                    };
+                    Cv2.Ellipse(result, center, axes, 0, 0, 360, new Scalar(255, 0, 255), 4);
+
+                }
+            }
+            return result;
+        }
+
+        #endregion
     }
 }
