@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Scriptboxie</h1>
-<p align="center">這個工具可以讓你輕鬆管理和創建腳本。可以用來簡化重複及耗時的任務。</p>
+<p align="center">Scriptboxie可以讓你輕鬆管理和創建腳本。可以用來簡化重複及耗時的任務。</p>
 
 [English](../README.md) | 中文
 
@@ -12,6 +12,7 @@
 
 ## 特點
 - 輕鬆管理和創建腳本
+- 腳本錄製
 - 圖片搜尋
 
 <h1 align="center">如何使用</h1>
