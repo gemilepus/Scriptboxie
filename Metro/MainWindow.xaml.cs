@@ -2896,7 +2896,6 @@ namespace Metro
 
         #endregion
 
-        // **************************************** Motion ******************************************
         #region Motion
         // Mouse move
         [DllImport("user32")]
@@ -2907,7 +2906,7 @@ namespace Metro
         [DllImport("user32.dll")]
         private static extern byte VkKeyScan(char ch);
         #endregion
-        // **************************************** Window ******************************************
+
         #region Window
 
         // GetActiveWindowTitle
@@ -2955,7 +2954,7 @@ namespace Metro
         private static extern int SendMessage(int hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPStr)] string lParam);
 
         #endregion
-        // **************************************** Image ******************************************
+
         #region Image
         private Bitmap makeScreenshot()
         {
