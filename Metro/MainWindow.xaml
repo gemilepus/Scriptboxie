@@ -9,7 +9,7 @@
                       Width="800"             
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" Deactivated="MetroWindow_Deactivated"
-                      SizeChanged="MetroWindow_SizeChanged" LostKeyboardFocus="MetroWindow_LostKeyboardFocus">
+                      SizeChanged="MetroWindow_SizeChanged" LostKeyboardFocus="MetroWindow_LostKeyboardFocus" GotKeyboardFocus="_Window_GotKeyboardFocus">
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>

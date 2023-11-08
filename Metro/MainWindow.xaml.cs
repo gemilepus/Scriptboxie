@@ -64,6 +64,7 @@ namespace Metro
         private List<Thread> _workerThreads = new List<Thread>();
         private SoundPlayer mAlertSound = new SoundPlayer(Metro.Properties.Resources.sound);
         private SettingHelper mSettingHelper = new SettingHelper();
+        private Edit mEdit = new Edit();
         private bool TestMode = false;
 
         #region Globalmousekeyhook
@@ -1828,6 +1829,8 @@ namespace Metro
             IniData data = parser.ReadFile("user.ini");
             data["Def"]["Script"] = filePath;
             parser.WriteFile("user.ini", data);
+
+            mEdit.ModifiedTime = mEdit.GetModifiedTime(filePath);
         }
 
         private List<MainTable> Load_Script_to_DataTable(string mfilePath)
@@ -2147,6 +2150,11 @@ namespace Metro
 
                 toggleProvider.Toggle();
             }
+        }
+
+        private void _Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            bool IsModifie  = mEdit.CheckIsModifie(ScriptName.Text);
         }
 
         private void InfoToggleButton_Checked(object sender, RoutedEventArgs e)
@@ -2943,6 +2951,7 @@ namespace Metro
         private static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
 
         private const int WM_KEYDOWN = 0x100;
+
         private const int WM_KEYUP = 0x101;
         private const int WM_CHAR = 0x0102;
 
