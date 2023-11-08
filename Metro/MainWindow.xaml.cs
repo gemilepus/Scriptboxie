@@ -2097,7 +2097,7 @@ namespace Metro
 
                         System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
                         openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
-                        openFileDialog.Filter = "txt files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+                        openFileDialog.Filter = "script files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
                         openFileDialog.FilterIndex = 2;
                         openFileDialog.RestoreDirectory = true;
                         openFileDialog.ShowDialog();
@@ -2300,7 +2300,7 @@ namespace Metro
 
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
             openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
-            openFileDialog.Filter = "txt files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+            openFileDialog.Filter = "script files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
             openFileDialog.ShowDialog();
