@@ -328,6 +328,7 @@ namespace Metro
                 mDataGrid.DataContext = null;
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
                 mDataGrid.DataContext = mDataTable;
+                mEdit.StartEdit("");
             }
 
             #endregion
@@ -2320,6 +2321,7 @@ namespace Metro
             mDataGrid.DataContext = mDataTable;
 
             ScriptName.Text = "";
+            mEdit.StartEdit("");
 
             // .ini
             var parser = new FileIniDataParser();

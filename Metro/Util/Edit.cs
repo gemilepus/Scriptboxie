@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using SharpDX;
+using System.IO;
+using System.Windows.Shapes;
 
 namespace Metro
 {
     public class Edit
     {
-        public string ModifiedTime, FilePath;
+        public string ModifiedTime="", FilePath;
 
         public void StartEdit(string path)
         {
@@ -14,6 +16,10 @@ namespace Metro
 
         public string GetModifiedTime(string path)
         {
+            if (!File.Exists(path))
+            {
+                return "";
+            }
             FileInfo mFileInfo = new FileInfo(path);
 
             return mFileInfo.LastWriteTime.ToString();
