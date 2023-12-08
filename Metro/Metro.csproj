@@ -464,6 +464,12 @@
   <ItemGroup>
     <Resource Include="img\info.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\kofi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\palpay.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
