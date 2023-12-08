@@ -2381,6 +2381,7 @@ namespace Metro
             if (result == null) { return; }
             if (File.Exists(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt")) {
                 await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString() + " File exists!");
+                return;
             }
 
             try
