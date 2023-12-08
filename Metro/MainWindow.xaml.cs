@@ -2431,8 +2431,9 @@ namespace Metro
                 JSON_String = JSON_String.Insert(JSON_String.Length-1, "\n");
                 JSON_String = JSON_String.Replace("\"},", "\"},\n");
 
-                mEdit.ModifiedTime = "";
+                
                 System.IO.File.WriteAllText(result, JSON_String);
+                mEdit.ModifiedTime = mEdit.GetModifiedTime(result);
 
                 this.ShowMessageAsync("", FindResource("Done").ToString());
             }
