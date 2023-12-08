@@ -52,4 +52,4 @@ using System.Windows;
 // 指定為預設值: 
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0")]
-[assembly: AssemblyFileVersion("1.5.5")]
+[assembly: AssemblyFileVersion("1.5.6")]
