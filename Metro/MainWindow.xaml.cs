@@ -2347,11 +2347,15 @@ namespace Metro
 
             var result = await this.ShowInputAsync(FindResource("Save").ToString(), FindResource("Input_filename").ToString());
 
+
             Btn_ON.Content = "ON";
             Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             mNotifyIcon.Icon = OnIcon;
 
             if (result == null) { return; }
+            if (File.Exists(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt")) {
+                await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString() + " File exists!");
+            }
 
             try
             {
