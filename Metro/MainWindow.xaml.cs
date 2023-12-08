@@ -1817,6 +1817,7 @@ namespace Metro
             string[] mPath = filePath.Split('\\');
             ScriptName.Text = mPath[mPath.Length-1];
             ScriptName.ToolTip = filePath;
+            mEdit.StartEdit(filePath);
             // Table Clear
             mDataGrid.DataContext = null;
             mDataTable.Clear();
@@ -2152,9 +2153,34 @@ namespace Metro
             }
         }
 
-        private void _Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private bool isShowDialog =false;
+        private async void _Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            bool IsModifie  = mEdit.CheckIsModifie(ScriptName.Text);
+            if (mEdit.CheckIsModifie() && !isShowDialog) {
+                isShowDialog = true;
+
+                var mMetroDialogSettings = new MetroDialogSettings()
+                {
+                    AffirmativeButtonText = "Yes",
+                    NegativeButtonText = "No",
+                    AnimateShow = true,
+                    AnimateHide = false
+                };
+                MessageDialogResult result = await this.ShowMessageAsync("",
+                    "The file has been updated.Do you want to load the file again?",
+                    MessageDialogStyle.AffirmativeAndNegative, mMetroDialogSettings);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    Load_Script(mEdit.FilePath);
+                }
+                else {
+
+                    mEdit.ModifiedTime = mEdit.GetModifiedTime(mEdit.FilePath);
+                }
+                isShowDialog = false;
+            }
+          
         }
 
         private void InfoToggleButton_Checked(object sender, RoutedEventArgs e)
@@ -2364,6 +2390,7 @@ namespace Metro
                 JSON_String = JSON_String.Insert(JSON_String.Length - 1, "\n");
                 JSON_String = JSON_String.Replace("\"},", "\"},\n");
 
+                mEdit.ModifiedTime = "";
                 System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", JSON_String);
 
                 Load_Script(System.Windows.Forms.Application.StartupPath + "\\" + result + ".txt");
@@ -2375,6 +2402,7 @@ namespace Metro
                 await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
             }
         }
+
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
             string result = null;
@@ -2399,6 +2427,7 @@ namespace Metro
                 JSON_String = JSON_String.Insert(JSON_String.Length-1, "\n");
                 JSON_String = JSON_String.Replace("\"},", "\"},\n");
 
+                mEdit.ModifiedTime = "";
                 System.IO.File.WriteAllText(result, JSON_String);
 
                 this.ShowMessageAsync("", FindResource("Done").ToString());

@@ -4,7 +4,13 @@ namespace Metro
 {
     public class Edit
     {
-        public string ModifiedTime;
+        public string ModifiedTime, FilePath;
+
+        public void StartEdit(string path)
+        {
+            FilePath = path;
+            ModifiedTime = GetModifiedTime(path);
+        }
 
         public string GetModifiedTime(string path)
         {
@@ -13,10 +19,10 @@ namespace Metro
             return mFileInfo.LastWriteTime.ToString();
         }
 
-        public bool CheckIsModifie(string path)
+        public bool CheckIsModifie()
         {
             if (ModifiedTime.Equals("")) return false;
-            return ModifiedTime.Equals(GetModifiedTime(path)) ? false : true;
+            return ModifiedTime.Equals(GetModifiedTime(FilePath)) ? false : true;
         }
 
     }
