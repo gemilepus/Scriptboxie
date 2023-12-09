@@ -1,6 +1,5 @@
 ﻿using SharpDX;
 using System.IO;
-using System.Windows.Shapes;
 
 namespace Metro
 {

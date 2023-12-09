@@ -2240,16 +2240,7 @@ namespace Metro
 
                 mDataGrid.DataContext = null;
                 mDataGrid.DataContext = mDataTable;
-                // ScrollToBottom
-                if (mDataGrid.Items.Count > 0)
-                {
-                    var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
-                    if (border != null)
-                    {
-                        var scroll = border.Child as ScrollViewer;
-                        if (scroll != null) scroll.ScrollToBottom();
-                    }
-                }
+                mDataGrid_ScrollToBottom();
 
                 Btn_ON.Content = "ON";
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
@@ -2686,6 +2677,8 @@ namespace Metro
                         mDataGrid.DataContext = null;
                         mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
                         mDataGrid.DataContext = mDataTable;
+
+                        mDataGrid_ScrollToBottom();
                     }
                 }
                 catch (Exception err)
@@ -2767,10 +2760,24 @@ namespace Metro
             Btn_ON.Foreground = System.Windows.Media.Brushes.White;
             mNotifyIcon.Icon = OnIcon;
         }
-        #endregion
 
-        #region Setting Panel
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        private void mDataGrid_ScrollToBottom()
+        {
+            if (mDataGrid.Items.Count > 0)
+            {
+                var border = VisualTreeHelper.GetChild(mDataGrid, 0) as Decorator;
+                if (border != null)
+                {
+                    var scroll = border.Child as ScrollViewer;
+                    if (scroll != null) scroll.ScrollToBottom();
+                }
+            }
+        }
+       
+#endregion
+
+#region Setting Panel
+private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             System.Windows.Documents.Hyperlink mHyperlink = (System.Windows.Documents.Hyperlink)sender;
             Process.Start(mHyperlink.NavigateUri.ToString());
