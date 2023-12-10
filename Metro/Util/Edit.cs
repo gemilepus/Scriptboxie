@@ -1,5 +1,4 @@
-﻿using SharpDX;
-using System.IO;
+﻿using System.IO;
 
 namespace Metro
 {

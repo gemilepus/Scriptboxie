@@ -1211,8 +1211,14 @@ namespace Metro
                                     SoundPlayer mWaveFile = null;
                                     try
                                     {
-                                        mWaveFile = new SoundPlayer(CommandData);
-                                        mWaveFile.PlaySync();
+                                        if (CommandData.Equals(""))
+                                        {
+                                            SystemSounds.Beep.Play();
+                                        }
+                                        else {
+                                            mWaveFile = new SoundPlayer(CommandData);
+                                            mWaveFile.PlaySync();
+                                        }
                                     }
                                     catch (Exception e)
                                     {
@@ -2773,11 +2779,11 @@ namespace Metro
                 }
             }
         }
-       
-#endregion
 
-#region Setting Panel
-private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        #endregion
+
+        #region Setting Panel
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             System.Windows.Documents.Hyperlink mHyperlink = (System.Windows.Documents.Hyperlink)sender;
             Process.Start(mHyperlink.NavigateUri.ToString());
