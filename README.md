@@ -19,6 +19,10 @@ English | [中文](Doc/README.zh-tw.md)
 
 
 <h1 align="center">How to use</h1>
+<p align="center">Normally, I would record my actions first, and then make adjustments, such as setting how many times to repeat, </p>
+<p align="center">adjusting the delay, etc. This way, I can quickly finish script. </p>
+<br>
+
 <p align="center">edit script: just enter the keyboard and mouse actions to be use.</p>
 <p align="center">After completion, you can save it as a .txt file</p>
 <p align="center">
