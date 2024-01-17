@@ -13,6 +13,7 @@ namespace Metro
             OnOff_AltKey, Run_AltKey, Stop_AltKey,
             OnOff_CrtlKey, Run_CrtlKey, Stop_CrtlKey;
 
+        public int TestMode_Delay;
         public SettingHelper()
         {
             var parser = new FileIniDataParser();
@@ -133,7 +134,13 @@ namespace Metro
             {
                 data["Def"]["Language"] = "en";
             }
-            
+
+            // TestMode_Delay
+            if (data["Def"]["TestMode_Delay"] == null)
+            {
+                data["Def"]["TestMode_Delay"] = "0";
+            }
+
             parser.WriteFile("user.ini", data);
 
             OnOff_AltKey  = data["Def"]["OnOff_AltKey"].Equals("1") ? true : false;
@@ -154,6 +161,8 @@ namespace Metro
             TestMode = data["Def"]["TestMode"];
             Topmost = data["Def"]["Topmost"].Equals("1") ? true : false;
             Language = data["Def"]["Language"];
+
+            TestMode_Delay = int.Parse(data["Def"]["TestMode_Delay"]);
         }
 
         public void End(MainWindow MainWindow)
@@ -182,6 +191,8 @@ namespace Metro
             data["Def"]["TestMode"] = TestMode;
             data["Def"]["Topmost"] = Topmost ? "1" : "0";
             data["Def"]["Language"] = Language;
+
+            data["Def"]["TestMode_Delay"] = TestMode_Delay.ToString();
 
             parser.WriteFile("user.ini", data);
         }

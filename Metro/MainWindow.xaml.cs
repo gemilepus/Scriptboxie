@@ -66,6 +66,7 @@ namespace Metro
         private SettingHelper mSettingHelper = new SettingHelper();
         private Edit mEdit = new Edit();
         private bool TestMode = false;
+        private int TestMode_Delay = 0;
 
         #region Globalmousekeyhook
         private static IKeyboardMouseEvents m_GlobalHook, Main_GlobalHook, Main_GlobalKeyUpHook;
@@ -365,6 +366,9 @@ namespace Metro
                 TestMode = false;
                 TestMode_Toggle.IsOn = false;
             }
+
+            TestMode_Delay = mSettingHelper.TestMode_Delay;
+            TestMode_Slider.Value = TestMode_Delay;
 
             // Load Topmost setting
             Top_Toggle.IsOn = mSettingHelper.Topmost;
@@ -713,7 +717,7 @@ namespace Metro
                     int number = 80000;
                     number += n;
                     CreateMessage(number.ToString());
-                    Thread.Sleep(1000);
+                    Thread.Sleep(TestMode_Delay);
                 }
 
                 string Command = minDataTable[n].Mode;
@@ -2882,6 +2886,12 @@ namespace Metro
             }
         }
 
+        private void TestMode_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            TestMode_Delay = (int)TestMode_Slider.Value;
+            mSettingHelper.TestMode_Delay = TestMode_Delay;
+        }
+
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.RadioButton mRadioButton = (System.Windows.Controls.RadioButton)sender;
@@ -3018,7 +3028,6 @@ namespace Metro
         private static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
 
         private const int WM_KEYDOWN = 0x100;
-
         private const int WM_KEYUP = 0x101;
         private const int WM_CHAR = 0x0102;
 

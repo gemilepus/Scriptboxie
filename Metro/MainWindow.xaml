@@ -460,7 +460,8 @@
         
         <TextBlock Grid.Row="1"><Run FontSize="16" Foreground="Black" Text="{DynamicResource Test_Mode_Option}"></Run></TextBlock>                         
         <Controls:ToggleSwitch Grid.Row="1" Grid.Column="1" Toggled="TestMode_Toggle_Toggled" Name="TestMode_Toggle" Height="28" ToolTip="{DynamicResource Test_Mode_Tooltip}" ToolTipService.InitialShowDelay="300" Margin="0,-5,0,0"></Controls:ToggleSwitch>
-        
+        <Slider Grid.Row="1" Grid.Column="2" x:Name="TestMode_Slider" ValueChanged="TestMode_Slider_ValueChanged"  Height="20" Width="150" Maximum="2000" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="100,0,0,0"></Slider>
+
         <TextBlock Grid.Row="2"><Run FontSize="16" Foreground="Black" Text="{DynamicResource Topmost_Option}"></Run></TextBlock>                          
         <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" Name="Top_Toggle" Toggled="Top_Toggle_Toggled" Height="28" Margin="0,-5,0,0"></Controls:ToggleSwitch>
     </Grid>
