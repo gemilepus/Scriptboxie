@@ -2754,6 +2754,20 @@ namespace Metro
                 Btn_ON.Foreground = System.Windows.Media.Brushes.White;
                 mNotifyIcon.Icon = OnIcon;
             }
+            else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("#"))
+            {
+                DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(mDataGrid.Items.IndexOf(mDataGrid.CurrentItem));
+
+                System.Windows.Controls.DataGridCell cell = mDataGrid.Columns[0].GetCellContent(row).Parent as System.Windows.Controls.DataGridCell;
+                if (cell.Background.ToString().Equals("#64FF0000"))
+                {
+                    cell.Background = System.Windows.Media.Brushes.Transparent;
+                    cell.Foreground = System.Windows.Media.Brushes.Black;
+                }
+                else {
+                    cell.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 0, 0));
+                }
+            }
         }
 
         private void CellEditComplete() {
