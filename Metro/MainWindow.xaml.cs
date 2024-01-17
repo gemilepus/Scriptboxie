@@ -2147,7 +2147,7 @@ namespace Metro
 
         #region Edit Panel
 
-        private Thread mThread = null;
+        private Thread mThread = null, uThread = null;
         private bool Is_LostKeyboardFocus = false, IsInfoToggleButtonChecked = false;
         private void MetroWindow_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
@@ -2293,6 +2293,28 @@ namespace Metro
                 mThread.Abort();
             }
             Ring.IsActive = false;
+        }
+
+        private void UnitTest()
+        {
+            uThread = new Thread(() =>
+            {
+                try
+                {
+                    Script(mDataTable, "UnitTest");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("{0} Exception caught.", ex);
+                }
+                finally
+                {
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    Console.WriteLine("WaitForPendingFinalizers");
+                }
+            });
+            uThread.Start();
         }
 
         private void ClearScreen_Click(object sender, RoutedEventArgs e)
@@ -2469,6 +2491,60 @@ namespace Metro
                 // Starts the Edit on the row;
                 System.Windows.Controls.DataGrid grd = (System.Windows.Controls.DataGrid)sender;
                 grd.BeginEdit(e);
+
+
+                // ToolBar
+                int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
+                string head = mDataGrid.Columns[columnIndex].Header.ToString();
+                if (head.Equals("#"))
+                {
+                    ToolBar.Items.Clear();
+
+                    MainTable row = (MainTable)mDataGrid.CurrentItem;
+                    string[] btnlist = new string[] { };
+
+                    switch (row.Mode)
+                    {
+                        case "Click":
+
+                            break;
+                        default:
+                            btnlist = new string[] { "Play" };
+                            break;
+                    }
+
+                    if (btnlist.Length <= 0)
+                    {
+                        ToolBar.Visibility = Visibility.Collapsed;
+                        return;
+                    }
+
+                    for (int i = 0; i < btnlist.Length; i++)
+                    {
+                        System.Windows.Controls.Button btn = new System.Windows.Controls.Button();
+                        btn.Height = 30;
+                        btn.Content = btnlist[i];
+                        btn.Background = new SolidColorBrush(Colors.LightGray);
+                        btn.Foreground = new SolidColorBrush(Colors.BlueViolet);
+                        btn.Click += new RoutedEventHandler(ToolbarBtn_Click);
+
+                        ToolBar.Items.Add(btn);
+                    }
+
+                    DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
+                    FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+                    if (cellContent != null)
+                    {
+                        System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+                        if (cell != null)
+                        {
+                            System.Windows.Point screenCoordinates = cell.TransformToAncestor(EditGrid).Transform(new System.Windows.Point(0, 0));
+                            ToolBar.Margin = new Thickness(0, screenCoordinates.Y - 30, screenCoordinates.X, 0);
+                        }
+                    }
+
+                    ToolBar.Visibility = Visibility.Visible;
+                }
             }
         }
         private void mDataGrid_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
