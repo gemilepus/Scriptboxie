@@ -2759,7 +2759,7 @@ namespace Metro
                 DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(mDataGrid.Items.IndexOf(mDataGrid.CurrentItem));
 
                 System.Windows.Controls.DataGridCell cell = mDataGrid.Columns[0].GetCellContent(row).Parent as System.Windows.Controls.DataGridCell;
-                if (cell.Background.ToString().Equals("#64FF0000"))
+                if (cell.Background.ToString().Equals("#64FF0000") && mDataGrid.EnableRowVirtualization == false)
                 {
                     cell.Background = System.Windows.Media.Brushes.Transparent;
                     cell.Foreground = System.Windows.Media.Brushes.Black;
@@ -2872,11 +2872,13 @@ namespace Metro
             {
                 TestMode = true;
                 mSettingHelper.TestMode = "1";
+                mDataGrid.EnableRowVirtualization = false;
             }
             else
             {
                 TestMode = false;
                 mSettingHelper.TestMode = "0";
+                mDataGrid.EnableRowVirtualization = true;
             }
         }
 
