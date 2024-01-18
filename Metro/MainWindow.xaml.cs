@@ -2295,25 +2295,27 @@ namespace Metro
             Ring.IsActive = false;
         }
 
-        private void UnitTest()
+        private void UnitTest(object item)
         {
+            List<MainTable> uMainTable = new List<MainTable>();
+            uMainTable.Add((MainTable)item);
             uThread = new Thread(() =>
-            {
-                try
                 {
-                    Script(mDataTable, "UnitTest");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("{0} Exception caught.", ex);
-                }
-                finally
-                {
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    Console.WriteLine("WaitForPendingFinalizers");
-                }
-            });
+                    try
+                    {
+                        Script(uMainTable, "UnitTest");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("{0} Exception caught.", ex);
+                    }
+                    finally
+                    {
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                        Console.WriteLine("WaitForPendingFinalizers");
+                    }
+                });
             uThread.Start();
         }
 
@@ -2539,8 +2541,8 @@ namespace Metro
                         if (cell != null)
                         {
                             System.Windows.Point screenCoordinates = cell.TransformToAncestor(EditGrid).Transform(new System.Windows.Point(0, 0));
-                            ToolBar.Margin = new Thickness(0, screenCoordinates.Y - 30, 
-                                (_Window.ActualWidth - mDataGrid.ActualWidth) / 2 + mDataGrid.ActualWidth - 60, 0);
+                            ToolBar.Margin = new Thickness(0, screenCoordinates.Y - 5,
+                                (_Window.ActualWidth - mDataGrid.ActualWidth) / 2 + mDataGrid.ActualWidth - 20, 0);
                         }
                     }
                     ToolBar.Visibility = Visibility.Visible;
@@ -2666,9 +2668,15 @@ namespace Metro
                 {
                     Console.WriteLine("{0} Exception caught.", err);
                 }
-                finally {
+                finally
+                {
                     ToolBar.Visibility = Visibility.Collapsed;
                 }
+            }
+            else if(mDataGrid.Columns[columnIndex].Header.ToString().Equals("#"))
+            {
+                // Unit test
+                UnitTest(mDataGrid.CurrentItem);
             }
         }
 
