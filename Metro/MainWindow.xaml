@@ -121,7 +121,7 @@
             <TabItem Header="{DynamicResource Edit}">
                 <Grid Background="White" Name="EditGrid">
 
-                    <DataGrid Name="mDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Grid.Column="1"
+                    <DataGrid Name="mDataGrid" CanUserSortColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Grid.Column="1"
                               MinHeight="300" MinWidth="500" Margin="25,0,0,25"  HorizontalAlignment="Center" 
                               LoadingRow="mDataGrid_LoadingRow" CanUserAddRows="False" ScrollViewer.ScrollChanged="mDataGrid_ScrollChanged"
                               MouseDoubleClick="mDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected" KeyUp="mDataGrid_KeyUp" BeginningEdit="mDataGrid_BeginningEdit">

@@ -2505,7 +2505,7 @@ namespace Metro
 
                     switch (row.Mode)
                     {
-                        case "Click":
+                        case "Delay":
 
                             break;
                         default:
@@ -2524,8 +2524,8 @@ namespace Metro
                         System.Windows.Controls.Button btn = new System.Windows.Controls.Button();
                         btn.Height = 30;
                         btn.Content = btnlist[i];
-                        btn.Background = new SolidColorBrush(Colors.LightGray);
-                        btn.Foreground = new SolidColorBrush(Colors.BlueViolet);
+                        btn.Background = new SolidColorBrush(Colors.Orange);
+                        btn.Foreground = new SolidColorBrush(Colors.Black);
                         btn.Click += new RoutedEventHandler(ToolbarBtn_Click);
 
                         ToolBar.Items.Add(btn);
@@ -2539,10 +2539,10 @@ namespace Metro
                         if (cell != null)
                         {
                             System.Windows.Point screenCoordinates = cell.TransformToAncestor(EditGrid).Transform(new System.Windows.Point(0, 0));
-                            ToolBar.Margin = new Thickness(0, screenCoordinates.Y - 30, screenCoordinates.X, 0);
+                            ToolBar.Margin = new Thickness(0, screenCoordinates.Y - 30, 
+                                (_Window.ActualWidth - mDataGrid.ActualWidth) / 2 + mDataGrid.ActualWidth - 60, 0);
                         }
                     }
-
                     ToolBar.Visibility = Visibility.Visible;
                 }
             }
