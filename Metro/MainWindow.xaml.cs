@@ -2297,13 +2297,16 @@ namespace Metro
 
         private void UnitTest(object item)
         {
-            List<MainTable> uMainTable = new List<MainTable>();
-            uMainTable.Add((MainTable)item);
+            List<MainTable> uMainTable = new List<MainTable>
+            {
+                (MainTable)item
+            };
+
             uThread = new Thread(() =>
                 {
                     try
                     {
-                        Script(uMainTable, "UnitTest");
+                        Script(uMainTable, "Debug");
                     }
                     catch (Exception ex)
                     {
@@ -2844,16 +2847,19 @@ namespace Metro
             }
             else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("#"))
             {
-                DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(mDataGrid.Items.IndexOf(mDataGrid.CurrentItem));
+                if (mDataGrid.EnableRowVirtualization == false) {
+                    DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(mDataGrid.Items.IndexOf(mDataGrid.CurrentItem));
 
-                System.Windows.Controls.DataGridCell cell = mDataGrid.Columns[0].GetCellContent(row).Parent as System.Windows.Controls.DataGridCell;
-                if (cell.Background.ToString().Equals("#64FF0000") && mDataGrid.EnableRowVirtualization == false)
-                {
-                    cell.Background = System.Windows.Media.Brushes.Transparent;
-                    cell.Foreground = System.Windows.Media.Brushes.Black;
-                }
-                else {
-                    cell.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 0, 0));
+                    System.Windows.Controls.DataGridCell cell = mDataGrid.Columns[0].GetCellContent(row).Parent as System.Windows.Controls.DataGridCell;
+                    if (cell.Background.ToString().Equals("#64FF0000") && mDataGrid.EnableRowVirtualization == false)
+                    {
+                        cell.Background = System.Windows.Media.Brushes.Transparent;
+                        cell.Foreground = System.Windows.Media.Brushes.Black;
+                    }
+                    else
+                    {
+                        cell.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 0, 0));
+                    }
                 }
             }
         }
