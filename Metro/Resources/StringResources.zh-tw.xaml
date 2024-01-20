@@ -27,7 +27,7 @@
     <system:String x:Key="Normal">一般</system:String>
     <system:String x:Key="Hide_on_start_Option">啟動時隱藏 :</system:String>
     <system:String x:Key="Test_Mode_Option">測試模式 :</system:String>
-    <system:String x:Key="Test_Mode_Tooltip">當執行編輯中的腳本時，每一步都會延遲一秒並且會標示正在執行的那一步。</system:String>
+    <system:String x:Key="Test_Mode_Tooltip">當執行編輯中的腳本時，每一步都會延遲一段時間並且會標示正在執行的那一步。</system:String>
     <system:String x:Key="Topmost_Option">置頂 :</system:String>
     <system:String x:Key="Website">網站</system:String>
     <system:String x:Key="Website_Note">如果您不知道怎麼使用這個，可以到這個網站看看</system:String>

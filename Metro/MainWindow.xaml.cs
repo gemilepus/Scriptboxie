@@ -721,6 +721,10 @@ namespace Metro
                     CreateMessage(number.ToString());
                     Thread.Sleep(TestMode_Delay);
                 }
+                else if (Mode.Equals("Test"))
+                {
+                    Thread.Sleep(TestMode_Delay);
+                }
 
                 string Command = minDataTable[n].Mode;
                 string CommandData = minDataTable[n].Action;
@@ -1459,6 +1463,18 @@ namespace Metro
                                     System.Windows.Forms.MessageBox.Show("[Error] Line " + (n + 1).ToString() + "\nMessage: " + e.Message, "Scriptboxie", 
                                         System.Windows.Forms.MessageBoxButtons.OK,
                                         MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, 
+                                        System.Windows.Forms.MessageBoxOptions.DefaultDesktopOnly);
+
+                                    break;
+                                }
+                                else if (Mode.Equals("Test"))
+                                {
+                                    // test stop msg
+                                    SystemSounds.Hand.Play();
+
+                                    System.Windows.Forms.MessageBox.Show("[Error] Line " + (n + 1).ToString() + "\nMessage: " + e.Message, "Scriptboxie",
+                                        System.Windows.Forms.MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
                                         System.Windows.Forms.MessageBoxOptions.DefaultDesktopOnly);
 
                                     break;
@@ -2303,6 +2319,11 @@ namespace Metro
 
         private void UnitTest(object item)
         {
+            if (uThread != null)
+            {
+                uThread.Abort();
+            }
+
             List<MainTable> uMainTable = new List<MainTable>
             {
                 (MainTable)item
@@ -2312,7 +2333,7 @@ namespace Metro
                 {
                     try
                     {
-                        Script(uMainTable, "Debug");
+                        Script(uMainTable, "Test");
                     }
                     catch (Exception ex)
                     {
@@ -2506,6 +2527,8 @@ namespace Metro
 
                 // ToolBar
                 int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
+                if (columnIndex < 0) { return; }
+
                 string head = mDataGrid.Columns[columnIndex].Header.ToString();
                 if (head.Equals("#"))
                 {
@@ -2513,11 +2536,16 @@ namespace Metro
 
                     MainTable row = (MainTable)mDataGrid.CurrentItem;
                     string[] btnlist = new string[] { };
-
                     switch (row.Mode)
                     {
+                        case "Calc":
+                        case "Calc-Check":
+                        case "RemoveEvent":
                         case "Delay":
-
+                        case "Jump":
+                        case "Goto":
+                        case "Loop":
+                            
                             break;
                         default:
                             btnlist = new string[] { "Play" };
@@ -2536,7 +2564,7 @@ namespace Metro
                         btn.Height = 30;
                         btn.Content = btnlist[i];
                         btn.Background = new SolidColorBrush(Colors.Orange);
-                        btn.Foreground = new SolidColorBrush(Colors.Black);
+                        btn.Foreground = new SolidColorBrush(Colors.DarkRed);
                         btn.Click += new RoutedEventHandler(ToolbarBtn_Click);
 
                         ToolBar.Items.Add(btn);
