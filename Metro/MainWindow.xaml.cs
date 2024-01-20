@@ -693,10 +693,13 @@ namespace Metro
 
             Interpreter interpreter = new Interpreter();
             // StartPostion
-            System.Drawing.Point StartPoint = new System.Drawing.Point();
-            GetCursorPos(ref StartPoint);
-            interpreter = interpreter.SetVariable("StartPostion_X", (int)StartPoint.X);
-            interpreter = interpreter.SetVariable("StartPostion_Y", (int)StartPoint.Y);
+            System.Drawing.Point mPoint = new System.Drawing.Point();
+            GetCursorPos(ref mPoint);
+            interpreter = interpreter.SetVariable("StartPostion_X", (int)mPoint.X);
+            interpreter = interpreter.SetVariable("StartPostion_Y", (int)mPoint.Y);
+            interpreter = interpreter.SetVariable("StartPosition_X", (int)mPoint.X);
+            interpreter = interpreter.SetVariable("StartPosition_Y", (int)mPoint.Y);
+            // random func
             Random RM = new Random();
             Func<int, int, int> random = (s, e) => RM.Next(s, e + 1);
             interpreter = interpreter.SetFunction("random", random);
@@ -707,7 +710,6 @@ namespace Metro
             //int timer = 0;
             while (n < minDataTable.Count)
             {
-
                 //long elapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
                 //TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
                 //Console.WriteLine(Math.Floor(elapsedSpan.TotalMinutes));
@@ -729,7 +731,11 @@ namespace Metro
 
                 if (CommandEnable)
                 {
-                  
+                    // CurrentPosition
+                    GetCursorPos(ref mPoint);
+                    interpreter = interpreter.SetVariable("CurrentPosition_X", (int)mPoint.X);
+                    interpreter = interpreter.SetVariable("CurrentPosition_Y", (int)mPoint.Y);
+
                     Mat matTemplate = null, matTarget = null;
                     Boolean err = false;
                     try
