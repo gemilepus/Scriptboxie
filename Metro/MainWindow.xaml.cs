@@ -396,7 +396,7 @@ namespace Metro
 
             mNotifyIcon.Icon = OnIcon;
             mNotifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            ToolStripItem mToolStripItem = mNotifyIcon.ContextMenuStrip.Items.Add("", null, this.notifyIcon_Close_Click);
+            ToolStripItem mToolStripItem = mNotifyIcon.ContextMenuStrip.Items.Add("Close Menu", null, this.notifyIcon_Close_Click);
             mToolStripItem.Image = Properties.Resources.x;
             mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Visit_Website").ToString(), null, this.notifyIcon_Visit_Click);
             mNotifyIcon.ContextMenuStrip.Items.Add("-");
