@@ -1472,7 +1472,7 @@ namespace Metro
                                     // test stop msg
                                     SystemSounds.Hand.Play();
 
-                                    System.Windows.Forms.MessageBox.Show("[Error] Line " + (n + 1).ToString() + "\nMessage: " + e.Message, "Scriptboxie",
+                                    System.Windows.Forms.MessageBox.Show("[Error] Message: " + e.Message, "Scriptboxie",
                                         System.Windows.Forms.MessageBoxButtons.OK,
                                         MessageBoxIcon.Error, MessageBoxDefaultButton.Button1,
                                         System.Windows.Forms.MessageBoxOptions.DefaultDesktopOnly);
@@ -2328,6 +2328,8 @@ namespace Metro
             {
                 (MainTable)item
             };
+            uMainTable[0].Enable = true;
+            uMainTable[0].Event = "";
 
             uThread = new Thread(() =>
                 {
@@ -2565,6 +2567,7 @@ namespace Metro
                         btn.Content = btnlist[i];
                         btn.Background = new SolidColorBrush(Colors.Orange);
                         btn.Foreground = new SolidColorBrush(Colors.DarkRed);
+                        btn.ToolTip = "Test a step.";
                         btn.Click += new RoutedEventHandler(ToolbarBtn_Click);
 
                         ToolBar.Items.Add(btn);
@@ -2685,20 +2688,26 @@ namespace Metro
             int columnIndex = mDataGrid.Columns.IndexOf(mDataGrid.CurrentCell.Column);
             if (columnIndex < 0) { return; }
 
-            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
+            if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action") || mDataGrid.Columns[columnIndex].Header.ToString().Equals("#"))
             {
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
                 try
                 {
                     if (tableIndex < mDataTable.Count())
                     {
-                        DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
-                        FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
-                        System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
-                        System.Windows.Controls.Button mButton = (System.Windows.Controls.Button)sender;
-                        System.Windows.Controls.TextBox mTextBlock = (System.Windows.Controls.TextBox)cell.Content;
+                        if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action")){
+                            DataGridCellInfo cellInfo = mDataGrid.CurrentCell;
+                            FrameworkElement cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+                            System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
+                            System.Windows.Controls.Button mButton = (System.Windows.Controls.Button)sender;
+                            System.Windows.Controls.TextBox mTextBlock = (System.Windows.Controls.TextBox)cell.Content;
 
-                        mTextBlock.Text = mTextBlock.Text + mButton.Content;
+                            mTextBlock.Text = mTextBlock.Text + mButton.Content;
+                        }
+                        else {
+                            // Unit test
+                            UnitTest(mDataGrid.CurrentItem);
+                        }
                     }
                 }
                 catch (Exception err)
@@ -2709,11 +2718,6 @@ namespace Metro
                 {
                     ToolBar.Visibility = Visibility.Collapsed;
                 }
-            }
-            else if(mDataGrid.Columns[columnIndex].Header.ToString().Equals("#"))
-            {
-                // Unit test
-                UnitTest(mDataGrid.CurrentItem);
             }
         }
 
