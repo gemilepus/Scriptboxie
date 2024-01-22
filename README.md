@@ -95,6 +95,16 @@ If you like Scriptboxie, you can support it:
 - [Note](https://github.com/gemilepus/Scriptboxie/wiki/Note)
   - [Make hotkeys only work in specific windows](https://github.com/gemilepus/Scriptboxie/wiki/Note)
 
+<h1 align="center">Default functions & values</h1>
+
+Name | Explanation | Note
+---- | ---- | ---- 
+StartPosition_X | Starting X-axis position of the mouse | ex:move (StartPosition_X)(StartPosition_Y)
+StartPosition_Y | Starting Y-axis position of the mouse | 
+CurrentPosition_X | Current X-axis position of the mouse | 
+CurrentPosition_Y | Current Y-axis position of the mouse | 
+random(a,b) | Random Number between a and b | ex: random(1,100)
+
 
 <h1 align="center">Screenshots</h1>
 <p align="center">
