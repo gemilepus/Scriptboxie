@@ -2885,7 +2885,8 @@ namespace Metro
             }
             else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("#"))
             {
-                if (mDataGrid.EnableRowVirtualization == false) {
+                // disable
+                if (mDataGrid.EnableRowVirtualization == false && false) {
                     DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(mDataGrid.Items.IndexOf(mDataGrid.CurrentItem));
 
                     System.Windows.Controls.DataGridCell cell = mDataGrid.Columns[0].GetCellContent(row).Parent as System.Windows.Controls.DataGridCell;
