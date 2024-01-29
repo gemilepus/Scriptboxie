@@ -97,13 +97,13 @@ If you like Scriptboxie, you can support it:
 
 <h1 align="center">Default functions & values</h1>
 
-Name | Explanation | Note
+Name | Explanation | Example
 ---- | ---- | ---- 
-`StartPosition_X` | Starting X-axis position of the mouse | ex:Move `{StartPosition_X},{StartPosition_Y}`
+`StartPosition_X` | Starting X-axis position of the mouse | Move `{StartPosition_X},{StartPosition_Y}`
 `StartPosition_Y` | Starting Y-axis position of the mouse | 
 `CurrentPosition_X` | Current X-axis position of the mouse | 
 `CurrentPosition_Y` | Current Y-axis position of the mouse | 
-`random(a,b)` | Random Number between a and b | ex: Calc `x = random(1,100)`
+`random(a,b)` | Random Number between a and b | Calc `x = random(1,100)`
 
 <h1 align="center">Screenshots</h1>
 <p align="center">
