@@ -690,6 +690,8 @@ namespace Metro
 
             SortedList mDoSortedList = new SortedList();
             SortedList KeyActionList = new SortedList();
+            SortedList ShortKeyActionList = new SortedList();
+            SortedList MouseActionList = new SortedList();
 
             Interpreter interpreter = new Interpreter();
             // StartPostion
@@ -836,39 +838,39 @@ namespace Metro
                                     CommandData = CommandData.Trim().ToUpper();
                                     if (CommandData.Equals("LEFT"))
                                     {
-                                        if (KeyActionList.IndexOfKey("LEFT_DOWN") == -1) KeyActionList.Add("LEFT_DOWN", "");
+                                        if (MouseActionList.IndexOfKey("LEFT_DOWN") == -1) MouseActionList.Add("LEFT_DOWN", "");
                                         mInputSimulator.Mouse.LeftButtonDown();
                                         Thread.Sleep(200);
                                         mInputSimulator.Mouse.LeftButtonUp();
-                                        if (KeyActionList.IndexOfKey("LEFT_DOWN") != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey("LEFT_DOWN"));
+                                        if (MouseActionList.IndexOfKey("LEFT_DOWN") != -1) MouseActionList.RemoveAt(MouseActionList.IndexOfKey("LEFT_DOWN"));
                                     }
                                     if (CommandData.Equals("LEFT_DOWN"))
                                     {
-                                        if (KeyActionList.IndexOfKey("LEFT_DOWN") == -1) KeyActionList.Add("LEFT_DOWN", "");
+                                        if (MouseActionList.IndexOfKey("LEFT_DOWN") == -1) MouseActionList.Add("LEFT_DOWN", "");
                                         mInputSimulator.Mouse.LeftButtonDown();
                                     }
                                     if (CommandData.Equals("LEFT_UP"))
                                     {
                                         mInputSimulator.Mouse.LeftButtonUp();
-                                        if (KeyActionList.IndexOfKey("LEFT_DOWN") != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey("LEFT_DOWN"));
+                                        if (MouseActionList.IndexOfKey("LEFT_DOWN") != -1) MouseActionList.RemoveAt(MouseActionList.IndexOfKey("LEFT_DOWN"));
                                     }
                                     if (CommandData.Equals("RIGHT"))
                                     {
-                                        if (KeyActionList.IndexOfKey("RIGHT_DOWN") == -1) KeyActionList.Add("RIGHT_DOWN", "");
+                                        if (MouseActionList.IndexOfKey("RIGHT_DOWN") == -1) MouseActionList.Add("RIGHT_DOWN", "");
                                         mInputSimulator.Mouse.RightButtonDown();
                                         Thread.Sleep(200);
                                         mInputSimulator.Mouse.RightButtonUp();
-                                        if (KeyActionList.IndexOfKey("RIGHT_DOWN") != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey("RIGHT_DOWN"));
+                                        if (MouseActionList.IndexOfKey("RIGHT_DOWN") != -1) MouseActionList.RemoveAt(MouseActionList.IndexOfKey("RIGHT_DOWN"));
                                     }
                                     if (CommandData.Equals("RIGHT_DOWN"))
                                     {
-                                        if (KeyActionList.IndexOfKey("RIGHT_DOWN") == -1) KeyActionList.Add("RIGHT_DOWN", "");
+                                        if (MouseActionList.IndexOfKey("RIGHT_DOWN") == -1) MouseActionList.Add("RIGHT_DOWN", "");
                                         mInputSimulator.Mouse.RightButtonDown();
                                     }
                                     if (CommandData.Equals("RIGHT_UP"))
                                     {
                                         mInputSimulator.Mouse.RightButtonUp();
-                                        if (KeyActionList.IndexOfKey("RIGHT_DOWN") != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey("RIGHT_DOWN"));
+                                        if (MouseActionList.IndexOfKey("RIGHT_DOWN") != -1) MouseActionList.RemoveAt(MouseActionList.IndexOfKey("RIGHT_DOWN"));
                                     }
                                 }
 
@@ -1087,12 +1089,12 @@ namespace Metro
                                             if (Command.Equals("SendKeyDown"))
                                             {
                                                 ky.SendKeyDown(value);
-                                                if (KeyActionList.IndexOfKey(value) == -1) KeyActionList.Add(value, "SendKeyDown");
+                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
 
                                             }
                                             else {
                                                 ky.SendKeyUp(value);
-                                                if (KeyActionList.IndexOfKey(value) != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey(value));
+                                                if (ShortKeyActionList.IndexOfKey(value) != -1) ShortKeyActionList.RemoveAt(ShortKeyActionList.IndexOfKey(value));
                                             }
                                         }
                                     }
@@ -1438,11 +1440,18 @@ namespace Metro
                         {
                             foreach (DictionaryEntry list in KeyActionList)
                             {
-                                if(list.Value.Equals("SendKeyDown")) ky.SendKeyUp((short)list.Key);
                                 if (list.Value.Equals("Key")) mInputSimulator.Keyboard.KeyUp((VirtualKeyCode)list.Key);
+                            }
+                            foreach (DictionaryEntry list in ShortKeyActionList)
+                            {
+                                if (list.Value.Equals("SendKeyDown")) ky.SendKeyUp((short)list.Key);
+                            }
+                            foreach (DictionaryEntry list in MouseActionList)
+                            {
                                 if (list.Key.Equals("LEFT_DOWN")) mInputSimulator.Mouse.LeftButtonUp();
                                 if (list.Key.Equals("RIGHT_DOWN")) mInputSimulator.Mouse.RightButtonUp();
                             }
+                            
 
                             mInputSimulator = null;
                             ky = null;
