@@ -3014,13 +3014,13 @@ namespace Metro
             {
                 TestMode = true;
                 mSettingHelper.TestMode = "1";
-                mDataGrid.EnableRowVirtualization = false;
+                //mDataGrid.EnableRowVirtualization = false;
             }
             else
             {
                 TestMode = false;
                 mSettingHelper.TestMode = "0";
-                mDataGrid.EnableRowVirtualization = true;
+                //mDataGrid.EnableRowVirtualization = true;
             }
         }
 
