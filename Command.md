@@ -25,7 +25,7 @@ MODE | EVENT | ACTION | NOTE
   * @Type
 
 > Empty: direct invalidate it \
-> Type: can use PUSH,then remove the first data for event.The event will be invalidated if all the data is removed
+> Type: can use `PUSH`,then remove the first data for event.The event will be invalidated if all the data is removed
 
 * Example
   * `RemoveEvent`
@@ -36,8 +36,8 @@ MODE | EVENT | ACTION | NOTE
 
 ### ⭐`Match,Match&Draw`
 > match and get image point \
-> Match RGB:If your target needs to be distinguished by color,using this will have a better effect \
-> Match&Draw will be marked on the screen,just for test
+> Match RGB: If your target needs to be distinguished by color,using this will have a better effect \
+> Match&Draw: will be marked on the screen,just for test
 
 * Action
   * @Path
@@ -46,7 +46,7 @@ MODE | EVENT | ACTION | NOTE
   * @Path,@X,@Y,@Width,@Height,@Threshold
 
 > Path: image file path,use .png format \
-> Threshold: 0.8~1.0(def 0.9) \
+> Threshold: `0.8`~`1.0`(def 0.9) \
 > X: start point x value \
 > Y: start point y value
 
@@ -75,7 +75,7 @@ MODE | EVENT | ACTION | NOTE
 * Action
   * @Formulas
 
-> Formulas: like x = 0,x = x + 1,operators can use + - * /
+> Formulas: like `x = 0`,`x = x + 1`,operators can use `+` `-` `*` `/`
 
 * Example
   * `Calc` `x = 0`
@@ -84,7 +84,7 @@ MODE | EVENT | ACTION | NOTE
   * `Calc` `text = "DOC" + x`
   * `Calc` `y = y + random(0,10)`
 
-> You can use these values outside of Calc by entering them like {value}.Example:
+> You can use these values outside of Calc by entering them like `{value}`.Example:
 
 MODE | ACTION
 ------ | --------
@@ -99,8 +99,7 @@ MODE | ACTION
 * Action
   * @Formulas
 
-> Formulas: like x > 1.operators can use == !=(equality),< > >=(relational),&&(conditional AND),||(conditional OR)
-> Y: screen point y value \
+> Formulas: like `x > 1`.operators can use `==` `!=`(equality),`<` `>` `>=`(relational),`&&`(conditional AND),`||`(conditional OR)
 > Empty:if set Event,it can use image matching point
 
 * Example
@@ -137,21 +136,6 @@ MODE | ACTION
 
 * Example
   * `Offset` `+10,-20`
-  * `Offset` `+100,0`
-
-***
-
-### ⭐`Offset`
-> 
-
-* Action
-  * @X,@Y
-
-> X: move x value \
-> Y: move y value
-
-* Example
-  * `Offset` `+10,-20`
   * `Offset` `100,0`
 
 ***
@@ -162,7 +146,7 @@ MODE | ACTION
 * Action
   * @Action
 
-> Action: use Left,Right,Left_Down,Left_Up,Right_Down,Right_Up
+> Action: use `Left`,`Right`,`Left_Down`,`Left_Up`,`Right_Down`,`Right_Up`
 
 * Example
   * `Click` `Left_Down`
@@ -175,7 +159,7 @@ MODE | ACTION
 * Action
   * @Key
 
-> Key: key value , can use A~Z 0~9 F1~F12...
+> Key: key value , can use `A`~`Z` `0`~`9` `F1`~`F12`...
 
 * Example
   * `SendKeyDown` `RIGHT`
@@ -191,8 +175,8 @@ MODE | ACTION
   * @Key,@Type
   * @Key,@Time
 
-> Key: key in value , can use A~Z 0~9 F1~F12 WIN ...... \
-> Type: Down or Up \
+> Key: key in value , can use `A`~`Z` `0`~`9` `F1`~`F12` `WIN` ...... \
+> Type: `Down` or `Up` \
 > Time: ms,1000 ms=1 second , the time keydown to keyup
 
 * Example
@@ -208,7 +192,7 @@ MODE | ACTION
 * Action
   * @Key
 
-> Key: input like `modifier key|key,modifier` key use `CTRL,ALT,SHIFT`...
+> Key: input like `modifier key|key,modifier` key use `CTRL`,`ALT`,`SHIFT`...
 
 * Example
   * `ModifierKey` `CTRL|V`
