@@ -158,7 +158,7 @@ MODE | ACTION
 * Action
   * @Key
 
-> Key: key value , can use `A`~`Z` `0`~`9` `F1`~`F12`...
+> Key: key value , can use `A` ~ `Z`,`0` ~ `9`,`F1` ~ `F12`...
 
 * Example
   * `SendKeyDown` `RIGHT`
@@ -174,7 +174,7 @@ MODE | ACTION
   * @Key,@Type
   * @Key,@Time
 
-> Key: key in value , can use `A`~`Z` `0`~`9` `F1`~`F12` `WIN` ...... \
+> Key: key in value , can use `A` ~ `Z`,`0` ~ `9`,`F1` ~ `F12`,`WIN` ...... \
 > Type: `Down` or `Up` \
 > Time: ms,1000 ms=1 second , the time keydown to keyup
 
