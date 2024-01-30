@@ -100,7 +100,6 @@ MODE | ACTION
   * @Formulas
 
 > Formulas: like `x > 1`.operators can use `==` `!=`(equality),`<` `>` `>=`(relational),`&&`(conditional AND),`||`(conditional OR)
-> Empty:if set Event,it can use image matching point
 
 * Example
   * `Calc-Check` `x == 0`
