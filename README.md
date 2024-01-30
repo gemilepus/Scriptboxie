@@ -47,7 +47,7 @@ English | [中文](Doc/README.zh-tw.md)
  <img align="center" alt="Edit" src="Doc/doc3.png" />
 </p>
 
-<h1 align="center">Command Documentation</h1>
+<h1 align="center">Documentation</h1>
 
 Available at <https://github.com/gemilepus/Scriptboxie/blob/master/Command.md>
 or
