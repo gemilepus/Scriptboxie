@@ -2577,7 +2577,6 @@ namespace Metro
                         btn.Content = btnlist[i];
                         btn.Background = new SolidColorBrush(Colors.Orange);
                         btn.Foreground = new SolidColorBrush(Colors.DarkRed);
-                        btn.ToolTip = "Test a step.";
                         btn.Click += new RoutedEventHandler(ToolbarBtn_Click);
 
                         ToolBar.Items.Add(btn);
