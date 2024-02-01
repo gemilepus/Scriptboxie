@@ -1111,12 +1111,6 @@ namespace Metro
                                     break;
                                 }
 
-                                // For example CTRL-ALT-SHIFT-ESC-K which is simulated as
-                                // CTRL-down, ALT-down, SHIFT-down, press ESC, press K, SHIFT-up, ALT-up, CTRL-up
-                                //mInputSimulator.Keyboard.ModifiedKeyStroke(
-                                //  new[] { VirtualKeyCode.CONTROL, VirtualKeyCode.MENU, VirtualKeyCode.SHIFT },
-                                //  new[] { VirtualKeyCode.ESCAPE, VirtualKeyCode.VK_K });
-
                                 String[] KeyStr = CommandData.ToUpper().Split('|');
                                 String[] ModifierKeyArr = KeyStr[0].Split(',');
                                 String[] KeyArr = KeyStr[1].Split(',');
@@ -1778,7 +1772,14 @@ namespace Metro
             {
                 if (!tag_name.ToString().Equals(""))
                 {
-                    NewVersion.Text = NewVersion.Text + " " + tag_name;
+                    if (int.Parse(tag_name.ToString().Replace("v", "").Replace(".", ""))
+                        < int.Parse(System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion.Replace("v", "").Replace(".", "")))
+                    {
+                        NewVersion.Text = "Beta Version";
+                    }
+                    else {
+                        NewVersion.Text = NewVersion.Text + " " + tag_name;
+                    }
                     NewVersion.Visibility = Visibility.Visible;
                 }
                
