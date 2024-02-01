@@ -441,6 +441,8 @@ namespace Metro
                 }
             }
 
+            UnitTest("Delay","100");
+
         }
 
         #region KListener
@@ -2326,7 +2328,7 @@ namespace Metro
             Ring.IsActive = false;
         }
 
-        private void UnitTest(object item)
+        private void UnitTest(string Mode,string Action)
         {
             if (uThread != null)
             {
@@ -2335,10 +2337,8 @@ namespace Metro
 
             List<MainTable> uMainTable = new List<MainTable>
             {
-                (MainTable)item
+                new MainTable() { Enable = true, Mode = Mode, Action = Action, Event = "", Note = "" }
             };
-            uMainTable[0].Enable = true;
-            uMainTable[0].Event = "";
 
             uThread = new Thread(() =>
                 {
@@ -2715,7 +2715,9 @@ namespace Metro
                         }
                         else {
                             // Unit test
-                            UnitTest(mDataGrid.CurrentItem);
+                            MainTable row = (MainTable)mDataGrid.CurrentItem;
+
+                            UnitTest(row.Mode, row.Action);
                         }
                     }
                 }
