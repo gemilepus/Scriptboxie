@@ -25,13 +25,14 @@
 
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="MahAppFlyout" Width="400" Opacity="0.9">
+            <Controls:Flyout x:Name="MahAppFlyout" Width="430" Opacity="0.9">
                 <markdig:MarkdownViewer x:Name="Viewer">
                     <markdig:MarkdownViewer.Resources>
                         <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading1StyleKey}">
                             <Setter Property="FontSize" Value="42" />
                             <Setter Property="Foreground" Value="White" />
                             <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize" Value="25" />
                         </Style>
                         <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading3StyleKey}">
                             <Setter Property="FontSize" Value="18" />
@@ -45,17 +46,10 @@
                             <Setter Property="Padding" Value="16,0,0,0" />
                         </Style>
                         <Style TargetType="{x:Type Run}" x:Key="{x:Static markdig:Styles.CodeStyleKey}">
-                            <Setter Property="Background" Value="#ff838383" />
+                            <Setter Property="Background" Value="#ff636363" />
                         </Style>
                     </markdig:MarkdownViewer.Resources>
                 </markdig:MarkdownViewer>
-                <!--<ScrollViewer>
-                    <TextBlock Width = "350" Margin = "5px" ScrollViewer.CanContentScroll="True">
-                         <Frame x:Name="mFrame"
-                                NavigationUIVisibility="Hidden">
-                         </Frame>
-                    </TextBlock>
-                </ScrollViewer>-->
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
