@@ -8,6 +8,7 @@
                       Height="400"
                       Width="800"             
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
                       Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" Deactivated="MetroWindow_Deactivated"
                       SizeChanged="MetroWindow_SizeChanged" LostKeyboardFocus="MetroWindow_LostKeyboardFocus" GotKeyboardFocus="_Window_GotKeyboardFocus">
 
@@ -24,14 +25,37 @@
 
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="MahAppFlyout" Width="350" Opacity="0.9">
-                <ScrollViewer>
+            <Controls:Flyout x:Name="MahAppFlyout" Width="400" Opacity="0.9">
+                <markdig:MarkdownViewer x:Name="Viewer">
+                    <markdig:MarkdownViewer.Resources>
+                        <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading1StyleKey}">
+                            <Setter Property="FontSize" Value="42" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Style>
+                        <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading3StyleKey}">
+                            <Setter Property="FontSize" Value="18" />
+                            <Setter Property="Foreground" Value="Yellow" />
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Style>
+                        <Style TargetType="{x:Type Section}" x:Key="{x:Static markdig:Styles.QuoteBlockStyleKey}">
+                            <Setter Property="BorderBrush" Value="LightGray" />
+                            <Setter Property="BorderThickness" Value="4,0,0,0" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Padding" Value="16,0,0,0" />
+                        </Style>
+                        <Style TargetType="{x:Type Run}" x:Key="{x:Static markdig:Styles.CodeStyleKey}">
+                            <Setter Property="Background" Value="#ff838383" />
+                        </Style>
+                    </markdig:MarkdownViewer.Resources>
+                </markdig:MarkdownViewer>
+                <!--<ScrollViewer>
                     <TextBlock Width = "350" Margin = "5px" ScrollViewer.CanContentScroll="True">
                          <Frame x:Name="mFrame"
                                 NavigationUIVisibility="Hidden">
                          </Frame>
                     </TextBlock>
-                </ScrollViewer>
+                </ScrollViewer>-->
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>

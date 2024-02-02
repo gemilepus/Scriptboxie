@@ -40,7 +40,8 @@ using DynamicExpresso;
 using NUnit.Framework;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
-using System.Windows.Controls.Primitives;   
+using System.Windows.Controls.Primitives;
+using System.Reflection;
 
 namespace Metro
 {
@@ -443,6 +444,14 @@ namespace Metro
 
             UnitTest("Delay","100");
 
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Command.md")); ;
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+                Viewer.Markdown = result;
+            }
         }
 
         #region KListener
@@ -3055,7 +3064,7 @@ namespace Metro
             dict.Source = new Uri(@"..\Resources\StringResources." + lang + ".xaml", UriKind.Relative);
             System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
 
-            mFrame.Navigate(new System.Uri(@"..\Resources\ModeDocument_"+ lang.Replace("-","") + ".xaml", UriKind.RelativeOrAbsolute));
+            //mFrame.Navigate(new System.Uri(@"..\Resources\ModeDocument_"+ lang.Replace("-","") + ".xaml", UriKind.RelativeOrAbsolute));
         }
 
         private string CheckUpdate()
