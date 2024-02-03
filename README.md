@@ -49,7 +49,7 @@ English | [中文](Doc/README.zh-tw.md)
 
 <h1 align="center">Documentation</h1>
 
-Available at <https://github.com/gemilepus/Scriptboxie/blob/master/Command.md>
+Available at <https://github.com/gemilepus/Scriptboxie/blob/master/Metro/Resources/Command.md>
 or
 <p align="center">
  <img align="center" alt="Edit" src="Doc/documentation.png" />
