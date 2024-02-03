@@ -199,7 +199,8 @@ MODE | ACTION
 ***
         
 ### ⭐`WriteClipboard`
-> Set text data to clipboard
+> Set text data to clipboard. \
+> Can be used with CTRL+V for text input.
 
 * Action
   * @Text
@@ -282,7 +283,10 @@ MODE | ACTION
 
 * Action
   * @Path
-> Path: sound file path,use .wav format
+  * Empty
+
+> Path: sound file path,use .wav format \
+> Empty: default sound
 
 * Example
   * `PlaySound` `sound.wav`
