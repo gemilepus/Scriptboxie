@@ -1,71 +1,34 @@
 # [How to use EVENT]
 
-* 1.The concept is that dark red command(You can see the color distinction in the drop-down list of MODE) can generate events,and others receive events.Command can bound to event and executed according to whether that is established or not.
-* 2.After the Event is established, it will always exist.You can use RemoveEvent to invalidate it
-* 3.Event name can be named freely
+* 1.The concept is that dark red command(You can see the color distinction in the drop-down list of `MODE`) can generate events,and others receive events.Command can bound to event and executed according to whether that is established or not.
+* 2.After the `Event` is established, it will always exist.You can use `RemoveEvent` to invalidate it
+* 3.`Event` name can be named freely
 
-### ex:
+>Example:
 
-MODE | EVENT | ACTION | NOTE
+`MODE` | `EVENT` | `ACTION` | NOTE
 ------ | -------- | -------- | --------
-`Match` | `Event1` | `s.png` | 
-`Click` | `Event1` | `Left` | 
-`RemoveEvent` | `Event1` |  | 
+`Match` | `Event1` | `s.png` | generate event
+`Click` | `Event1` | `Left` | receive event
+`RemoveEvent` | `Event1` |  | invalidate it
 `RemoveEvent` | `Event1,Event2` |  | can multiple
 `RemoveEvent` |  |  | empty means all
 
 # [Mode Document]
-> Explain what to input in the ACTION column
-        
-### ⭐`RemoveEvent`
-> If you want invalidate Event, use this.
-
-* Action
-  * Empty
-  * @Type
-
-> Empty: direct invalidate it \
-> Type: can use `PUSH`,then remove the first data for event.The event will be invalidated if all the data is removed
-
-* Example
-  * `RemoveEvent`
-  * `RemoveEvent` `PUSH`
+> Explain what to input in the `ACTION` column
 
 ***
 
-
-### ⭐`Match,Match&Draw`
-> match and get image point \
-> Match RGB: If your target needs to be distinguished by color,using this will have a better effect \
-> Match&Draw: will be marked on the screen,just for test
+### ⭐`Click`
+> Mouse click
 
 * Action
-  * @Path
-  * @Path,@Threshold
-  * @Path,@X,@Y,@Width,@Height
-  * @Path,@X,@Y,@Width,@Height,@Threshold
+  * @Action
 
-> Path: image file path,use .png format \
-> Threshold: `0.8`~`1.0`(def 0.9) \
-> X: start point x value \
-> Y: start point y value
+> Action: use `Left`,`Right`,`Left_Down`,`Left_Up`,`Right_Down`,`Right_Up`
 
 * Example
-  * `Match` `apple.png`
-  * `Match` `apple.png,500,500,1420,580`
-
-***
-
-### ⭐`RandomTrigger`
-> random trigger Event
-
-* Action
-  * @Percentage
-
-> Percentage: 1~100 %,1 = 1% chance trigger Event
-
-* Example
-  * `RandomTrigger` `33`
+  * `Click` `Left_Down`
 
 ***
 
@@ -107,62 +70,51 @@ MODE | ACTION
 
 ***
 
-### ⭐`Move`
-> Move to screen point
+### ⭐`Clear Screen`
+>Clear marked on the screen
 
 * Action
-  * @X,@Y
   * Empty
 
-> X: screen point x value \
-> Y: screen point y value \
-> Empty:if set Event,it can use image matching point
-
 * Example
-  * `Move` `500,600`
-  * `Move` `0,0`
+  * `Clear Screen`
 
 ***
 
-### ⭐`Offset`
-> 
+### ⭐`Delay`
+> Repeatedly execute
 
 * Action
-  * @X,@Y
+  * @Time
 
-> X: move x value \
-> Y: move y value
+> Time: ms,1000 ms=1 second
 
 * Example
-  * `Offset` `+10,-20`
-  * `Offset` `100,0`
+  * `Delay` `1000`
 
 ***
 
-### ⭐`Click`
-> keyboard input(for Game)
+### ⭐`Goto`
+>Go to number of line
 
 * Action
-  * @Action
-
-> Action: use `Left`,`Right`,`Left_Down`,`Left_Up`,`Right_Down`,`Right_Up`
+  * @Number
+> Number: number of line
 
 * Example
-  * `Click` `Left_Down`
+  * `Goto` `20`
 
 ***
 
-### ⭐`SendKeyDown`,`SendKeyUp`
-> keyboard input(for Game)
+### ⭐`Jump`
+>Jump number of line
 
 * Action
-  * @Key
-
-> Key: key value , can use `A` ~ `Z`,`0` ~ `9`,`F1` ~ `F12`...
+  * @Number
+> Number: number of line
 
 * Example
-  * `SendKeyDown` `RIGHT`
-  * `SendKeyUp` `RIGHT`
+  * `Jump` `-3`
 
 ***
 
@@ -184,46 +136,6 @@ MODE | ACTION
   * `key` `LEFT`
 
 ***
-            
-### ⭐`ModifierKey`
-> Modifier key
-
-* Action
-  * @Key
-
-> Key: input like `modifier key|key,modifier` key use `CTRL`,`ALT`,`SHIFT`...
-
-* Example
-  * `ModifierKey` `CTRL|V`
-
-***
-        
-### ⭐`WriteClipboard`
-> Set text data to clipboard. \
-> Can be used with CTRL+V for text input.
-
-* Action
-  * @Text
-
-> Text: text data to clipboard
-
-* Example
-  * `WriteClipboard` `Hello!`
-
-***
-
-### ⭐`Delay`
-> Repeatedly execute
-
-* Action
-  * @Time
-
-> Time: ms,1000 ms=1 second
-
-* Example
-  * `Delay` `1000`
-
-***
 
 ### ⭐`Loop`
 > Repeatedly execute
@@ -240,41 +152,86 @@ MODE | ACTION
 
 ***
 
-### ⭐`Jump`
->Jump number of line
+### ⭐`Move`
+> Move to screen point
 
 * Action
-  * @Number
-> Number: number of line
+  * @X,@Y
+  * Empty
+
+> X: screen point x value \
+> Y: screen point y value \
+> Empty:if set Event,it can use image matching point
 
 * Example
-  * `Jump` `-3`
+  * `Move` `500,600`
+  * `Move` `0,0`
 
 ***
 
-### ⭐`Goto`
->Go to number of line
+### ⭐`ModifierKey`
+> Modifier key
 
 * Action
-  * @Number
-> Number: number of line
+  * @Key
+
+> Key: input like `modifier key|key,modifier` key use `CTRL`,`ALT`,`SHIFT`...
 
 * Example
-  * `Goto` `20`
+  * `ModifierKey` `CTRL|V`
 
 ***
 
-### ⭐`Run .exe`
->
+### ⭐`Match,Match&Draw`
+> match and get image point \
+> Match RGB: If your target needs to be distinguished by color,using this will have a better effect \
+> Match&Draw: will be marked on the screen,just for test
 
 * Action
   * @Path
-> Path: .exe Path
+  * @Path,@Threshold
+  * @Path,@X,@Y,@Width,@Height
+  * @Path,@X,@Y,@Width,@Height,@Threshold
+
+> Path: image file path,use .png format \
+> Threshold: `0.8`~`1.0`(def 0.9) \
+> X: start point x value \
+> Y: start point y value
 
 * Example
-  * `Run .exe` `C:\Users\Metro.exe`
-  * `Run .exe` `C:\Program Files (x86)\......\chrome.exe -incognito`
-  * `Run .exe` `CMD.exe /c C:\test.bat`
+  * `Match` `apple.png`
+  * `Match` `apple.png,500,500,1420,580`
+
+***
+
+### ⭐`RemoveEvent`
+> If you want invalidate `Event`, use this.
+
+* Action
+  * Empty
+  * @Type
+
+> Empty: direct invalidate it \
+> Type: can use `PUSH`,then remove the first data for event.The event will be invalidated if all the data is removed
+
+* Example
+  * `RemoveEvent`
+  * `RemoveEvent` `PUSH`
+
+***
+
+### ⭐`Offset`
+> 
+
+* Action
+  * @X,@Y
+
+> X: move x value \
+> Y: move y value
+
+* Example
+  * `Offset` `+10,-20`
+  * `Offset` `100,0`
 
 ***
 
@@ -293,15 +250,57 @@ MODE | ACTION
 
 ***
 
-### ⭐`Clear Screen`
->Clear marked on the screen
+### ⭐`RandomTrigger`
+> random trigger Event
 
 * Action
-  * Empty
+  * @Percentage
+
+> Percentage: 1~100 %,1 = 1% chance trigger Event
 
 * Example
-  * `Clear Screen`
+  * `RandomTrigger` `33`
 
+***
 
+### ⭐`Run .exe`
+>
 
+* Action
+  * @Path
+> Path: .exe Path
 
+* Example
+  * `Run .exe` `C:\Users\Metro.exe`
+  * `Run .exe` `C:\Program Files (x86)\......\chrome.exe -incognito`
+  * `Run .exe` `CMD.exe /c C:\test.bat`
+
+***
+
+### ⭐`SendKeyDown`,`SendKeyUp`
+> keyboard input(for Game)
+
+* Action
+  * @Key
+
+> Key: key value , can use `A` ~ `Z`,`0` ~ `9`,`F1` ~ `F12`...
+
+* Example
+  * `SendKeyDown` `RIGHT`
+  * `SendKeyUp` `RIGHT`
+
+***
+        
+### ⭐`WriteClipboard`
+> Set text data to clipboard. \
+> Can be used with CTRL+V for text input.
+
+* Action
+  * @Text
+
+> Text: text data to clipboard
+
+* Example
+  * `WriteClipboard` `Hello!`
+
+***
