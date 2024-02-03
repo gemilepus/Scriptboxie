@@ -4,7 +4,7 @@
 * 2.After the `Event` is established, it will always exist.You can use `RemoveEvent` to invalidate it
 * 3.`Event` name can be named freely
 
->Example:
+> Example:
 
 `MODE` | `EVENT` | `ACTION` | NOTE
 ------ | -------- | -------- | --------
@@ -33,7 +33,7 @@
 ***
 
 ### ⭐`Calc(Calculator)`
-> to do the math
+> To do the math
 
 * Action
   * @Formulas
@@ -47,7 +47,8 @@
   * `Calc` `text = "DOC" + x`
   * `Calc` `y = y + random(0,10)`
 
-> You can use these values outside of Calc by entering them like `{value}`.Example:
+> You can use these values outside of Calc by entering them like `{value}`.
+> Example:
 
 MODE | ACTION
 ------ | --------
@@ -57,7 +58,7 @@ MODE | ACTION
 ***
 
 ### ⭐`Calc-Check`
-> check values.If it is true, the Event establish,otherwise is not
+> Check values.If it is true, the Event establish,otherwise is not
 
 * Action
   * @Formulas
@@ -71,7 +72,7 @@ MODE | ACTION
 ***
 
 ### ⭐`Clear Screen`
->Clear marked on the screen
+> Clear marked on the screen
 
 * Action
   * Empty
@@ -118,8 +119,8 @@ MODE | ACTION
 
 ***
 
-### ⭐`key`
-> keyboard input
+### ⭐`Key`
+> Keyboard input
 
 * Action
   * @Key
@@ -161,7 +162,7 @@ MODE | ACTION
 
 > X: screen point x value \
 > Y: screen point y value \
-> Empty:if set Event,it can use image matching point
+> Empty: If set `Event`,it can use image matching point
 
 * Example
   * `Move` `500,600`
@@ -183,7 +184,7 @@ MODE | ACTION
 ***
 
 ### ⭐`Match,Match&Draw`
-> match and get image point \
+> Match and get image point \
 > Match RGB: If your target needs to be distinguished by color,using this will have a better effect \
 > Match&Draw: will be marked on the screen,just for test
 
@@ -251,7 +252,7 @@ MODE | ACTION
 ***
 
 ### ⭐`RandomTrigger`
-> random trigger Event
+> Random trigger Event
 
 * Action
   * @Percentage
@@ -278,7 +279,7 @@ MODE | ACTION
 ***
 
 ### ⭐`SendKeyDown`,`SendKeyUp`
-> keyboard input(for Game)
+> Keyboard input(for Game)
 
 * Action
   * @Key
