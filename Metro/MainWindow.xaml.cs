@@ -445,8 +445,7 @@ namespace Metro
             UnitTest("Delay","100");
 
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Command.md")); ;
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (Stream stream = assembly.GetManifestResourceStream("Metro.Resources.Documentation.md"))
             using (StreamReader reader = new StreamReader(stream))
             {
                 string result = reader.ReadToEnd();

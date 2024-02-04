@@ -433,7 +433,7 @@
     <Resource Include="img\globe.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Command.md" />
+    <EmbeddedResource Include="Resources\Documentation.md" />
     <None Include="Resources\x.bmp" />
   </ItemGroup>
   <ItemGroup>
