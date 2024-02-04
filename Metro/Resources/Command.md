@@ -14,7 +14,7 @@
 `RemoveEvent` | `Event1,Event2` |  | can multiple
 `RemoveEvent` |  |  | empty means all
 
-# [Mode Document]
+# [Documentation]
 > Explain what to input in the `ACTION` column
 
 ***
