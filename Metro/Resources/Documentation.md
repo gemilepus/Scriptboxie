@@ -237,7 +237,7 @@ MODE | ACTION
 ***
 
 ### ⭐`PlaySound`
->Go to number of line
+> Play sound
 
 * Action
   * @Path
