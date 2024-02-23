@@ -326,6 +326,19 @@
                             </DataTemplate>
 
                         </DataGrid.Resources>
+                        
+                        <DataGrid.RowStyle>
+                            <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=flag}" Value="true">
+                                        <Setter Property="Background" Value="#84FF6800"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=flag}" Value="false">
+                                        <Setter Property="Background" Value="Transparent"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
 
                         <DataGrid.Columns>
                             <!--<DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=(ItemsControl.AlternationIndex)}"/>-->

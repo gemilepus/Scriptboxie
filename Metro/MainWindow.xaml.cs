@@ -1552,11 +1552,15 @@ namespace Metro
                 // TestMode
                 if (wParam.ToString().Substring(0, 1).Equals("8"))
                 {
+                   
+
                     DataGridRow row = (DataGridRow)mDataGrid.ItemContainerGenerator.ContainerFromIndex(LastNumber);
                     if (row != null)
                     {
-                        SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 255, 255));
-                        row.Background = brush;
+                        //SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 255, 255));
+                        //row.Background = brush;
+
+                        mDataTable[LastNumber].flag = false;
                     }
 
                     int number = int.Parse(wParam.ToString().Substring(1, 4));
@@ -1564,9 +1568,13 @@ namespace Metro
                     if (row != null)
                     {
                         LastNumber = number;
-                        SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 104, 0));
-                        row.Background = brush;
+                        //SolidColorBrush brush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 104, 0));
+                        //row.Background = brush;
+
+                        mDataTable[number].flag = true;
                     }
+                    mDataGrid.DataContext = null;
+                    mDataGrid.DataContext = mDataTable;
                 }
 
                 // Update Thread status

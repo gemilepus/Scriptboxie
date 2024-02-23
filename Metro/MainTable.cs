@@ -13,5 +13,6 @@ namespace Metro
         public string Action { get; set; }
         public string Event { get; set; }
         public string Note { get; set; }
+        public bool flag { get; set; }
     }
 }
