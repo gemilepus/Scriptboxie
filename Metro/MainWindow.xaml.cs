@@ -42,6 +42,8 @@ using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls.Primitives;
 using System.Reflection;
+using System.Data;
+using System.Web.UI.WebControls;
 
 namespace Metro
 {
@@ -1565,8 +1567,8 @@ namespace Metro
                         LastNumber = number;
                         mDataTable[number].flag = true;
                     }
-                    mDataGrid.DataContext = null;
-                    mDataGrid.DataContext = mDataTable;
+
+                    mDataGrid.Items.Refresh();
                 }
 
                 // Update Thread status
@@ -2442,7 +2444,7 @@ namespace Metro
             }
 
         }
-        private async void Btn_Save_as_Click(object sender, RoutedEventArgs e) // async
+        private async void Btn_Save_as_Click(object sender, RoutedEventArgs e)
         {
             Btn_ON.Content = "OFF";
             Btn_ON.Foreground = System.Windows.Media.Brushes.Red;
@@ -2464,7 +2466,7 @@ namespace Metro
 
             try
             {
-                string JSON_String = JsonSerializer.Serialize(mDataTable);
+                string JSON_String = JsonSerializer.Serialize(mDataTable.Select(i => new { i.Enable, i.Mode, i.Action, i.Event, i.Note }).ToList());
                 JSON_String = JSON_String.Insert(1, "\n");
                 JSON_String = JSON_String.Insert(JSON_String.Length - 1, "\n");
                 JSON_String = JSON_String.Replace("\"},", "\"},\n");
@@ -2501,12 +2503,11 @@ namespace Metro
             }
             try
             {
-                string JSON_String = JsonSerializer.Serialize(mDataTable);
+                string JSON_String = JsonSerializer.Serialize(mDataTable.Select(i => new { i.Enable, i.Mode, i.Action, i.Event, i.Note }).ToList());
                 JSON_String = JSON_String.Insert(1, "\n");
                 JSON_String = JSON_String.Insert(JSON_String.Length-1, "\n");
                 JSON_String = JSON_String.Replace("\"},", "\"},\n");
 
-                
                 System.IO.File.WriteAllText(result, JSON_String);
                 mEdit.ModifiedTime = mEdit.GetModifiedTime(result);
 
