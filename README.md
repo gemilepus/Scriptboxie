@@ -1,5 +1,5 @@
 <p align="center">
-<img width="128" align="center" src="Metro/package.ico" />
+<img width="96" align="center" src="Metro/package.ico" />
 </p>
 
 <h1 align="center">Scriptboxie</h1>
