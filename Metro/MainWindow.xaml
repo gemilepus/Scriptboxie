@@ -14,9 +14,21 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" Width="45" FontWeight="Bold"
-                    ToolTip="{DynamicResource Btn_ON_Tooltip}" ToolTipService.InitialShowDelay="300"/>
-            <Button Name="Btn_About" Click="Btn_About_Click" Content="{DynamicResource About}"/>
+            <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" Width="45" FontWeight="Bold" ToolTip="{DynamicResource Btn_ON_Tooltip}" ToolTipService.InitialShowDelay="300">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Light}">
+                        <Style.Triggers>
+                            <Trigger Property="Foreground" Value="Red">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="Foreground" Value="White">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+                    <Button Name="Btn_About" Click="Btn_About_Click" Content="{DynamicResource About}"/>
             <ToggleButton Content="{DynamicResource Help}" IsChecked="{Binding ElementName=MahAppFlyout, Path=IsOpen}" Cursor="Hand" />
             <TextBox x:Name="TextBox_Title" Width="100" Margin="5px" TextChanged="TextBox_Title_TextChanged" 
                      ToolTip="{DynamicResource TextBox_Title_Tooltip}" ToolTipService.InitialShowDelay="300"/>
