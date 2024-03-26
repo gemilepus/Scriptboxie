@@ -83,7 +83,7 @@ MODE | ACTION
 ***
 
 ### ⭐`Delay`
-> Repeatedly execute
+> 
 
 * Action
   * @Time

@@ -28,7 +28,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-                    <Button Name="Btn_About" Click="Btn_About_Click" Content="{DynamicResource About}"/>
+            <Button Name="Btn_About" Click="Btn_About_Click" Content="{DynamicResource About}"/>
             <ToggleButton Content="{DynamicResource Help}" IsChecked="{Binding ElementName=MahAppFlyout, Path=IsOpen}" Cursor="Hand" />
             <TextBox x:Name="TextBox_Title" Width="100" Margin="5px" TextChanged="TextBox_Title_TextChanged" 
                      ToolTip="{DynamicResource TextBox_Title_Tooltip}" ToolTipService.InitialShowDelay="300"/>
