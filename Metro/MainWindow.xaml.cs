@@ -136,8 +136,11 @@ namespace Metro
                 else
                     MKeyList.Add(e.Button.ToString() + "_" + "Down", "");
 
-                if (mDataTable[mDataTable.Count() - 1].Mode.Equals("Delay"))
-                    mDataTable[mDataTable.Count() - 1].Action = (int.Parse(mDataTable[mDataTable.Count() - 1].Action) + (int)DelayTime / 2).ToString();
+                if (mDataTable[mDataTable.Count() - 1].Mode.Equals("Delay")) {
+                    int oValue = 0;
+                    int.TryParse(mDataTable[mDataTable.Count() - 1].Action, out oValue);
+                    mDataTable[mDataTable.Count() - 1].Action = (oValue + (int)DelayTime / 2).ToString();
+                }
                 else
                     mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
 
