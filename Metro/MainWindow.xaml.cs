@@ -2767,11 +2767,12 @@ namespace Metro
 
         private void mDataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (e.VerticalChange != 0)
+            if (Math.Abs(e.VerticalChange) > 1)
             {
                 ToolBar.Visibility = Visibility.Collapsed;
             }
         }
+
 
         private void mDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
