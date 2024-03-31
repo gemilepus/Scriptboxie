@@ -2724,6 +2724,9 @@ namespace Metro
                             System.Windows.Controls.TextBox mTextBlock = (System.Windows.Controls.TextBox)cell.Content;
 
                             mTextBlock.Text = mTextBlock.Text + mButton.Content;
+
+                            cell.IsEditing = false;
+                            CellEditComplete();
                         }
                         else {
                             // Unit test
