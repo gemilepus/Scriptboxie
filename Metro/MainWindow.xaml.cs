@@ -2696,6 +2696,11 @@ namespace Metro
                     if (cell != null)
                     {
                         System.Windows.Point screenCoordinates = cell.TransformToAncestor(EditGrid).Transform(new System.Windows.Point(0, 0));
+
+                        if (_Window.Height - screenCoordinates.Y < 140) // buttom row
+                        {
+                            screenCoordinates.Y = screenCoordinates.Y - 30;
+                        }
                         ToolBar.Margin = new Thickness(0, screenCoordinates.Y - 30, screenCoordinates.X, 0);
                     }
                 }
