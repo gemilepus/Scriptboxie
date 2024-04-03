@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Scriptboxie</h1>
-<p align="center">Scriptboxie allows you to effortlessly manage and craft scripts. Can be used to streamline repetitive and time-consuming tasks.</p>
+<p align="center">Scriptboxie allows you to effortlessly manage and create scripts. Can be used to streamline repetitive and time-consuming tasks.</p>
 
 
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
