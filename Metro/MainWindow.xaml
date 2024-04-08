@@ -434,6 +434,7 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         
         <TextBlock><Run FontSize="16" Foreground="Black" Text="{DynamicResource Website}"></Run> <Run FontSize="16" Foreground="Black">(Github)</Run></TextBlock>
@@ -443,13 +444,15 @@
 
         <TextBlock Grid.Row="1" Grid.Column="1"><Run FontSize="12" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run></TextBlock>
         
-        <TextBlock Grid.Row="2"><Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(Paypal)</Run></TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="1"><Hyperlink NavigateUri="https://paypal.me/gemilepus?locale.x=en_US" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">                     
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2"><Run FontSize="16" Foreground="Black">If you like Scriptboxie, you can support it:</Run></TextBlock>
+        
+        <TextBlock Grid.Row="3"><Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(Paypal)</Run></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="1"><Hyperlink NavigateUri="https://paypal.me/gemilepus?locale.x=en_US" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">                     
             <Image Height="25" Source="img/palpay.png" />         
         </Hyperlink></TextBlock>
         
-        <TextBlock  Grid.Row="3">  <Run FontSize="16" Foreground="Black" Text="Donate   "></Run><Run FontSize="16" Foreground="Black">(ko-fi)</Run></TextBlock>
-        <TextBlock  Grid.Row="3" Grid.Column="1"><Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">                        
+        <TextBlock  Grid.Row="4">  <Run FontSize="16" Foreground="Black" Text="Donate   "></Run><Run FontSize="16" Foreground="Black">(ko-fi)</Run></TextBlock>
+        <TextBlock  Grid.Row="4" Grid.Column="1"><Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">                        
             <Image Height="25" Source="img/kofi.png" />       
         </Hyperlink></TextBlock>
         
