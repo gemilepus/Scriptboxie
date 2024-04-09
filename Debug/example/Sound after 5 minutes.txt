@@ -1,0 +1,14 @@
+[
+{"Enable":true,"Mode":"Calc","Action":"minute=5","Event":"","Note":"5 minute"},
+{"Enable":true,"Mode":"Calc","Action":"x=0","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc","Action":"x=x\u002B1","Event":"","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"60000","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc-Check","Action":"x==minute","Event":"TimeIsUp","Note":""},
+{"Enable":true,"Mode":"Jump","Action":"1","Event":"TimeIsUp","Note":""},
+{"Enable":true,"Mode":"Goto","Action":"3","Event":"","Note":""},
+{"Enable":true,"Mode":"PlaySound","Action":"","Event":"","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"1000","Event":"","Note":""},
+{"Enable":true,"Mode":"PlaySound","Action":"","Event":"","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"1000","Event":"","Note":""},
+{"Enable":true,"Mode":"PlaySound","Action":"","Event":"","Note":""}
+]
