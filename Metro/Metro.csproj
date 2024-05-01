@@ -92,8 +92,8 @@
     <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.2.4.10\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
-    <Reference Include="Markdig, Version=0.22.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Markdig.0.22.0\lib\net452\Markdig.dll</HintPath>
+    <Reference Include="Markdig, Version=0.37.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdig.0.37.0\lib\net462\Markdig.dll</HintPath>
     </Reference>
     <Reference Include="Markdig.Wpf, Version=0.5.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Markdig.Wpf.0.5.0.1\lib\net452\Markdig.Wpf.dll</HintPath>
