@@ -430,7 +430,21 @@ namespace Metro
                 this.Hide();
             }
 
-            // test
+            UnitTest("Delay","100");
+
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream("Metro.Resources.Documentation.md"))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+                Viewer.Markdown = result;
+            }
+
+            //mTest();
+        }
+
+        private void mTest()
+        {
             ManagementObjectSearcher objvida = new ManagementObjectSearcher("select * from Win32_VideoController ");
             string VC = String.Empty, DI = String.Empty;
             foreach (ManagementObject obj in objvida.Get())
@@ -445,16 +459,6 @@ namespace Metro
                         Console.WriteLine("DeviceID: " + DI + ",Description: " + VC);
                     }
                 }
-            }
-
-            UnitTest("Delay","100");
-
-            var assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream("Metro.Resources.Documentation.md"))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
-                Viewer.Markdown = result;
             }
         }
 
@@ -1014,7 +1018,6 @@ namespace Metro
                                 //string keyChar = kc.ConvertToString("A");
                                 #endregion
 
-                                //***************** InputSimulator *****************
                                 if (CommandData.Substring(0, 1).Equals(",")){
                                     Regex regex = new Regex(Regex.Escape(","));
                                     CommandData = regex.Replace(CommandData, "OEM_COMMA", 1);
@@ -1072,9 +1075,6 @@ namespace Metro
                                         mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
                                     }
                                 }
-                                //mInputSimulator.Keyboard.KeyPress((VirtualKeyCode)ConvertHelper.ConvertCharToVirtualKey(c));
-                                //VirtualKeyCode myEnum = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), "Enter");
-                                //***************** InputSimulator *****************
 
                                 break;
 
@@ -1150,9 +1150,6 @@ namespace Metro
                                 }
 
                                 mInputSimulator.Keyboard.ModifiedKeyStroke(ModifierKeyCodeArr, KeyCodeArr);
-
-                                //mInputSimulator.Keyboard.ModifiedKeyStroke(VirtualKeyCode.MENU, VirtualKeyCode.TAB);
-                                //mInputSimulator.Keyboard.ModifiedKeyStroke((VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode("MENU"), (VirtualKeyCode)ConvertHelper.StringToVirtualKeyCode("TAB"));
 
                                 break;
 
@@ -1304,20 +1301,16 @@ namespace Metro
                                         Thread.Sleep(50);
                                     }
 
-
-                                    //Process[] processlist = Process.GetProcesses();
-
-                                    //string titleText = "";
-                                    //foreach (Process process in processlist)
-                                    //{
-                                    //    if (!String.IsNullOrEmpty(process.MainWindowTitle))
-                                    //    {
-                                    //        Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
-                                    //        titleText += process.MainWindowTitle.ToString();
-                                    //    }
-                                    //}
-
-                                    ////System.Windows.MessageBox.Show(titleText);
+                                    Process[] processlist = Process.GetProcesses();
+                                    string titleText = "";
+                                    foreach (Process process in processlist)
+                                    {
+                                        if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                                        {
+                                            Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                                            titleText += process.MainWindowTitle.ToString();
+                                        }
+                                    }
                                 }
                                 else
                                 {
