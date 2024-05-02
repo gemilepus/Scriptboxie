@@ -330,7 +330,6 @@
     <Compile Include="Util\Edit.cs" />
     <Compile Include="Util\Overlay.cs" />
     <Compile Include="Util\Keyboard.cs" />
-    <Compile Include="Util.cs" />
     <Compile Include="V.cs" />
     <Compile Include="EditTable.cs" />
     <Compile Include="MainTable.cs" />
