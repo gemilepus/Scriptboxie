@@ -28,10 +28,10 @@
     <system:String x:Key="Hide_on_start_Option">Hide on start :</system:String>
     <system:String x:Key="Test_Mode_Option">Test Mode :</system:String>
     <system:String x:Key="Test_Mode_Tooltip">The script being edited will delayed for a period of time  every step and mark the running step.</system:String>
+    <system:String x:Key="Test_Delay">Test Delay(ms):</system:String>
     <system:String x:Key="Topmost_Option">Topmost :</system:String>
     <system:String x:Key="Website">Website</system:String>
     <system:String x:Key="Website_Note">If you don't know how to use this, you can go to this website to have a look</system:String>
-
 
     <system:String x:Key="File_exists">File already exists!</system:String>
     <system:String x:Key="Save_could_not_be_completed">Save could not be completed!</system:String>

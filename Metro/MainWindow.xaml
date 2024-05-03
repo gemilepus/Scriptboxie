@@ -515,7 +515,7 @@
         
         <TextBlock Grid.Row="2"><Run FontSize="16" Foreground="Black" Text="{DynamicResource Test_Mode_Option}"></Run></TextBlock>                         
         <Controls:ToggleSwitch Grid.Row="2" Grid.Column="1" Toggled="TestMode_Toggle_Toggled" Name="TestMode_Toggle" Height="28" ToolTip="{DynamicResource Test_Mode_Tooltip}" ToolTipService.InitialShowDelay="300" Margin="0,-5,0,0"></Controls:ToggleSwitch>
-        <TextBlock Grid.Row="2" Grid.Column="2" Margin="-60,0,0,0"><Run FontSize="16" Foreground="Black" Text="Test Delay(ms):"></Run></TextBlock>   
+        <TextBlock Grid.Row="2" Grid.Column="2" Margin="-60,0,0,0"><Run FontSize="16" Foreground="Black" Text="{DynamicResource Test_Delay}"></Run></TextBlock>   
         <Slider Grid.Row="2" Grid.Column="3" x:Name="TestMode_Slider" ValueChanged="TestMode_Slider_ValueChanged"  Height="20" Width="150" Maximum="5000" IsSnapToTickEnabled="True" TickFrequency="100" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="70,0,0,0"></Slider>
 
     </Grid>
