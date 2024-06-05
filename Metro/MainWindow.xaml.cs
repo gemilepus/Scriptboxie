@@ -911,9 +911,13 @@ namespace Metro
 
                                     if (MatchArr.Length > 2)
                                     {
-                                        matTarget = BitmapConverter.ToMat(makeScreenshot_clip(
-                                            int.Parse(MatchArr[1]), int.Parse(MatchArr[2]),
-                                            int.Parse(MatchArr[4]), int.Parse(MatchArr[3])));
+                                        Bitmap screenshot = new Bitmap(int.Parse(MatchArr[3]), int.Parse(MatchArr[4]));
+                                        Graphics gfxScreenshot = Graphics.FromImage(screenshot);
+                                        gfxScreenshot.CopyFromScreen(int.Parse(MatchArr[1]), int.Parse(MatchArr[2]), 0, 0, screenshot.Size);//x,y
+                                        matTarget = BitmapConverter.ToMat(screenshot);
+
+                                        gfxScreenshot.Dispose();
+                                        screenshot.Dispose();
 
                                         if (MatchArr.Length > 5)
                                         {
