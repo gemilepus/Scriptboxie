@@ -180,7 +180,8 @@ MODE | ACTION
 
 * Example
   * `ModifierKey` `CTRL|V`
-
+  * `ModifierKey` `WIN,SHIFT|S`
+  
 ***
 
 ### ⭐`Match,Match&Draw`
