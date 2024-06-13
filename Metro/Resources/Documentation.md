@@ -176,7 +176,7 @@ MODE | ACTION
 * Action
   * @Key
 
-> Key: input like `modifier key|key,modifier` key use `CTRL`,`ALT`,`SHIFT`...
+> Key: input like `modifier key|key`,modifier key use `CTRL`,`ALT`,`SHIFT`...
 
 * Example
   * `ModifierKey` `CTRL|V`
