@@ -187,7 +187,7 @@ MODE | ACTION
 ### ⭐`Match,Match&Draw`
 > Match and get image point \
 > Match RGB: If your target needs to be distinguished by color,using this will have a better effect \
-> Match&Draw: will be marked on the screen,just for test
+> Match&Draw: will be marked on the screen,just for test.(Not recommended to use, because it will affect the screen.)
 
 * Action
   * @Path
