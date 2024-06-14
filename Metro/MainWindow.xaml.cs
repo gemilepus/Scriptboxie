@@ -297,8 +297,9 @@ namespace Metro
 
             // Combobox List
             List<string> mList = new List<string>() {
+                "Delay",
                 "Move","Offset","Click", 
-                "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard","Delay",
+                "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard",
                 "Calc","Calc-Check",
                 "Match","Match RGB","Match&Draw","RandomTrigger",
                 "RemoveEvent","Jump","Goto","Loop",
@@ -2647,6 +2648,18 @@ namespace Metro
                         break;
                     case "RemoveEvent":
                         btnlist = new string[] { "PUSH" };
+                        break;
+                    case "ModifierKey":
+                        txtlist = new string[] { "EX: "};
+                        btnlist = new string[] { "CTRL|A", "CTRL|C", "CTRL|V", "WIN,SHIFT|S" };
+                        break;
+                    case "Delay":
+                        txtlist = new string[] { "EX: " };
+                        btnlist = new string[] { "200", "1000" };
+                        break;
+                    case "Key":
+                        txtlist = new string[] { "EX: " };
+                        btnlist = new string[] { "A,Down", "A,Up" ,"F5"};
                         break;
                     case "Match":
                     case "Match RGB":
