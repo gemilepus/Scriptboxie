@@ -2683,6 +2683,7 @@ namespace Metro
                     label.Content = txtlist[i];
                     label.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(240, 240, 240, 240));
                     label.Foreground = new SolidColorBrush(Colors.Red);
+                    label.VerticalContentAlignment = VerticalAlignment.Center;
                     ToolBar.Items.Add(label);
                 }
 
