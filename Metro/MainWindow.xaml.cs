@@ -144,8 +144,36 @@ namespace Metro
                 else
                     mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
 
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime/2).ToString(), Event = "", Note = "" });
+                bool IsMouseMove = false;
+                for (int i = mDataTable.Count() - 1; i >= 0; i--)
+                {
+                    switch (mDataTable[i].Mode)
+                    {
+                        case "Offset":
+                            IsMouseMove = true;
+                            i = -1;
+                            break;
+                        case "Move":
+                            if (!mDataTable[i].Action.Equals(now_x.ToString() + "," + now_y.ToString()))
+                            {
+                                IsMouseMove = true;
+                            }
+                            i = -1;
+                            break;
+                    }
+                    if (i == 0 || (mDataTable.Count() - i) == 20 && i != -1) IsMouseMove = true;
+                }
+                if (IsMouseMove) mDataTable.Add(new MainTable() { Enable = true, Mode = "Move", Action = now_x.ToString() + "," + now_y.ToString(), Event = "", Note = "" });
+
+                if (mDataTable[mDataTable.Count() - 1].Mode.Equals("Delay"))
+                {
+                    int oValue = 0;
+                    int.TryParse(mDataTable[mDataTable.Count() - 1].Action, out oValue);
+                    mDataTable[mDataTable.Count() - 1].Action = (oValue + (int)DelayTime / 2).ToString();
+                }
+                else
+                    mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime / 2).ToString(), Event = "", Note = "" });
+
                 mDataTable.Add(new MainTable() { Enable = true, Mode = "Click", Action = e.Button.ToString() + "_" + type, Event = "", Note = "" });
               
             }
@@ -249,9 +277,12 @@ namespace Metro
 
                 if (mKeyCode.IndexOf("Oem") == -1)
                 {
-                   
-                    if (mDataTable[mDataTable.Count() - 1].Mode.Equals("Delay"))
-                        mDataTable[mDataTable.Count() - 1].Action = (int.Parse(mDataTable[mDataTable.Count() - 1].Action) + (int)DelayTime).ToString();
+
+                    if (mDataTable[mDataTable.Count() - 1].Mode.Equals("Delay")) {
+                        int oValue = 0;
+                        int.TryParse(mDataTable[mDataTable.Count() - 1].Action, out oValue);
+                        mDataTable[mDataTable.Count() - 1].Action = (oValue + (int)DelayTime).ToString();
+                    }
                     else
                         mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = ((int)DelayTime).ToString(), Event = "", Note = "" });
 
