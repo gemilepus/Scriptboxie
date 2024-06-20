@@ -2564,6 +2564,10 @@ namespace Metro
             Stop_script();
         }
 
+        private void ScriptName_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(ScriptName.ToolTip.ToString());
+        }
 
         #endregion
 
