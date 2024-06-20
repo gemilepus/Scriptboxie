@@ -332,7 +332,7 @@ namespace Metro
                 "Move","Offset","Click", 
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard",
                 "Calc","Calc-Check",
-                "Match","Match RGB","Match&Draw","RandomTrigger",
+                "Match","Match RGB","Match&Draw","RandomTrigger","Overtime",
                 "RemoveEvent","Jump","Goto","Loop",
                 "Run .exe","PlaySound","Clear Screen"
                 //"PostMessage","FindWindow",
@@ -734,6 +734,8 @@ namespace Metro
 
         private void Script(List<MainTable> minDataTable,string Mode)
         {
+            string mStartTime = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+
             InputSimulator mInputSimulator = new InputSimulator();
             Keyboard ky = new Keyboard();
             ConvertHelper ConvertHelper = new ConvertHelper();
@@ -758,15 +760,9 @@ namespace Metro
             interpreter = interpreter.SetFunction("random", random);
 
             int n = 0; int LoopCount = 0;
-            //DateTime centuryBegin = new DateTime(2001, 1, 1);
-            //DateTime currentDate = DateTime.Now;
             //int timer = 0;
             while (n < minDataTable.Count)
             {
-                //long elapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
-                //TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
-                //Console.WriteLine(Math.Floor(elapsedSpan.TotalMinutes));
-
                 if (Mode.Equals("Debug") && TestMode)
                 {
                     int number = 80000;
@@ -1432,6 +1428,27 @@ namespace Metro
                                     {
                                         if ((bool)interpreter.Eval(CommandData))
                                         {
+                                            mDoSortedList.Add(Event[0], "");
+                                        }
+                                    }
+                                }
+
+                                break;
+
+                            case "Overtime":
+
+                                if (Event.Length != 0)
+                                {
+                                    if (V.Get_EventValue(mDoSortedList, Event[0]) == null)
+                                    {
+                                        string mNow = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+
+                                        string mOver = DateTime.Now.ToString("yyyyMMdd");
+                                        mOver += (CommandData + "000");
+
+                                        if (double.Parse(mNow) > double.Parse(mOver) && double.Parse(mOver) > double.Parse(mStartTime))
+                                        {
+                                            mStartTime = mNow;
                                             mDoSortedList.Add(Event[0], "");
                                         }
                                     }
