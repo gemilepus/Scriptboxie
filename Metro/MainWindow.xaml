@@ -223,7 +223,7 @@
                                                     <Trigger Property="DataContext" Value="RandomTrigger">
                                                         <Setter Property="Source" Value="img/random.png"/>
                                                     </Trigger>
-                                                    <Trigger Property="DataContext" Value="Overtime">
+                                                    <Trigger Property="DataContext" Value="AlarmClock">
                                                         <Setter Property="Source" Value="img/random.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Calc">
@@ -323,9 +323,9 @@
                                                         <Setter Property="Foreground" Value="DarkRed"/>
                                                         <Setter Property="Text" Value="RandomTrigger" />
                                                     </Trigger>
-                                                    <Trigger Property="DataContext" Value="Overtime">
+                                                    <Trigger Property="DataContext" Value="AlarmClock">
                                                         <Setter Property="Foreground" Value="DarkRed"/>
-                                                        <Setter Property="Text" Value="Overtime" />
+                                                        <Setter Property="Text" Value="AlarmClock" />
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Calc">
                                                         <Setter Property="Foreground" Value="Black"/>

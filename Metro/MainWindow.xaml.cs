@@ -332,7 +332,7 @@ namespace Metro
                 "Move","Offset","Click", 
                 "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard",
                 "Calc","Calc-Check",
-                "Match","Match RGB","Match&Draw","RandomTrigger","Overtime",
+                "Match","Match RGB","Match&Draw","RandomTrigger","AlarmClock",
                 "RemoveEvent","Jump","Goto","Loop",
                 "Run .exe","PlaySound","Clear Screen"
                 //"PostMessage","FindWindow",
@@ -1435,7 +1435,7 @@ namespace Metro
 
                                 break;
 
-                            case "Overtime":
+                            case "AlarmClock":
 
                                 if (Event.Length != 0)
                                 {
@@ -1446,7 +1446,7 @@ namespace Metro
                                         string mOver = DateTime.Now.ToString("yyyyMMdd");
                                         mOver += (CommandData + "000");
 
-                                        if (double.Parse(mNow) > double.Parse(mOver) && double.Parse(mOver) > double.Parse(mStartTime))
+                                        if (double.Parse(mNow) >= double.Parse(mOver) && double.Parse(mOver) >= double.Parse(mStartTime))
                                         {
                                             mStartTime = mNow;
                                             mDoSortedList.Add(Event[0], "");
