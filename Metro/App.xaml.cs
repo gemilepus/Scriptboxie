@@ -32,6 +32,14 @@ namespace Metro
         {
             _mutex?.Close();
         }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message, "Scriptboxie", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 
 }
