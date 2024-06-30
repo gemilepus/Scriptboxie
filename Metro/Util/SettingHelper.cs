@@ -165,7 +165,7 @@ namespace Metro
             TestMode_Delay = int.Parse(data["Def"]["TestMode_Delay"]);
         }
 
-        public void End(MainWindow MainWindow)
+        public void Save(MainWindow MainWindow)
         {
             var parser = new FileIniDataParser();
             IniData data = new IniData();

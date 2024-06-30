@@ -1444,7 +1444,7 @@ namespace Metro
                                         string mNow = DateTime.Now.ToString("yyyyMMddHHmmssfff");
 
                                         string mOver = DateTime.Now.ToString("yyyyMMdd");
-                                        mOver += (CommandData + "000");
+                                        mOver += (CommandData.Replace(":","") + "000");
 
                                         if (double.Parse(mNow) >= double.Parse(mOver) && double.Parse(mOver) >= double.Parse(mStartTime))
                                         {
@@ -1848,7 +1848,7 @@ namespace Metro
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             UnKListener();
-            mSettingHelper.End(this);
+            mSettingHelper.Save(this);
 
             // Stop all thread
             for (int i = 0; i < _workerThreads.Count; i++)
