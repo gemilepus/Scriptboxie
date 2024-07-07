@@ -1,0 +1,10 @@
+[
+{"Enable":true,"Mode":"Delay","Action":"200","Event":"","Note":""},
+{"Enable":true,"Mode":"Move","Action":"100,100","Event":"","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"200","Event":"","Note":""},
+{"Enable":true,"Mode":"Move","Action":"200,200","Event":"","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"200","Event":"","Note":""},
+{"Enable":true,"Mode":"Move","Action":"300,300","Event":"","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"200","Event":"","Note":""},
+{"Enable":true,"Mode":"Move","Action":"{StartPosition_X},{StartPosition_Y}","Event":"","Note":""}
+]
