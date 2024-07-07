@@ -1,0 +1,10 @@
+[
+{"Enable":true,"Mode":"Match","Action":"s.png","Event":"image","Note":"input image path"},
+{"Enable":true,"Mode":"Move","Action":"","Event":"image","Note":"set Event,it can use image matching point"},
+{"Enable":true,"Mode":"Click","Action":"Left_Down","Event":"image","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"300","Event":"image","Note":""},
+{"Enable":true,"Mode":"Click","Action":"Left_Up","Event":"image","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"1000","Event":"","Note":""},
+{"Enable":true,"Mode":"RemoveEvent","Action":"","Event":"image","Note":"remove Event"},
+{"Enable":true,"Mode":"Loop","Action":"","Event":"","Note":""}
+]

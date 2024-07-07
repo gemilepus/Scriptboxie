@@ -1,0 +1,13 @@
+[
+{"Enable":true,"Mode":"Delay","Action":"250","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc","Action":"x=0","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc","Action":"text=\u0022\u0022","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc","Action":"x=x\u002B1","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc","Action":"text=text\u002B\u0022 \u0022\u002Bx","Event":"","Note":""},
+{"Enable":true,"Mode":"Calc-Check","Action":"x==10","Event":"x=10","Note":""},
+{"Enable":true,"Mode":"Jump","Action":"1","Event":"x=10","Note":"stop at x=10"},
+{"Enable":true,"Mode":"Goto","Action":"4","Event":"","Note":""},
+{"Enable":true,"Mode":"WriteClipboard","Action":"{text}","Event":"","Note":""},
+{"Enable":true,"Mode":"ModifierKey","Action":"CTRL|A","Event":"","Note":"select all"},
+{"Enable":true,"Mode":"ModifierKey","Action":"CTRL|V","Event":"","Note":"paste text"}
+]

@@ -1,0 +1,8 @@
+[
+{"Enable":true,"Mode":"AlarmClock","Action":"15:00:00","Event":"TimeIsUp","Note":"HH:mm:ss"},
+{"Enable":true,"Mode":"PlaySound","Action":"","Event":"TimeIsUp","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"1000","Event":"TimeIsUp","Note":""},
+{"Enable":true,"Mode":"Delay","Action":"100","Event":"","Note":""},
+{"Enable":true,"Mode":"RemoveEvent","Action":"","Event":"","Note":""},
+{"Enable":true,"Mode":"Loop","Action":"","Event":"","Note":""}
+]
