@@ -1,7 +1,0 @@
-[
-{"Enable":true,"Mode":"AlarmClock","Action":"000000","Event":"A","Note":""},
-{"Enable":true,"Mode":"PlaySound","Action":"","Event":"A","Note":""},
-{"Enable":true,"Mode":"Delay","Action":"500","Event":"A","Note":""},
-{"Enable":true,"Mode":"RemoveEvent","Action":"","Event":"","Note":""},
-{"Enable":true,"Mode":"Loop","Action":"","Event":"","Note":""}
-]
