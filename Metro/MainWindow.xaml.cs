@@ -2695,6 +2695,9 @@ namespace Metro
 
                 switch (row.Mode)
                 {
+                    case "AlarmClock":
+                        txtlist = new string[] { "※ HH:mm:ss" };
+                        break;
                     case "Click":
                         btnlist = new string[] { "Left", "Right", "Left_Down", "Left_Up", "Right_Down", "Right_Up" };
                         break;

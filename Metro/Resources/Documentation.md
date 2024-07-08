@@ -19,6 +19,19 @@
 
 ***
 
+### ⭐`AlarmClock`
+> 
+
+* Action
+  * @Time
+
+> Time: HH:mm:ss
+
+* Example
+  * `AlarmClock` `13:30:00`
+
+***
+
 ### ⭐`Click`
 > Mouse click
 

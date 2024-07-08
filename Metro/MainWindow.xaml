@@ -224,7 +224,7 @@
                                                         <Setter Property="Source" Value="img/random.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="AlarmClock">
-                                                        <Setter Property="Source" Value="img/random.png"/>
+                                                        <Setter Property="Source" Value="img/alarmclock.png"/>
                                                     </Trigger>
                                                     <Trigger Property="DataContext" Value="Calc">
                                                         <Setter Property="Source" Value="img/Calc.png"/>
