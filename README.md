@@ -87,15 +87,6 @@ or
 | ------------- | ----------- |
 | refer to this picture to set :) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| [![][f6]][f6] Note:After the Event is established, it will always exist.You can use RemoveEvent to invalidate it |
 
-
-<h1 align="center">WIKI</h1>
-
-- [Example](https://github.com/gemilepus/Scriptboxie/wiki/Example)
-  - [Click all the button on the screen](https://github.com/gemilepus/Scriptboxie/wiki/Example#click-all-the-button-on-the-screen)
-  - [Mouse drag](https://github.com/gemilepus/Scriptboxie/wiki/Example#mouse-drag)
-- [Note](https://github.com/gemilepus/Scriptboxie/wiki/Note)
-  - [Make hotkeys only work in specific windows](https://github.com/gemilepus/Scriptboxie/wiki/Note)
-
 <h1 align="center">Default functions & values</h1>
 
 Name | Explanation | Example
@@ -111,6 +102,14 @@ Name | Explanation | Example
  <img align="center" alt="Edit" src="Doc/test.gif" />
  <img align="center" alt="Edit" src="Doc/test2.gif" />
 </p>
+
+<h1 align="center">WIKI</h1>
+
+- [Example](https://github.com/gemilepus/Scriptboxie/wiki/Example)
+  - [Click all the button on the screen](https://github.com/gemilepus/Scriptboxie/wiki/Example#click-all-the-button-on-the-screen)
+  - [Mouse drag](https://github.com/gemilepus/Scriptboxie/wiki/Example#mouse-drag)
+- [Note](https://github.com/gemilepus/Scriptboxie/wiki/Note)
+  - [Make hotkeys only work in specific windows](https://github.com/gemilepus/Scriptboxie/wiki/Note)
 
 ## Credits
 - MahApps.Metro - https://github.com/MahApps/MahApps.Metro
