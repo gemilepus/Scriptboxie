@@ -20,7 +20,7 @@
 ***
 
 ### ⭐`AlarmClock`
-> 
+> If the current time exceeds a specific time,the Event establish.
 
 * Action
   * @Time
@@ -71,7 +71,7 @@ MODE | ACTION
 ***
 
 ### ⭐`Calc-Check`
-> Check values.If it is true, the Event establish,otherwise is not
+> Check values.If it is true, the Event establish,otherwise is not.
 
 * Action
   * @Formulas
