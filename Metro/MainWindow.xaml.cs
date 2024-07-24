@@ -2581,7 +2581,7 @@ namespace Metro
             Stop_script();
         }
 
-        private void ScriptName_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Process.Start(ScriptName.ToolTip.ToString());
         }

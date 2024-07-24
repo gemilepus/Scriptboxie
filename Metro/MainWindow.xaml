@@ -412,9 +412,11 @@
                     <ToolBar Name="ToolBar" MinWidth="80" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0">
                         
                     </ToolBar>
-                    
+
                     <Controls:ToggleSwitch Toggled="Btn_Toggle_Click" ToolTip="{DynamicResource Record_Tooltip}" ToolTipService.InitialShowDelay="300" Name="Btn_Toggle" OffContent="Record Off" OnContent="Record ON" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
-                    <TextBlock Name="ScriptName" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150,0,0,3"  MouseLeftButtonDown="ScriptName_MouseLeftButtonDown"></TextBlock>
+                    <ContentControl MouseDoubleClick="ContentControl_MouseDoubleClick">
+                        <TextBlock Name="ScriptName" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150,0,0,3"></TextBlock>
+                    </ContentControl>
                     <Button DataContext="{Binding ElementName=_Window}" IsEnabled="{Binding Path= IsRecord}" Click="Btn_New_Click" Content="New" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,180,0" Grid.Column="1" />
                     <Button DataContext="{Binding ElementName=_Window}" IsEnabled="{Binding Path= IsRecord}" Click="Btn_open_Click" Content="Open" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Grid.Column="1" />
                     <Button DataContext="{Binding ElementName=_Window}" IsEnabled="{Binding Path= IsRecord}" Click="Btn_Save_Click" Name="Btn_Save" Content="Save" MinWidth="25" Width="50" Height="17" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0,0,60,0" Grid.Column="1"/>
