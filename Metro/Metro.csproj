@@ -57,7 +57,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>Metro.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>package.ico</ApplicationIcon>
