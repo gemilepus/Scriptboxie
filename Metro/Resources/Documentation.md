@@ -20,7 +20,7 @@
 ***
 
 ### ⭐`AlarmClock`
-> If the current time exceeds a specific time,the Event establish.
+> If the current time exceeds a specific time,the Event establish.Will only be established once a day.If the script is launched past a specific time, it will not take effect.
 
 * Action
   * @Time
