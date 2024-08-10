@@ -20,6 +20,18 @@ public class V
             EventValue = mSortedList.GetByIndex(mSortedList.IndexOfKey(Event)).ToString().Split(',');
         }
 
+        if (Event.StartsWith("(") && Event.EndsWith(")"))
+        {
+            if (EventValue == null)
+            {
+                EventValue = new string[1];
+            }
+            else {
+                EventValue = null;
+            }
+        }
+
+
         return EventValue;
     }
 
