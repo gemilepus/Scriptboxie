@@ -1834,7 +1834,7 @@ namespace Metro
                     if (int.Parse(tag_name.ToString().Replace("v", "").Replace(".", ""))
                         < int.Parse(System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion.Replace("v", "").Replace(".", "")))
                     {
-                        NewVersion.Text = "Beta Version";
+                        //NewVersion.Text = "Beta Version";
                     }
                     else {
                         NewVersion.Text = NewVersion.Text + " " + tag_name;
