@@ -1831,14 +1831,7 @@ namespace Metro
             {
                 if (!tag_name.ToString().Equals(""))
                 {
-                    if (int.Parse(tag_name.ToString().Replace("v", "").Replace(".", ""))
-                        < int.Parse(System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion.Replace("v", "").Replace(".", "")))
-                    {
-                        //NewVersion.Text = "Beta Version";
-                    }
-                    else {
-                        NewVersion.Text = NewVersion.Text + " " + tag_name;
-                    }
+                    NewVersion.Text = NewVersion.Text + " " + tag_name;
                     NewVersion.Visibility = Visibility.Visible;
                 }
                
