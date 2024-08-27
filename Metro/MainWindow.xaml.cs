@@ -317,161 +317,6 @@ namespace Metro
         {
             InitializeComponent();
 
-            for (int i=0; i< LangSplitButton.Items.Count; i++){
-                System.Windows.Controls.Label mLabel = (System.Windows.Controls.Label)LangSplitButton.Items[i];
-                if (mLabel.Tag.Equals(mSettingHelper.Language)) {
-                    LangSplitButton.SelectedIndex = i;
-                }
-            }
-
-            MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
-
-            // Combobox List
-            List<string> mList = new List<string>() {
-                "Delay",
-                "Move","Offset","Click", 
-                "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard",
-                "Calc","Calc-Check",
-                "Match","Match RGB","Match&Draw","RandomTrigger","AlarmClock",
-                "RemoveEvent","Jump","Goto","Loop",
-                "Run .exe","PlaySound","Clear Screen"
-                //"PostMessage","FindWindow",
-            };
-            mComboBoxColumn.ItemsSource = mList;
-
-            #region Load user.ini
-
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-
-            // Load Form location
-            Left = double.Parse(data["Def"]["x"]);
-            Top = double.Parse(data["Def"]["y"]);
-
-            // Load WindowTitle setting
-            TextBox_Title.Text = data["Def"]["WindowTitle"];
-
-            // Load ScaleX, ScaleY, OffsetX, OffsetY
-            ScaleX = float.Parse(data["Def"]["ScaleX"]);
-            ScaleY = float.Parse(data["Def"]["ScaleY"]);
-            OffsetX = int.Parse(data["Def"]["OffsetX"]);
-            OffsetY = int.Parse(data["Def"]["OffsetY"]);
-
-            // Load Script
-            if (!data["Def"]["Script"].Equals(""))
-            {
-                Load_Script(data["Def"]["Script"]);
-            }
-            else {
-                mDataGrid.DataContext = null;
-                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
-                mDataGrid.DataContext = mDataTable;
-                mEdit.StartEdit("");
-            }
-
-            #endregion
-
-            // Load Script setting
-            LoadScriptSetting();
-
-            // Load setting
-            OnOff_CrtlKey_Chk.IsChecked = mSettingHelper.OnOff_CrtlKey;
-            Run_CrtlKey_Chk.IsChecked = mSettingHelper.Run_CrtlKey;
-            Stop_CrtlKey_Chk.IsChecked = mSettingHelper.Stop_CrtlKey;
-
-            OnOff_AltKey_Chk.IsChecked = mSettingHelper.OnOff_AltKey;
-            Run_AltKey_Chk.IsChecked = mSettingHelper.Run_AltKey;
-            Stop_AltKey_Chk.IsChecked = mSettingHelper.Stop_AltKey;
-
-            TextBox_OnOff_Hotkey.Text = mSettingHelper.OnOff_Hotkey;
-            TextBox_Run_Hotkey.Text = mSettingHelper.Run_Hotkey;
-            TextBox_Stop_Hotkey.Text = mSettingHelper.Stop_Hotkey;
-
-            TypeOfKeyboardInput0.IsChecked = mSettingHelper.TypeOfKeyboardInput.Equals("Game") ? true : false;
-            TypeOfKeyboardInput1.IsChecked = !mSettingHelper.TypeOfKeyboardInput.Equals("Game") ? true : false;
-
-            // Load HideOnSatrt setting
-            HideOnSatrt_Toggle.IsOn = mSettingHelper.HideOnSatrt;
-
-            // Load TestMode setting
-            if (!mSettingHelper.TestMode.Equals("0"))
-            {
-                TestMode = true;
-                TestMode_Toggle.IsOn = true;
-            }
-            else {
-                TestMode = false;
-                TestMode_Toggle.IsOn = false;
-            }
-
-            TestMode_Delay = mSettingHelper.TestMode_Delay;
-            TestMode_Slider.Value = TestMode_Delay;
-
-            // Load Topmost setting
-            Top_Toggle.IsOn = mSettingHelper.Topmost;
-
-            KListener();
-
-            Main_GlobalKeyUpHook = Hook.GlobalEvents();
-            Main_GlobalKeyUpHook.KeyUp += Main_GlobalHookKeyUp;
-
-            // NotifyIcon
-            System.Drawing.Bitmap bitmap = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location).ToBitmap();
-            for (var y = 0; y < bitmap.Height; y++)
-            {
-                for (var x = 0; x < bitmap.Width; x++)
-                {
-                    if (bitmap.GetPixel(x, y).R > 240)
-                    {
-                        bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(255, 141, 60)); 
-                    }
-                }
-            }
-            IntPtr Hicon =bitmap.GetHicon();
-            OffIcon = System.Drawing.Icon.FromHandle(Hicon);
-            OnIcon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-            mNotifyIcon.Icon = OnIcon;
-            mNotifyIcon.ContextMenuStrip = new ContextMenuStrip();
-            ToolStripItem mToolStripItem = mNotifyIcon.ContextMenuStrip.Items.Add("Close Menu", null, this.notifyIcon_Close_Click);
-            mToolStripItem.Image = Properties.Resources.x;
-            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Visit_Website").ToString(), null, this.notifyIcon_Visit_Click);
-            mNotifyIcon.ContextMenuStrip.Items.Add("-");
-            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("HideShow").ToString(), null, this.notifyIcon_DoubleClick);
-            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Exit").ToString(), null, this.notifyIcon_Exit_Click);
-            mNotifyIcon.MouseUp += MouseUp;
-            mNotifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
-            mNotifyIcon.Visible = true;
-
-            if (!IsAdmin)
-            {
-                TextBlock_Please.Visibility = Visibility.Visible;
-            }
-
-            this.WindowState = WindowState.Minimized;
-            this.Show();
-            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-            source.AddHook(WndProc);
-
-            if (!mSettingHelper.HideOnSatrt)
-            {
-                this.WindowState = WindowState.Normal;
-            }
-            else {
-                this.Hide();
-            }
-
-            UnitTest("Delay","100");
-
-            var assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream("Metro.Resources.Documentation.md"))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
-                Viewer.Markdown = result;
-            }
-
             //mTest();
         }
 
@@ -1029,10 +874,43 @@ namespace Metro
                                 break;
 
                             case "Key":
+                            case "SendKeyDown":
+                            case "SendKeyUp":
 
                                 if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                 {
                                     break;
+                                }
+
+                                short value = 0;
+                                if (Command.Equals("SendKeyDown") || Command.Equals("SendKeyUp")) {
+
+
+                                    string SendKeyStr = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
+
+                                    if (SendKeyStr.Length == 1)
+                                    {
+                                        SendKeyStr = "KEY_" + SendKeyStr;
+                                    }
+
+                                    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
+                                    foreach (short enumValue in enumValueArray)
+                                    {
+                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(SendKeyStr))
+                                        {
+                                            value = enumValue;
+
+                                            if (Command.Equals("SendKeyDown"))
+                                            {
+                                                CommandData = CommandData + ",Down";
+
+                                            }
+                                            else
+                                            {
+                                                CommandData = CommandData + ",UP";
+                                            }
+                                        }
+                                    }
                                 }
 
                                 #region SendKeys
@@ -1071,19 +949,40 @@ namespace Metro
                                         if (mKey[1].Equals("DOWN"))
                                         {
                                             mInputSimulator.Keyboard.KeyDown(mKeyCode);
+                                            if (Command.Equals("SendKeyDown"))
+                                            {
+                                                ky.SendKeyDown(value);
+                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
+                                            }
+
                                             if (KeyActionList.IndexOfKey(mKeyCode) == -1) KeyActionList.Add(mKeyCode, "Key");
                                            
                                         }
                                         else if (mKey[1].Equals("UP"))
                                         {
                                             mInputSimulator.Keyboard.KeyUp(mKeyCode);
+                                            if (Command.Equals("SendKeyUp"))
+                                            {
+                                                ky.SendKeyUp(value);
+                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyUp");
+                                            }
 
                                             if (KeyActionList.IndexOfKey(mKeyCode) != -1)KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
                                         }
                                         else {
                                             mInputSimulator.Keyboard.KeyDown(mKeyCode);
+                                            if (Command.Equals("SendKeyDown"))
+                                            {
+                                                ky.SendKeyDown(value);
+                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
+                                            }
                                             KeyActionList.Add(mKeyCode, "Key");
                                             Thread.Sleep(int.Parse(mKey[1])); ;
+                                            if (Command.Equals("SendKeyUp"))
+                                            {
+                                                ky.SendKeyUp(value);
+                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyUp");
+                                            }
                                             mInputSimulator.Keyboard.KeyUp(mKeyCode);
 
                                             if (KeyActionList.IndexOfKey(mKeyCode) != -1)KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
@@ -1110,42 +1009,42 @@ namespace Metro
 
                                 break;
 
-                            case "SendKeyDown":
-                            case "SendKeyUp":
+                            case "SendKeyDown1":
+                            case "SendKeyUp2":
 
-                                if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
-                                {
-                                    break;
-                                }
-                                else {
-                                    string SendKeyStr = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
+                                //if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
+                                //{
+                                //    break;
+                                //}
+                                //else {
+                                //    string SendKeyStr = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
 
-                                    if (SendKeyStr.Length == 1)
-                                    {
-                                        SendKeyStr = "KEY_" + SendKeyStr;
-                                    }
+                                //    if (SendKeyStr.Length == 1)
+                                //    {
+                                //        SendKeyStr = "KEY_" + SendKeyStr;
+                                //    }
 
-                                    short value = 0;
-                                    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
-                                    foreach (short enumValue in enumValueArray)
-                                    {
-                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(SendKeyStr))
-                                        {
-                                            value = enumValue;
+                                //    short value = 0;
+                                //    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
+                                //    foreach (short enumValue in enumValueArray)
+                                //    {
+                                //        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(SendKeyStr))
+                                //        {
+                                //            value = enumValue;
 
-                                            if (Command.Equals("SendKeyDown"))
-                                            {
-                                                ky.SendKeyDown(value);
-                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
+                                //            if (Command.Equals("SendKeyDown"))
+                                //            {
+                                //                ky.SendKeyDown(value);
+                                //                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
 
-                                            }
-                                            else {
-                                                ky.SendKeyUp(value);
-                                                if (ShortKeyActionList.IndexOfKey(value) != -1) ShortKeyActionList.RemoveAt(ShortKeyActionList.IndexOfKey(value));
-                                            }
-                                        }
-                                    }
-                                }
+                                //            }
+                                //            else {
+                                //                ky.SendKeyUp(value);
+                                //                if (ShortKeyActionList.IndexOfKey(value) != -1) ShortKeyActionList.RemoveAt(ShortKeyActionList.IndexOfKey(value));
+                                //            }
+                                //        }
+                                //    }
+                                //}
 
                                 break;
 
@@ -1298,70 +1197,70 @@ namespace Metro
                             case "PostMessage":
 
                                 #region PostMessage
-                                if (Event.Length == 0)
-                                {
-                                    string[] send = CommandData.Split(',');
+                                //if (Event.Length == 0)
+                                //{
+                                //    string[] send = CommandData.Split(',');
 
-                                    IntPtr windowHandle;
-                                    if (send[0].Equals("T"))
-                                    {
-                                        windowHandle = FindWindow(null, send[1]);
-                                    }
-                                    else
-                                    {
-                                        windowHandle = FindWindow(send[1], null);
-                                    }
+                                //    IntPtr windowHandle;
+                                //    if (send[0].Equals("T"))
+                                //    {
+                                //        windowHandle = FindWindow(null, send[1]);
+                                //    }
+                                //    else
+                                //    {
+                                //        windowHandle = FindWindow(send[1], null);
+                                //    }
 
-                                    IntPtr editHandle = windowHandle;
+                                //    IntPtr editHandle = windowHandle;
 
 
-                                    if (editHandle == IntPtr.Zero)
-                                    {
-                                        System.Windows.MessageBox.Show("is not running...");
-                                    }
-                                    else
-                                    {
-                                        overlay.Clear();
-                                    }
+                                //    if (editHandle == IntPtr.Zero)
+                                //    {
+                                //        System.Windows.MessageBox.Show("is not running...");
+                                //    }
+                                //    else
+                                //    {
+                                //        overlay.Clear();
+                                //    }
 
-                                    for (int i = 2; i < send.Length; i++)
-                                    {
-                                        int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(send[i]);
-                                        SendMessage((int)editHandle, WM_KEYDOWN, 0, "0x014B0001");
-                                        Thread.Sleep(50);
-                                        SendMessage((int)editHandle, WM_KEYUP, 0, "0xC14B0001");
-                                        Thread.Sleep(50);
-                                    }
+                                //    for (int i = 2; i < send.Length; i++)
+                                //    {
+                                //        int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(send[i]);
+                                //        SendMessage((int)editHandle, WM_KEYDOWN, 0, "0x014B0001");
+                                //        Thread.Sleep(50);
+                                //        SendMessage((int)editHandle, WM_KEYUP, 0, "0xC14B0001");
+                                //        Thread.Sleep(50);
+                                //    }
 
-                                    Process[] processlist = Process.GetProcesses();
-                                    string titleText = "";
-                                    foreach (Process process in processlist)
-                                    {
-                                        if (!String.IsNullOrEmpty(process.MainWindowTitle))
-                                        {
-                                            Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
-                                            titleText += process.MainWindowTitle.ToString();
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    // Check Key
-                                    if (mDoSortedList.IndexOfKey(Event[0]) != -1)
-                                    {
-                                        string[] Event_Data;
-                                        if (CommandData.Length > 0)
-                                        {
-                                            // use CommandData 
-                                            Event_Data = CommandData.Split(',');
-                                        }
-                                        else
-                                        {
-                                            // Get SortedList Value by Key
-                                            Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
-                                        }
-                                    }
-                                }
+                                //    Process[] processlist = Process.GetProcesses();
+                                //    string titleText = "";
+                                //    foreach (Process process in processlist)
+                                //    {
+                                //        if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                                //        {
+                                //            Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                                //            titleText += process.MainWindowTitle.ToString();
+                                //        }
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    // Check Key
+                                //    if (mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                //    {
+                                //        string[] Event_Data;
+                                //        if (CommandData.Length > 0)
+                                //        {
+                                //            // use CommandData 
+                                //            Event_Data = CommandData.Split(',');
+                                //        }
+                                //        else
+                                //        {
+                                //            // Get SortedList Value by Key
+                                //            Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
+                                //        }
+                                //    }
+                                //}
                                 #endregion
 
                                 break;
@@ -1824,10 +1723,170 @@ namespace Metro
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            for (int i = 0; i < LangSplitButton.Items.Count; i++)
+            {
+                System.Windows.Controls.Label mLabel = (System.Windows.Controls.Label)LangSplitButton.Items[i];
+                if (mLabel.Tag.Equals(mSettingHelper.Language))
+                {
+                    LangSplitButton.SelectedIndex = i;
+                }
+            }
+
+            MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
+
+            // Combobox List
+            List<string> mList = new List<string>() {
+                "Delay",
+                "Move","Offset","Click",
+                "Key","ModifierKey","SendKeyDown","SendKeyUp","WriteClipboard",
+                "Calc","Calc-Check",
+                "Match","Match RGB","Match&Draw","RandomTrigger","AlarmClock",
+                "RemoveEvent","Jump","Goto","Loop",
+                "Run .exe","PlaySound","Clear Screen"
+                //"PostMessage","FindWindow",
+            };
+            mComboBoxColumn.ItemsSource = mList;
+
+            #region Load user.ini
+
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            data = parser.ReadFile("user.ini");
+
+            // Load Form location
+            Left = double.Parse(data["Def"]["x"]);
+            Top = double.Parse(data["Def"]["y"]);
+
+            // Load WindowTitle setting
+            TextBox_Title.Text = data["Def"]["WindowTitle"];
+
+            // Load ScaleX, ScaleY, OffsetX, OffsetY
+            ScaleX = float.Parse(data["Def"]["ScaleX"]);
+            ScaleY = float.Parse(data["Def"]["ScaleY"]);
+            OffsetX = int.Parse(data["Def"]["OffsetX"]);
+            OffsetY = int.Parse(data["Def"]["OffsetY"]);
+
+            // Load Script
+            if (!data["Def"]["Script"].Equals(""))
+            {
+                Load_Script(data["Def"]["Script"]);
+            }
+            else
+            {
+                mDataGrid.DataContext = null;
+                mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "200", Event = "", Note = "" });
+                mDataGrid.DataContext = mDataTable;
+                mEdit.StartEdit("");
+            }
+
+            #endregion
+
+            // Load Script setting
+            LoadScriptSetting();
+
+            // Load setting
+            OnOff_CrtlKey_Chk.IsChecked = mSettingHelper.OnOff_CrtlKey;
+            Run_CrtlKey_Chk.IsChecked = mSettingHelper.Run_CrtlKey;
+            Stop_CrtlKey_Chk.IsChecked = mSettingHelper.Stop_CrtlKey;
+
+            OnOff_AltKey_Chk.IsChecked = mSettingHelper.OnOff_AltKey;
+            Run_AltKey_Chk.IsChecked = mSettingHelper.Run_AltKey;
+            Stop_AltKey_Chk.IsChecked = mSettingHelper.Stop_AltKey;
+
+            TextBox_OnOff_Hotkey.Text = mSettingHelper.OnOff_Hotkey;
+            TextBox_Run_Hotkey.Text = mSettingHelper.Run_Hotkey;
+            TextBox_Stop_Hotkey.Text = mSettingHelper.Stop_Hotkey;
+
+            TypeOfKeyboardInput0.IsChecked = mSettingHelper.TypeOfKeyboardInput.Equals("Game") ? true : false;
+            TypeOfKeyboardInput1.IsChecked = !mSettingHelper.TypeOfKeyboardInput.Equals("Game") ? true : false;
+
+            // Load HideOnSatrt setting
+            HideOnSatrt_Toggle.IsOn = mSettingHelper.HideOnSatrt;
+
+            // Load TestMode setting
+            if (!mSettingHelper.TestMode.Equals("0"))
+            {
+                TestMode = true;
+                TestMode_Toggle.IsOn = true;
+            }
+            else
+            {
+                TestMode = false;
+                TestMode_Toggle.IsOn = false;
+            }
+
+            TestMode_Delay = mSettingHelper.TestMode_Delay;
+            TestMode_Slider.Value = TestMode_Delay;
+
+            // Load Topmost setting
+            Top_Toggle.IsOn = mSettingHelper.Topmost;
+
+            KListener();
+
+            Main_GlobalKeyUpHook = Hook.GlobalEvents();
+            Main_GlobalKeyUpHook.KeyUp += Main_GlobalHookKeyUp;
+
+            // NotifyIcon
+            System.Drawing.Bitmap bitmap = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location).ToBitmap();
+            for (var y = 0; y < bitmap.Height; y++)
+            {
+                for (var x = 0; x < bitmap.Width; x++)
+                {
+                    if (bitmap.GetPixel(x, y).R > 240)
+                    {
+                        bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(255, 141, 60));
+                    }
+                }
+            }
+            IntPtr Hicon = bitmap.GetHicon();
+            OffIcon = System.Drawing.Icon.FromHandle(Hicon);
+            OnIcon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            mNotifyIcon.Icon = OnIcon;
+            mNotifyIcon.ContextMenuStrip = new ContextMenuStrip();
+            ToolStripItem mToolStripItem = mNotifyIcon.ContextMenuStrip.Items.Add("Close Menu", null, this.notifyIcon_Close_Click);
+            mToolStripItem.Image = Properties.Resources.x;
+            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Visit_Website").ToString(), null, this.notifyIcon_Visit_Click);
+            mNotifyIcon.ContextMenuStrip.Items.Add("-");
+            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("HideShow").ToString(), null, this.notifyIcon_DoubleClick);
+            mNotifyIcon.ContextMenuStrip.Items.Add(FindResource("Exit").ToString(), null, this.notifyIcon_Exit_Click);
+            mNotifyIcon.MouseUp += MouseUp;
+            mNotifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+            mNotifyIcon.Visible = true;
+
+            if (!IsAdmin)
+            {
+                TextBlock_Please.Visibility = Visibility.Visible;
+            }
+
+            this.WindowState = WindowState.Minimized;
+            this.Show();
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            source.AddHook(WndProc);
+
+            if (!mSettingHelper.HideOnSatrt)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.Hide();
+            }
+
+            UnitTest("Delay", "100");
+
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream("Metro.Resources.Documentation.md"))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+                Viewer.Markdown = result;
+            }
+
             string tag_name = CheckUpdate();
 
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            if (!tag_name.ToString().Equals("v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion))
+            System.Reflection.Assembly mAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+            if (!tag_name.ToString().Equals("v" + System.Diagnostics.FileVersionInfo.GetVersionInfo(mAssembly.Location).FileVersion))
             {
                 if (!tag_name.ToString().Equals(""))
                 {
