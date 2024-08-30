@@ -417,7 +417,14 @@ namespace Metro
                             {
                                 try
                                 {
-                                    Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                                    if (eDataTable[i].eTable_Path.IndexOf(":") == -1)
+                                    {
+                                        Script(Load_Script_to_DataTable(System.Windows.Forms.Application.StartupPath + "\\" + eDataTable[i].eTable_Path), "Def");
+                                    }
+                                    else
+                                    {
+                                        Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                                    }
                                 }
                                 catch (Exception ex)
                                 {
@@ -508,7 +515,14 @@ namespace Metro
                             {
                                 try
                                 {
-                                    Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                                    if (eDataTable[i].eTable_Path.IndexOf(":") == -1)
+                                    {
+                                        Script(Load_Script_to_DataTable(System.Windows.Forms.Application.StartupPath + "\\" + eDataTable[i].eTable_Path), "Def");
+                                    }
+                                    else
+                                    {
+                                        Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                                    }
                                 }
                                 catch (Exception ex)
                                 {
@@ -542,7 +556,14 @@ namespace Metro
                         {
                             try
                             {
-                                Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                                if (eDataTable[i].eTable_Path.IndexOf(":") == -1)
+                                {
+                                    Script(Load_Script_to_DataTable(System.Windows.Forms.Application.StartupPath + "\\" + eDataTable[i].eTable_Path), "Def");
+                                }
+                                else
+                                {
+                                    Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -779,6 +800,11 @@ namespace Metro
                                     if (MatchArr[0].Equals(""))
                                     {
                                         MatchArr[0] = "example/s.png";
+                                    }
+
+                                    if (MatchArr[0].IndexOf(":") == -1)
+                                    {
+                                        MatchArr[0] = System.Windows.Forms.Application.StartupPath + "\\" + MatchArr[0];
                                     }
 
                                     if (MatchArr.Length > 2)
@@ -1168,6 +1194,11 @@ namespace Metro
                                             SystemSounds.Beep.Play();
                                         }
                                         else {
+                                            if (CommandData.IndexOf(":") == -1)
+                                            {
+                                                CommandData = System.Windows.Forms.Application.StartupPath + "\\" + CommandData;
+                                            }
+
                                             mWaveFile = new SoundPlayer(CommandData);
                                             mWaveFile.PlaySync();
                                         }
@@ -1863,15 +1894,6 @@ namespace Metro
             HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
             source.AddHook(WndProc);
 
-            if (!mSettingHelper.HideOnSatrt)
-            {
-                this.WindowState = WindowState.Normal;
-            }
-            else
-            {
-                this.Hide();
-            }
-
             UnitTest("Delay", "100");
 
             var assembly = Assembly.GetExecutingAssembly();
@@ -1898,7 +1920,14 @@ namespace Metro
 
         private void _Window_ContentRendered(object sender, EventArgs e)
         {
-
+            if (!mSettingHelper.HideOnSatrt)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.Hide();
+            }
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -2078,7 +2107,7 @@ namespace Metro
             {
                 Console.WriteLine("{0} Exception caught.", ex);
 
-                if (!File.Exists("Script.ini"))
+                if (!File.Exists(System.Windows.Forms.Application.StartupPath + "\\" + "Script.ini"))
                 {
                     eDataGrid.DataContext = null;
                     eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
@@ -2097,7 +2126,12 @@ namespace Metro
                     {
                         try
                         {
-                            Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                            if (eDataTable[i].eTable_Path.IndexOf(":") == -1) {
+                                Script(Load_Script_to_DataTable(System.Windows.Forms.Application.StartupPath + "\\" + eDataTable[i].eTable_Path), "Def");
+                            }
+                            else {
+                                Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
+                            }
                         }
                         catch (Exception ex)
                         {
