@@ -899,43 +899,10 @@ namespace Metro
                                 break;
 
                             case "Key":
-                            case "SendKeyDown":
-                            case "SendKeyUp":
 
                                 if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
                                 {
                                     break;
-                                }
-
-                                short value = 0;
-                                if (Command.Equals("SendKeyDown") || Command.Equals("SendKeyUp")) {
-
-
-                                    string SendKeyStr = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
-
-                                    if (SendKeyStr.Length == 1)
-                                    {
-                                        SendKeyStr = "KEY_" + SendKeyStr;
-                                    }
-
-                                    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
-                                    foreach (short enumValue in enumValueArray)
-                                    {
-                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(SendKeyStr))
-                                        {
-                                            value = enumValue;
-
-                                            if (Command.Equals("SendKeyDown"))
-                                            {
-                                                CommandData = CommandData + ",Down";
-
-                                            }
-                                            else
-                                            {
-                                                CommandData = CommandData + ",UP";
-                                            }
-                                        }
-                                    }
                                 }
 
                                 #region SendKeys
@@ -953,7 +920,8 @@ namespace Metro
                                 //string keyChar = kc.ConvertToString("A");
                                 #endregion
 
-                                if (CommandData.Substring(0, 1).Equals(",")){
+                                if (CommandData.Substring(0, 1).Equals(","))
+                                {
                                     Regex regex = new Regex(Regex.Escape(","));
                                     CommandData = regex.Replace(CommandData, "OEM_COMMA", 1);
                                 }
@@ -974,46 +942,27 @@ namespace Metro
                                         if (mKey[1].Equals("DOWN"))
                                         {
                                             mInputSimulator.Keyboard.KeyDown(mKeyCode);
-                                            if (Command.Equals("SendKeyDown"))
-                                            {
-                                                ky.SendKeyDown(value);
-                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
-                                            }
-
                                             if (KeyActionList.IndexOfKey(mKeyCode) == -1) KeyActionList.Add(mKeyCode, "Key");
-                                           
+
                                         }
                                         else if (mKey[1].Equals("UP"))
                                         {
                                             mInputSimulator.Keyboard.KeyUp(mKeyCode);
-                                            if (Command.Equals("SendKeyUp"))
-                                            {
-                                                ky.SendKeyUp(value);
-                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyUp");
-                                            }
 
-                                            if (KeyActionList.IndexOfKey(mKeyCode) != -1)KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
+                                            if (KeyActionList.IndexOfKey(mKeyCode) != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
                                         }
-                                        else {
+                                        else
+                                        {
                                             mInputSimulator.Keyboard.KeyDown(mKeyCode);
-                                            if (Command.Equals("SendKeyDown"))
-                                            {
-                                                ky.SendKeyDown(value);
-                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
-                                            }
                                             KeyActionList.Add(mKeyCode, "Key");
                                             Thread.Sleep(int.Parse(mKey[1])); ;
-                                            if (Command.Equals("SendKeyUp"))
-                                            {
-                                                ky.SendKeyUp(value);
-                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyUp");
-                                            }
                                             mInputSimulator.Keyboard.KeyUp(mKeyCode);
 
-                                            if (KeyActionList.IndexOfKey(mKeyCode) != -1)KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
+                                            if (KeyActionList.IndexOfKey(mKeyCode) != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
                                         }
                                     }
-                                    else {
+                                    else
+                                    {
                                         mInputSimulator.Keyboard.KeyDown(mKeyCode);
                                         KeyActionList.Add(mKeyCode, "Key");
                                         Thread.Sleep(250);
@@ -1022,7 +971,8 @@ namespace Metro
                                         if (KeyActionList.IndexOfKey(mKeyCode) != -1) KeyActionList.RemoveAt(KeyActionList.IndexOfKey(mKeyCode));
                                     }
                                 }
-                                else {
+                                else
+                                {
                                     string str = CommandData;
                                     char[] arr = str.ToCharArray();
 
@@ -1034,42 +984,44 @@ namespace Metro
 
                                 break;
 
-                            case "SendKeyDown1":
-                            case "SendKeyUp2":
+                            case "SendKeyDown":
+                            case "SendKeyUp":
 
-                                //if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
-                                //{
-                                //    break;
-                                //}
-                                //else {
-                                //    string SendKeyStr = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
+                                if (Event.Length != 0 && V.Get_EventValue(mDoSortedList, Event[0]) == null)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    string SendKeyStr = ConvertHelper.ConvertKeyString(CommandData.Trim().ToUpper());
 
-                                //    if (SendKeyStr.Length == 1)
-                                //    {
-                                //        SendKeyStr = "KEY_" + SendKeyStr;
-                                //    }
+                                    if (SendKeyStr.Length == 1)
+                                    {
+                                        SendKeyStr = "KEY_" + SendKeyStr;
+                                    }
 
-                                //    short value = 0;
-                                //    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
-                                //    foreach (short enumValue in enumValueArray)
-                                //    {
-                                //        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(SendKeyStr))
-                                //        {
-                                //            value = enumValue;
+                                    short value = 0;
+                                    Array enumValueArray = Enum.GetValues(typeof(ScanCodeShort));
+                                    foreach (short enumValue in enumValueArray)
+                                    {
+                                        if (Enum.GetName(typeof(ScanCodeShort), enumValue).Equals(SendKeyStr))
+                                        {
+                                            value = enumValue;
 
-                                //            if (Command.Equals("SendKeyDown"))
-                                //            {
-                                //                ky.SendKeyDown(value);
-                                //                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
+                                            if (Command.Equals("SendKeyDown"))
+                                            {
+                                                ky.SendKeyDown(value);
+                                                if (ShortKeyActionList.IndexOfKey(value) == -1) ShortKeyActionList.Add(value, "SendKeyDown");
 
-                                //            }
-                                //            else {
-                                //                ky.SendKeyUp(value);
-                                //                if (ShortKeyActionList.IndexOfKey(value) != -1) ShortKeyActionList.RemoveAt(ShortKeyActionList.IndexOfKey(value));
-                                //            }
-                                //        }
-                                //    }
-                                //}
+                                            }
+                                            else
+                                            {
+                                                ky.SendKeyUp(value);
+                                                if (ShortKeyActionList.IndexOfKey(value) != -1) ShortKeyActionList.RemoveAt(ShortKeyActionList.IndexOfKey(value));
+                                            }
+                                        }
+                                    }
+                                }
 
                                 break;
 
