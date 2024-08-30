@@ -327,6 +327,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Util\AutoStart.cs" />
     <Compile Include="Util\Edit.cs" />
     <Compile Include="Util\Overlay.cs" />
     <Compile Include="Util\Keyboard.cs" />

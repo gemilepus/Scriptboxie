@@ -9,7 +9,7 @@
                       Width="800"             
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
-                      Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" Deactivated="MetroWindow_Deactivated"
+                      Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" ContentRendered="_Window_ContentRendered"  Deactivated="MetroWindow_Deactivated"
                       SizeChanged="MetroWindow_SizeChanged" LostKeyboardFocus="MetroWindow_LostKeyboardFocus" GotKeyboardFocus="_Window_GotKeyboardFocus">
 
     <Controls:MetroWindow.RightWindowCommands>
@@ -516,6 +516,8 @@
         
         <TextBlock MinWidth="110"><Run FontSize="16" Foreground="Black" Text="{DynamicResource Hide_on_start_Option}"></Run></TextBlock>
         <Controls:ToggleSwitch Grid.Column="1" Toggled="HideOnSatrt_Toggle_Toggled" Name="HideOnSatrt_Toggle" Height="28" Margin="0,-5,0,0"></Controls:ToggleSwitch>
+         <TextBlock Grid.Column="2" Margin="-60,0,0,0"><Run FontSize="16" Foreground="Black" Text="{DynamicResource AutoStart_Option}"></Run></TextBlock>   
+         <Controls:ToggleSwitch Grid.Column="3" Toggled="AutoStart_Toggle_Toggled" Name="AutoStart_Toggle" Height="28" Margin="30,-5,0,0"></Controls:ToggleSwitch>
         
         <TextBlock Grid.Row="1"><Run FontSize="16" Foreground="Black" Text="{DynamicResource Topmost_Option}"></Run></TextBlock>                          
         <Controls:ToggleSwitch Grid.Row="1" Grid.Column="1" Name="Top_Toggle" Toggled="Top_Toggle_Toggled" Height="28" Margin="0,-5,0,0"></Controls:ToggleSwitch>

@@ -22,9 +22,6 @@ using MahApps.Metro.Controls.Dialogs;
 
 using Gma.System.MouseKeyHook;
 
-using IniParser;
-using IniParser.Model;
-
 using WindowsInput;
 using WindowsInput.Native;
 using static Keyboard;
@@ -316,6 +313,8 @@ namespace Metro
         public MainWindow()
         {
             InitializeComponent();
+
+            MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
 
             //mTest();
         }
@@ -1680,12 +1679,7 @@ namespace Metro
 
         private void TextBox_Title_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // .ini
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-            data["Def"]["WindowTitle"] = TextBox_Title.Text;
-            parser.WriteFile("user.ini", data);
+            mSettingHelper.TextBox_Title = TextBox_Title.Text;
         }
         private void Btn_ON_Click(object sender, RoutedEventArgs e)
         {
@@ -1723,17 +1717,6 @@ namespace Metro
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < LangSplitButton.Items.Count; i++)
-            {
-                System.Windows.Controls.Label mLabel = (System.Windows.Controls.Label)LangSplitButton.Items[i];
-                if (mLabel.Tag.Equals(mSettingHelper.Language))
-                {
-                    LangSplitButton.SelectedIndex = i;
-                }
-            }
-
-            MSG_SHOW = RegisterWindowMessage("Scriptboxie Message");
-
             // Combobox List
             List<string> mList = new List<string>() {
                 "Delay",
@@ -1747,29 +1730,35 @@ namespace Metro
             };
             mComboBoxColumn.ItemsSource = mList;
 
+            for (int i = 0; i < LangSplitButton.Items.Count; i++)
+            {
+                System.Windows.Controls.Label mLabel = (System.Windows.Controls.Label)LangSplitButton.Items[i];
+                if (mLabel.Tag.Equals(mSettingHelper.Language))
+                {
+                    LangSplitButton.SelectedIndex = i;
+                }
+            }
+
             #region Load user.ini
 
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
 
             // Load Form location
-            Left = double.Parse(data["Def"]["x"]);
-            Top = double.Parse(data["Def"]["y"]);
+            Left = mSettingHelper.Left;
+            Top = mSettingHelper.Top;
 
             // Load WindowTitle setting
-            TextBox_Title.Text = data["Def"]["WindowTitle"];
+            TextBox_Title.Text = mSettingHelper.TextBox_Title;
 
             // Load ScaleX, ScaleY, OffsetX, OffsetY
-            ScaleX = float.Parse(data["Def"]["ScaleX"]);
-            ScaleY = float.Parse(data["Def"]["ScaleY"]);
-            OffsetX = int.Parse(data["Def"]["OffsetX"]);
-            OffsetY = int.Parse(data["Def"]["OffsetY"]);
+            ScaleX = mSettingHelper.ScaleX;
+            ScaleY = mSettingHelper.ScaleY;
+            OffsetX = mSettingHelper.OffsetX;
+            OffsetY = mSettingHelper.OffsetY;
 
             // Load Script
-            if (!data["Def"]["Script"].Equals(""))
+            if (!mSettingHelper.Script.Equals(""))
             {
-                Load_Script(data["Def"]["Script"]);
+                Load_Script(mSettingHelper.Script);
             }
             else
             {
@@ -1802,6 +1791,8 @@ namespace Metro
 
             // Load HideOnSatrt setting
             HideOnSatrt_Toggle.IsOn = mSettingHelper.HideOnSatrt;
+
+            AutoStart_Toggle.IsOn = mSettingHelper.AutoStart;
 
             // Load TestMode setting
             if (!mSettingHelper.TestMode.Equals("0"))
@@ -1893,8 +1884,13 @@ namespace Metro
                     NewVersion.Text = NewVersion.Text + " " + tag_name;
                     NewVersion.Visibility = Visibility.Visible;
                 }
-               
+
             }
+        }
+
+        private void _Window_ContentRendered(object sender, EventArgs e)
+        {
+
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -1981,12 +1977,7 @@ namespace Metro
             mDataTable = Load_Script_to_DataTable(filePath);
             mDataGrid.DataContext = mDataTable;
 
-            // .ini
-            var parser = new FileIniDataParser();
-            IniData data = parser.ReadFile("user.ini");
-            data["Def"]["Script"] = filePath;
-            parser.WriteFile("user.ini", data);
-
+            mSettingHelper.Script = filePath;
             mEdit.ModifiedTime = mEdit.GetModifiedTime(filePath);
         }
 
@@ -2501,11 +2492,7 @@ namespace Metro
             ScriptName.Text = "";
             mEdit.StartEdit("");
 
-            // .ini
-            var parser = new FileIniDataParser();
-            IniData data = parser.ReadFile("user.ini");
-            data["Def"]["Script"] = "";
-            parser.WriteFile("user.ini", data);
+            mSettingHelper.Script = "";
         }
         private void Btn_open_Click(object sender, RoutedEventArgs e)
         {
@@ -2588,14 +2575,9 @@ namespace Metro
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
             string result = null;
-
-            // Get Script Path
-            var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
-            if (data["Def"]["Script"] != null || data["Def"]["Script"] != "")
+            if (mSettingHelper.Script != null || mSettingHelper.Script != "")
             {
-                result = data["Def"]["Script"];
+                result = mSettingHelper.Script;
             }
 
             if (result == null || result == "") {
@@ -3148,6 +3130,13 @@ namespace Metro
         {
             mSettingHelper.HideOnSatrt = HideOnSatrt_Toggle.IsOn;
         }
+
+        private void AutoStart_Toggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            AutoStart.SetAutoStart(AutoStart_Toggle.IsOn);
+            mSettingHelper.AutoStart = AutoStart_Toggle.IsOn;
+        }
+
 
         private void TestMode_Toggle_Toggled(object sender, RoutedEventArgs e)
         {

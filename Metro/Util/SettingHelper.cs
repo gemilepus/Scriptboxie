@@ -5,27 +5,37 @@ namespace Metro
 {
     public class SettingHelper
     {
+        private static string iniPath = System.Windows.Forms.Application.StartupPath + "\\" + "user.ini";
+
+        public string TextBox_Title, Script;
+        public int OffsetX, OffsetY;
+        public float ScaleX, ScaleY;
+        public double Left, Top;
+
+        // Settings
         public string TestMode, Language,
             OnOff_Hotkey,Run_Hotkey,Stop_Hotkey,
             TypeOfKeyboardInput;
 
-        public bool ShowBalloon = false, Topmost, HideOnSatrt,
+        public bool ShowBalloon = false, Topmost, HideOnSatrt, AutoStart,
             OnOff_AltKey, Run_AltKey, Stop_AltKey,
             OnOff_CrtlKey, Run_CrtlKey, Stop_CrtlKey;
 
         public int TestMode_Delay;
+
         public SettingHelper()
         {
             var parser = new FileIniDataParser();
             IniData data = new IniData();
             try
             {
-                data = parser.ReadFile("user.ini");
+                data = parser.ReadFile(iniPath);
             }
             catch
             {
-                parser.WriteFile("user.ini", new IniData());
+                parser.WriteFile(iniPath, new IniData());
             }
+
 
             // From location
             if (data["Def"]["x"] == null)
@@ -117,6 +127,12 @@ namespace Metro
                 data["Def"]["HideOnSatrt"] = "0";
             }
 
+            // AutoStart
+            if (data["Def"]["AutoStart"] == null)
+            {
+                data["Def"]["AutoStart"] = "0";
+            }
+
             // TestMode
             if (data["Def"]["TestMode"] == null)
             {
@@ -141,7 +157,19 @@ namespace Metro
                 data["Def"]["TestMode_Delay"] = "0";
             }
 
-            parser.WriteFile("user.ini", data);
+            // Load Form location
+            Left = double.Parse(data["Def"]["x"]);
+            Top = double.Parse(data["Def"]["y"]);
+
+            // Load WindowTitle setting
+            TextBox_Title = data["Def"]["TextBox_Title"];
+            Script = data["Def"]["Script"];
+
+            // Load ScaleX, ScaleY, OffsetX, OffsetY
+            ScaleX = float.Parse(data["Def"]["ScaleX"]);
+            ScaleY = float.Parse(data["Def"]["ScaleY"]);
+            OffsetX = int.Parse(data["Def"]["OffsetX"]);
+            OffsetY = int.Parse(data["Def"]["OffsetY"]);
 
             OnOff_AltKey  = data["Def"]["OnOff_AltKey"].Equals("1") ? true : false;
             OnOff_CrtlKey = data["Def"]["OnOff_CrtlKey"].Equals("1") ? true : false;
@@ -158,6 +186,7 @@ namespace Metro
             TypeOfKeyboardInput = data["Def"]["TypeOfKeyboardInput"];
             ShowBalloon = data["Def"]["ShowBalloon"].Equals("1") ? true : false;
             HideOnSatrt = data["Def"]["HideOnSatrt"].Equals("1") ? true : false;
+            AutoStart = data["Def"]["AutoStart"].Equals("1") ? true : false;
             TestMode = data["Def"]["TestMode"];
             Topmost = data["Def"]["Topmost"].Equals("1") ? true : false;
             Language = data["Def"]["Language"];
@@ -168,11 +197,13 @@ namespace Metro
         public void Save(MainWindow MainWindow)
         {
             var parser = new FileIniDataParser();
-            IniData data = new IniData();
-            data = parser.ReadFile("user.ini");
+            IniData data = parser.ReadFile(iniPath);
 
             data["Def"]["x"] = MainWindow.Left.ToString();
             data["Def"]["y"] = MainWindow.Top.ToString();
+
+            data["Def"]["TextBox_Title"] = TextBox_Title;
+            data["Def"]["Script"] = Script;
 
             data["Def"]["OnOff_AltKey"]  = OnOff_AltKey ? "1" : "0";
             data["Def"]["OnOff_CrtlKey"] = OnOff_CrtlKey ? "1" : "0";
@@ -188,13 +219,14 @@ namespace Metro
 
             data["Def"]["TypeOfKeyboardInput"] = TypeOfKeyboardInput;
             data["Def"]["HideOnSatrt"] = HideOnSatrt ? "1" : "0";
+            data["Def"]["AutoStart"] = AutoStart ? "1" : "0";
             data["Def"]["TestMode"] = TestMode;
             data["Def"]["Topmost"] = Topmost ? "1" : "0";
             data["Def"]["Language"] = Language;
 
             data["Def"]["TestMode_Delay"] = TestMode_Delay.ToString();
 
-            parser.WriteFile("user.ini", data);
+            parser.WriteFile(iniPath, data);          
         }
     }
 }
