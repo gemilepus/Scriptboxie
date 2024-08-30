@@ -36,24 +36,11 @@ namespace Metro
                 parser.WriteFile(iniPath, new IniData());
             }
 
-
             // From location
             if (data["Def"]["x"] == null)
             {
                 data["Def"]["x"] = "0";
                 data["Def"]["y"] = "0";
-            }
-
-            //  WindowTitle setting
-            if (data["Def"]["WindowTitle"] == null)
-            {
-                data["Def"]["WindowTitle"] = "";
-            }
-
-            //  Script
-            if (data["Def"]["Script"] == null)
-            {
-                data["Def"]["Script"] = "";
             }
 
             // ScaleX, ScaleY, OffsetX, OffsetY
@@ -66,6 +53,18 @@ namespace Metro
                 data["Def"]["ScaleY"] = "1";
                 data["Def"]["OffsetX"] = "0";
                 data["Def"]["OffsetY"] = "0";
+            }
+
+            //  WindowTitle setting
+            if (data["Def"]["WindowTitle"] == null)
+            {
+                data["Def"]["WindowTitle"] = "";
+            }
+
+            //  Script
+            if (data["Def"]["Script"] == null)
+            {
+                data["Def"]["Script"] = "";
             }
 
             //  ShowBalloon

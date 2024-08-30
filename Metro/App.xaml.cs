@@ -11,18 +11,18 @@ namespace Metro
         public App()
         {
             // Try to grab mutex
-            //bool createdNew;
-            //_mutex = new Mutex(true, "Scriptboxie", out createdNew);
+            bool createdNew;
+            _mutex = new Mutex(true, "Scriptboxie", out createdNew);
 
-            //if (!createdNew)
-            //{
-            //    System.Windows.Application.Current.Shutdown();
-            //}
-            //else
-            //{
-            //    // Add Event handler to exit event.
-            //    Exit += CloseMutexHandler;
-            //}
+            if (!createdNew)
+            {
+                System.Windows.Application.Current.Shutdown();
+            }
+            else
+            {
+                // Add Event handler to exit event.
+                Exit += CloseMutexHandler;
+            }
         }
 
         protected virtual void CloseMutexHandler(object sender, EventArgs e)
