@@ -143,9 +143,8 @@
                     </ScrollViewer>
 
                     <Controls:ToggleSwitch Toggled="Script_Toggle_Toggled" Name="Script_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" FocusVisualStyle="{x:Null}"></Controls:ToggleSwitch>
-                    <TextBlock x:Name="TextBlock_Please" Visibility="Hidden" Height="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0" Grid.Column="1">
-                         <Run Foreground="OrangeRed" Text="{DynamicResource Please_run_as_administrator}" 
-                              ToolTip="Some programs have higher permissions, and if you need to operate them, you must have higher permissions; otherwise, it is unnecessary"></Run>
+                    <TextBlock x:Name="TextBlock_QA" Height="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,0" Grid.Column="1" MouseDown="TextBlock_QA_MouseDown">
+                        <Run Foreground="OrangeRed" Text="Q&amp;A"></Run>
                     </TextBlock>
                 </Grid>
             </TabItem>

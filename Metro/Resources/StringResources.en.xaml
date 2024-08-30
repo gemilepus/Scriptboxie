@@ -46,4 +46,7 @@
     <system:String x:Key="HideShow">Hide/Show</system:String>
     <system:String x:Key="Exit">Exit</system:String>
 
+    <system:String x:Key="Q1">Why can't I operate certain programs?</system:String>
+    <system:String x:Key="A1">Some programs have higher permissions, and if you need to operate them, you must have higher permissions.</system:String>
+    
 </ResourceDictionary>

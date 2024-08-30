@@ -1710,6 +1710,14 @@ namespace Metro
                 );
         }
 
+        private void TextBlock_QA_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.ShowMessageAsync("Q&A",
+                "Q: " + FindResource("Q1").ToString() + "\n" +
+                "A: " + FindResource("A1").ToString()
+                );
+        }
+
         private void NewVersion_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
@@ -1847,7 +1855,7 @@ namespace Metro
 
             if (!IsAdmin)
             {
-                TextBlock_Please.Visibility = Visibility.Visible;
+                //TextBlock_Please.Visibility = Visibility.Visible;
             }
 
             this.WindowState = WindowState.Minimized;
@@ -2353,6 +2361,7 @@ namespace Metro
                     break;
             }
         }
+
 
         private void Btn_Toggle_Click(object sender, RoutedEventArgs e)
         {
