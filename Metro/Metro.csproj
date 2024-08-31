@@ -349,7 +349,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConvertHelper.cs" />
+    <Compile Include="Util\ConvertHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
