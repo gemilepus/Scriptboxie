@@ -684,7 +684,7 @@ namespace Metro
                                 else
                                 {
                                     // Check Key
-                                    if (mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                    if (V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                     {
                                         string[] Event_Data;
                                         if (CommandData.Length > 0)
@@ -714,7 +714,7 @@ namespace Metro
                                 else
                                 {
                                     // Check Key
-                                    if (mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                    if (V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                     {
                                         string[] Event_Data;
                                         if (CommandData.Length > 0)
@@ -736,7 +736,7 @@ namespace Metro
 
                             case "Delay":
 
-                                if (Event.Length == 0 || mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                 {
                                     Thread.Sleep(Int32.Parse(CommandData));
                                 }
@@ -745,7 +745,7 @@ namespace Metro
 
                             case "Click":
 
-                                if (Event.Length == 0 || mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                 {
                                     CommandData = CommandData.Trim().ToUpper();
                                     if (CommandData.Equals("LEFT"))
@@ -1179,70 +1179,70 @@ namespace Metro
                             case "PostMessage":
 
                                 #region PostMessage
-                                //if (Event.Length == 0)
-                                //{
-                                //    string[] send = CommandData.Split(',');
+                                if (Event.Length == 0)
+                                {
+                                    string[] send = CommandData.Split(',');
 
-                                //    IntPtr windowHandle;
-                                //    if (send[0].Equals("T"))
-                                //    {
-                                //        windowHandle = FindWindow(null, send[1]);
-                                //    }
-                                //    else
-                                //    {
-                                //        windowHandle = FindWindow(send[1], null);
-                                //    }
+                                    IntPtr windowHandle;
+                                    if (send[0].Equals("T"))
+                                    {
+                                        windowHandle = FindWindow(null, send[1]);
+                                    }
+                                    else
+                                    {
+                                        windowHandle = FindWindow(send[1], null);
+                                    }
 
-                                //    IntPtr editHandle = windowHandle;
+                                    IntPtr editHandle = windowHandle;
 
 
-                                //    if (editHandle == IntPtr.Zero)
-                                //    {
-                                //        System.Windows.MessageBox.Show("is not running...");
-                                //    }
-                                //    else
-                                //    {
-                                //        overlay.Clear();
-                                //    }
+                                    if (editHandle == IntPtr.Zero)
+                                    {
+                                        System.Windows.MessageBox.Show("is not running...");
+                                    }
+                                    else
+                                    {
+                                        overlay.Clear();
+                                    }
 
-                                //    for (int i = 2; i < send.Length; i++)
-                                //    {
-                                //        int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(send[i]);
-                                //        SendMessage((int)editHandle, WM_KEYDOWN, 0, "0x014B0001");
-                                //        Thread.Sleep(50);
-                                //        SendMessage((int)editHandle, WM_KEYUP, 0, "0xC14B0001");
-                                //        Thread.Sleep(50);
-                                //    }
+                                    for (int i = 2; i < send.Length; i++)
+                                    {
+                                        int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(send[i]);
+                                        SendMessage((int)editHandle, WM_KEYDOWN, 0, "0x014B0001");
+                                        Thread.Sleep(50);
+                                        SendMessage((int)editHandle, WM_KEYUP, 0, "0xC14B0001");
+                                        Thread.Sleep(50);
+                                    }
 
-                                //    Process[] processlist = Process.GetProcesses();
-                                //    string titleText = "";
-                                //    foreach (Process process in processlist)
-                                //    {
-                                //        if (!String.IsNullOrEmpty(process.MainWindowTitle))
-                                //        {
-                                //            Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
-                                //            titleText += process.MainWindowTitle.ToString();
-                                //        }
-                                //    }
-                                //}
-                                //else
-                                //{
-                                //    // Check Key
-                                //    if (mDoSortedList.IndexOfKey(Event[0]) != -1)
-                                //    {
-                                //        string[] Event_Data;
-                                //        if (CommandData.Length > 0)
-                                //        {
-                                //            // use CommandData 
-                                //            Event_Data = CommandData.Split(',');
-                                //        }
-                                //        else
-                                //        {
-                                //            // Get SortedList Value by Key
-                                //            Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
-                                //        }
-                                //    }
-                                //}
+                                    Process[] processlist = Process.GetProcesses();
+                                    string titleText = "";
+                                    foreach (Process process in processlist)
+                                    {
+                                        if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                                        {
+                                            Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                                            titleText += process.MainWindowTitle.ToString();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // Check Key
+                                    if (mDoSortedList.IndexOfKey(Event[0]) != -1)
+                                    {
+                                        string[] Event_Data;
+                                        if (CommandData.Length > 0)
+                                        {
+                                            // use CommandData 
+                                            Event_Data = CommandData.Split(',');
+                                        }
+                                        else
+                                        {
+                                            // Get SortedList Value by Key
+                                            Event_Data = mDoSortedList.GetByIndex(mDoSortedList.IndexOfKey(Event[0])).ToString().Split(',');
+                                        }
+                                    }
+                                }
                                 #endregion
 
                                 break;
@@ -1338,22 +1338,26 @@ namespace Metro
                                 break;
 
                             case "Loop":
-                                do
+
+                                if (Event.Length == 0 || V.Get_EventValue(mDoSortedList, Event[0]) != null)
                                 {
-                                    if (!CommandData.Equals(""))
+                                    do
                                     {
-                                        LoopCount++;
-                                        int LoopSum = int.Parse(CommandData);
-                                        if (LoopCount != LoopSum)
+                                        if (!CommandData.Equals(""))
+                                        {
+                                            LoopCount++;
+                                            int LoopSum = int.Parse(CommandData);
+                                            if (LoopCount != LoopSum)
+                                            {
+                                                n = -1;
+                                            }
+                                        }
+                                        else
                                         {
                                             n = -1;
                                         }
-                                    }
-                                    else
-                                    {
-                                        n = -1;
-                                    }
-                                } while (false);
+                                    } while (false);
+                                }
 
                                 break;
 
