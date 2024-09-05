@@ -24,13 +24,13 @@ public class V
         {
             if (EventValue == null)
             {
-                EventValue = new string[1];
+                EventValue = new string[] { "" };
             }
-            else {
+            else
+            {
                 EventValue = null;
             }
         }
-
 
         return EventValue;
     }
