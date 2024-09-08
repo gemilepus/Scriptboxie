@@ -14,21 +14,23 @@ public class V
     public string[] Get_EventValue(SortedList mSortedList, string Event)
     {
         string[] EventValue = null;
+        bool NOT = Event.StartsWith("(") && Event.EndsWith(")");
+        if (NOT) {
+            Event = Event.Replace("(","").Replace(")","");
+        }
+
         // Check Key
         if (mSortedList.IndexOfKey(Event) != -1)
         {
-            EventValue = mSortedList.GetByIndex(mSortedList.IndexOfKey(Event)).ToString().Split(',');
+            if (!NOT)
+            {
+                EventValue = mSortedList.GetByIndex(mSortedList.IndexOfKey(Event)).ToString().Split(',');
+            }
         }
-
-        if (Event.StartsWith("(") && Event.EndsWith(")"))
-        {
-            if (EventValue == null)
+        else {
+            if (NOT)
             {
                 EventValue = new string[] { "" };
-            }
-            else
-            {
-                EventValue = null;
             }
         }
 
