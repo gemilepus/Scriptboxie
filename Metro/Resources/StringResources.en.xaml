@@ -26,7 +26,7 @@
     <system:String x:Key="Game">Game</system:String>
     <system:String x:Key="Normal">Normal</system:String>
     <system:String x:Key="Hide_on_start_Option">Hide on start :</system:String>
-    <system:String x:Key="AutoStart_Option">Auto Start :</system:String>
+    <system:String x:Key="AutoStart_Option">Auto start :</system:String>
     <system:String x:Key="Test_Mode_Option">Test Mode :</system:String>
     <system:String x:Key="Test_Mode_Tooltip">The script being edited will delayed for a period of time  every step and mark the running step.</system:String>
     <system:String x:Key="Test_Delay">Test Delay(ms):</system:String>

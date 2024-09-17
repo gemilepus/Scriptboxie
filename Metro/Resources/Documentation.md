@@ -10,6 +10,7 @@
 ------ | -------- | -------- | --------
 `Match` | `Event1` | `s.png` | generate event
 `Click` | `Event1` | `Left` | receive event
+`Click` | `(Event1)` | `Right` | reverse
 `RemoveEvent` | `Event1` |  | invalidate it
 `RemoveEvent` | `Event1,Event2` |  | can multiple
 `RemoveEvent` |  |  | empty means all
