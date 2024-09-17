@@ -47,6 +47,6 @@
     <system:String x:Key="Exit">結束</system:String>
 
     <system:String x:Key="Q1">為什麼我無法在某些程式上操作?</system:String>
-    <system:String x:Key="A1">某些程式具有更高的權限，如果你需要操作這些程式，你必需擁有更高的權限。</system:String>
+    <system:String x:Key="A1">可能程式具有更高的權限，你可以試著以系統管理員權限執行 Scriptboxie。</system:String>
 
 </ResourceDictionary>
