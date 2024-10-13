@@ -40,7 +40,6 @@ using System.Windows.Automation.Provider;
 using System.Windows.Controls.Primitives;
 using System.Reflection;
 using System.Data;
-using System.Web.UI.WebControls;
 
 namespace Metro
 {
@@ -62,7 +61,6 @@ namespace Metro
         private List<EditTable> eDataTable = new List<EditTable>();
 
         private List<Thread> _workerThreads = new List<Thread>();
-        private SoundPlayer mAlertSound = new SoundPlayer(Metro.Properties.Resources.sound);
         private SettingHelper mSettingHelper = new SettingHelper();
         private Edit mEdit = new Edit();
         private bool TestMode = false;
@@ -410,7 +408,14 @@ namespace Metro
                     {
                         if (_workerThreads[i].IsAlive)
                         {
-                            _workerThreads[i].Abort();
+                            try
+                            {
+                                _workerThreads[i].Abort();
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("{0} Exception caught.", ex);
+                            }
                             _workerThreads[i] = null;
 
                             _workerThreads[i] = new Thread(() =>
@@ -549,7 +554,14 @@ namespace Metro
                     {
                         Console.WriteLine(eDataTable[i].eTable_Path);
 
-                        _workerThreads[i].Abort();
+                        try
+                        {
+                            _workerThreads[i].Abort();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("{0} Exception caught.", ex);
+                        }
                         _workerThreads[i] = null;
 
                         _workerThreads[i] = new Thread(() =>
@@ -1647,7 +1659,10 @@ namespace Metro
         {
             try
             {
-                mAlertSound.Play();
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+
+                player.Stream = Properties.Resources.sound;
+                player.Play();
             }
             catch (Exception e)
             {
@@ -1896,13 +1911,27 @@ namespace Metro
             {
                 if (_workerThreads[i].IsAlive)
                 {
-                    _workerThreads[i].Abort();
+                    try
+                    {
+                        _workerThreads[i].Abort();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("{0} Exception caught.", ex);
+                    }
                 }
             }
 
             if (Ring.IsActive)
             {
-                mThread.Abort();
+                try
+                {
+                    mThread.Abort();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("{0} Exception caught.", ex);
+                }
             }
 
             mNotifyIcon.Visible = false;
@@ -2117,7 +2146,14 @@ namespace Metro
                 {
                     if (_workerThreads[i].IsAlive)
                     {
-                        _workerThreads[i].Abort();
+                        try
+                        {
+                            _workerThreads[i].Abort();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("{0} Exception caught.", ex);
+                        }
                         _workerThreads[i] = null;
 
                         _workerThreads[i] = new Thread(() =>
@@ -2397,7 +2433,14 @@ namespace Metro
         {
             if (Ring.IsActive == true)
             {
-                mThread.Abort();
+                try
+                {
+                    mThread.Abort();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("{0} Exception caught.", ex);
+                }
             }
 
             Ring.IsActive = true;
@@ -2425,7 +2468,14 @@ namespace Metro
         {
             if (mThread != null)
             {
-                mThread.Abort();
+                try
+                {
+                    mThread.Abort();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("{0} Exception caught.", ex);
+                }
             }
             Ring.IsActive = false;
         }
@@ -2434,7 +2484,14 @@ namespace Metro
         {
             if (uThread != null)
             {
-                uThread.Abort();
+                try
+                {
+                    uThread.Abort();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("{0} Exception caught.", ex);
+                }
             }
 
             List<MainTable> uMainTable = new List<MainTable>
