@@ -1722,7 +1722,11 @@ namespace Metro
 
         private void NewVersion_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
+            ProcessStartInfo psi = new ProcessStartInfo("https://github.com/gemilepus/Scriptboxie/releases")
+            {
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
@@ -2626,6 +2630,8 @@ namespace Metro
 
                 await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
             }
+
+            await this.ShowMessageAsync("", System.Windows.Forms.Application.StartupPath.ToString());
         }
 
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
