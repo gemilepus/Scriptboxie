@@ -1,11 +1,12 @@
 ﻿using IniParser;
 using IniParser.Model;
+using System.Diagnostics;
 
 namespace Metro
 {
     public class SettingHelper
     {
-        private static string iniPath = System.Windows.Forms.Application.StartupPath + "\\" + "user.ini";
+        private static string iniPath = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + "user.ini";
 
         public string TextBox_Title, Script;
         public int OffsetX, OffsetY;

@@ -424,7 +424,7 @@ namespace Metro
                                 {
                                     if (eDataTable[i].eTable_Path.IndexOf(":") == -1)
                                     {
-                                        Script(Load_Script_to_DataTable(System.Windows.Forms.Application.StartupPath + "\\" + eDataTable[i].eTable_Path), "Def");
+                                        Script(Load_Script_to_DataTable(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + eDataTable[i].eTable_Path), "Def");
                                     }
                                     else
                                     {
@@ -522,7 +522,7 @@ namespace Metro
                                 {
                                     if (eDataTable[i].eTable_Path.IndexOf(":") == -1)
                                     {
-                                        Script(Load_Script_to_DataTable(System.Windows.Forms.Application.StartupPath + "\\" + eDataTable[i].eTable_Path), "Def");
+                                        Script(Load_Script_to_DataTable(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + eDataTable[i].eTable_Path), "Def");
                                     }
                                     else
                                     {
@@ -570,7 +570,7 @@ namespace Metro
                             {
                                 if (eDataTable[i].eTable_Path.IndexOf(":") == -1)
                                 {
-                                    Script(Load_Script_to_DataTable(System.Windows.Forms.Application.StartupPath + "\\" + eDataTable[i].eTable_Path), "Def");
+                                    Script(Load_Script_to_DataTable(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + eDataTable[i].eTable_Path), "Def");
                                 }
                                 else
                                 {
@@ -816,7 +816,7 @@ namespace Metro
 
                                     if (MatchArr[0].IndexOf(":") == -1)
                                     {
-                                        MatchArr[0] = System.Windows.Forms.Application.StartupPath + "\\" + MatchArr[0];
+                                        MatchArr[0] = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + MatchArr[0];
                                     }
 
                                     if (MatchArr.Length > 2)
@@ -1160,7 +1160,7 @@ namespace Metro
                                         else {
                                             if (CommandData.IndexOf(":") == -1)
                                             {
-                                                CommandData = System.Windows.Forms.Application.StartupPath + "\\" + CommandData;
+                                                CommandData = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + CommandData;
                                             }
 
                                             mWaveFile = new SoundPlayer(CommandData);
@@ -1947,7 +1947,7 @@ namespace Metro
         private void Load_Script_ini()
         {
             string fileContent = string.Empty;
-            StreamReader reader = new StreamReader(System.Windows.Forms.Application.StartupPath + "/" + "Script.ini");
+            StreamReader reader = new StreamReader(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "/" + "Script.ini");
 
             // read test
             fileContent = reader.ReadToEnd();
@@ -1987,7 +1987,7 @@ namespace Metro
                     + eDataTable[i].eTable_Path + ";"
                     + "\n";
             }
-            System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + "Script.ini", out_string);
+            System.IO.File.WriteAllText(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "/" + "Script.ini", out_string);
         }
 
         private void Load_Script(string filePath)
@@ -2096,7 +2096,7 @@ namespace Metro
             {
                 Console.WriteLine("{0} Exception caught.", ex);
 
-                if (!File.Exists(System.Windows.Forms.Application.StartupPath + "\\" + "Script.ini"))
+                if (!File.Exists(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + "Script.ini"))
                 {
                     eDataGrid.DataContext = null;
                     eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
@@ -2116,7 +2116,7 @@ namespace Metro
                         try
                         {
                             if (eDataTable[i].eTable_Path.IndexOf(":") == -1) {
-                                Script(Load_Script_to_DataTable(System.Windows.Forms.Application.StartupPath + "\\" + eDataTable[i].eTable_Path), "Def");
+                                Script(Load_Script_to_DataTable(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + eDataTable[i].eTable_Path), "Def");
                             }
                             else {
                                 Script(Load_Script_to_DataTable(eDataTable[i].eTable_Path), "Def");
@@ -2285,7 +2285,7 @@ namespace Metro
                         string filePath = string.Empty;
 
                         System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-                        openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
+                        openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
                         openFileDialog.Filter = "script files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
                         openFileDialog.FilterIndex = 2;
                         openFileDialog.RestoreDirectory = true;
@@ -2560,7 +2560,7 @@ namespace Metro
             string filePath = string.Empty;
 
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
+            openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
             openFileDialog.Filter = "script files (*.txt)|*.txt"; // "txt files (*.txt)|*.txt|All files (*.*)|*.*"
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
@@ -2606,7 +2606,7 @@ namespace Metro
             mNotifyIcon.Icon = OnIcon;
 
             if (result == null) { return; }
-            if (File.Exists(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt")) {
+            if (File.Exists(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "/" + result + ".txt")) {
                 await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString() 
                     + " " + FindResource("File_exists").ToString());
                 return;
@@ -2620,9 +2620,9 @@ namespace Metro
                 JSON_String = JSON_String.Replace("\"},", "\"},\n");
 
                 mEdit.ModifiedTime = "";
-                System.IO.File.WriteAllText(System.Windows.Forms.Application.StartupPath + "/" + result + ".txt", JSON_String);
+                System.IO.File.WriteAllText(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "/" + result + ".txt", JSON_String);
 
-                Load_Script(System.Windows.Forms.Application.StartupPath + "\\" + result + ".txt");
+                Load_Script(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\" + result + ".txt");
             }
             catch (Exception err)
             {
@@ -2631,7 +2631,7 @@ namespace Metro
                 await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
             }
 
-            await this.ShowMessageAsync("", System.Windows.Forms.Application.StartupPath.ToString());
+            await this.ShowMessageAsync("", System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName).ToString());
         }
 
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
@@ -3030,7 +3030,7 @@ namespace Metro
                             string filePath = string.Empty;
 
                             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-                            openFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
+                            openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
                             switch (row.Mode)
                             {
                                 case "Match":
