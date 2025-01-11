@@ -6,3 +6,6 @@ Debug/dll/
 Debug/*.*
 *.dll
 *.wav
+/Metro/bin
+/Debug/win-x64
+/Debug/x64
