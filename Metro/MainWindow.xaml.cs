@@ -410,7 +410,7 @@ namespace Metro
                         {
                             try
                             {
-                                _workerThreads[i].Abort();
+                                _workerThreads[i].Name = "End";
                             }
                             catch (Exception ex)
                             {
@@ -555,8 +555,8 @@ namespace Metro
                         Console.WriteLine(eDataTable[i].eTable_Path);
 
                         try
-                        {
-                            _workerThreads[i].Abort();
+                        {   
+                            _workerThreads[i].Name = "End";
                         }
                         catch (Exception ex)
                         {
@@ -631,6 +631,8 @@ namespace Metro
             interpreter = interpreter.SetVariable("StartPostion_Y", (int)mPoint.Y);
             interpreter = interpreter.SetVariable("StartPosition_X", (int)mPoint.X);
             interpreter = interpreter.SetVariable("StartPosition_Y", (int)mPoint.Y);
+            CreateMessage("9485");
+
             // random func
             Random RM = new Random();
             Func<int, int, int> random = (s, e) => RM.Next(s, e + 1);
@@ -640,6 +642,9 @@ namespace Metro
             //int timer = 0;
             while (n < minDataTable.Count)
             {
+                if (Thread.CurrentThread.Name != null) {
+                    throw new InvalidOperationException("end");
+                }
                 if (Mode.Equals("Debug") && TestMode)
                 {
                     int number = 80000;
@@ -665,6 +670,7 @@ namespace Metro
                     GetCursorPos(ref mPoint);
                     interpreter = interpreter.SetVariable("CurrentPosition_X", (int)mPoint.X);
                     interpreter = interpreter.SetVariable("CurrentPosition_Y", (int)mPoint.Y);
+                    interpreter = interpreter.SetVariable("ClipboardText", ClipboardText);
 
                     Mat matTemplate = null, matTarget = null;
                     Boolean err = false;
@@ -1482,6 +1488,7 @@ namespace Metro
         }
 
         int LastNumber = 0;
+        string ClipboardText = "";
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             //Console.WriteLine(lParam);
@@ -1495,6 +1502,11 @@ namespace Metro
                 if (wParam.ToString().Equals("9486"))
                 {
                     System.Windows.Clipboard.SetText(copy);
+                }
+
+                if (wParam.ToString().Equals("9485"))
+                {
+                    ClipboardText = System.Windows.Clipboard.GetText();
                 }
 
                 // TestMode - mark step
@@ -1917,7 +1929,7 @@ namespace Metro
                 {
                     try
                     {
-                        _workerThreads[i].Abort();
+                        _workerThreads[i].Name = "End";
                     }
                     catch (Exception ex)
                     {
@@ -1930,7 +1942,7 @@ namespace Metro
             {
                 try
                 {
-                    mThread.Abort();
+                    mThread.Name = "End";
                 }
                 catch (Exception ex)
                 {
@@ -2152,7 +2164,7 @@ namespace Metro
                     {
                         try
                         {
-                            _workerThreads[i].Abort();
+                            _workerThreads[i].Name = "End";
                         }
                         catch (Exception ex)
                         {
@@ -2439,7 +2451,7 @@ namespace Metro
             {
                 try
                 {
-                    mThread.Abort();
+                    mThread.Name = "End";
                 }
                 catch (Exception ex)
                 {
@@ -2471,10 +2483,10 @@ namespace Metro
         private void Stop_script()
         {
             if (mThread != null)
-            {
+            {   
                 try
                 {
-                    mThread.Abort();
+                    mThread.Name = "End";
                 }
                 catch (Exception ex)
                 {
@@ -2490,7 +2502,7 @@ namespace Metro
             {
                 try
                 {
-                    uThread.Abort();
+                    uThread.Name = "End";
                 }
                 catch (Exception ex)
                 {
