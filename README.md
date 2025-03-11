@@ -102,8 +102,10 @@ Name | Explanation | Example
 
 <h1 align="center">Screenshots</h1>
 <p align="center">
- <img align="center" alt="Edit" src="Doc/test.gif" />
+ Script recorder
  <img align="center" alt="Edit" src="Doc/test2.gif" />
+ Manage scripts
+ <img align="center" alt="Edit" src="Doc/test.gif" />
 </p>
 
 <h1 align="center">WIKI</h1>
