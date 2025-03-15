@@ -129,7 +129,7 @@ public class ConvertHelper
             case "RWin":
                 mKeyCode = "WIN";
                 break;
-            case "Oem1":
+            case "OemSemicolon":
                 mKeyCode = ";";
                 break;
             case "Oemplus":
@@ -144,16 +144,16 @@ public class ConvertHelper
             case "OemPeriod":
                 mKeyCode = ".";
                 break;
-            case "OemQuestion":
+            case "Oem2":
                 mKeyCode = "/";
                 break;
-            case "Oemtilde":
+            case "Oem3":
                 mKeyCode = "`";
                 break;
-            case "Oem5":
+            case "OemPipe":
                 mKeyCode = "\\";
                 break;
-            case "OemOpenBrackets":
+            case "Oem4":
                 mKeyCode = "[";
                 break;
             case "Oem6":
