@@ -163,7 +163,6 @@ public class ConvertHelper
                 mKeyCode = "'";
                 break;
 
-            //
             case "PageUp":
                 mKeyCode = "PRIOR";
                 break;
