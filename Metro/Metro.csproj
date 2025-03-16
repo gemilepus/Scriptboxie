@@ -5,7 +5,9 @@
 		<UseCurrentRuntimeIdentifier>false</UseCurrentRuntimeIdentifier>
 	</PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+	<Version>2.0.0.0</Version>
+	<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+    <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <AssemblyName>Scriptboxie</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -20,10 +22,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
