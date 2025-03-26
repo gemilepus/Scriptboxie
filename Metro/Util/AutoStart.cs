@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 
 namespace Metro
 {
@@ -10,8 +11,7 @@ namespace Metro
 
         public static void SetAutoStart(bool enable)
         {
-          
-            string val = '"' + System.Reflection.Assembly.GetEntryAssembly().Location + '"';
+            string val = '"' + System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + '\\' + key + ".exe" + '"';
 
             if (enable)
             {
