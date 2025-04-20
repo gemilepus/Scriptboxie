@@ -6,7 +6,6 @@
 <p align="center">Scriptboxie allows you to effortlessly manage and create scripts. Can be used to streamline repetitive and time-consuming tasks.</p>
 
 <br>
-<p align="center">🐌 I am currently upgrading this project, so the new version will be released more slowly.</p>
 
 
 [![GitHub release](https://img.shields.io/github/release/gemilepus/Scriptboxie.svg)](https://github.com/gemilepus/Scriptboxie/releases) 
