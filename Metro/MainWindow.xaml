@@ -500,7 +500,7 @@
         <RadioButton Grid.Column="1" Grid.Row="3" GroupName="TypeOfKeyboardInput" Name="TypeOfKeyboardInput0" Checked="RadioButton_Checked" Content="{DynamicResource Game}" Tag="Game"></RadioButton>
 		<RadioButton Grid.Column="2" Grid.Row="3" GroupName="TypeOfKeyboardInput" Name="TypeOfKeyboardInput1" Checked="RadioButton_Checked" Content="{DynamicResource Normal}" Tag="Normal"></RadioButton>
     </Grid>
-                            <LineBreak/><LineBreak/>
+    <LineBreak/><LineBreak/>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
