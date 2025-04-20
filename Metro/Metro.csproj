@@ -53,6 +53,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="img\patreon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="package.ico" />
   </ItemGroup>
   <ItemGroup>
