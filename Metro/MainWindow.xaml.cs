@@ -1116,15 +1116,22 @@ namespace Metro
                                 {
                                     try
                                     {
+                                        Process p = new Process();
+                                        p.StartInfo.UseShellExecute = true;
+
                                         if (CommandData.ToUpper().EndsWith(".EXE"))
                                         {
-                                            Process.Start(CommandData);
+                                            p.StartInfo.FileName = CommandData;
+                                            p.Start();
                                         }
                                         else {
                                             int SplitIndex = CommandData.ToUpper().IndexOf(".EXE") + 4;
                                             string mPrg  = CommandData.Substring(0, SplitIndex);
                                             string mArg = CommandData.Substring(SplitIndex+1, CommandData.Length - SplitIndex-1);
-                                            Process.Start(mPrg, mArg);
+
+                                            p.StartInfo.FileName = mPrg;
+                                            p.StartInfo.Arguments = mArg;
+                                            p.Start();
                                         }
                                        
                                     }
@@ -1657,7 +1664,10 @@ namespace Metro
 
         private void notifyIcon_Visit_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/gemilepus/Scriptboxie");
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = "https://github.com/gemilepus/Scriptboxie";
+            p.Start();
         }
         private void notifyIcon_Exit_Click(object sender, EventArgs e)
         {
@@ -2691,7 +2701,10 @@ namespace Metro
 
         private void ContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(ScriptName.ToolTip.ToString());
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = ScriptName.ToolTip.ToString();
+            p.Start();
         }
 
         #endregion
@@ -3139,7 +3152,10 @@ namespace Metro
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             System.Windows.Documents.Hyperlink mHyperlink = (System.Windows.Documents.Hyperlink)sender;
-            Process.Start(mHyperlink.NavigateUri.ToString());
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = mHyperlink.NavigateUri.ToString();
+            p.Start();
         }
         private void TextBox_OnOff_Hotkey_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -3296,7 +3312,10 @@ namespace Metro
                 {
                     if (!tag_name.ToString().Equals("")) {
                         await this.ShowMessageAsync("", string.Format(FindResource("The_current_version_is").ToString(), tag_name.ToString()));
-                        Process.Start("https://github.com/gemilepus/Scriptboxie/releases");
+                        Process p = new Process();
+                        p.StartInfo.UseShellExecute = true;
+                        p.StartInfo.FileName = "https://github.com/gemilepus/Scriptboxie/releases";
+                        p.Start();
                     }
                 }
             }
