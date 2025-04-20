@@ -98,6 +98,7 @@ Name | Explanation | Example
 `StartPosition_Y` | Starting Y-axis position of the mouse | 
 `CurrentPosition_X` | Current X-axis position of the mouse | 
 `CurrentPosition_Y` | Current Y-axis position of the mouse | 
+`ClipboardText` | The current text in the clipboard | 
 `random(a,b)` | Random Number between a and b | Calc `x = random(1,100)`
 
 <h1 align="center">Screenshots</h1>
