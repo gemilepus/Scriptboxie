@@ -26,8 +26,7 @@ If you like Scriptboxie, you can support it:
 
 <a href='https://ko-fi.com/R6R8IQ1MD' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 <br>
-<br>
-[![Donate](https://img.shields.io/badge/Donate-PayPal-yellow.svg)](https://paypal.me/gemilepus?locale.x=en_US)
+<a href='https://patreon.com/gemilepus' target='_blank'><img width='143' style='border:0px;width:143;' src='https://raw.githubusercontent.com/gemilepus/Scriptboxie/refs/heads/master/Metro/img/patreon.png' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 <h1 align="center">How to use</h1>
 <p align="center">Normally, I would record my actions first, and then make adjustments, such as setting how many times to repeat, </p>
