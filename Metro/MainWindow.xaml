@@ -368,6 +368,7 @@
                                 </DataGridComboBoxColumn.ElementStyle>
                                 <DataGridComboBoxColumn.EditingElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="IsDropDownOpen" Value="True" />
                                         <Setter Property="ItemTemplate" Value="{StaticResource template}" />
                                         <EventSetter Event="Loaded" Handler="ComboBox_Loaded" />
                                     </Style>
