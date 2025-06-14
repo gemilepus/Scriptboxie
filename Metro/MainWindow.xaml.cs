@@ -1929,9 +1929,9 @@ namespace Metro
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            UnKListener();
             mSettingHelper.Save(this);
-
+            UnKListener();
+            
             // Stop all thread
             for (int i = 0; i < _workerThreads.Count; i++)
             {
