@@ -375,8 +375,8 @@
                                 </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Event" Binding="{Binding Path=Event}"/>
-                            <DataGridTextColumn Header="Action" Binding="{Binding Path=Action}" MinWidth="200"/>
-                            <DataGridTextColumn Header="Note" Binding="{Binding Path=Note}" MinWidth="50" Foreground="ForestGreen"/>
+                            <DataGridTextColumn Header="Action" Binding="{Binding Path=Action}" Width="250"/>
+                            <DataGridTextColumn Header="Note" Binding="{Binding Path=Note}" Width="55" Foreground="ForestGreen"/>
                             <DataGridTemplateColumn Header=" ">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
