@@ -2650,10 +2650,10 @@ namespace Metro
             {
                 Console.WriteLine("{0} Exception caught.", err);
 
-                await this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
+                await this.ShowMessageAsync("Save File", FindResource("Save_could_not_be_completed").ToString());
             }
 
-            await this.ShowMessageAsync("", System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName).ToString());
+            await this.ShowMessageAsync("Save File", "Path: " + System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName).ToString());
         }
 
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
@@ -2678,13 +2678,13 @@ namespace Metro
                 System.IO.File.WriteAllText(result, JSON_String);
                 mEdit.ModifiedTime = mEdit.GetModifiedTime(result);
 
-                this.ShowMessageAsync("", FindResource("Done").ToString());
+                this.ShowMessageAsync("Save File", FindResource("Done").ToString());
             }
             catch (Exception err)
             {
                 Console.WriteLine("{0} Exception caught.", err);
 
-                this.ShowMessageAsync("", FindResource("Save_could_not_be_completed").ToString());
+                this.ShowMessageAsync("Save File", FindResource("Save_could_not_be_completed").ToString());
             }
         }
         private void Btn_Run_Click(object sender, RoutedEventArgs ee)
