@@ -9,5 +9,6 @@
     <ErrorReportUrlHistory />
     <FallbackCulture>zh-TW</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+    <_LastSelectedProfileId>C:\Users\Vine\Documents\GitHub\Scriptboxie\Metro\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
 </Project>
