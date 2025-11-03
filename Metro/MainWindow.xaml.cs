@@ -1962,6 +1962,13 @@ namespace Metro
 
             mNotifyIcon.Visible = false;
         }
+        private void OpenHyperlink(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = e.Parameter.ToString();
+            p.Start();
+        }
 
         #endregion
 

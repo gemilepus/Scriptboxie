@@ -11,7 +11,11 @@
                       xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
                       Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" ContentRendered="_Window_ContentRendered"  Deactivated="MetroWindow_Deactivated"
                       SizeChanged="MetroWindow_SizeChanged" LostKeyboardFocus="MetroWindow_LostKeyboardFocus" GotKeyboardFocus="_Window_GotKeyboardFocus">
-
+    
+    <FrameworkElement.CommandBindings>
+        <CommandBinding Command="{x:Static markdig:Commands.Hyperlink}" Executed="OpenHyperlink" />
+    </FrameworkElement.CommandBindings>
+    
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" Width="45" FontWeight="Bold" ToolTip="{DynamicResource Btn_ON_Tooltip}" ToolTipService.InitialShowDelay="300">

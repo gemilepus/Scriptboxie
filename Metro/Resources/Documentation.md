@@ -1,3 +1,6 @@
+## [Open on website](https://github.com/gemilepus/Scriptboxie/blob/master/Metro/Resources/Documentation.md)
+
+
 # [How to use EVENT]
 
 * 1.The concept is that dark red command(You can see the color distinction in the drop-down list of `MODE`) can generate events,and others receive events.Command can bound to event and executed according to whether that is established or not.
