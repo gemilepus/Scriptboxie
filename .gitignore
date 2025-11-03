@@ -9,3 +9,4 @@ Debug/*.*
 /Metro/bin
 /Debug/win-x64
 /Debug/x64
+Metro/Properties/PublishProfiles/FolderProfile.pubxml.user
