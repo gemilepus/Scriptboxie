@@ -5,7 +5,7 @@
 		<UseCurrentRuntimeIdentifier>false</UseCurrentRuntimeIdentifier>
 	</PropertyGroup>
   <PropertyGroup>
-	<Version>2.0.0.1</Version>
+	<Version>2.0.1.1</Version>
 	<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
     <OutputType>WinExe</OutputType>
