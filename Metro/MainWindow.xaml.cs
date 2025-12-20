@@ -2329,7 +2329,7 @@ namespace Metro
                         System.Windows.Controls.DataGridCell cell = cellContent.Parent as System.Windows.Controls.DataGridCell;
                         System.Windows.Controls.TextBox mTextBlock = (System.Windows.Controls.TextBox)cell.Content;
                         
-                        mTextBlock.Text = filePath.Replace(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location)+"\\", "");
+                        mTextBlock.Text = filePath.Replace(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "\\", "");
 
                         cell.IsEditing = false;
                         eDataGrid.CommitEdit();
