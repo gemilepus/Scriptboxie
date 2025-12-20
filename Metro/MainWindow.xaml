@@ -120,7 +120,7 @@
                                 </DataGridTextColumn>
 
                                 <DataGridTextColumn Header="Note" Binding="{Binding Path=eTable_Note}" MinWidth="150"/>
-                                <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" MinWidth="200">
+                                <DataGridTextColumn Header="Path" Binding="{Binding Path=eTable_Path}" Width="200">
                                     <DataGridTextColumn.CellStyle>
                                         <Style TargetType="DataGridCell">
                                             <Setter Property="ToolTip" Value="{DynamicResource Double_click_to_select_file}"/>
