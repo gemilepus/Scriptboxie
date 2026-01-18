@@ -548,6 +548,7 @@
                         </Controls:SplitButton.Icon>
                     </Controls:SplitButton>
 
+                    
                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,0" >
                         <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie/issues" RequestNavigate="Hyperlink_RequestNavigate">
                             <Run FontSize="16" Foreground="Black">Feedback</Run>
