@@ -405,7 +405,7 @@
                     </Button>
 
                     <ToggleButton ToolTip="Display mouse position(X,Y)." Click="InfoToggleButton_Checked" Name="InfoToggleButton" Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0,30,0,0" Style="{DynamicResource MahApps.Styles.Button.Circle}">
-                        <Image  Height="15" Width="15" Source="img/info.png"/>
+                        <Image  Height="15" Width="15" Source="img/mouse.png"/>
                     </ToggleButton>
                     <Popup Name="InfoPopup" IsOpen="{Binding IsChecked, ElementName=InfoToggleButton}" StaysOpen="True" Placement="Custom" >
                         <Border Background="White">
