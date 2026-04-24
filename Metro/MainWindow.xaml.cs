@@ -2844,6 +2844,18 @@ namespace Metro
                         txtlist = new string[] { "EX: " };
                         btnlist = new string[] { "A,Down", "A,Up" ,"F5"};
                         break;
+                    case "Move":
+                        txtlist = new string[] { "EX: " };
+                        btnlist = new string[] { "0,0", "100,100" };
+                        break;
+                    case "Offset":
+                        txtlist = new string[] { "EX: " };
+                        btnlist = new string[] { "0,10","10,-10" };
+                        break;
+                    case "WriteClipboard":
+                        txtlist = new string[] { "EX: " };
+                        btnlist = new string[] { "Some text" };
+                        break;
                     case "Match":
                     case "Match RGB":
                     case "Match&Draw":
