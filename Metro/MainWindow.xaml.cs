@@ -2856,6 +2856,18 @@ namespace Metro
                         txtlist = new string[] { "EX: " };
                         btnlist = new string[] { "Some text" };
                         break;
+                    case "Jump":
+                        txtlist = new string[] { "Jump number of line" };
+                        break;
+                    case "Goto":
+                        txtlist = new string[] { "Go to number of line" };
+                        break;
+                    case "Loop":
+                        txtlist = new string[] { "Empty or times" };
+                        break;
+                    case "Calc":
+                        txtlist = new string[] { "To do the math,see documentation." };
+                        break;
                     case "Match":
                     case "Match RGB":
                     case "Match&Draw":

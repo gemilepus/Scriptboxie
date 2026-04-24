@@ -148,7 +148,7 @@
 
                     <Controls:ToggleSwitch Toggled="Script_Toggle_Toggled" Name="Script_Toggle" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,5,0" FocusVisualStyle="{x:Null}"></Controls:ToggleSwitch>
                     <TextBlock x:Name="TextBlock_QA" Height="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,0" Grid.Column="1" MouseDown="TextBlock_QA_MouseDown">
-                        <Run Foreground="OrangeRed" Text="Q&amp;A"></Run>
+                        <Run Foreground="OrangeRed" Text="FAQ"></Run>
                     </TextBlock>
                 </Grid>
             </TabItem>
