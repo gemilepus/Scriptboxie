@@ -1,0 +1,52 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+     xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="Btn_ON_Tooltip">이것이 꺼짐으로 표시되면, 단축키가 작동하지 않습니다.</system:String>
+    <system:String x:Key="TextBox_Title_Tooltip">여기에 창 제목을 입력하면 이와 일치하는 창에서만 단축키가 작동합니다.</system:String>
+    <system:String x:Key="About">정보</system:String>
+    <system:String x:Key="Help">도움말</system:String>
+    <system:String x:Key="Main">기본</system:String>
+    <system:String x:Key="Edit">편집</system:String>
+    <system:String x:Key="Setting">설정</system:String>
+    <system:String x:Key="NewVersion">새 버전!</system:String>
+
+    <system:String x:Key="Please_run_as_administrator">관리자로 실행해 주세요</system:String>
+    <system:String x:Key="Double_click_to_select_file">파일을 선택하려면 두 번 클릭하세요</system:String>
+
+    <system:String x:Key="Clear_screen">화면 지우기</system:String>
+    <system:String x:Key="Record_Tooltip">이것은 단지 대략적인 녹화일 뿐입니다. 녹화 후 스크립트를 조정해 주세요</system:String>
+
+    <system:String x:Key="Check_for_Updates">업데이트 확인</system:String>
+    <system:String x:Key="ON_OFF_Option">켜짐/꺼짐 :</system:String>
+    <system:String x:Key="Run_Editing_Script_Option">편집 중인 스크립트 실행 :</system:String>
+    <system:String x:Key="Stop_Editing_Script_Option">편집 중인 스크립트 중지 :</system:String>
+    <system:String x:Key="Type_Of_Keyboard_Input">키보드 입력 유형 (녹화) :</system:String>
+    <system:String x:Key="Game">게임</system:String>
+    <system:String x:Key="Normal">일반</system:String>
+    <system:String x:Key="Hide_on_start_Option">시작할 때 숨기기 :</system:String>
+    <system:String x:Key="AutoStart_Option">자동 시작 :</system:String>
+    <system:String x:Key="Test_Mode_Option">테스트 모드 :</system:String>
+    <system:String x:Key="Test_Mode_Tooltip">편집 중인 스크립트는 매 단계마다 일정 기간 지연되며 실행 단계를 표시합니다.</system:String>
+    <system:String x:Key="Test_Delay">테스트 지연 (ms):</system:String>
+    <system:String x:Key="Topmost_Option">맨 위로 :</system:String>
+    <system:String x:Key="Website">웹사이트</system:String>
+    <system:String x:Key="Website_Note">사용 방법을 모르면 이 웹사이트를 방문하여 확인할 수 있습니다</system:String>
+
+    <system:String x:Key="File_exists">파일이 이미 존재합니다!</system:String>
+    <system:String x:Key="Save_could_not_be_completed">저장을 완료할 수 없습니다!</system:String>
+    <system:String x:Key="File_does_not_exist">파일이 존재하지 않습니다!</system:String>
+    <system:String x:Key="Input_filename">입력 파일 이름:</system:String>
+    <system:String x:Key="The_latest_version_is_used">최신 버전({0})이 사용됩니다</system:String>
+    <system:String x:Key="The_current_version_is">현재 최신 버전은 {0}입니다. github에서 다운로드할 수 있습니다 :)</system:String>
+    <system:String x:Key="Save">저장</system:String>
+    <system:String x:Key="Done">완료</system:String>
+    <system:String x:Key="Visit_Website">웹사이트 방문</system:String>
+    <system:String x:Key="HideShow">숨기기/표시</system:String>
+    <system:String x:Key="Exit">종료</system:String>
+
+    <system:String x:Key="Q1">왜 특정 프로그램에서는 조작할 수 없나요?</system:String>
+    <system:String x:Key="A1">해당 프로그램에 더 높은 권한이 필요할 수 있습니다. 관리자 권한으로 Scriptboxie를 실행해 보세요.</system:String>
+    
+</ResourceDictionary>
