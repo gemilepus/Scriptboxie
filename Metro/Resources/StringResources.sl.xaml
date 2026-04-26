@@ -1,0 +1,52 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+     xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="Btn_ON_Tooltip">Ko je ta prikaz izklopljen, bližnjica ne bo delovala.</system:String>
+    <system:String x:Key="TextBox_Title_Tooltip">Tukaj lahko vnesete naslov okna, nato pa bo bližnjica delovala samo na oknu, ki se ujema s tem naslovom.</system:String>
+    <system:String x:Key="About">O programu</system:String>
+    <system:String x:Key="Help">Pomoč</system:String>
+    <system:String x:Key="Main">Glavno</system:String>
+    <system:String x:Key="Edit">Uredi</system:String>
+    <system:String x:Key="Setting">Nastavitve</system:String>
+    <system:String x:Key="NewVersion">Nova različica!</system:String>
+
+    <system:String x:Key="Please_run_as_administrator">Zaženite kot skrbnik</system:String>
+    <system:String x:Key="Double_click_to_select_file">Dvokliknite za izbiro datoteke</system:String>
+
+    <system:String x:Key="Clear_screen">Počisti zaslon</system:String>
+    <system:String x:Key="Record_Tooltip">To je le grob zapis. Po snemanju prilagodite skript.</system:String>
+
+    <system:String x:Key="Check_for_Updates">Preveri za posodobitvami</system:String>
+    <system:String x:Key="ON_OFF_Option">VKLOP/IZKLOP :</system:String>
+    <system:String x:Key="Run_Editing_Script_Option">Zaženi urejani skript :</system:String>
+    <system:String x:Key="Stop_Editing_Script_Option">Ustavi urejani skript :</system:String>
+    <system:String x:Key="Type_Of_Keyboard_Input">Vrsta tipkovniškega vnosa (snemanje) :</system:String>
+    <system:String x:Key="Game">Igralniška</system:String>
+    <system:String x:Key="Normal">Običajna</system:String>
+    <system:String x:Key="Hide_on_start_Option">Skrij ob zagonu :</system:String>
+    <system:String x:Key="AutoStart_Option">Samodejni zagon :</system:String>
+    <system:String x:Key="Test_Mode_Option">Preskusni način :</system:String>
+    <system:String x:Key="Test_Mode_Tooltip">Skript, ki se ureja, bo zakasnjen za določen čas pri vsakem koraku in označil tekoči korak.</system:String>
+    <system:String x:Key="Test_Delay">Zakasnitev preskusa(ms):</system:String>
+    <system:String x:Key="Topmost_Option">Vedno na vrhu :</system:String>
+    <system:String x:Key="Website">Spletna stran</system:String>
+    <system:String x:Key="Website_Note">Če ne veste, kako uporabljati to, si oglejte to spletno stran</system:String>
+
+    <system:String x:Key="File_exists">Datoteka že obstaja!</system:String>
+    <system:String x:Key="Save_could_not_be_completed">Shranjevanja ni bilo mogoče dokončati!</system:String>
+    <system:String x:Key="File_does_not_exist">Datoteka ne obstaja!</system:String>
+    <system:String x:Key="Input_filename">Vnesite ime datoteke:</system:String>
+    <system:String x:Key="The_latest_version_is_used">Uporablja se najnovejša različica ({0})</system:String>
+    <system:String x:Key="The_current_version_is">Trenutna najnovejša različica je {0}, lahko jo prenesete z githuba :)</system:String>
+    <system:String x:Key="Save">Shrani</system:String>
+    <system:String x:Key="Done">Končano</system:String>
+    <system:String x:Key="Visit_Website">Obiščite spletno stran</system:String>
+    <system:String x:Key="HideShow">Skrij/Pokaži</system:String>
+    <system:String x:Key="Exit">Izhod</system:String>
+
+    <system:String x:Key="Q1">Zakaj ne morem upravljati nekaterih programov?</system:String>
+    <system:String x:Key="A1">Možno je, da program zahteva višja dovoljenja. Poskusite zagnati Scriptboxie s skrbniškimi pravicami.</system:String>
+    
+</ResourceDictionary>
