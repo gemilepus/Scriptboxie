@@ -16,6 +16,3 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows 10]
  - Version [e.g. 21H2]
-
-**Additional context**
-Add any other context about the problem here.
