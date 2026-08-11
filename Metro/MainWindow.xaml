@@ -155,6 +155,22 @@
             <TabItem Header="{DynamicResource Edit}">
                 <Grid Background="White" Name="EditGrid">
 
+                    <!--<Controls:DropDownButton Content="Actions"
+                                             Width="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
+                        <Controls:DropDownButton.Items>
+                            <Label Tag="1">ClearScreen_Btn1</Label>
+                            <Label Tag="2">ClearScreen_Btn2</Label>
+                        </Controls:DropDownButton.Items>
+                    </Controls:DropDownButton>
+
+                    <Menu Width="70" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                        <MenuItem Header="Actions">
+                            <MenuItem Header="Clear red marks" Click="ClearScreen_Click"></MenuItem>
+                            <MenuItem Header="Logout"  Click="InfoToggleButton_Checked"></MenuItem>
+                        </MenuItem>
+                    </Menu>-->
+
                     <DataGrid Name="mDataGrid" CanUserSortColumns="False" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" Grid.Column="1"
                               MinHeight="300" MinWidth="500" Margin="25,0,0,22"  HorizontalAlignment="Center" 
                               LoadingRow="mDataGrid_LoadingRow" CanUserAddRows="False" ScrollViewer.ScrollChanged="mDataGrid_ScrollChanged"

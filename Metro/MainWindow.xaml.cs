@@ -2714,6 +2714,12 @@ namespace Metro
             p.Start();
         }
 
+        private void DropDownButton_ContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+
+        }
+
+
         #endregion
 
         #region Edit Panel DataGrid Event
