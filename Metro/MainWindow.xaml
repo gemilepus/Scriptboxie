@@ -560,6 +560,7 @@
                             <Label Tag="zh-tw">繁體中文</Label>
                             <Label Tag="ko">한국어</Label>
                             <Label Tag="sl">slovenščina</Label>
+                            <Label Tag="vi">Tiếng Việt</Label>
                         </Controls:SplitButton.Items>
                         <Controls:SplitButton.Icon>
                             <Image  Height="16" Width="16" Source="img/globe.png"/>
