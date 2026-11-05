@@ -1909,6 +1909,14 @@ namespace Metro
                 if (!tag_name.ToString().Equals(""))
                 {
                     NewVersion.Text = NewVersion.Text + " " + tag_name;
+                    if (!ReleaseNotes.Equals(""))
+                    {
+                        NewVersion_Tip_Text.Text = tag_name + "\n\n" + ReleaseNotes;
+                    }
+                    else
+                    {
+                        NewVersion.ToolTip = null;
+                    }
                     NewVersion.Visibility = Visibility.Visible;
                 }
 
@@ -3311,6 +3319,7 @@ namespace Metro
             System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
         }
 
+        private string ReleaseNotes = "";
         private string CheckUpdate()
         {
             try
@@ -3324,6 +3333,8 @@ namespace Metro
 
                 var deserialize = JsonSerializer.Deserialize<Dictionary<string, object>>(releases);
                 deserialize.TryGetValue("tag_name", out var tag_name);
+                deserialize.TryGetValue("body", out var release_body);
+                ReleaseNotes = (release_body != null) ? release_body.ToString() : "";
 
                 return tag_name.ToString();
             }
