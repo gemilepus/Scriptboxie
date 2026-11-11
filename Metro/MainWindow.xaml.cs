@@ -2286,32 +2286,6 @@ namespace Metro
                     Console.WriteLine("{0} Exception caught.", err);
                 }
             }
-            else if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
-            {
-                // Get index
-                int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
-
-                try
-                {
-                    if (tableIndex < eDataTable.Count() - 1)
-                    {
-                        // Insert Item
-                        eDataGrid.DataContext = null;
-                        eDataTable.Insert(tableIndex + 1, new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
-                        eDataGrid.DataContext = eDataTable;
-                    }
-                    else
-                    {
-                        eDataGrid.DataContext = null;
-                        eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
-                        eDataGrid.DataContext = eDataTable;
-                    }
-                }
-                catch (Exception err)
-                {
-                    Console.WriteLine("{0} Exception caught.", err);
-                }
-            }
             else if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("Path"))
             {
                 int tableIndex = eDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
@@ -2347,6 +2321,34 @@ namespace Metro
                 {
                     Console.WriteLine("{0} Exception caught.", err);
                 }
+            }
+        }
+
+        private void eDataGrid_Plus_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Single click on the "+" column: insert a new row below the clicked row
+            FrameworkElement clicked = sender as FrameworkElement;
+            if (!(clicked?.DataContext is EditTable clickedItem)) { return; }
+
+            int tableIndex = eDataTable.IndexOf(clickedItem);
+            try
+            {
+                eDataGrid.DataContext = null;
+                if (tableIndex >= 0 && tableIndex < eDataTable.Count() - 1)
+                {
+                    // Insert Item
+                    eDataTable.Insert(tableIndex + 1, new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
+                }
+                else
+                {
+                    eDataTable.Add(new EditTable() { eTable_Enable = true, eTable_Key = "", eTable_Name = "", eTable_Note = "", eTable_Path = "※ " + string.Format(FindResource("Double_click_to_select_file").ToString()), eTable_State = "" });
+                }
+                eDataGrid.DataContext = eDataTable;
+            }
+            catch (Exception err)
+            {
+                eDataGrid.DataContext = eDataTable;
+                Console.WriteLine("{0} Exception caught.", err);
             }
         }
 
@@ -3057,34 +3059,6 @@ namespace Metro
                     Console.WriteLine("{0} Exception caught.", err);
                 }
             }
-            else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("+"))
-            {
-                // Get index
-                int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
-
-                try
-                {
-                    if (tableIndex < mDataTable.Count() - 1)
-                    {
-                        // Insert Item
-                        mDataGrid.DataContext = null;
-                        mDataTable.Insert(tableIndex + 1, new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
-                        mDataGrid.DataContext = mDataTable;
-                    }
-                    else
-                    {
-                        mDataGrid.DataContext = null;
-                        mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
-                        mDataGrid.DataContext = mDataTable;
-
-                        mDataGrid_ScrollToBottom();
-                    }
-                }
-                catch (Exception err)
-                {
-                    Console.WriteLine("{0} Exception caught.", err);
-                }
-            }
             else if (mDataGrid.Columns[columnIndex].Header.ToString().Equals("Action"))
             {
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
@@ -3164,6 +3138,35 @@ namespace Metro
                         cell.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 255, 0, 0));
                     }
                 }
+            }
+        }
+
+        private void mDataGrid_Plus_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Single click on the "+" column: insert a new row below the clicked row
+            FrameworkElement clicked = sender as FrameworkElement;
+            if (!(clicked?.DataContext is MainTable clickedItem)) { return; }
+
+            int tableIndex = mDataTable.IndexOf(clickedItem);
+            try
+            {
+                mDataGrid.DataContext = null;
+                if (tableIndex >= 0 && tableIndex < mDataTable.Count() - 1)
+                {
+                    // Insert Item
+                    mDataTable.Insert(tableIndex + 1, new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
+                }
+                else
+                {
+                    mDataTable.Add(new MainTable() { Enable = true, Mode = "Delay", Action = "", Event = "", Note = "" });
+                    mDataGrid_ScrollToBottom();
+                }
+                mDataGrid.DataContext = mDataTable;
+            }
+            catch (Exception err)
+            {
+                mDataGrid.DataContext = mDataTable;
+                Console.WriteLine("{0} Exception caught.", err);
             }
         }
 

@@ -11,11 +11,11 @@
                       xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
                       Dialog:DialogParticipation.Register="{Binding}" Closing="MetroWindow_Closing" Loaded="MetroWindow_Loaded" ContentRendered="_Window_ContentRendered"  Deactivated="MetroWindow_Deactivated"
                       SizeChanged="MetroWindow_SizeChanged" LostKeyboardFocus="MetroWindow_LostKeyboardFocus" GotKeyboardFocus="_Window_GotKeyboardFocus">
-    
+
     <FrameworkElement.CommandBindings>
         <CommandBinding Command="{x:Static markdig:Commands.Hyperlink}" Executed="OpenHyperlink" />
     </FrameworkElement.CommandBindings>
-    
+
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Name="Btn_ON" Click="Btn_ON_Click" Content="ON" Width="45" FontWeight="Bold" ToolTip="{DynamicResource Btn_ON_Tooltip}" ToolTipService.InitialShowDelay="300">
@@ -96,7 +96,7 @@
                 <Grid Background="White" Name="ScriptGrid" >
                     <ScrollViewer Name="ScriptGridScroll" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" Margin="0,0,0,25" PreviewMouseWheel="ScriptGridScroll_PreviewMouseWheel" FocusVisualStyle="{x:Null}">
                         <DataGrid ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Disabled" CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" IsEnabled="False"
-                              HorizontalAlignment="Center" CanUserAddRows="False"
+                              HorizontalAlignment="Center" CanUserAddRows="False" MouseLeftButtonUp="eDataGrid_Plus_Click"
                               CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected"  KeyUp="eDataGrid_KeyUp">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="#" IsReadOnly="True"/>
@@ -144,7 +144,7 @@
                                 <DataGridTemplateColumn Header="+">
                                     <DataGridTemplateColumn.CellTemplate >
                                         <DataTemplate>
-                                            <Image  Height="16" Width="16" Source="img/plus.png"/>
+                                            <Image  Height="16" Width="16" Source="img/plus.png" MouseLeftButtonUp="eDataGrid_Plus_Click"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -369,7 +369,7 @@
                             </DataTemplate>
 
                         </DataGrid.Resources>
-                        
+
                         <DataGrid.RowStyle>
                             <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
                                 <Style.Triggers>
@@ -414,7 +414,7 @@
                             <DataGridTemplateColumn Header="+">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <Image  Height="16" Width="16" Source="img/plus.png"/>
+                                        <Image  Height="16" Width="16" Source="img/plus.png" MouseLeftButtonUp="mDataGrid_Plus_Click"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -437,7 +437,7 @@
                     </Popup>
 
                     <ToolBar Name="ToolBar" MinWidth="80" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" Visibility="Hidden">
-                        
+
                     </ToolBar>
 
                     <Controls:ToggleSwitch Focusable="False" Toggled="Btn_Toggle_Click" ToolTip="{DynamicResource Record_Tooltip}" ToolTipService.InitialShowDelay="300" Name="Btn_Toggle" OffContent="Record Off" OnContent="Record ON" Height="28" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,0" Grid.Column="1"></Controls:ToggleSwitch>
@@ -479,19 +479,32 @@
         <TextBlock Grid.Row="1" Grid.Column="1"><Run FontSize="12" Foreground="Gray"  Text="{DynamicResource Website_Note}"></Run></TextBlock>
         
         <TextBlock Grid.Row="2" Grid.ColumnSpan="2"><Run FontSize="16" Foreground="Black">If you like Scriptboxie, you can support it:</Run></TextBlock>
-       
+    </Grid>
+          
+                             <LineBreak/>
+                            
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
         
-        <TextBlock  Grid.Row="3">  <Run FontSize="16" Foreground="Black" Text="Donate   "></Run><Run FontSize="16" Foreground="Black">(ko-fi)</Run></TextBlock>
-        <TextBlock  Grid.Row="3" Grid.Column="1"><Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">                        
+        <TextBlock>  <Run FontSize="16" Foreground="Black" Text="Donate  "></Run><Run FontSize="16" Foreground="Black">(ko-fi)</Run></TextBlock>
+        <TextBlock Grid.Column="1"><Hyperlink NavigateUri="https://ko-fi.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">                        
             <Image Height="25" Source="img/kofi.png" />       
         </Hyperlink></TextBlock>
         
-        <TextBlock Grid.Row="4"><Run FontSize="16" Foreground="Black" Text="Donate "></Run><Run FontSize="16" Foreground="Black">(Patreon)</Run></TextBlock>
-        <TextBlock Grid.Row="4" Grid.Column="1"><Hyperlink NavigateUri="https://www.patreon.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">                     
+        <TextBlock Grid.Column="2"><Run FontSize="16" Foreground="Black" Text=" "></Run><Run FontSize="16" Foreground="Black">(Patreon)</Run></TextBlock>
+        <TextBlock Grid.Column="3"><Hyperlink NavigateUri="https://www.patreon.com/gemilepus" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">                     
             <Image Height="25" Source="img/patreon.png" />         
         </Hyperlink></TextBlock>
         
-    </Grid>
+    </Grid>        
                             
                             <LineBreak/>
                             <LineBreak/>
@@ -534,7 +547,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1.2*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -576,7 +589,7 @@
                         </Controls:SplitButton.Icon>
                     </Controls:SplitButton>
 
-                    
+
                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,0" >
                         <Hyperlink NavigateUri="https://github.com/gemilepus/Scriptboxie/issues" RequestNavigate="Hyperlink_RequestNavigate">
                             <Run FontSize="16" Foreground="Black">Feedback</Run>
