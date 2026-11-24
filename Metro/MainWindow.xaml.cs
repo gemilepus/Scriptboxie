@@ -1988,6 +1988,7 @@ namespace Metro
 
             // read test
             fileContent = reader.ReadToEnd();
+            if (fileContent.Length==0) fileContent = "True;;;Stop;;※ Double click to select file;\n";
             fileContent.Replace(";", "%;");
             string[] SplitStr = fileContent.Split(';');
 
@@ -2273,8 +2274,10 @@ namespace Metro
                 int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
                 try
                 {
-                    if (tableIndex < eDataTable.Count())
+                    if (tableIndex >= 0 && tableIndex < eDataTable.Count())
                     {
+                        eDataGrid.CurrentItem = null;
+
                         eDataGrid.DataContext = null;
                         eDataTable.RemoveAt(tableIndex);
                         eDataGrid.DataContext = eDataTable;
@@ -2314,7 +2317,7 @@ namespace Metro
             }
             else if (eDataGrid.Columns[columnIndex].Header.ToString().Equals("Path"))
             {
-                int tableIndex = eDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
+                int tableIndex = eDataGrid.Items.IndexOf(eDataGrid.CurrentItem);
                 try
                 {
                     if (tableIndex < eDataTable.Count())
@@ -3039,8 +3042,10 @@ namespace Metro
                 int tableIndex = mDataGrid.Items.IndexOf(mDataGrid.CurrentItem);
                 try
                 {
-                    if (tableIndex < mDataTable.Count())
+                    if (tableIndex >= 0 && tableIndex < mDataTable.Count())
                     {
+                        mDataGrid.CurrentItem = null;
+
                         mDataGrid.DataContext = null;
                         mDataTable.RemoveAt(tableIndex);
                         mDataGrid.DataContext = mDataTable;
