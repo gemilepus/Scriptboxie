@@ -96,7 +96,7 @@
                 <Grid Background="White" Name="ScriptGrid" >
                     <ScrollViewer Name="ScriptGridScroll" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" Margin="0,0,0,25" PreviewMouseWheel="ScriptGridScroll_PreviewMouseWheel" FocusVisualStyle="{x:Null}">
                         <DataGrid ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Disabled" CanUserSortColumns="False" Name="eDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionUnit="Cell" SelectionMode="Single" IsReadOnly="False" IsEnabled="False"
-                              HorizontalAlignment="Center" CanUserAddRows="False" MouseLeftButtonUp="eDataGrid_Plus_Click"
+                              HorizontalAlignment="Center" CanUserAddRows="False"
                               CellEditEnding="eDataGrid_CellEditEnding" CurrentCellChanged="eDataGrid_CurrentCellChanged" MouseDoubleClick="eDataGrid_MouseDoubleClick" DataGridCell.Selected="DataGridCell_Selected"  KeyUp="eDataGrid_KeyUp">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="#" IsReadOnly="True"/>
@@ -144,7 +144,7 @@
                                 <DataGridTemplateColumn Header="+">
                                     <DataGridTemplateColumn.CellTemplate >
                                         <DataTemplate>
-                                            <Image  Height="16" Width="16" Source="img/plus.png" MouseLeftButtonUp="eDataGrid_Plus_Click"/>
+                                            <Image  Height="16" Width="16" Source="img/plus.png"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -414,7 +414,7 @@
                             <DataGridTemplateColumn Header="+">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <Image  Height="16" Width="16" Source="img/plus.png" MouseLeftButtonUp="mDataGrid_Plus_Click"/>
+                                        <Image  Height="16" Width="16" Source="img/plus.png"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
