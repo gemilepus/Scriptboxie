@@ -106,6 +106,8 @@
                                     <DataGridTextColumn.CellStyle>
                                         <Style TargetType="DataGridCell">
                                             <Setter Property="ToolTip" Value="ex:F12,Alt+A,Shift+B,Ctrl+C......If script has press certain key, should avoid using it as hotkey" />
+                                            <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
+                                            <Setter Property="ToolTipService.BetweenShowDelay" Value="0"/>
                                             <Setter Property="VerticalAlignment" Value="Center"/>
                                         </Style>
                                     </DataGridTextColumn.CellStyle>
@@ -130,6 +132,8 @@
                                     <DataGridTextColumn.CellStyle>
                                         <Style TargetType="DataGridCell">
                                             <Setter Property="ToolTip" Value="{DynamicResource Double_click_to_select_file}"/>
+                                            <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
+                                            <Setter Property="ToolTipService.BetweenShowDelay" Value="0"/>
                                             <Setter Property="VerticalAlignment" Value="Center"/>
                                         </Style>
                                     </DataGridTextColumn.CellStyle>
